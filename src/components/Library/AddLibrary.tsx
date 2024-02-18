@@ -121,7 +121,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
           </span>
         )}
       </DialogTrigger>
-      <DialogContent className="w-[87vw]  rounded-xl">
+      <DialogContent className="w-[85vw]  rounded-xl">
         <DialogHeader>
           <DialogTitle className="text-base font-medium">
             {clone ? "Clone this playlist" : "Create your own playlist"}
@@ -204,7 +204,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
             onClick={handleReset}
             variant={"secondary"}
             disabled={isSubmit || error}
-            className=" text-red-500 py-5 -mt-1.5 w-full rounded-xl"
+            className=" text-zinc-100 py-5 -mt-1.5 w-full rounded-xl"
           >
             <p>Close</p>
           </Button>
