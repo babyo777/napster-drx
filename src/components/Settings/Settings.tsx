@@ -1,4 +1,4 @@
-import { IoSettingsSharp } from "react-icons/io5";
+import { FaUserCircle } from "react-icons/fa";
 import {
   Drawer,
   DrawerContent,
@@ -28,7 +28,7 @@ function Settings() {
   return (
     <Drawer>
       <DrawerTrigger>
-        <IoSettingsSharp className="h-7 w-7 text-zinc-100" />
+        <FaUserCircle className="h-7 w-7 text-zinc-100" />
       </DrawerTrigger>
       <DrawerContent className="px-5">
         <DrawerHeader>
