@@ -90,7 +90,7 @@ export function ListenNowComp() {
             {data && data.length > 0 && (
               <CarouselItem key={data[1].$id}>
                 <div className="overflow-hidden relative">
-                  <AspectRatio ratio={4 / 3.7}>
+                  <AspectRatio ratio={4 / 3}>
                     <LazyLoadImage
                       width="100%"
                       height="100%"

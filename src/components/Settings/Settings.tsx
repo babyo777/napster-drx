@@ -15,6 +15,7 @@ function Settings() {
   const handleReset = useCallback(() => {
     const reset = confirm("Are you sure you want to reset");
     if (reset) localStorage.clear(), alert("successfully reset");
+    location.reload();
   }, []);
 
   const handleLoad = useCallback(() => {
