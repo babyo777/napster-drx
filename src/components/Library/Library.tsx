@@ -33,11 +33,6 @@ function LibraryComp() {
     const list = await axios.get(`${infoApi}${id}`);
     return list.data as songs[];
   };
-  useEffect(() => {
-    if (id && id !== playlistUrl) {
-      dispatch(setPlaylistUrl(id));
-    }
-  }, [dispatch, id, playlistUrl]);
 
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
@@ -52,6 +47,13 @@ function LibraryComp() {
       staleTime: 60 * 60000,
     }
   );
+
+  useEffect(() => {
+    if (id && id !== playlistUrl) {
+      dispatch(setPlaylistUrl(id));
+    }
+  }, [dispatch, id, playlistUrl]);
+
   const handlePlay = useCallback(() => {
     if (data) {
       dispatch(setPlaylist(data));

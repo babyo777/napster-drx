@@ -118,6 +118,7 @@ function AudioPLayer() {
     dispatch(setPlayer(sound));
     return () => {
       sound.stop();
+      sound.off();
     };
   }, [
     dispatch,

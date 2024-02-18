@@ -41,6 +41,9 @@ function Songs({
   const playlist = useSelector(
     (state: RootState) => state.musicReducer.playlist
   );
+  const playingPlaylistUrl = useSelector(
+    (state: RootState) => state.musicReducer.playingPlaylistUrl
+  );
 
   const handlePlay = useCallback(async () => {
     const data = q.getQueryData<songs[]>(["playlist", p]);
@@ -59,14 +62,13 @@ function Songs({
         await navigator.share({
           title: `${title} - ${artist}`,
           text: `${title} - ${artist}`,
-          url:
-            window.location.origin + `/library/${playlist}?s=${currentIndex}`,
+          url: window.location.origin + `/library/${playingPlaylistUrl}`,
         });
       } catch (error) {
         console.log(error);
       }
     }
-  }, [artist, title, playlist, currentIndex]);
+  }, [artist, title, playlist, playingPlaylistUrl]);
 
   return (
     <div className="flex fade-in py-2 space-x-2 items-center">

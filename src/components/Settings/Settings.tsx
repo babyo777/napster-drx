@@ -28,7 +28,7 @@ function Settings() {
   return (
     <Drawer>
       <DrawerTrigger>
-        <IoSettingsOutline className="h-7 w-7 text-red-500" />
+        <IoSettingsOutline className="h-7 w-7 text-zinc-100" />
       </DrawerTrigger>
       <DrawerContent className="px-5">
         <DrawerHeader>

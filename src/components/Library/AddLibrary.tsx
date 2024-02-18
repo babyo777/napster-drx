@@ -117,7 +117,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
           <RiMenuAddFill className="h-7 w-7  backdrop-blur-md text-white bg-black/30 rounded-full p-1" />
         ) : (
           <span className="text-center  justify-end px-3 flex  text-lg truncate">
-            <IoMdAdd className="h-8 w-8 fill-red-500" />
+            <IoMdAdd className="h-8 w-8 fill-zinc-100" />
           </span>
         )}
       </DialogTrigger>
