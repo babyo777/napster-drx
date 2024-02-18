@@ -8,7 +8,7 @@ function Loader({ size, color }: { size?: string; color?: string }) {
       size={size || "27"}
       stroke="1.7"
       speed="1"
-      color={color || "red"}
+      color={color || "gray"}
     ></l-line-spinner>
   );
 }
