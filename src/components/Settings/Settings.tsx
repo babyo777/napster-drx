@@ -1,4 +1,4 @@
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoSettingsSharp } from "react-icons/io5";
 import {
   Drawer,
   DrawerContent,
@@ -28,7 +28,7 @@ function Settings() {
   return (
     <Drawer>
       <DrawerTrigger>
-        <IoSettingsOutline className="h-7 w-7 text-zinc-100" />
+        <IoSettingsSharp className="h-7 w-7 text-zinc-100" />
       </DrawerTrigger>
       <DrawerContent className="px-5">
         <DrawerHeader>

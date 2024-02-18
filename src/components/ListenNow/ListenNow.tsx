@@ -56,7 +56,7 @@ export function ListenNowComp() {
               data.map((listen) => (
                 <CarouselItem key={listen.$id}>
                   <Link to={`/library/${listen.link}`}>
-                    <div className="overflow-hidden relative">
+                    <div className="overflow-hidden px-2 relative">
                       <AspectRatio ratio={16 / 9}>
                         <LazyLoadImage
                           width="100%"
@@ -89,7 +89,7 @@ export function ListenNowComp() {
           <CarouselContent>
             {data && data.length > 0 && (
               <CarouselItem key={data[1].$id}>
-                <div className="overflow-hidden relative">
+                <div className="overflow-hidden px-2 relative">
                   <AspectRatio ratio={4 / 3}>
                     <LazyLoadImage
                       width="100%"
