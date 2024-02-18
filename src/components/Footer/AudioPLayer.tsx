@@ -217,7 +217,9 @@ function AudioPLayer() {
           </div>
           <div className="flex absolute bottom-[16vh] w-full space-x-16 justify-center  items-center">
             <FaBackward
-              className="h-8 w-10 text-zinc-300"
+              className={`h-8 w-10 ${
+                playlist.length > 1 ? "text-zinc-300" : "text-zinc-500"
+              } `}
               onClick={handlePrev}
             />
             {isLoading ? (
@@ -234,7 +236,12 @@ function AudioPLayer() {
               </>
             )}
 
-            <FaForward className="h-8 w-9 text-zinc-300" onClick={handleNext} />
+            <FaForward
+              className={`h-8 w-9 ${
+                playlist.length > 1 ? "text-zinc-300" : "text-zinc-500"
+              } `}
+              onClick={handleNext}
+            />
           </div>
           <div className=" justify-center absolute bottom-[6vh] w-full px-7 text-zinc-400 items-center">
             <div className="flex items-center justify-between w-full">
@@ -245,7 +252,7 @@ function AudioPLayer() {
                   </DrawerClose>
                 </Link>
               ) : (
-                <MdOpenInNew className="h-6 w-6 text-zinc-800" />
+                <MdOpenInNew className="h-6 w-6 text-zinc-700" />
               )}
 
               <IoIosRadio className="h-7 w-7" />
