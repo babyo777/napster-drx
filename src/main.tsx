@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
 import "./index.css";
 import { ThemeProvider } from "./components/theme-provider.tsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -13,11 +12,12 @@ import { Provider } from "react-redux";
 import { store } from "./Store/Store.ts";
 import { RememberLib } from "./components/Library/RememberLib.tsx";
 import NotFound from "./components/404.tsx";
+import Check from "./components/Check.tsx";
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Check />,
     children: [
       {
         path: "",
