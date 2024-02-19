@@ -14,7 +14,7 @@ import { FiShare } from "react-icons/fi";
 import { FaPause } from "react-icons/fa6";
 import { MdOpenInNew } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { play, setCurrentIndex, setIsLoading, setPlayer } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -109,12 +109,14 @@ function AudioPLayer() {
         dispatch(setIsLoading(true));
       },
       onpause: () => {
+        requestAnimationFrame(seek);
         dispatch(play(false));
       },
       onseek: () => {
         requestAnimationFrame(seek);
       },
       onplay: () => {
+        requestAnimationFrame(seek);
         dispatch(play(true));
         dispatch(setIsLoading(false));
       },
@@ -235,9 +237,10 @@ function AudioPLayer() {
             <input
               type="range"
               value={progress}
-              defaultValue={0}
               max={duration}
-              onChange={(e) => music?.seek(Number(e.target.value))}
+              onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                music?.seek(parseInt(e.target.value))
+              }
               className="w-full h-2 bg-gray-200 overflow-hidden rounded-lg appearance-none cursor-pointer"
             />
             <div className="flex text-sm justify-between py-2 px-1">
