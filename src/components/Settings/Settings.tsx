@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/drawer";
 import { HowToUse } from "../HowToUse";
 import { useCallback } from "react";
+import { Token } from "../Token";
 
 function Settings() {
   const handleReset = useCallback(() => {
@@ -41,7 +42,7 @@ function Settings() {
         >
           Load From Token
         </p>
-        {/* <Token /> */}
+        <Token />
         <HowToUse />
         <p
           onClick={handleReset}

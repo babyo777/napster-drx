@@ -28,7 +28,7 @@ export function Token() {
   return (
     <Dialog>
       <DialogTrigger>
-        <p className=" rounded-xl py-2.5 bg-secondary w-full text-base">
+        <p className=" rounded-xl py-2.5 mt-3 bg-secondary w-full text-base">
           Token
         </p>
       </DialogTrigger>
@@ -58,7 +58,7 @@ export function Token() {
             <span className="sr-only" onClick={handleCopy}>
               Copy
             </span>
-            <CopyIcon className="h-4 w-4" />
+            <CopyIcon className="h-4 w-4" onClick={handleCopy} />
           </Button>
         </div>
         <DialogFooter className="sm:justify-start">
