@@ -7,7 +7,7 @@ function InstallNapster() {
       <img
         src="/install.webp"
         alt="Smartphone"
-        className="max-w-full rounded-2xl h-auto border"
+        className="max-w-full rounded-2xl h-auto"
       />
     </div>
   );
