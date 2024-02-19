@@ -53,6 +53,7 @@ export function Token() {
           <Button
             type="submit"
             size="sm"
+            variant={"secondary"}
             className="px-3 bg-zinc-800 text-white"
           >
             <span className="sr-only" onClick={handleCopy}>
