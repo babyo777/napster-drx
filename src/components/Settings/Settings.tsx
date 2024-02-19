@@ -18,9 +18,9 @@ function Settings() {
   }, []);
 
   const handleLoad = useCallback(() => {
-    const l = prompt("Enter shared link");
+    const l = prompt("Enter Shared Token");
     if (l && l?.trim() != "") {
-      window.location.href = l;
+      localStorage.setItem("uid", l);
     }
   }, []);
 
@@ -39,7 +39,7 @@ function Settings() {
           onClick={handleLoad}
           className=" rounded-xl py-2.5  bg-secondary flex justify-center  text-base"
         >
-          Load Shared Playlist
+          Load From Token
         </p>
         {/* <Token /> */}
         <HowToUse />
