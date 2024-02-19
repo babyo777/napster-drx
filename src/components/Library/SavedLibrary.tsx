@@ -31,9 +31,9 @@ function SavedLibrary() {
   });
 
   useEffect(() => {
+    dispatch(setSavedPlaylist([]));
     dispatch(setPlaylistUrl(""));
     if (data) {
-      dispatch(setSavedPlaylist([]));
       dispatch(setSavedPlaylist([...data]));
     }
   }, [dispatch, data]);
