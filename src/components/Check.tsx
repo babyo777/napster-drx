@@ -32,9 +32,9 @@ function Check() {
   return (
     <>
       {check ? (
-        <div className=" w-full fade-in flex-col h-screen flex justify-center items-center">
-          <Loader />
-          <span className="text-xs text-zinc-300 py-3 ">
+        <div className=" w-full   fade-in flex-col h-screen flex justify-center items-center">
+          <Loader size="37" stroke="2" />
+          <span className="text-xs font-semibold text-zinc-400 py-3 ">
             Checking device compatibility
           </span>
         </div>
