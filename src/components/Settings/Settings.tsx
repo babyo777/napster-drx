@@ -45,7 +45,7 @@ function Settings() {
         <HowToUse />
         <p
           onClick={handleReset}
-          className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center bg-red-600 text-base "
+          className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center bg-red-700 text-base "
         >
           Reset
         </p>

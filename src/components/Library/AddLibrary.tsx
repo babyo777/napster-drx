@@ -121,7 +121,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
           </span>
         )}
       </DialogTrigger>
-      <DialogContent className="w-[85vw]  rounded-xl">
+      <DialogContent className="w-[85vw]  rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-base font-medium">
             {clone ? "Clone this playlist" : "Create your own playlist"}
