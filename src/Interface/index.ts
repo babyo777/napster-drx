@@ -17,9 +17,10 @@ interface trending {
 }
 
 interface savedPlaylist {
+  $id?: string;
   name: string;
   creator: string;
   link: string;
-  for: string | null;
+  for: string;
 }
 export type { songs, listen, trending, savedPlaylist };

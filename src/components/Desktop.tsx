@@ -12,7 +12,15 @@ function Desktop() {
         <h1 className="font-bold text-5xl mt-4 mb-4 text-zinc-700">
           Scan this QR
         </h1>
-        <span className="font-semibold text-zinc-700">on Phone</span>
+        <span className="font-semibold text-zinc-700">
+          on Phone or{" "}
+          <a
+            href="https://your-napster.vercel.app"
+            className="underline fade-in-sec  underline-offset-2 text-red-500"
+          >
+            visit old napster
+          </a>
+        </span>
 
         <div className="  bg-black/20   mt-5 object-center flex justify-center items-center overflow-hidden rounded-3xl">
           <QRCodeSVG

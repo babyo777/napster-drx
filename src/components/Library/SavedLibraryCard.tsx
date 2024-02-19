@@ -6,10 +6,14 @@ function SavedLibraryCard({
   title,
   author,
   link,
+  f,
+  id,
 }: {
+  id: string;
   title?: string;
   author?: string;
   link?: string;
+  f: string;
 }) {
   return (
     <div className="flex space-x-2.5 items-center justify-between">
@@ -33,7 +37,7 @@ function SavedLibraryCard({
           </span>
         </div>
       </Link>
-      <EditInfo id={link || ""} />
+      <EditInfo id={id} f={f} />
     </div>
   );
 }

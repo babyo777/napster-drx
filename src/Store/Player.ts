@@ -37,6 +37,10 @@ const MusicPlayer = createSlice({
     isLoop: (state, action: PayloadAction<boolean>) => {
       state.isLoop = action.payload;
     },
+    removePlaylist: (state, action: PayloadAction<string>) => {
+      const n = state.savedPlaylist.filter((p) => p.$id !== action.payload);
+      state.savedPlaylist = n;
+    },
     setPlayingPlaylistUrl: (state, action: PayloadAction<string>) => {
       state.playingPlaylistUrl = action.payload;
     },
@@ -70,6 +74,7 @@ export const {
   setCurrentIndex,
   setPlayer,
   setSearch,
+  removePlaylist,
   setPlaylistUrl,
   setSavedPlaylist,
   setIsLoading,

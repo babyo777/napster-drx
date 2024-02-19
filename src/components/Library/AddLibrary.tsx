@@ -42,16 +42,19 @@ import { setSavedPlaylist } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { savedPlaylist } from "@/Interface";
 import { RiMenuAddFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
   clone,
   id,
 }) => {
   const close = useRef<HTMLButtonElement>(null);
+
   const dispatch = useDispatch();
   const playlist = useSelector(
     (state: RootState) => state.musicReducer.savedPlaylist
   );
+  const n = useNavigate();
   const [isSubmit, setIsSubmit] = useState<boolean>();
   const [error, setError] = useState<boolean>();
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -85,13 +88,12 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
           ID.unique(),
           payload
         )
-          .then(
-            () => (
-              form.reset(),
+          .then(() => {
+            form.reset(),
               dispatch(setSavedPlaylist([...playlist, payload])),
-              close.current?.click()
-            )
-          )
+              close.current?.click();
+            clone && n("/library/");
+          })
           .catch((error) => {
             throw new Error(error);
           });

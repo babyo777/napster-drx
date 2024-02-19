@@ -1,5 +1,6 @@
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -9,8 +10,25 @@ import {
 import { AiOutlineMenu } from "react-icons/ai";
 import { Button } from "../ui/button";
 import { FcFullTrash } from "react-icons/fc";
+import { useCallback, useRef } from "react";
+import {
+  DATABASE_ID,
+  PLAYLIST_COLLECTION_ID,
+  db,
+} from "@/appwrite/appwriteConfig";
+import { useDispatch } from "react-redux";
+import { removePlaylist } from "@/Store/Player";
 
-const EditInfo: React.FC<{ id: string }> = ({ id }) => {
+const EditInfo: React.FC<{ id: string; f: string }> = ({ id, f }) => {
+  const dispatch = useDispatch();
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const handleDelete = useCallback(() => {
+    db.deleteDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, id).then(() => {
+      dispatch(removePlaylist(id));
+      closeRef.current?.click();
+    });
+  }, [id, dispatch]);
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -25,12 +43,24 @@ const EditInfo: React.FC<{ id: string }> = ({ id }) => {
 
         <FcFullTrash className="h-24 w-24" />
         <Button
-          disabled={true}
+          disabled={f === "default" ? true : false}
           variant={"destructive"}
-          className=" py-4 rounded-xl w-48 bg-red-500"
+          onClick={handleDelete}
+          className=" py-4 rounded-xl w-52 bg-red-500"
         >
           Delete
         </Button>
+
+        <DialogClose>
+          <Button
+            asChild
+            ref={closeRef}
+            variant={"secondary"}
+            className=" py-4 rounded-xl w-52"
+          >
+            <p>Close</p>
+          </Button>
+        </DialogClose>
         <DialogFooter className="text-center text-xs text-zinc-500">
           {id}
         </DialogFooter>

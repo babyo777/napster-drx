@@ -15,11 +15,10 @@ import { savedPlaylist } from "@/Interface";
 import { useQuery } from "react-query";
 
 function SavedLibrary() {
+  const dispatch = useDispatch();
   const savedPlaylist = useSelector(
     (state: RootState) => state.musicReducer.savedPlaylist
   );
-  const dispatch = useDispatch();
-
   const loadSavedPlaylist = async () => {
     const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
       Query.equal("for", [localStorage.getItem("uid") || "default", "default"]),
@@ -27,7 +26,7 @@ function SavedLibrary() {
     const p = r.documents as unknown as savedPlaylist[];
     return p;
   };
-  const { data, isLoading } = useQuery(["savedPlaylist"], loadSavedPlaylist, {
+  const { data, isLoading } = useQuery("savedPlaylist", loadSavedPlaylist, {
     refetchOnWindowFocus: false,
   });
 
@@ -50,15 +49,16 @@ function SavedLibrary() {
           <SkeletonP />
         </div>
       )}
-
       <div className="flex fade-in  flex-col px-4">
         <div className="pb-36 space-y-3">
           {savedPlaylist.map((saved, id) => (
             <SavedLibraryCard
               key={saved.link + id}
               title={saved.name}
+              id={saved.$id || ""}
               author={saved.creator}
               link={saved.link}
+              f={saved.for}
             />
           ))}
         </div>

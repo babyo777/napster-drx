@@ -45,8 +45,14 @@ function Settings() {
         <Token />
         <HowToUse />
         <p
+          onClick={() => window.open("https://tanmayo7.vercel.app")}
+          className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center text-base "
+        >
+          More by babyo7_
+        </p>
+        <p
           onClick={handleReset}
-          className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center bg-red-700 text-base "
+          className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center bg-red-600 text-base "
         >
           Reset
         </p>

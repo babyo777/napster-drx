@@ -87,6 +87,9 @@ body {
 .fade-in {
   animation: fadeIn 0.4s ease-in;
 }
+.fade-in-sec {
+  animation: fadeIn 1.5s ease-in;
+}
 
 @keyframes fadeIn {
   0% {
