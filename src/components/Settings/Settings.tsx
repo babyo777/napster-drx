@@ -9,13 +9,12 @@ import {
 } from "@/components/ui/drawer";
 import { HowToUse } from "../HowToUse";
 import { useCallback } from "react";
-import { Token } from "../Toke";
 
 function Settings() {
   const handleReset = useCallback(() => {
     const reset = confirm("Are you sure you want to reset");
-    if (reset) localStorage.clear(), alert("successfully reset");
-    location.reload();
+    if (reset)
+      localStorage.clear(), alert("successfully reset"), location.reload();
   }, []);
 
   const handleLoad = useCallback(() => {
@@ -38,15 +37,15 @@ function Settings() {
         </DrawerHeader>
         <p
           onClick={handleLoad}
-          className=" rounded-xl py-2.5 mb-3 bg-secondary flex justify-center  text-base"
+          className=" rounded-xl py-2.5  bg-secondary flex justify-center  text-base"
         >
           Load Shared Playlist
         </p>
-        <Token />
+        {/* <Token /> */}
         <HowToUse />
         <p
           onClick={handleReset}
-          className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center  text-base text-red-400"
+          className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center bg-red-600 text-base "
         >
           Reset
         </p>

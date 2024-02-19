@@ -77,7 +77,9 @@ function SearchSong({
         >
           {title}
         </span>
-        <span className="-mt-0.5 text-xs w-[11rem] truncate">{artist}</span>
+        <span className="-mt-0.5 text-zinc-400 text-xs w-[11rem] truncate">
+          {artist}
+        </span>
         <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
       </div>
       <IoIosMore onClick={handleShare} />

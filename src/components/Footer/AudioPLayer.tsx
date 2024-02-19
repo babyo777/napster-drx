@@ -27,7 +27,7 @@ function AudioPLayer() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
   const music = useSelector((state: RootState) => state.musicReducer.music);
-
+  const [progress, setProgress] = useState<number | "--:--">();
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
@@ -93,20 +93,26 @@ function AudioPLayer() {
       loop: isLoop,
       html5: true,
       onload: () => {
+        requestAnimationFrame(seek);
         setDuration(sound.duration());
         handleMediaSession();
         dispatch(setIsLoading(true));
       },
       onloaderror: () => {
         setDuration("--:--");
+        setProgress("--:--");
         dispatch(setIsLoading(true));
       },
       onplayerror: () => {
         setDuration("--:--");
+        setProgress("--:--");
         dispatch(setIsLoading(true));
       },
       onpause: () => {
         dispatch(play(false));
+      },
+      onseek: () => {
+        requestAnimationFrame(seek);
       },
       onplay: () => {
         dispatch(play(true));
@@ -114,9 +120,31 @@ function AudioPLayer() {
       },
       onend: handleNext,
     });
+
+    const seek = () => {
+      const s = sound.seek();
+      setProgress(s);
+      if (sound.playing()) {
+        requestAnimationFrame(seek);
+      }
+    };
+
+    navigator.mediaSession.setActionHandler("play", () => sound.play());
+    navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+    navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+    navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+    navigator.mediaSession.setActionHandler(
+      "seekto",
+      (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
+    );
     sound.play();
     dispatch(setPlayer(sound));
     return () => {
+      navigator.mediaSession.setActionHandler("play", null);
+      navigator.mediaSession.setActionHandler("pause", null);
+      navigator.mediaSession.setActionHandler("nexttrack", null);
+      navigator.mediaSession.setActionHandler("previoustrack", null);
+      navigator.mediaSession.setActionHandler("seekto", null);
       sound.stop();
       sound.off();
     };
@@ -127,6 +155,7 @@ function AudioPLayer() {
     handleMediaSession,
     handleNext,
     isLoop,
+    handlePrev,
   ]);
 
   const handleShare = useCallback(async () => {
@@ -205,13 +234,14 @@ function AudioPLayer() {
           <div className="flex  absolute bottom-[26vh]  w-full flex-col justify-center px-6 pt-1 ">
             <input
               type="range"
-              value={music?.seek()}
+              value={progress}
+              defaultValue={0}
               max={duration}
               onChange={(e) => music?.seek(Number(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              className="w-full h-2 bg-gray-200 overflow-hidden rounded-lg appearance-none cursor-pointer"
             />
             <div className="flex text-sm justify-between py-2 px-1">
-              <span>--:--</span>
+              <span>{formatDuration(progress as "--:--")}</span>
               <span>{formatDuration(duration as "--:--")}</span>
             </div>
           </div>

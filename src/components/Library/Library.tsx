@@ -25,6 +25,7 @@ import { RootState } from "@/Store/Store";
 import AddLibrary from "./AddLibrary";
 function LibraryComp() {
   const dispatch = useDispatch();
+  const p = new URLSearchParams(location.search);
   const { id } = useParams();
   const playlistUrl = useSelector(
     (state: RootState) => state.musicReducer.playlistUrl
@@ -80,7 +81,7 @@ function LibraryComp() {
       )}
       {isRefetching && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <Loader color="red" />
+          <Loader />
         </div>
       )}
       {isLoading && (
@@ -90,20 +91,20 @@ function LibraryComp() {
       )}
       {data && (
         <>
-          <div className="flex w-full h-72  relative ">
+          <div className="flex w-full h-[23rem]  relative ">
             <div className=" absolute top-4 z-10 left-3">
               <NavLink to={"/library/"}>
-                <IoIosArrowBack className="h-7 w-7  backdrop-blur-md text-white bg-black/30 rounded-full p-1" />
+                <IoIosArrowBack className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1" />
               </NavLink>
             </div>
 
             <div className=" absolute top-4 z-10 right-3">
               <IoReload
                 onClick={() => refetch()}
-                className="h-7 w-7  backdrop-blur-md text-white bg-black/30 rounded-full p-1"
+                className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
               />
             </div>
-            <div className=" absolute top-14 z-10 right-3">
+            <div className=" absolute top-[3.6rem] z-10 right-3">
               <AddLibrary clone={true} id={id} />
             </div>
 
@@ -116,11 +117,11 @@ function LibraryComp() {
               className="object-cover  h-[100%] w-[100%]"
             />
 
-            <div className=" absolute bottom-3 px-4 left-0 right-0">
-              <h1 className="text-center font-semibold py-2 text-2xl capitalize">
-                Music
+            <div className=" absolute bottom-5 px-4 left-0  right-0">
+              <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
+                {p.get("title")}
               </h1>
-              <div className="flex space-x-4 py-1 justify-center items-center w-full">
+              <div className="flex space-x-4 py-1 justify-center  items-center w-full">
                 <Button
                   onClick={handlePlay}
                   type="button"

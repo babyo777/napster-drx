@@ -94,7 +94,9 @@ function Songs({
         >
           {title.replace("______________________________________", "untitled")}
         </span>
-        <span className="-mt-0.5 text-xs w-[11rem] truncate">{artist}</span>
+        <span className="-mt-0.5 text-xs text-zinc-400 w-[11rem] truncate">
+          {artist}
+        </span>
         <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
       </div>
       <IoIosMore

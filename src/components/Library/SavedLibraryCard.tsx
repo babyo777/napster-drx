@@ -14,7 +14,7 @@ function SavedLibraryCard({
   return (
     <div className="flex space-x-2.5 items-center justify-between">
       <Link
-        to={`/library/${link}`}
+        to={`/library/${link}?title=${title}`}
         className="flex space-x-2.5 items-center justify-between"
       >
         <div className="overflow-hidden h-[3.2rem]  w-[3.2rem] space-y-2">

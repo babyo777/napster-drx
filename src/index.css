@@ -97,3 +97,28 @@ body {
     opacity: 1;
   }
 }
+
+input[type="range"]::-webkit-slider-thumb {
+  width: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+  background: white;
+  box-shadow: -405px 0 0 400px gray;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 0;
+  appearance: none;
+  height: 5px;
+  background: white;
+  box-shadow: -405px 0 0 400px gray;
+}
+
+input[type="range"]::-ms-thumb {
+  width: 0;
+  appearance: none;
+  height: 5px;
+  background: white;
+  box-shadow: -405px 0 0 400px gray;
+}

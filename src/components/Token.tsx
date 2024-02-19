@@ -16,9 +16,14 @@ import { Label } from "@/components/ui/label";
 import { useCallback } from "react";
 
 export function Token() {
+  const token = localStorage.getItem("uid") || "";
   const handleCopy = useCallback(async () => {
-    await navigator.clipboard.writeText(localStorage.getItem("uid") || "");
-  }, []);
+    try {
+      await navigator.clipboard.writeText(token);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [token]);
 
   return (
     <Dialog>
