@@ -1,8 +1,8 @@
 {
   "name": "NapsterDrx",
   "short_name": "NapsterDrx",
-  "theme_color": "#101012",
-  "background_color": "#101012",
+  "theme_color": "#09090b",
+  "background_color": "#09090b",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
