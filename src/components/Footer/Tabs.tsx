@@ -20,7 +20,7 @@ function TabsComp() {
             <NavLink
               to={""}
               className={({ isActive }) =>
-                `${isActive && "text-red-500"} flex flex-col  items-center`
+                `${isActive && "text-zinc-300"} flex flex-col  items-center`
               }
             >
               <FaRegCirclePlay className="h-6 w-6" />
@@ -31,7 +31,7 @@ function TabsComp() {
             <NavLink
               to={"/share-play"}
               className={({ isActive }) =>
-                `${isActive && "text-red-500"} flex flex-col mb-1 items-center`
+                `${isActive && "text-zinc-300"} flex flex-col mb-1 items-center`
               }
             >
               <IoIosRadio className="h-7 w-7" />
@@ -42,7 +42,7 @@ function TabsComp() {
             <NavLink
               to={`/library/${playlistUrl}`}
               className={({ isActive }) =>
-                `${isActive && "text-red-500"} flex flex-col mb-1 items-center`
+                `${isActive && "text-zinc-300"} flex flex-col mb-1 items-center`
               }
             >
               <MdLibraryMusic className="h-7 w-7" />
@@ -53,7 +53,7 @@ function TabsComp() {
             <NavLink
               to={"/search"}
               className={({ isActive }) =>
-                `${isActive && "text-red-500"} flex flex-col mb-1 items-center`
+                `${isActive && "text-zinc-300"} flex flex-col mb-1 items-center`
               }
             >
               <IoSearch className="h-7 w-7 " />
