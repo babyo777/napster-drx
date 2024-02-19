@@ -16,11 +16,11 @@ function Settings() {
     if (reset)
       localStorage.clear(), alert("successfully reset"), location.reload();
   }, []);
-
   const handleLoad = useCallback(() => {
     const l = prompt("Enter Shared Token");
     if (l && l?.trim() != "") {
       localStorage.setItem("uid", l);
+      location.reload();
     }
   }, []);
 
