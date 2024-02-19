@@ -14,7 +14,7 @@ function InstallNapster() {
 
       <ul className="flex flex-col px-1.5 w-full text-start">
         <li className="mb-2">
-          <span className="font-bold text-xl">iOS (iPhone/iPad):</span>
+          <span className="font-bold text-xl">iOS (iPhone/Safari):</span>
         </li>
         <li className="mb-2">
           <span className="font-bold">1.</span> Tap on the share icon at the
@@ -30,7 +30,7 @@ function InstallNapster() {
         </li>
 
         <li className="mt-4 mb-2">
-          <span className="font-bold text-xl">Android:</span>
+          <span className="font-bold text-xl">Android (Chrome):</span>
         </li>
         <li className="mb-2">
           <span className="font-bold">1.</span> Tap the three vertical dots in
