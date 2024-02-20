@@ -20,10 +20,10 @@ function App() {
 
   const compatible = isiPhone();
 
-  if (compatible) {
+  if (!compatible) {
     return (
-      <div className=" w-full   fade-in flex-col h-screen flex justify-center items-center">
-        <span className="text-xs font-semibold text-zinc-400 py-3 ">
+      <div className=" w-full  px-5  fade-in flex-col h-screen flex justify-center items-center">
+        <span className="text-base font-semibold text-zinc-400 py-3 ">
           Not optimized for you device{" "}
           <a
             href=""
