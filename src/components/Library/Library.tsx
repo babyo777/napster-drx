@@ -54,7 +54,17 @@ function LibraryComp() {
       dispatch(setPlaylistUrl(id));
     }
   }, [dispatch, id, playlistUrl]);
-
+  const handleShare = useCallback(async () => {
+    try {
+      await navigator.share({
+        title: `${p.get("title")}}`,
+        text: `${p.get("title")}}`,
+        url: window.location.origin + `/library/${id}`,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, [id, p]);
   const handlePlay = useCallback(() => {
     if (data) {
       dispatch(setPlaylist(data));
@@ -133,6 +143,7 @@ function LibraryComp() {
                 </Button>
                 <Button
                   type="button"
+                  onClick={handleShare}
                   variant={"ghost"}
                   className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-14"
                 >
