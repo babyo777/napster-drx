@@ -26,7 +26,7 @@ function App() {
         <span className="text-base font-semibold text-zinc-400 py-3 ">
           Not optimized for you device{" "}
           <a
-            href=""
+            href="https://your-napster.vercel.app"
             className="text-red-500 font-normal underline-offset-4 underline"
           >
             use old napster
