@@ -5,7 +5,6 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { AspectRatio } from "../ui/aspect-ratio";
 import { FaBackward } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { FaForward } from "react-icons/fa";
@@ -21,7 +20,7 @@ import { Howl } from "howler";
 import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { Link } from "react-router-dom";
-function AudioPLayer() {
+function AudioPLayerComp() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
   const music = useSelector((state: RootState) => state.musicReducer.music);
@@ -185,14 +184,13 @@ function AudioPLayer() {
       <DrawerTrigger>
         <div className="items-center fade-in flex space-x-2 w-[16.5rem]   px-2.5">
           <div className=" h-11 w-11 overflow-hidden rounded-xl">
-            <AspectRatio>
+           
               <img
-            
                 src={playlist[currentIndex].cover}
                 alt="Image"
                 className="object-cover w-[100%] h-[100%] "
               />
-            </AspectRatio>
+           
           </div>
           <div className="flex flex-col text-start">
             <span className=" text-sm truncate w-48 font-semibold">
@@ -208,14 +206,14 @@ function AudioPLayer() {
         <div className="flex flex-col justify-start pt-2  h-full">
           <DrawerHeader>
             <div className="overflow-hidden h-[48dvh] w-[90vw] rounded-2xl mx-1 ">
-              <AspectRatio>
+             
                 <img
                   
                   src={playlist[currentIndex].cover}
                   alt="Image"
                   className="object-cover rounded-2xl w-[100%] h-[100%]"
                 />
-              </AspectRatio>
+             
             </div>
             <div className=" absolute bottom-[35.5vh] w-full text-start px-2 ">
               <h1 className=" text-3xl truncate  w-80 font-semibold">
@@ -292,5 +290,5 @@ function AudioPLayer() {
     </Drawer>
   );
 }
-
+const AudioPLayer = React.memo(AudioPLayerComp)
 export default AudioPLayer;
