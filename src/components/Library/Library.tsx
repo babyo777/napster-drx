@@ -57,7 +57,7 @@ function LibraryComp() {
   const handleShare = useCallback(async () => {
     try {
       await navigator.share({
-        title: `${p.get("title")}}`,
+        title: `${p.get("title")}`,
         text: `${p.get("title")}}`,
         url: window.location.origin + `/library/${id}`,
       });
