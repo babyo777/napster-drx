@@ -5,7 +5,7 @@ function InstallNapster() {
       <h2 className="text-lg text-center font-semibold mb-2">
         Install Napster-drx on Your Device Or{" "}
         <a
-          href=""
+          href="https://your-napster.vercel.app"
           className="text-red-500 font-normal underline-offset-4 underline"
         >
           visit old napster-drx
