@@ -7,35 +7,35 @@ import {
 } from "@/components/ui/carousel";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import Header from "../Header/Header";
-import { FaCirclePlay } from "react-icons/fa6";
+// import { FaCirclePlay } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import {
-  DATABASE_ID,
-  LISTEN_NOW_COLLECTION_ID,
-  db,
-} from "@/appwrite/appwriteConfig";
-import { listen } from "@/Interface";
-import { useQuery } from "react-query";
+// import {
+//   DATABASE_ID,
+//   LISTEN_NOW_COLLECTION_ID,
+//   db,
+// } from "@/appwrite/appwriteConfig";
+// import { listen } from "@/Interface";
+// import { useQuery } from "react-query";
 import Artist from "./Artist";
 import Charts from "./Charts";
 
 export function ListenNowComp() {
   const plugin = React.useRef(
-    Autoplay({ delay: 7000, stopOnInteraction: true })
+    Autoplay({ delay: 4000, stopOnInteraction: true })
   );
-  const getData = async () => {
-    const q = await db.listDocuments(DATABASE_ID, LISTEN_NOW_COLLECTION_ID);
-    const data: listen[] = q.documents as unknown as listen[];
-    return data;
-  };
+  // const getData = async () => {
+  //   const q = await db.listDocuments(DATABASE_ID, LISTEN_NOW_COLLECTION_ID);
+  //   const data: listen[] = q.documents as unknown as listen[];
+  //   return data;
+  // };
 
-  const { data } = useQuery<listen[]>("listenNow", getData, {
-    refetchOnMount: false,
-    staleTime: 10000,
-    refetchOnWindowFocus: false,
-  });
+  // const { data } = useQuery<listen[]>("listenNow", getData, {
+  //   refetchOnMount: false,
+  //   staleTime: 10000,
+  //   refetchOnWindowFocus: false,
+  // });
   return (
     <>
       <Header title="Listen Now" />
