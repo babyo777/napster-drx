@@ -11,6 +11,8 @@ import {
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Button } from "./ui/button";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 function HowToUse() {
   return (
@@ -34,7 +36,10 @@ function HowToUse() {
             <li>Step 3. Convert to Youtube Playlist.</li>
           </ul>
           <AspectRatio ratio={3 / 3}>
-            <img
+            <LazyLoadImage
+              width="100%"
+              height="100%"
+              effect="blur"
               src="/demo3.jpeg"
               alt="install-NGLdrx"
               className=" border rounded-xl object-cover h-[100%] w-[100%]"

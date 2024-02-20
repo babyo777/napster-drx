@@ -6,9 +6,16 @@ import { v4 as uuidv4 } from "uuid";
 function App() {
   function isiPhone() {
     return (
-      window.matchMedia("(max-width: 360px)").matches ||
-      window.matchMedia("(min-width: 361px) and (max-width: 375px)").matches ||
-      window.matchMedia("(min-width: 376px) and (max-width: 428px)").matches
+      window.matchMedia(
+        "(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+      ).matches || // iPhone 12 Pro
+      window.matchMedia(
+        "(device-width: 360px) and (device-height: 780px) and (-webkit-device-pixel-ratio: 3)"
+      ).matches || // iPhone 12 Mini
+      window.matchMedia(
+        "(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)"
+      ).matches || // iPhone 12
+      window.matchMedia("(max-width: 375px)").matches // Other iPhones with a width up to iPhone 12
     );
   }
 
@@ -25,12 +32,6 @@ function App() {
       <div className=" w-full  px-5  fade-in flex-col h-screen flex justify-center items-center">
         <span className="text-base font-semibold text-zinc-400 py-3 ">
           Not optimized for you device{" "}
-          <a
-            href="https://your-napster.vercel.app"
-            className="text-red-500 font-normal underline-offset-4 underline"
-          >
-            use old napster
-          </a>
         </span>
       </div>
     );

@@ -216,6 +216,7 @@ function AudioPLayerComp() {
                 <img
                   src={playlist[currentIndex].cover}
                   alt="Image"
+                  loading="lazy"
                   className="object-cover rounded-2xl w-[100%] h-[100%]"
                 />
               </AspectRatio>

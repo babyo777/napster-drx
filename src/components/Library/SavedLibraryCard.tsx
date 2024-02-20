@@ -24,7 +24,7 @@ function SavedLibraryCard({
         <div className="overflow-hidden h-[3.2rem]  w-[3.2rem] space-y-2">
           <AspectRatio ratio={1 / 1}>
             <img
-              src="/demo2.jpeg"
+              src="/favicon.webp"
               alt="Image"
               className="rounded-md object-cover w-[100%] h-[100%]"
             />

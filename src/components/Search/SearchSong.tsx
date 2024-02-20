@@ -68,9 +68,11 @@ function SearchSong({
           />
         </AspectRatio>
       </div>
-      <div className="flex  flex-col pl-1 text-start w-[17rem]">
+      <div
+        onClick={handlePlay}
+        className="flex  flex-col pl-1 text-start w-[17rem]"
+      >
         <span
-          onClick={handlePlay}
           className={`w-[15rem] ${
             playlist[currentIndex]?.audio == audio && "text-red-500"
           }  truncate`}

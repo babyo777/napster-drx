@@ -5,6 +5,18 @@
   "background_color": "#09090b",
   "display": "standalone",
   "scope": "./",
+  "lang": "en",
+  "categories": ["music", "entertainment"],
+  "related_applications": [
+    {
+      "platform": "itunes",
+      "url": "https://napster-drx.vercel.app"
+    },
+    {
+      "platform": "play",
+      "url": "https://napster-drx.vercel.app"
+    }
+  ],
   "start_url": "./",
   "icons": [
     {

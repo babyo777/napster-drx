@@ -11,7 +11,6 @@ import { songs } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import { infoApi } from "@/API/api";
 import { useDispatch, useSelector } from "react-redux";
-import "react-lazy-load-image-component/src/effects/blur.css";
 import {
   isLoop,
   play,

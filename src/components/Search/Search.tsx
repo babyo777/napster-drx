@@ -96,8 +96,9 @@ function SearchComp() {
               <h3 className="text-xs text-zinc-500 pt-2 pb-1 ">Trending now</h3>
               {isTrend && (
                 <div className="flex flex-col space-y-2.5  py-2.5">
-                  <Skeleton className="w-[70vw] h-4  rounded-sm bg-zinc-500" />
-                  <Skeleton className="w-[90vw] h-4  rounded-sm bg-zinc-500" />
+                  <Skeleton className="w-[90vw] h-[.7rem]  rounded-md bg-zinc-500" />
+                  <Skeleton className="w-[90vw] h-[.7rem]  rounded-md bg-zinc-500" />
+                  <Skeleton className="w-[70vw] h-[.7rem]  rounded-md bg-zinc-500" />
                 </div>
               )}
               {trend &&
