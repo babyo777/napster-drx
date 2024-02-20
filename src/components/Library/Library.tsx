@@ -20,12 +20,12 @@ import {
   setPlaylist,
   setPlaylistUrl,
 } from "@/Store/Player";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { RootState } from "@/Store/Store";
 import AddLibrary from "./AddLibrary";
 function LibraryComp() {
   const dispatch = useDispatch();
-  const p = new URLSearchParams(location.search);
+  const p = useMemo(() => new URLSearchParams(location.search), []);
   const { id } = useParams();
   const playlistUrl = useSelector(
     (state: RootState) => state.musicReducer.playlistUrl
