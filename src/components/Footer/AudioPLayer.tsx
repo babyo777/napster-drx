@@ -17,8 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useState } from "react";
 import { play, setCurrentIndex, setIsLoading, setPlayer } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
 import { Howl } from "howler";
 import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
@@ -188,10 +186,8 @@ function AudioPLayer() {
         <div className="items-center fade-in flex space-x-2 w-[16.5rem]   px-2.5">
           <div className=" h-11 w-11 overflow-hidden rounded-xl">
             <AspectRatio>
-              <LazyLoadImage
-                width="100%"
-                height="100%"
-                effect="blur"
+              <img
+            
                 src={playlist[currentIndex].cover}
                 alt="Image"
                 className="object-cover w-[100%] h-[100%] "
@@ -213,9 +209,8 @@ function AudioPLayer() {
           <DrawerHeader>
             <div className="overflow-hidden h-[48dvh] w-[90vw] rounded-2xl mx-1 ">
               <AspectRatio>
-                <LazyLoadImage
-                  width="100%"
-                  height="100%"
+                <img
+                  
                   src={playlist[currentIndex].cover}
                   alt="Image"
                   className="object-cover rounded-2xl w-[100%] h-[100%]"
