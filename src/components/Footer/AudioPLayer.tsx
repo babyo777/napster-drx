@@ -14,24 +14,18 @@ import { FiShare } from "react-icons/fi";
 import { FaPause } from "react-icons/fa6";
 import { MdOpenInNew } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useCallback } from "react";
-import { play, setCurrentIndex } from "@/Store/Player";
+import React, { useCallback, useEffect, useState } from "react";
+import { play, setCurrentIndex, setIsLoading, setPlayer } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
-
+import { Howl } from "howler";
+import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { Link } from "react-router-dom";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
-
-  const duration = useSelector(
-    (state: RootState) => state.musicReducer.duration
-  );
+  const [duration, setDuration] = useState<number | "--:--">();
   const music = useSelector((state: RootState) => state.musicReducer.music);
-
-  const progress = useSelector(
-    (state: RootState) => state.musicReducer.progress
-  );
-
+  const [progress, setProgress] = useState<number | "--:--">();
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
@@ -47,6 +41,7 @@ function AudioPLayerComp() {
   const playingPlaylistUrl = useSelector(
     (state: RootState) => state.musicReducer.playingPlaylistUrl
   );
+  const isLoop = useSelector((state: RootState) => state.musicReducer.isLoop);
 
   const handlePlay = useCallback(() => {
     if (isPlaying) {
@@ -72,6 +67,97 @@ function AudioPLayerComp() {
     }
   }, [dispatch, currentIndex, playlist.length]);
 
+  const handleMediaSession = useCallback(() => {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: playlist[currentIndex].title,
+      artist: playlist[currentIndex].artist,
+      artwork: [
+        {
+          src: playlist[currentIndex].cover,
+        },
+      ],
+    });
+  }, [currentIndex, playlist]);
+
+  useEffect(() => {
+    const sound = new Howl({
+      src: [
+        `${streamApi}${playlist[currentIndex].audio.replace(
+          "https://www.youtube.com/watch?v=",
+          ""
+        )}`,
+      ],
+      autoplay: false,
+      loop: isLoop,
+      html5: true,
+      onload: () => {
+        requestAnimationFrame(seek);
+        setDuration(sound.duration());
+        handleMediaSession();
+        dispatch(setIsLoading(true));
+      },
+      onloaderror: () => {
+        setDuration("--:--");
+        setProgress("--:--");
+        dispatch(setIsLoading(true));
+      },
+      onplayerror: () => {
+        setDuration("--:--");
+        setProgress("--:--");
+        dispatch(setIsLoading(true));
+      },
+      onpause: () => {
+        requestAnimationFrame(seek);
+        dispatch(play(false));
+      },
+      onseek: () => {
+        requestAnimationFrame(seek);
+      },
+      onplay: () => {
+        requestAnimationFrame(seek);
+        dispatch(play(true));
+        dispatch(setIsLoading(false));
+      },
+      onend: handleNext,
+    });
+
+    const seek = () => {
+      const s = sound.seek();
+      setProgress(s);
+      if (sound.playing()) {
+        requestAnimationFrame(seek);
+      }
+    };
+
+    navigator.mediaSession.setActionHandler("play", () => sound.play());
+    navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+    navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+    navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+    navigator.mediaSession.setActionHandler(
+      "seekto",
+      (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
+    );
+    sound.play();
+    dispatch(setPlayer(sound));
+    return () => {
+      navigator.mediaSession.setActionHandler("play", null);
+      navigator.mediaSession.setActionHandler("pause", null);
+      navigator.mediaSession.setActionHandler("nexttrack", null);
+      navigator.mediaSession.setActionHandler("previoustrack", null);
+      navigator.mediaSession.setActionHandler("seekto", null);
+      sound.stop();
+      sound.off();
+    };
+  }, [
+    dispatch,
+    currentIndex,
+    playlist,
+    handleMediaSession,
+    handleNext,
+    isLoop,
+    handlePrev,
+  ]);
+
   const handleShare = useCallback(async () => {
     try {
       await navigator.share({
@@ -83,6 +169,13 @@ function AudioPLayerComp() {
       console.log(error);
     }
   }, [currentIndex, playlist]);
+
+  const handleSeek = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      music?.seek(parseInt(e.target.value));
+    },
+    [music]
+  );
 
   const formatDuration = useCallback((seconds: number | "--:--") => {
     if (seconds == "--:--") return seconds;
@@ -115,7 +208,7 @@ function AudioPLayerComp() {
           </div>
         </div>
       </DrawerTrigger>
-      <DrawerContent className=" h-[96dvh]  bg-zinc-900/70 backdrop-blur-md">
+      <DrawerContent className=" h-[96dvh]  bg-zinc-900 ">
         <div className="flex flex-col justify-start pt-2  h-full">
           <DrawerHeader>
             <div className="overflow-hidden h-[48dvh] w-[90vw] rounded-2xl mx-1 ">
@@ -143,9 +236,7 @@ function AudioPLayerComp() {
               type="range"
               value={progress}
               max={duration}
-              onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-                music?.seek(parseInt(e.target.value))
-              }
+              onInput={handleSeek}
               className="w-full h-2 bg-gray-200 overflow-hidden rounded-lg appearance-none cursor-pointer"
             />
             <div className="flex text-sm justify-between py-2 px-1">
