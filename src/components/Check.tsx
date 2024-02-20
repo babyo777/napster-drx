@@ -25,7 +25,7 @@ function Check() {
   if (isDesktop) {
     return <Desktop />;
   }
-  if (isStandalone) {
+  if (!isStandalone || isStandalone) {
     return <App />;
   }
 

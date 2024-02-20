@@ -5,7 +5,7 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import {AspectRatio} from "@/components/ui/aspect-ratio"
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { FaBackward } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { FaForward } from "react-icons/fa";
@@ -14,18 +14,24 @@ import { FiShare } from "react-icons/fi";
 import { FaPause } from "react-icons/fa6";
 import { MdOpenInNew } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useCallback, useEffect, useState } from "react";
-import { play, setCurrentIndex, setIsLoading, setPlayer } from "@/Store/Player";
+import React, { useCallback } from "react";
+import { play, setCurrentIndex } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
-import { Howl } from "howler";
-import { streamApi } from "@/API/api";
+
 import Loader from "../Loaders/Loader";
 import { Link } from "react-router-dom";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
-  const [duration, setDuration] = useState<number | "--:--">();
+
+  const duration = useSelector(
+    (state: RootState) => state.musicReducer.duration
+  );
   const music = useSelector((state: RootState) => state.musicReducer.music);
-  const [progress, setProgress] = useState<number | "--:--">();
+
+  const progress = useSelector(
+    (state: RootState) => state.musicReducer.progress
+  );
+
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
@@ -41,7 +47,6 @@ function AudioPLayerComp() {
   const playingPlaylistUrl = useSelector(
     (state: RootState) => state.musicReducer.playingPlaylistUrl
   );
-  const isLoop = useSelector((state: RootState) => state.musicReducer.isLoop);
 
   const handlePlay = useCallback(() => {
     if (isPlaying) {
@@ -66,97 +71,6 @@ function AudioPLayerComp() {
       );
     }
   }, [dispatch, currentIndex, playlist.length]);
-
-  const handleMediaSession = useCallback(() => {
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: playlist[currentIndex].title,
-      artist: playlist[currentIndex].artist,
-      artwork: [
-        {
-          src: playlist[currentIndex].cover,
-        },
-      ],
-    });
-  }, [currentIndex, playlist]);
-
-  useEffect(() => {
-    const sound = new Howl({
-      src: [
-        `${streamApi}${playlist[currentIndex].audio.replace(
-          "https://www.youtube.com/watch?v=",
-          ""
-        )}`,
-      ],
-      autoplay: false,
-      loop: isLoop,
-      html5: true,
-      onload: () => {
-        requestAnimationFrame(seek);
-        setDuration(sound.duration());
-        handleMediaSession();
-        dispatch(setIsLoading(true));
-      },
-      onloaderror: () => {
-        setDuration("--:--");
-        setProgress("--:--");
-        dispatch(setIsLoading(true));
-      },
-      onplayerror: () => {
-        setDuration("--:--");
-        setProgress("--:--");
-        dispatch(setIsLoading(true));
-      },
-      onpause: () => {
-        requestAnimationFrame(seek);
-        dispatch(play(false));
-      },
-      onseek: () => {
-        requestAnimationFrame(seek);
-      },
-      onplay: () => {
-        requestAnimationFrame(seek);
-        dispatch(play(true));
-        dispatch(setIsLoading(false));
-      },
-      onend: handleNext,
-    });
-
-    const seek = () => {
-      const s = sound.seek();
-      setProgress(s);
-      if (sound.playing()) {
-        requestAnimationFrame(seek);
-      }
-    };
-
-    navigator.mediaSession.setActionHandler("play", () => sound.play());
-    navigator.mediaSession.setActionHandler("pause", () => sound.pause());
-    navigator.mediaSession.setActionHandler("nexttrack", handleNext);
-    navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
-    navigator.mediaSession.setActionHandler(
-      "seekto",
-      (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
-    );
-    sound.play();
-    dispatch(setPlayer(sound));
-    return () => {
-      navigator.mediaSession.setActionHandler("play", null);
-      navigator.mediaSession.setActionHandler("pause", null);
-      navigator.mediaSession.setActionHandler("nexttrack", null);
-      navigator.mediaSession.setActionHandler("previoustrack", null);
-      navigator.mediaSession.setActionHandler("seekto", null);
-      sound.stop();
-      sound.off();
-    };
-  }, [
-    dispatch,
-    currentIndex,
-    playlist,
-    handleMediaSession,
-    handleNext,
-    isLoop,
-    handlePrev,
-  ]);
 
   const handleShare = useCallback(async () => {
     try {
@@ -185,13 +99,11 @@ function AudioPLayerComp() {
       <DrawerTrigger>
         <div className="items-center fade-in flex space-x-2 w-[16.5rem]   px-2.5">
           <div className=" h-11 w-11 overflow-hidden rounded-xl">
-           
-              <img
-                src={playlist[currentIndex].cover}
-                alt="Image"
-                className="object-cover w-[100%] h-[100%] "
-              />
-           
+            <img
+              src={playlist[currentIndex].cover}
+              alt="Image"
+              className="object-cover w-[100%] h-[100%] "
+            />
           </div>
           <div className="flex flex-col text-start">
             <span className=" text-sm truncate w-48 font-semibold">
@@ -207,14 +119,13 @@ function AudioPLayerComp() {
         <div className="flex flex-col justify-start pt-2  h-full">
           <DrawerHeader>
             <div className="overflow-hidden h-[48dvh] w-[90vw] rounded-2xl mx-1 ">
-             <AspectRatio>
+              <AspectRatio>
                 <img
-                  
                   src={playlist[currentIndex].cover}
                   alt="Image"
                   className="object-cover rounded-2xl w-[100%] h-[100%]"
                 />
-             </AspectRatio>
+              </AspectRatio>
             </div>
             <div className=" absolute bottom-[35.5vh] w-full text-start px-2 ">
               <h1 className=" text-3xl truncate  w-80 font-semibold">
@@ -291,5 +202,5 @@ function AudioPLayerComp() {
     </Drawer>
   );
 }
-const AudioPLayer = React.memo(AudioPLayerComp)
+const AudioPLayer = React.memo(AudioPLayerComp);
 export default AudioPLayer;

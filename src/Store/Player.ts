@@ -9,6 +9,8 @@ interface Player {
   currentIndex: number;
   music: Howl | null;
   search: string;
+  progress: number | "--:--";
+  duration: number | "--:--";
   isLoading: boolean;
   isLoop: boolean;
   savedPlaylist: savedPlaylist[];
@@ -16,6 +18,8 @@ interface Player {
 
 const initialState: Player = {
   playingPlaylistUrl: "",
+  progress: "--:--",
+  duration: "--:--",
   isLoop: false,
   playlistUrl: "",
   isLoading: false,
@@ -43,6 +47,12 @@ const MusicPlayer = createSlice({
     },
     setPlayingPlaylistUrl: (state, action: PayloadAction<string>) => {
       state.playingPlaylistUrl = action.payload;
+    },
+    setProgress: (state, action: PayloadAction<number | "--:--">) => {
+      state.progress = action.payload;
+    },
+    setDuration: (state, action: PayloadAction<number | "--:--">) => {
+      state.duration = action.payload;
     },
     setSearch: (state, action: PayloadAction<string>) => {
       state.search = action.payload;
@@ -79,6 +89,8 @@ export const {
   setSavedPlaylist,
   setIsLoading,
   isLoop,
+  setProgress,
+  setDuration,
   setPlayingPlaylistUrl,
 } = MusicPlayer.actions;
 export default MusicPlayer.reducer;
