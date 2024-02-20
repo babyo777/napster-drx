@@ -5,6 +5,7 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import {AspectRatio} from "@/components/ui/aspect-ratio"
 import { FaBackward } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { FaForward } from "react-icons/fa";
@@ -206,14 +207,14 @@ function AudioPLayerComp() {
         <div className="flex flex-col justify-start pt-2  h-full">
           <DrawerHeader>
             <div className="overflow-hidden h-[48dvh] w-[90vw] rounded-2xl mx-1 ">
-             
+             <AspectRatio>
                 <img
                   
                   src={playlist[currentIndex].cover}
                   alt="Image"
                   className="object-cover rounded-2xl w-[100%] h-[100%]"
                 />
-             
+             </AspectRatio>
             </div>
             <div className=" absolute bottom-[35.5vh] w-full text-start px-2 ">
               <h1 className=" text-3xl truncate  w-80 font-semibold">
