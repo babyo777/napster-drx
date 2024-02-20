@@ -14,7 +14,7 @@ import { FiShare } from "react-icons/fi";
 import { FaPause } from "react-icons/fa6";
 import { MdOpenInNew } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { play, setCurrentIndex, setIsLoading, setPlayer } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { Howl } from "howler";
@@ -240,8 +240,18 @@ function AudioPLayerComp() {
               className="w-full h-2 bg-gray-200 overflow-hidden rounded-lg appearance-none cursor-pointer"
             />
             <div className="flex text-sm justify-between py-2 px-1">
-              <span>{formatDuration(progress as "--:--")}</span>
-              <span>{formatDuration(duration as "--:--")}</span>
+              <span>
+                {useMemo(
+                  () => formatDuration(progress as "--:--"),
+                  [formatDuration, progress]
+                )}
+              </span>
+              <span>
+                {useMemo(
+                  () => formatDuration(duration as "--:--"),
+                  [formatDuration, duration]
+                )}
+              </span>
             </div>
           </div>
           <div className="flex absolute bottom-[16vh] w-full space-x-16 justify-center  items-center">
