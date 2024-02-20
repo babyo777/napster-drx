@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { ThemeProvider } from "./components/theme-provider.tsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import ListenNow from "./components/ListenNow/ListenNow.tsx";
+// import ListenNow from "./components/ListenNow/ListenNow.tsx";
 import SharePlay from "./components/SharePlay/SharePlay.tsx";
 import Search from "./components/Search/Search.tsx";
 import Library from "./components/Library/Library.tsx";
@@ -13,6 +13,7 @@ import { store } from "./Store/Store.ts";
 import { RememberLib } from "./components/Library/RememberLib.tsx";
 import NotFound from "./components/404.tsx";
 import Check from "./components/Check.tsx";
+import ListenNo from "./components/ListenNow/NewListen.tsx";
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <ListenNow />,
+        element: <ListenNo />,
       },
       {
         path: "/share-play",
