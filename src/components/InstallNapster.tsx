@@ -4,12 +4,6 @@ function InstallNapster() {
     <div className=" bg-white fade-in text-black bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] min-h-svh space-y-5 flex flex-col p-11 justify-center  items-center">
       <h2 className="text-lg text-center font-semibold mb-2">
         Install Napster-drx on Your Device Or{" "}
-        <a
-          href="https://your-napster.vercel.app"
-          className="text-red-500 font-normal underline-offset-4 underline"
-        >
-          visit old napster-drx
-        </a>
       </h2>
 
       <ul className="flex flex-col px-1.5 w-full text-start">
