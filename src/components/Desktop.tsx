@@ -18,7 +18,7 @@ function Desktop() {
             href="https://your-napster.vercel.app"
             className="underline fade-in-sec  underline-offset-2 text-red-500"
           >
-            visit old napster
+            visit old napster-drx
           </a>
         </span>
 
