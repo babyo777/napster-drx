@@ -49,8 +49,8 @@ function SearchSong({
   const handleShare = useCallback(async () => {
     try {
       await navigator.share({
-        title: `${title} - ${artist}`,
-        text: `${title} - ${artist}`,
+        title: `${title} - ${artist[0].name}`,
+        text: `${title} - ${artist[0].name}`,
         url: window.location.origin + "/library/expand",
       });
     } catch (error) {
