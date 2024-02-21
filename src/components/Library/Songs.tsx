@@ -98,7 +98,7 @@ function Songs({
         >
           {title.replace("______________________________________", "untitled")}
         </span>
-        <Link to={`/artist/${artistId}`}>
+        <Link to={`/artist/${artist}`}>
           <span className="-mt-0.5 text-xs underline text-zinc-400 w-[11rem] truncate">
             {artist}
           </span>
