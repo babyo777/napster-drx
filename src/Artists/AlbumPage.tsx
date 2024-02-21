@@ -47,7 +47,6 @@ function AlbumPageComp() {
     refetchOnWindowFocus: false,
     staleTime: 1000,
   });
-  console.log(data);
 
   useEffect(() => {
     dispatch(SetPlaylistOrAlbum("album"));
@@ -64,8 +63,6 @@ function AlbumPageComp() {
     }
   }, [id, data]);
   const handlePlay = useCallback(() => {
-    console.log(data);
-
     if (data) {
       dispatch(setPlaylist(data));
       dispatch(

@@ -51,8 +51,6 @@ function Songs({
 
   const handlePlay = useCallback(async () => {
     const data = q.getQueryData<playlistSongs[]>(["playlist", p]);
-    console.log(data);
-
     if (data && data.length > 0) {
       dispatch(isLoop(false));
       dispatch(setPlayingPlaylistUrl(p));
