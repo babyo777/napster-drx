@@ -8,7 +8,7 @@ const SuggestedArtist: React.FC<suggestedArtists> = ({
   artistId,
 }) => {
   return (
-    <Link to={`/artist/${name}`}>
+    <Link to={`/artist/${artistId}`}>
       <div
         id={artistId}
         className="flex items-center fade-in mt-1 overflow-scroll pb-40 space-x-3 px-4"
