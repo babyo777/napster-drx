@@ -36,9 +36,9 @@ function Check() {
         "(display-mode: standalone)"
       ).matches;
       const hardwareConcurrency = navigator.hardwareConcurrency || null;
+      setIsDesktop(isDesktop);
       setHardwareConcurrency(hardwareConcurrency);
       setIsStandalone(isStandalone);
-      setIsDesktop(isDesktop);
       setGraphic(checkGpuCapabilities());
       setCheck(false);
     }, 1100);
@@ -49,8 +49,10 @@ function Check() {
     return <Desktop />;
   }
   if (
-    !isStandalone ||
-    (isStandalone && hardwareConcurrency && hardwareConcurrency >= 4 && graphic)
+    isStandalone &&
+    hardwareConcurrency &&
+    hardwareConcurrency >= 4 &&
+    graphic
   ) {
     return <App />;
   }
