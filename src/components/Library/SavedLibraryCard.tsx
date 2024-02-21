@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { AspectRatio } from "../ui/aspect-ratio";
 import EditInfo from "./EditInfo";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 function SavedLibraryCard({
   title,
   author,
@@ -23,7 +24,10 @@ function SavedLibraryCard({
       >
         <div className="overflow-hidden h-[3.2rem]  w-[3.2rem] space-y-2">
           <AspectRatio ratio={1 / 1}>
-            <img
+            <LazyLoadImage
+              height="100%"
+              width="100%"
+              effect="blur"
               src="/favicon.webp"
               alt="Image"
               className="rounded-md object-cover w-[100%] h-[100%]"
