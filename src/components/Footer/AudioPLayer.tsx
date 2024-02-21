@@ -21,6 +21,8 @@ import { Howl } from "howler";
 import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
@@ -192,9 +194,12 @@ function AudioPLayerComp() {
       <DrawerTrigger>
         <div className="items-center fade-in flex space-x-2 w-[16.5rem]   px-2.5">
           <div className=" h-11 w-11 overflow-hidden rounded-xl">
-            <img
+            <LazyLoadImage
+              height="100%"
+              width="100%"
               src={playlist[currentIndex].cover}
               alt="Image"
+              effect="blur"
               className="object-cover w-[100%] h-[100%] "
             />
           </div>
@@ -213,10 +218,12 @@ function AudioPLayerComp() {
           <DrawerHeader>
             <div className="overflow-hidden h-[48dvh] w-[90vw] rounded-2xl mx-1 ">
               <AspectRatio>
-                <img
+                <LazyLoadImage
+                  height="100%"
+                  width="100%"
                   src={playlist[currentIndex].cover}
                   alt="Image"
-                  loading="lazy"
+                  effect="blur"
                   className="object-cover rounded-2xl w-[100%] h-[100%]"
                 />
               </AspectRatio>
