@@ -61,7 +61,7 @@ function Songs({
       dispatch(setCurrentIndex(id));
     }
     if (!isPlaying) dispatch(play(true));
-  }, [dispatch, id, q, p, isPlaying, artistId]);
+  }, [dispatch, id, q, p, isPlaying, artistId, query]);
 
   const handleShare = useCallback(async () => {
     if (playlist && playlist.length > 0) {
