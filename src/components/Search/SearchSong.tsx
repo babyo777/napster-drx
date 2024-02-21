@@ -14,12 +14,14 @@ function SearchSong({
   cover,
   id,
   audio,
+  artistId,
 }: {
   audio: string;
   id: string;
   title: string;
   artist: artists[];
   cover: string;
+  artistId: string;
 }) {
   const dispatch = useDispatch();
   const isPlaying = useSelector(
@@ -82,7 +84,7 @@ function SearchSong({
         >
           {title}
         </p>
-        <Link to={`/artist/${artist[0].name}`}>
+        <Link to={`/artist/${artistId}`}>
           <p className="-mt-0.5 underline text-zinc-400 text-xs w-[11rem] truncate">
             {artist[0].name}
           </p>

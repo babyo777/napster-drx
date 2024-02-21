@@ -124,6 +124,7 @@ function SearchComp() {
             <div className="h-[63vh] overflow-auto">
               {music.map((r) => (
                 <SearchSong
+                  artistId={r.artists[0].id}
                   audio={r.youtubeId}
                   id={r.youtubeId}
                   key={r.youtubeId}
