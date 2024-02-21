@@ -9,6 +9,8 @@ const SearchApi = `${mainApi}/s/`;
 
 const GetPlaylistSongsApi = `${mainApi}/ps/`;
 
+const getArtistsDetailsByName = `${mainApi}/gabyname/`;
+
 const SearchPlaylistApi = `${mainApi}/p/`;
 
 const SearchArtist = `${mainApi}is/a/`;
@@ -21,6 +23,7 @@ const GetAlbumSongs = `${mainApi}/gas/`;
 
 export {
   streamApi,
+  getArtistsDetailsByName,
   isPlaylist,
   SuggestionSearchApi,
   SearchApi,

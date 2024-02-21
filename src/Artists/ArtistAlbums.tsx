@@ -2,9 +2,14 @@ import { albums } from "@/Interface";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 
-const ArtistAlbums: React.FC<albums> = ({ albumId, thumbnailUrl, title }) => {
+const ArtistAlbums: React.FC<albums> = ({
+  albumId,
+  thumbnailUrl,
+  title,
+  artistId,
+}) => {
   return (
-    <Link to={`/album/${albumId}`}>
+    <Link to={`/album/${albumId}?id=${artistId}`}>
       <div className="flex items-center justify-center mt-0.5  px-4">
         <div>
           <div className=" h-36 w-36">

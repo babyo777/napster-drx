@@ -34,6 +34,7 @@ interface trending {
 }
 
 interface albums {
+  artistId?: string;
   title: string;
   type: string;
   albumId: string;

@@ -5,7 +5,13 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
-import { isLoop, play, setCurrentIndex, setPlaylist } from "@/Store/Player";
+import {
+  isLoop,
+  play,
+  setCurrentArtistId,
+  setCurrentIndex,
+  setPlaylist,
+} from "@/Store/Player";
 import { artists, playlistSongs } from "@/Interface";
 import { Link } from "react-router-dom";
 function SearchSong({
@@ -37,8 +43,9 @@ function SearchSong({
     dispatch(setCurrentIndex(0));
     dispatch(setPlaylist([m]));
     dispatch(isLoop(true));
+    dispatch(setCurrentArtistId(artistId));
     if (!isPlaying) dispatch(play(true));
-  }, [artist, isPlaying, cover, id, title, dispatch]);
+  }, [artist, isPlaying, cover, id, title, dispatch, artistId]);
   const handleShare = useCallback(async () => {
     try {
       await navigator.share({

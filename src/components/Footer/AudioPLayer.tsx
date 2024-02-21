@@ -44,6 +44,9 @@ function AudioPLayerComp() {
   const playlist = useSelector(
     (state: RootState) => state.musicReducer.playlist
   );
+  const currentArtistId = useSelector(
+    (state: RootState) => state.musicReducer.currentArtistId
+  );
   const playingPlaylistUrl = useSelector(
     (state: RootState) => state.musicReducer.playingPlaylistUrl
   );
@@ -235,7 +238,7 @@ function AudioPLayerComp() {
               </h1>
 
               {playlist[currentIndex].artists[0]?.name ? (
-                <Link to={`/artist/${playlist[currentIndex].artists[0].id}`}>
+                <Link to={`/artist/${currentArtistId}`}>
                   <DrawerClose className="text-start">
                     <p className="text-base truncate underline underline-offset-4 w-64 text-red-500">
                       {" "}

@@ -8,6 +8,7 @@ import { RootState } from "@/Store/Store";
 import {
   isLoop,
   play,
+  setCurrentArtistId,
   setCurrentIndex,
   setPlayingPlaylistUrl,
   setPlaylist,
@@ -50,14 +51,17 @@ function Songs({
 
   const handlePlay = useCallback(async () => {
     const data = q.getQueryData<playlistSongs[]>(["playlist", p]);
+    console.log(data);
+
     if (data && data.length > 0) {
       dispatch(isLoop(false));
       dispatch(setPlayingPlaylistUrl(p));
+      dispatch(setCurrentArtistId(artistId));
       dispatch(setPlaylist(data));
       dispatch(setCurrentIndex(id));
     }
     if (!isPlaying) dispatch(play(true));
-  }, [dispatch, id, q, p, isPlaying]);
+  }, [dispatch, id, q, p, isPlaying, artistId]);
 
   const handleShare = useCallback(async () => {
     if (playlist && playlist.length > 0) {

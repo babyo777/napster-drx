@@ -14,10 +14,12 @@ interface Player {
   duration: number | "--:--";
   isLoading: boolean;
   isLoop: boolean;
+  currentArtistId: string;
   savedPlaylist: savedPlaylist[];
 }
 
 const initialState: Player = {
+  currentArtistId: "",
   PlaylistOrAlbum: "",
   playingPlaylistUrl: "",
   progress: "--:--",
@@ -52,6 +54,9 @@ const MusicPlayer = createSlice({
     },
     setPlayingPlaylistUrl: (state, action: PayloadAction<string>) => {
       state.playingPlaylistUrl = action.payload;
+    },
+    setCurrentArtistId: (state, action: PayloadAction<string>) => {
+      state.currentArtistId = action.payload;
     },
     setProgress: (state, action: PayloadAction<number | "--:--">) => {
       state.progress = action.payload;
@@ -96,6 +101,7 @@ export const {
   setIsLoading,
   isLoop,
   setProgress,
+  setCurrentArtistId,
   setDuration,
   setPlayingPlaylistUrl,
 } = MusicPlayer.actions;

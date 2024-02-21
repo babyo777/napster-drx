@@ -26,8 +26,6 @@ function ArtistPage() {
       staleTime: 60 * 60000,
     });
 
-  console.log(data);
-
   return (
     <>
       {isError && (
@@ -100,6 +98,7 @@ function ArtistPage() {
           <div className="flex overflow-x-scroll items-center">
             {data.albums.map((s) => (
               <ArtistAlbums
+                artistId={id}
                 key={s.albumId}
                 title={s.title}
                 thumbnailUrl={s.thumbnailUrl}
@@ -120,6 +119,7 @@ function ArtistPage() {
           <div className="flex overflow-x-scroll items-center">
             {data.singles.map((s) => (
               <ArtistAlbums
+                artistId={id}
                 key={s.albumId}
                 title={s.title}
                 thumbnailUrl={s.thumbnailUrl}
