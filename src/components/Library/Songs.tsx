@@ -74,7 +74,7 @@ function Songs({
   }, [artist, title, playlist, playingPlaylistUrl]);
 
   return (
-    <div className="flex fade-in py-2 space-x-2 items-center">
+    <div id={artistId} className="flex fade-in py-2 space-x-2 items-center">
       <div className="overflow-hidden h-12 w-12 space-y-2">
         <AspectRatio ratio={1 / 1}>
           <LazyLoadImage
