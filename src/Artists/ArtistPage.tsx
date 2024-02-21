@@ -100,6 +100,7 @@ function ArtistPage() {
           <div className="flex overflow-x-scroll items-center">
             {data.albums.map((s) => (
               <ArtistAlbums
+                key={s.albumId}
                 title={s.title}
                 thumbnailUrl={s.thumbnailUrl}
                 type={s.type}
@@ -119,6 +120,7 @@ function ArtistPage() {
           <div className="flex overflow-x-scroll items-center">
             {data.singles.map((s) => (
               <ArtistAlbums
+                key={s.albumId}
                 title={s.title}
                 thumbnailUrl={s.thumbnailUrl}
                 type={s.type}
@@ -140,6 +142,7 @@ function ArtistPage() {
           <div className="flex overflow-x-scroll items-center">
             {data.suggestedArtists.map((s) => (
               <SuggestedArtist
+                key={s.artistId}
                 artistId={s.artistId}
                 name={s.name}
                 thumbnailUrl={s.thumbnailUrl}
