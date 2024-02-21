@@ -66,7 +66,9 @@ function AlbumPageComp() {
       dispatch(setPlaylist(data));
       dispatch(setCurrentIndex(0));
       dispatch(setPlayingPlaylistUrl(id || ""));
-      dispatch(isLoop(false));
+      console.log(data.length);
+
+      if (data.length === 1) dispatch(isLoop(true));
       if (!isPlaying) {
         dispatch(play(true));
       }
