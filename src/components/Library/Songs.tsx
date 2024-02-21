@@ -25,8 +25,10 @@ function Songs({
   audio,
   p,
   artistId,
+  query,
 }: {
   artistId: string;
+  query?: string;
   p: string;
   audio: string;
   id: number;
@@ -50,7 +52,7 @@ function Songs({
   );
 
   const handlePlay = useCallback(async () => {
-    const data = q.getQueryData<playlistSongs[]>(["playlist", p]);
+    const data = q.getQueryData<playlistSongs[]>([query || "playlist", p]);
     if (data && data.length > 0) {
       dispatch(isLoop(false));
       dispatch(setPlayingPlaylistUrl(p));

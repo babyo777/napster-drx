@@ -154,6 +154,7 @@ function AlbumPageComp() {
             {data.map((data, i) => (
               <Songs
                 p={id || ""}
+                query="album"
                 artistId={data.artists[0]?.id || artistId.get("id") || ""}
                 audio={data.youtubeId}
                 key={data.youtubeId + i}
