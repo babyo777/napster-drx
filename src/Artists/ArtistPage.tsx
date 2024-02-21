@@ -3,13 +3,14 @@ import { ArtistDetails } from "@/Interface";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { FaShare } from "react-icons/fa6";
-import { IoIosArrowBack } from "react-icons/io";
+
 import { IoReload } from "react-icons/io5";
 import { useQuery } from "react-query";
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import SuggestedArtist from "./SuggestedArtist";
 import ArtistAlbums from "./ArtistAlbums";
 import Loader from "@/components/Loaders/Loader";
+import GoBack from "@/components/Goback";
 
 function ArtistPage() {
   const { id } = useParams();
@@ -33,9 +34,7 @@ function ArtistPage() {
           <div className="fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             No artist found
           </div>
-          <NavLink to={"/library/"}>
-            <IoIosArrowBack className="h-7 w-7  my-5 mx-4  backdrop-blur-md text-black bg-white/70 rounded-full p-1" />
-          </NavLink>
+          <GoBack />
         </div>
       )}
       {isRefetching && (
@@ -50,11 +49,7 @@ function ArtistPage() {
       )}
       {data && (
         <div className="flex w-full h-[17rem]  relative ">
-          <div className=" absolute top-4 z-10 left-3">
-            <NavLink to={"/search/"}>
-              <IoIosArrowBack className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1" />
-            </NavLink>
-          </div>
+          <GoBack />
 
           <div className=" absolute top-4 z-10 right-3">
             <IoReload

@@ -1,8 +1,7 @@
 import { FaPlay } from "react-icons/fa6";
-import { IoIosArrowBack } from "react-icons/io";
 import { IoReload } from "react-icons/io5";
 import { FaShare } from "react-icons/fa";
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { AlbumSongs } from "@/Interface";
@@ -23,6 +22,7 @@ import { RootState } from "@/Store/Store";
 import Loader from "@/components/Loaders/Loader";
 import { Button } from "@/components/ui/button";
 import Songs from "@/components/Library/Songs";
+import GoBack from "@/components/Goback";
 
 function AlbumPageComp() {
   const dispatch = useDispatch();
@@ -84,9 +84,7 @@ function AlbumPageComp() {
           <div className="fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             No album found
           </div>
-          <NavLink to={"/search/"}>
-            <IoIosArrowBack className="h-7 w-7  my-5 mx-4  backdrop-blur-md text-black bg-white/70 rounded-full p-1" />
-          </NavLink>
+          <GoBack />
         </div>
       )}
       {isRefetching && (
@@ -102,11 +100,7 @@ function AlbumPageComp() {
       {data && (
         <>
           <div className="flex w-full h-[23rem]  relative ">
-            <div className=" absolute top-4 z-10 left-3">
-              <NavLink to={"/search/"}>
-                <IoIosArrowBack className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1" />
-              </NavLink>
-            </div>
+            <GoBack />
 
             <div className=" absolute top-4 z-10 right-3">
               <IoReload
