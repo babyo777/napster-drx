@@ -24,7 +24,7 @@ const SuggestedArtist: React.FC<suggestedArtists> = ({
               className="rounded-full object-cover h-[100%] w-[100%]"
             />
           </div>
-          <h1 className="text-center text-xs mt-3 truncate">{name}</h1>
+          <h1 className="text-center text-xs mt-3 w-[5rem] truncate">{name}</h1>
         </div>
       </div>
     </Link>

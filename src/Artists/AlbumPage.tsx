@@ -40,11 +40,9 @@ function AlbumPageComp() {
   );
   const { data, isLoading, isError, refetch, isRefetching } = useQuery<
     AlbumSongs[]
-  >(["playlist", id], getPlaylist, {
+  >(["album", id], getPlaylist, {
     retry: 0,
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    staleTime: 60 * 60000,
   });
 
   useEffect(() => {
