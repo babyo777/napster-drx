@@ -1,14 +1,15 @@
-import { savedPlaylist, songs } from "@/Interface";
+import { savedPlaylist, playlistSongs } from "@/Interface";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface Player {
   playlistUrl: string;
   playingPlaylistUrl: string;
-  playlist: songs[];
+  playlist: playlistSongs[];
   isPlaying: boolean;
   currentIndex: number;
   music: Howl | null;
   search: string;
+  PlaylistOrAlbum: string;
   progress: number | "--:--";
   duration: number | "--:--";
   isLoading: boolean;
@@ -17,6 +18,7 @@ interface Player {
 }
 
 const initialState: Player = {
+  PlaylistOrAlbum: "",
   playingPlaylistUrl: "",
   progress: "--:--",
   duration: "--:--",
@@ -37,6 +39,9 @@ const MusicPlayer = createSlice({
   reducers: {
     play: (state, action: PayloadAction<boolean>) => {
       state.isPlaying = action.payload;
+    },
+    SetPlaylistOrAlbum: (state, action: PayloadAction<string>) => {
+      state.PlaylistOrAlbum = action.payload;
     },
     isLoop: (state, action: PayloadAction<boolean>) => {
       state.isLoop = action.payload;
@@ -66,7 +71,7 @@ const MusicPlayer = createSlice({
     setPlaylistUrl: (state, action: PayloadAction<string>) => {
       state.playlistUrl = action.payload;
     },
-    setPlaylist: (state, action: PayloadAction<songs[]>) => {
+    setPlaylist: (state, action: PayloadAction<playlistSongs[]>) => {
       state.playlist = action.payload;
     },
     setCurrentIndex: (state, action: PayloadAction<number>) => {
@@ -80,6 +85,7 @@ const MusicPlayer = createSlice({
 
 export const {
   play,
+  SetPlaylistOrAlbum,
   setPlaylist,
   setCurrentIndex,
   setPlayer,

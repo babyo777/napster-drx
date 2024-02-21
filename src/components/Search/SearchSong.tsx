@@ -6,6 +6,8 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { isLoop, play, setCurrentIndex, setPlaylist } from "@/Store/Player";
+import { artists, playlistSongs } from "@/Interface";
+import { Link } from "react-router-dom";
 function SearchSong({
   title,
   artist,
@@ -14,9 +16,9 @@ function SearchSong({
   audio,
 }: {
   audio: string;
-  id: number;
+  id: string;
   title: string;
-  artist: string;
+  artist: artists[];
   cover: string;
 }) {
   const dispatch = useDispatch();
@@ -24,18 +26,17 @@ function SearchSong({
     (state: RootState) => state.musicReducer.isPlaying
   );
   const handlePlay = useCallback(() => {
-    const m = {
-      id: id,
+    const m: playlistSongs = {
+      youtubeId: id,
       title: title,
-      artist: artist,
-      audio: audio,
-      cover: cover,
+      artists: artist,
+      thumbnailUrl: cover,
     };
     dispatch(setCurrentIndex(0));
     dispatch(setPlaylist([m]));
     dispatch(isLoop(true));
     if (!isPlaying) dispatch(play(true));
-  }, [artist, isPlaying, audio, cover, id, title, dispatch]);
+  }, [artist, isPlaying, cover, id, title, dispatch]);
   const handleShare = useCallback(async () => {
     try {
       await navigator.share({
@@ -58,30 +59,34 @@ function SearchSong({
       <div className="overflow-hidden h-12 w-12 space-y-2">
         <AspectRatio ratio={1 / 1}>
           <LazyLoadImage
+            onClick={handlePlay}
             src={cover}
             width="100%"
             height="100%"
             effect="blur"
             alt="Image"
             loading="lazy"
+            onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
+              (e.currentTarget.src = "/demo3.jpeg")
+            }
             className="rounded-md object-cover h-[100%] w-[100%]"
           />
         </AspectRatio>
       </div>
-      <div
-        onClick={handlePlay}
-        className="flex  flex-col pl-1 text-start w-[17rem]"
-      >
-        <span
+      <div className="flex  flex-col pl-1 text-start w-[17rem]">
+        <p
+          onClick={handlePlay}
           className={`w-[15rem] ${
-            playlist[currentIndex]?.audio == audio && "text-red-500"
+            playlist[currentIndex]?.youtubeId == audio && "text-red-500"
           }  truncate`}
         >
           {title}
-        </span>
-        <span className="-mt-0.5 text-zinc-400 text-xs w-[11rem] truncate">
-          {artist}
-        </span>
+        </p>
+        <Link to={`/artist/${artist[0].name}`}>
+          <p className="-mt-0.5 underline text-zinc-400 text-xs w-[11rem] truncate">
+            {artist[0].name}
+          </p>
+        </Link>
         <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
       </div>
       <IoIosMore onClick={handleShare} />

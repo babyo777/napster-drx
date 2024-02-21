@@ -1,6 +1,33 @@
-const infoApi = "https://music-info-api.vercel.app/?url=";
-const queryApi = "https://music-info-api.vercel.app/";
-const isYoutube = "https://music-info-api.vercel.app/is/p?l=";
+const mainApi = import.meta.env.VITE_API_URL;
 const streamApi = "https://unconscious-elianora-babyo7.koyeb.app/?url=";
 
-export { infoApi, streamApi, queryApi, isYoutube };
+const isPlaylist = `${mainApi}/is/p?l=`;
+
+const SuggestionSearchApi = `${mainApi}/ss/p?l=`;
+
+const SearchApi = `${mainApi}/s/`;
+
+const GetPlaylistSongsApi = `${mainApi}/ps/`;
+
+const SearchPlaylistApi = `${mainApi}/p/`;
+
+const SearchArtist = `${mainApi}is/a/`;
+
+const GetArtistDetails = `${mainApi}/ga/`;
+
+const SearchAlbum = `${mainApi}/al/`;
+
+const GetAlbumSongs = `${mainApi}/gas/`;
+
+export {
+  streamApi,
+  isPlaylist,
+  SuggestionSearchApi,
+  SearchApi,
+  GetPlaylistSongsApi,
+  SearchPlaylistApi,
+  SearchArtist,
+  GetArtistDetails,
+  SearchAlbum,
+  GetAlbumSongs,
+};

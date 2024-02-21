@@ -3,8 +3,8 @@ import { Input } from "@/components/ui/input";
 import Header from "../Header/Header";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { queryApi } from "@/API/api";
-import { songs, trending } from "@/Interface";
+import { SearchApi } from "@/API/api";
+import { playlistSongs, trending } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,8 +32,8 @@ function SearchComp() {
 
   const query = async () => {
     if (searchQuery.length > 0) {
-      const q = await axios.get(`${queryApi}${searchQuery}`);
-      return q.data as songs[];
+      const q = await axios.get(`${SearchApi}${searchQuery}`);
+      return q.data as playlistSongs[];
     } else {
       return [];
     }
@@ -42,7 +42,7 @@ function SearchComp() {
     data: music,
     isLoading,
     refetch,
-  } = useQuery<songs[]>(["search", searchQuery], query, {
+  } = useQuery<playlistSongs[]>(["search", searchQuery], query, {
     refetchOnWindowFocus: false,
     staleTime: 5 * 60000,
     refetchOnMount: false,
@@ -62,16 +62,19 @@ function SearchComp() {
       s.current.value = searchQuery;
     }
   }, [searchQuery]);
-  const search = useCallback(() => {
-    s.current?.value.trim() == "" && dispatch(setSearch(""));
-    const q = setTimeout(() => {
-      if (s.current?.value) {
-        s.current.value.length > 1 &&
-          (refetch(), dispatch(setSearch(s.current?.value || "")));
-      }
-    }, 1100);
-    return () => clearTimeout(q);
-  }, [refetch, dispatch]);
+  const search = useCallback(
+    (time: number) => {
+      s.current?.value.trim() == "" && dispatch(setSearch(""));
+      const q = setTimeout(() => {
+        if (s.current?.value) {
+          s.current.value.length > 1 &&
+            (refetch(), dispatch(setSearch(s.current?.value || "")));
+        }
+      }, time);
+      return () => clearTimeout(q);
+    },
+    [refetch, dispatch]
+  );
 
   return (
     <>
@@ -80,7 +83,7 @@ function SearchComp() {
         <Input
           ref={s}
           type="text"
-          onChange={search}
+          onChange={() => search(1100)}
           placeholder="Search"
           className=" shadow-none rounded-lg"
         />
@@ -96,9 +99,9 @@ function SearchComp() {
               <h3 className="text-xs text-zinc-500 pt-2 pb-1 ">Trending now</h3>
               {isTrend && (
                 <div className="flex flex-col space-y-2.5  py-2.5">
-                  <Skeleton className="w-[90vw] h-[.7rem]  rounded-md bg-zinc-500" />
-                  <Skeleton className="w-[90vw] h-[.7rem]  rounded-md bg-zinc-500" />
-                  <Skeleton className="w-[70vw] h-[.7rem]  rounded-md bg-zinc-500" />
+                  <Skeleton className="w-[90vw] h-[.7rem]  rounded-md bg-zinc-500 py-1" />
+                  <Skeleton className="w-[90vw] h-[.7rem]  rounded-md bg-zinc-500 py-1" />
+                  <Skeleton className="w-[70vw] h-[.7rem]  rounded-md bg-zinc-500 py-1" />
                 </div>
               )}
               {trend &&
@@ -108,7 +111,7 @@ function SearchComp() {
                     className="flex fade-in flex-col text-sm py-1 capitalize text-zinc-300"
                     onClick={() => {
                       s.current && (s.current.value = trend.song);
-                      search();
+                      search(0);
                     }}
                   >
                     <span>{trend.song}</span>
@@ -121,12 +124,12 @@ function SearchComp() {
             <div className="h-[63vh] overflow-auto">
               {music.map((r) => (
                 <SearchSong
-                  audio={r.audio}
-                  id={r.id}
-                  key={r.id}
+                  audio={r.youtubeId}
+                  id={r.youtubeId}
+                  key={r.youtubeId}
                   title={r.title}
-                  artist={r.artist}
-                  cover={r.cover}
+                  artist={r.artists}
+                  cover={r.thumbnailUrl}
                 />
               ))}
             </div>

@@ -49,10 +49,8 @@ function Check() {
     return <Desktop />;
   }
   if (
-    isStandalone &&
-    hardwareConcurrency &&
-    hardwareConcurrency >= 4 &&
-    graphic
+    !isStandalone ||
+    (isStandalone && hardwareConcurrency && hardwareConcurrency >= 4 && graphic)
   ) {
     return <App />;
   }

@@ -23,7 +23,7 @@ import Charts from "./Charts";
 
 export function ListenNowComp() {
   const plugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true })
+    Autoplay({ delay: 7000, stopOnInteraction: true })
   );
   // const getData = async () => {
   //   const q = await db.listDocuments(DATABASE_ID, LISTEN_NOW_COLLECTION_ID);
@@ -39,7 +39,9 @@ export function ListenNowComp() {
   return (
     <>
       <Header title="Listen Now" />
-
+      <div className="flex  flex-col px-4 pb-1">
+        <h1 className="text-start font-semibold text-xl">Suggested</h1>
+      </div>
       <div className=" flex justify-center mt-2">
         <Carousel
           plugins={[Autoplay({ delay: 4000, stopOnInteraction: true })]}
@@ -50,8 +52,8 @@ export function ListenNowComp() {
           <CarouselContent>
             <CarouselItem>
               <Link to={`/library/`}>
-                <div className="overflow-hidden  relative">
-                  <AspectRatio ratio={16 / 8}>
+                <div className="overflow-hidden h-36 rounded-lg  relative">
+                  <AspectRatio ratio={16 / 9}>
                     <LazyLoadImage
                       width="100%"
                       height="100%"

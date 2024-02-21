@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { ThemeProvider } from "./components/theme-provider.tsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-// import ListenNow from "./components/ListenNow/ListenNow.tsx";
 import SharePlay from "./components/SharePlay/SharePlay.tsx";
 import Search from "./components/Search/Search.tsx";
 import Library from "./components/Library/Library.tsx";
@@ -14,6 +13,8 @@ import { RememberLib } from "./components/Library/RememberLib.tsx";
 import NotFound from "./components/404.tsx";
 import Check from "./components/Check.tsx";
 import ListenNo from "./components/ListenNow/NewListen.tsx";
+import AlbumPage from "./Artists/AlbumPage.tsx";
+import ArtistPage from "./Artists/ArtistPage.tsx";
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -35,6 +36,14 @@ const router = createBrowserRouter([
       {
         path: "/library/:id",
         element: <Library />,
+      },
+      {
+        path: "/artist/:id",
+        element: <ArtistPage />,
+      },
+      {
+        path: "/album/:id",
+        element: <AlbumPage />,
       },
       {
         path: "/search",

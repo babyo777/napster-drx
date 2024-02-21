@@ -1,6 +1,6 @@
 import Header from "../Header/Header";
 import SavedLibraryCard from "./SavedLibraryCard";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaylistUrl, setSavedPlaylist } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
@@ -14,7 +14,7 @@ import { Query } from "appwrite";
 import { savedPlaylist } from "@/Interface";
 import { useQuery } from "react-query";
 
-function SavedLibrary() {
+function SavedLibraryComp() {
   const dispatch = useDispatch();
   const savedPlaylist = useSelector(
     (state: RootState) => state.musicReducer.savedPlaylist
@@ -28,6 +28,7 @@ function SavedLibrary() {
   };
   const { data, isLoading } = useQuery("savedPlaylist", loadSavedPlaylist, {
     refetchOnWindowFocus: false,
+    keepPreviousData: true,
   });
 
   useEffect(() => {
@@ -54,7 +55,6 @@ function SavedLibrary() {
           {savedPlaylist.map((saved, id) => (
             <SavedLibraryCard
               key={saved.link + id}
-              title={saved.name}
               id={saved.$id || ""}
               author={saved.creator}
               link={saved.link}
@@ -66,5 +66,6 @@ function SavedLibrary() {
     </>
   );
 }
+const SavedLibrary = React.memo(SavedLibraryComp);
 
 export default SavedLibrary;

@@ -29,6 +29,9 @@ function AudioPLayerComp() {
   const [duration, setDuration] = useState<number | "--:--">();
   const music = useSelector((state: RootState) => state.musicReducer.music);
   const [progress, setProgress] = useState<number | "--:--">();
+  const PlaylistOrAlbum = useSelector(
+    (state: RootState) => state.musicReducer.PlaylistOrAlbum
+  );
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
@@ -73,10 +76,10 @@ function AudioPLayerComp() {
   const handleMediaSession = useCallback(() => {
     navigator.mediaSession.metadata = new MediaMetadata({
       title: playlist[currentIndex].title,
-      artist: playlist[currentIndex].artist,
+      artist: playlist[currentIndex].artists[0]?.name,
       artwork: [
         {
-          src: playlist[currentIndex].cover,
+          src: playlist[currentIndex].thumbnailUrl,
         },
       ],
     });
@@ -84,12 +87,7 @@ function AudioPLayerComp() {
 
   useEffect(() => {
     const sound = new Howl({
-      src: [
-        `${streamApi}${playlist[currentIndex].audio.replace(
-          "https://www.youtube.com/watch?v=",
-          ""
-        )}`,
-      ],
+      src: [`${streamApi}${playlist[currentIndex].youtubeId}`],
       autoplay: false,
       loop: isLoop,
       html5: true,
@@ -164,8 +162,8 @@ function AudioPLayerComp() {
   const handleShare = useCallback(async () => {
     try {
       await navigator.share({
-        title: `${playlist[currentIndex].title} - ${playlist[currentIndex].artist}`,
-        text: `${playlist[currentIndex].title} - ${playlist[currentIndex].artist}`,
+        title: `${playlist[currentIndex].title} - ${playlist[currentIndex].artists}`,
+        text: `${playlist[currentIndex].title} - ${playlist[currentIndex].artists}`,
         url: window.location.origin,
       });
     } catch (error) {
@@ -198,7 +196,7 @@ function AudioPLayerComp() {
             <LazyLoadImage
               height="100%"
               width="100%"
-              src={playlist[currentIndex].cover}
+              src={playlist[currentIndex].thumbnailUrl}
               alt="Image"
               effect="blur"
               className="object-cover w-[100%] h-[100%] "
@@ -209,7 +207,7 @@ function AudioPLayerComp() {
               {playlist[currentIndex].title}
             </span>
             <span className=" text-xs w-32 truncate">
-              {playlist[currentIndex].artist}
+              {playlist[currentIndex].artists[0]?.name}
             </span>
           </div>
         </div>
@@ -222,7 +220,7 @@ function AudioPLayerComp() {
                 <LazyLoadImage
                   height="100%"
                   width="100%"
-                  src={playlist[currentIndex].cover}
+                  src={playlist[currentIndex].thumbnailUrl}
                   alt="Image"
                   effect="opacity"
                   visibleByDefault
@@ -231,14 +229,26 @@ function AudioPLayerComp() {
               </AspectRatio>
             </div>
             <div className=" absolute bottom-[35.5vh] w-full text-start px-2 ">
-              <h1 className=" text-3xl truncate  w-80 font-semibold">
+              <h1 className="text-3xl truncate  w-80 font-semibold">
                 {" "}
                 {playlist[currentIndex].title}
               </h1>
-              <p className=" text-base truncate w-64 text-red-500">
-                {" "}
-                {playlist[currentIndex].artist}
-              </p>
+
+              {playlist[currentIndex].artists[0]?.name ? (
+                <Link to={`/artist/${playlist[currentIndex].artists[0].id}`}>
+                  <DrawerClose className="text-start">
+                    <p className="text-base truncate underline underline-offset-4 w-64 text-red-500">
+                      {" "}
+                      {playlist[currentIndex].artists[0]?.name}
+                    </p>
+                  </DrawerClose>
+                </Link>
+              ) : (
+                <p className="text-base truncate  w-64 text-red-500">
+                  {" "}
+                  Unknown
+                </p>
+              )}
             </div>
           </DrawerHeader>
           <div className="flex  absolute bottom-[26vh]  w-full flex-col justify-center px-6 pt-1 ">
@@ -295,7 +305,7 @@ function AudioPLayerComp() {
           <div className=" justify-center absolute bottom-[6vh] w-full px-7 text-zinc-400 items-center">
             <div className="flex items-center justify-between w-full">
               {playlist.length > 1 ? (
-                <Link to={`library/${playingPlaylistUrl}`}>
+                <Link to={`/${PlaylistOrAlbum}/${playingPlaylistUrl}`}>
                   <DrawerClose>
                     <MdOpenInNew className="h-6 w-6" />
                   </DrawerClose>

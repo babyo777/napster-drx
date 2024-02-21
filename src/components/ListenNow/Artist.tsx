@@ -3,10 +3,10 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 function Artist() {
   return (
     <>
-      <div className="flex flex-col px-4 py-3">
+      <div className="flex flex-col px-4 py-2 pt-3 ">
         <h1 className="text-start font-semibold text-xl">Top Artist</h1>
       </div>
-      <div className="flex items-center overflow-scroll space-x-3 px-4">
+      <div className="flex items-center mt-1 overflow-scroll pb-40 space-x-3 px-4">
         <div>
           <div className=" h-20 w-20 mb-1">
             <LazyLoadImage

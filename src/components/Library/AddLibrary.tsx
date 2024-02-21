@@ -21,7 +21,6 @@ import {
 
 const FormSchema = z.object({
   link: z.string().url(),
-  name: z.string().min(2),
   creator: z.string().min(2),
 });
 import { IoMdAdd } from "react-icons/io";
@@ -35,7 +34,7 @@ import {
   db,
 } from "@/appwrite/appwriteConfig";
 import axios from "axios";
-import { isYoutube } from "@/API/api";
+import { isPlaylist } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setSavedPlaylist } from "@/Store/Player";
@@ -62,7 +61,6 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
     defaultValues: {
       link: "",
       creator: "",
-      name: "",
     },
   });
   useEffect(() => {
@@ -74,9 +72,9 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
     setIsSubmit(true);
 
     try {
-      const res = await axios.get(`${isYoutube}${data.link}`);
+      const res = await axios.get(`${isPlaylist}${data.link}`);
       const payload: savedPlaylist = {
-        name: data.name,
+        name: "default",
         creator: data.creator,
         link: res.data,
         for: localStorage.getItem("uid") || "default",
@@ -156,22 +154,6 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
               />
             )}
 
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      className=" py-5"
-                      placeholder="Enter playlist name"
-                      {...field}
-                    ></Input>
-                  </FormControl>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="creator"

@@ -1,9 +1,8 @@
-interface songs {
-  id: number;
+interface playlistSongs {
+  youtubeId: string;
   title: string;
-  artist: string;
-  audio: string;
-  cover: string;
+  artists: artists[];
+  thumbnailUrl: string;
 }
 
 interface listen {
@@ -11,9 +10,52 @@ interface listen {
   cover: string;
   link: string;
 }
+interface artists {
+  name: string;
+  id: string;
+}
 
+interface SearchPlaylist {
+  playlistId: string;
+  title: string;
+  totalSongs: number;
+  thumbnailUrl: string;
+}
+
+interface AlbumSongs {
+  youtubeId: string;
+  artists: artists[];
+  title: string;
+  album: string;
+  thumbnailUrl: string;
+}
 interface trending {
   song: string;
+}
+
+interface albums {
+  title: string;
+  type: string;
+  albumId: string;
+  year: string;
+  thumbnailUrl: string;
+}
+interface suggestedArtists {
+  artistId: string;
+  name: string;
+  thumbnailUrl: string;
+}
+
+interface thumbnails {
+  url: string;
+}
+interface ArtistDetails {
+  artistId: string;
+  name: string;
+  albums: albums[];
+  singles: albums[];
+  suggestedArtists: suggestedArtists[];
+  thumbnails: thumbnails[];
 }
 
 interface savedPlaylist {
@@ -23,4 +65,15 @@ interface savedPlaylist {
   link: string;
   for: string;
 }
-export type { songs, listen, trending, savedPlaylist };
+export type {
+  playlistSongs,
+  SearchPlaylist,
+  artists,
+  listen,
+  trending,
+  savedPlaylist,
+  AlbumSongs,
+  albums,
+  ArtistDetails,
+  suggestedArtists,
+};
