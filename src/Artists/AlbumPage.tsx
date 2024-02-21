@@ -13,11 +13,12 @@ import {
   SetPlaylistOrAlbum,
   isLoop,
   play,
+  setCurrentArtistId,
   setCurrentIndex,
   setPlayingPlaylistUrl,
   setPlaylist,
 } from "@/Store/Player";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { RootState } from "@/Store/Store";
 import Loader from "@/components/Loaders/Loader";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ import Songs from "@/components/Library/Songs";
 function AlbumPageComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const artistId = useMemo(() => new URLSearchParams(location.search), []);
 
   const playlistUrl = useSelector(
     (state: RootState) => state.musicReducer.playlistUrl
@@ -45,6 +47,7 @@ function AlbumPageComp() {
     refetchOnWindowFocus: false,
     staleTime: 1000,
   });
+  console.log(data);
 
   useEffect(() => {
     dispatch(SetPlaylistOrAlbum("album"));
@@ -61,8 +64,13 @@ function AlbumPageComp() {
     }
   }, [id, data]);
   const handlePlay = useCallback(() => {
+    console.log(data);
+
     if (data) {
       dispatch(setPlaylist(data));
+      dispatch(
+        setCurrentArtistId(data[0].artists[0].id || artistId.get("id") || "")
+      );
       dispatch(setCurrentIndex(0));
       dispatch(setPlayingPlaylistUrl(id || ""));
       if (data.length === 1) dispatch(isLoop(true));
@@ -70,14 +78,14 @@ function AlbumPageComp() {
         dispatch(play(true));
       }
     }
-  }, [dispatch, data, isPlaying, id]);
+  }, [dispatch, data, isPlaying, id, artistId]);
 
   return (
     <div className=" flex flex-col items-center">
       {isError && (
         <div className=" relative  w-full">
           <div className="fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            No playlist found
+            No album found
           </div>
           <NavLink to={"/search/"}>
             <IoIosArrowBack className="h-7 w-7  my-5 mx-4  backdrop-blur-md text-black bg-white/70 rounded-full p-1" />
@@ -149,7 +157,7 @@ function AlbumPageComp() {
             {data.map((data, i) => (
               <Songs
                 p={id || ""}
-                artistId={data.artists[0]?.id}
+                artistId={data.artists[0]?.id || artistId.get("id") || ""}
                 audio={data.youtubeId}
                 key={data.youtubeId + i}
                 id={i}
