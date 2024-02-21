@@ -97,7 +97,7 @@ function AlbumPageComp() {
         <>
           <div className="flex w-full h-[23rem]  relative ">
             <div className=" absolute top-4 z-10 left-3">
-              <NavLink to={"/library/"}>
+              <NavLink to={"/search/"}>
                 <IoIosArrowBack className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1" />
               </NavLink>
             </div>
