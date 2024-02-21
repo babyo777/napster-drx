@@ -11,6 +11,7 @@ import SuggestedArtist from "./SuggestedArtist";
 import ArtistAlbums from "./ArtistAlbums";
 import Loader from "@/components/Loaders/Loader";
 import GoBack from "@/components/Goback";
+import { useCallback } from "react";
 
 function ArtistPage() {
   const { id } = useParams();
@@ -27,6 +28,17 @@ function ArtistPage() {
       staleTime: 60 * 60000,
     });
 
+  const handleShare = useCallback(async () => {
+    try {
+      await navigator.share({
+        title: `${data && data.name}`,
+        text: `${data && data.name}}`,
+        url: window.location.origin + `/artist/${id}`,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, [data, id]);
   return (
     <>
       {isError && (
@@ -73,6 +85,7 @@ function ArtistPage() {
             </h1>
             <div className="flex space-x-4 py-1 justify-center  items-center w-full">
               <Button
+                onClick={handleShare}
                 type="button"
                 variant={"ghost"}
                 className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-14"
