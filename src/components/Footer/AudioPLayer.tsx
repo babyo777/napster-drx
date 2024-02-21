@@ -23,6 +23,7 @@ import Loader from "../Loaders/Loader";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import "react-lazy-load-image-component/src/effects/opacity.css";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
@@ -223,7 +224,8 @@ function AudioPLayerComp() {
                   width="100%"
                   src={playlist[currentIndex].cover}
                   alt="Image"
-                  effect="blur"
+                  effect="opacity"
+                  visibleByDefault
                   className="object-cover rounded-2xl w-[100%] h-[100%]"
                 />
               </AspectRatio>
