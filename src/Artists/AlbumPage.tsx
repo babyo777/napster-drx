@@ -43,6 +43,7 @@ function AlbumPageComp() {
   >(["album", id], getPlaylist, {
     retry: 0,
     refetchOnWindowFocus: false,
+    staleTime: 1000,
   });
 
   useEffect(() => {
