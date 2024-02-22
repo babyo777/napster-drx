@@ -32,11 +32,10 @@ window.matchMedia("(max-width: 375px)").matches // Other iPhones with a width up
 
   if (!compatible) {
     return (
-      <div className=" w-full  px-5  fade-in flex-col h-screen flex justify-center items-center">
-        <span className="text-base font-semibold text-zinc-400 py-3 ">
-          Not optimized for you device{" "}
-        </span>
-      </div>
+     <>
+      <Outlet />
+      <Tabs />
+    </>
     );
   }
 
