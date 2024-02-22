@@ -7,6 +7,7 @@ function Artist() {
       <div className="flex flex-col px-4 py-2 pt-3 ">
         <h1 className="text-start font-semibold text-xl">Top Artist</h1>
       </div>
+   <div className="flex overflow-x-scroll items-center">
       <div className="flex items-center mt-1 overflow-x-scroll  space-x-3 px-4">
         <Link to={"/artist/UCc6ZhmiYsVmBbiBqNhD6_1Q"}>
           <div>
@@ -54,6 +55,7 @@ function Artist() {
           </div>
         </Link>
       </div>
+  </div>
     </>
   );
 }
