@@ -194,7 +194,7 @@ function AudioPLayerComp() {
   return (
     <Drawer>
       <DrawerTrigger>
-        <div className="items-center fade-in flex space-x-2 w-[16.5rem]   px-2.5">
+        <div className="items-center fade-in flex space-x-2 w-[68dvw]    px-2.5">
           <div className=" h-11 w-11 overflow-hidden rounded-xl">
             <LazyLoadImage
               height="100%"

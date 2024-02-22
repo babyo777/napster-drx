@@ -5,11 +5,12 @@ interface playlistSongs {
   thumbnailUrl: string;
 }
 
-interface listen {
-  $id: string;
-  cover: string;
-  link: string;
+interface homePagePlaylist {
+  image: string;
+  url: string;
+  type: string;
 }
+
 interface artists {
   name: string;
   id: string;
@@ -70,7 +71,7 @@ export type {
   playlistSongs,
   SearchPlaylist,
   artists,
-  listen,
+  homePagePlaylist,
   trending,
   savedPlaylist,
   AlbumSongs,

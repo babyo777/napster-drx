@@ -57,12 +57,12 @@ function SavedLibraryCard({
               </AspectRatio>
             </div>
             <div className="flex flex-col  text-xl text-start">
-              <span className="w-[16rem] fade-in truncate">
+              <p className="w-[59vw]     fade-in truncate">
                 {p[0]?.title || "Unknown"}
-              </span>
-              <span className="-mt-0.5 text-sm w-[14rem] truncate">
+              </p>
+              <p className="-mt-0.5  text-sm w-[50vw] truncate">
                 {author || "NapsterDrx."}
-              </span>
+              </p>
             </div>
           </Link>
           <EditInfo id={id} f={f} />

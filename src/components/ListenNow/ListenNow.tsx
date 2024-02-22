@@ -7,54 +7,68 @@ import {
 } from "@/components/ui/carousel";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import Header from "../Header/Header";
-// import { FaCirclePlay } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-// import {
-//   DATABASE_ID,
-//   LISTEN_NOW_COLLECTION_ID,
-//   db,
-// } from "@/appwrite/appwriteConfig";
-// import { listen } from "@/Interface";
-// import { useQuery } from "react-query";
+import {
+  DATABASE_ID,
+  LISTEN_NOW_COLLECTION_ID,
+  db,
+} from "@/appwrite/appwriteConfig";
+import { homePagePlaylist } from "@/Interface";
+import { useQuery } from "react-query";
 import Artist from "./Artist";
 import Charts from "./Charts";
 import ListenNo from "./NewListen";
+import { Query } from "appwrite";
 
 export function ListenNowComp() {
-  const [d, setD] = React.useState<boolean>(false);
   const plugin = React.useRef(
     Autoplay({ delay: 7000, stopOnInteraction: true })
   );
-  React.useEffect(() => {
-    const demo = setTimeout(() => {
-      setD(false);
-    }, 3000);
-    return () => clearTimeout(demo);
-  }, []);
-  // const getData = async () => {
-  //   const q = await db.listDocuments(DATABASE_ID, LISTEN_NOW_COLLECTION_ID);
-  //   const data: listen[] = q.documents as unknown as listen[];
-  //   return data;
-  // };
 
-  // const { data } = useQuery<listen[]>("listenNow", getData, {
-  //   refetchOnMount: false,
-  //   staleTime: 10000,
-  //   refetchOnWindowFocus: false,
-  // });
+  const getChart = async () => {
+    const q = await db.listDocuments(DATABASE_ID, LISTEN_NOW_COLLECTION_ID, [
+      Query.equal("type", ["playlist"]),
+    ]);
+    const data: homePagePlaylist[] =
+      q.documents as unknown as homePagePlaylist[];
+    return data;
+  };
+
+  const getArtist = async () => {
+    const q = await db.listDocuments(DATABASE_ID, LISTEN_NOW_COLLECTION_ID, [
+      Query.notEqual("type", ["playlist"]),
+    ]);
+    const data: homePagePlaylist[] =
+      q.documents as unknown as homePagePlaylist[];
+    return data;
+  };
+
+  const { data: chart } = useQuery<homePagePlaylist[]>("chart", getChart, {
+    refetchOnMount: false,
+    staleTime: 5 * 60000,
+    refetchOnWindowFocus: false,
+  });
+
+  const { data: artist } = useQuery<homePagePlaylist[]>("artist", getArtist, {
+    refetchOnMount: false,
+    staleTime: 5 * 60000,
+    refetchOnWindowFocus: false,
+  });
+  console.log(artist);
+
   return (
     <>
-      {!d && <ListenNo />}
-      {d && (
+      {!chart && !artist && <ListenNo />}
+      {chart && artist && (
         <>
           <Header title="Listen Now" />
 
           <div className="flex  flex-col px-4 pb-1">
-            <h1 className="text-start font-semibold text-xl">Suggested</h1>
+            <h1 className="text-start font-semibold text-xl">What's New ?</h1>
           </div>
-          <div className=" flex justify-center mt-2">
+          <div className=" flex justify-center items-center w-full mt-2 px-4">
             <Carousel
               plugins={[Autoplay({ delay: 4000, stopOnInteraction: true })]}
               className="w-[93vw]"
@@ -63,14 +77,14 @@ export function ListenNowComp() {
             >
               <CarouselContent>
                 <CarouselItem>
-                  <Link to={`/library/`}>
+                  <Link to={`/`}>
                     <div className="overflow-hidden h-36 rounded-lg  relative">
                       <AspectRatio ratio={16 / 8}>
                         <LazyLoadImage
                           width="100%"
                           height="100%"
                           effect="blur"
-                          src="https://i.ytimg.com/vi/HfzbN5ky5Co/maxresdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDfD0QuBerCNZRAE9lqJCCSczK3bA"
+                          src="/demo4.jpeg"
                           alt="Image"
                           className="rounded-lg object-cover h-[100%] w-[100%]"
                         />
@@ -82,8 +96,8 @@ export function ListenNowComp() {
             </Carousel>
           </div>
 
-          <Charts />
-          <Artist />
+          <Charts data={chart} />
+          <Artist data={artist} />
         </>
       )}
     </>
