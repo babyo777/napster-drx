@@ -18,7 +18,7 @@
       "url": "https://napster-drx.vercel.app"
     }
   ],
-  "start_url": "./",
+  "start_url": "/?utm_source=standalone&utm_medium=pwa",
   "icons": [
     {
       "src": "assets/icons/icon-48x48.png",
