@@ -29,7 +29,7 @@ export function ListenNowComp() {
   );
   React.useEffect(() => {
     const demo = setTimeout(() => {
-      setD(true);
+      setD(false);
     }, 3000);
     return () => clearTimeout(demo);
   }, []);
