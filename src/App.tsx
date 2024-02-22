@@ -7,15 +7,18 @@ function AppComp() {
   function isiPhone() {
     return (
       window.matchMedia(
-        "(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
-      ).matches || // iPhone 12 Pro
-      window.matchMedia(
-        "(device-width: 360px) and (device-height: 780px) and (-webkit-device-pixel-ratio: 3)"
-      ).matches || // iPhone 12 Mini
-      window.matchMedia(
-        "(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)"
-      ).matches || // iPhone 12
-      window.matchMedia("(max-width: 375px)").matches // Other iPhones with a width up to iPhone 12
+  "(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+).matches || // iPhone 12 Pro
+window.matchMedia(
+  "(device-width: 360px) and (device-height: 780px) and (-webkit-device-pixel-ratio: 3)"
+).matches || // iPhone 12 Mini
+window.matchMedia(
+  "(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)"
+).matches || // iPhone 12
+window.matchMedia(
+  "(device-width: 1080px) and (device-height: 2400px) and (-webkit-device-pixel-ratio: 3)"
+).matches || // Hypothetical 6.58-inch device
+window.matchMedia("(max-width: 375px)").matches // Other iPhones with a width up to iPhone 12
     );
   }
 
