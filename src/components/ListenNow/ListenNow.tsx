@@ -20,11 +20,19 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 // import { useQuery } from "react-query";
 import Artist from "./Artist";
 import Charts from "./Charts";
+import ListenNo from "./NewListen";
 
 export function ListenNowComp() {
+  const [d, setD] = React.useState<boolean>(false);
   const plugin = React.useRef(
     Autoplay({ delay: 7000, stopOnInteraction: true })
   );
+  React.useEffect(() => {
+    const demo = setTimeout(() => {
+      setD(true);
+    }, 3000);
+    return () => clearTimeout(demo);
+  }, []);
   // const getData = async () => {
   //   const q = await db.listDocuments(DATABASE_ID, LISTEN_NOW_COLLECTION_ID);
   //   const data: listen[] = q.documents as unknown as listen[];
@@ -38,40 +46,46 @@ export function ListenNowComp() {
   // });
   return (
     <>
-      <Header title="Listen Now" />
-      <div className="flex  flex-col px-4 pb-1">
-        <h1 className="text-start font-semibold text-xl">Suggested</h1>
-      </div>
-      <div className=" flex justify-center mt-2">
-        <Carousel
-          plugins={[Autoplay({ delay: 4000, stopOnInteraction: true })]}
-          className="w-[93vw]"
-          onMouseEnter={plugin.current.stop}
-          onMouseLeave={plugin.current.reset}
-        >
-          <CarouselContent>
-            <CarouselItem>
-              <Link to={`/library/`}>
-                <div className="overflow-hidden h-36 rounded-lg  relative">
-                  <AspectRatio ratio={16 / 9}>
-                    <LazyLoadImage
-                      width="100%"
-                      height="100%"
-                      effect="blur"
-                      src="/demo3.jpeg"
-                      alt="Image"
-                      className="rounded-lg object-cover h-[100%] w-[100%]"
-                    />
-                  </AspectRatio>
-                </div>
-              </Link>
-            </CarouselItem>
-          </CarouselContent>
-        </Carousel>
-      </div>
+      {!d && <ListenNo />}
+      {d && (
+        <>
+          <Header title="Listen Now" />
 
-      <Charts />
-      <Artist />
+          <div className="flex  flex-col px-4 pb-1">
+            <h1 className="text-start font-semibold text-xl">Suggested</h1>
+          </div>
+          <div className=" flex justify-center mt-2">
+            <Carousel
+              plugins={[Autoplay({ delay: 4000, stopOnInteraction: true })]}
+              className="w-[93vw]"
+              onMouseEnter={plugin.current.stop}
+              onMouseLeave={plugin.current.reset}
+            >
+              <CarouselContent>
+                <CarouselItem>
+                  <Link to={`/library/`}>
+                    <div className="overflow-hidden h-36 rounded-lg  relative">
+                      <AspectRatio ratio={16 / 8}>
+                        <LazyLoadImage
+                          width="100%"
+                          height="100%"
+                          effect="blur"
+                          src="https://i.ytimg.com/vi/HfzbN5ky5Co/maxresdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDfD0QuBerCNZRAE9lqJCCSczK3bA"
+                          alt="Image"
+                          className="rounded-lg object-cover h-[100%] w-[100%]"
+                        />
+                      </AspectRatio>
+                    </div>
+                  </Link>
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
+          </div>
+
+          <Charts />
+          <Artist />
+        </>
+      )}
     </>
   );
 }

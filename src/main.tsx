@@ -12,9 +12,9 @@ import { store } from "./Store/Store.ts";
 import { RememberLib } from "./components/Library/RememberLib.tsx";
 import NotFound from "./components/404.tsx";
 import Check from "./components/Check.tsx";
-import ListenNo from "./components/ListenNow/NewListen.tsx";
 import AlbumPage from "./Artists/AlbumPage.tsx";
 import ArtistPage from "./Artists/ArtistPage.tsx";
+import ListenNow from "./components/ListenNow/ListenNow.tsx";
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <ListenNo />,
+        element: <ListenNow />,
       },
       {
         path: "/share-play",
