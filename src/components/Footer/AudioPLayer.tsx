@@ -165,14 +165,14 @@ function AudioPLayerComp() {
   const handleShare = useCallback(async () => {
     try {
       await navigator.share({
-        title: `${playlist[currentIndex].title} - ${playlist[currentIndex].artists}`,
-        text: `${playlist[currentIndex].title} - ${playlist[currentIndex].artists}`,
-        url: window.location.origin,
+        title: `${playlist[currentIndex].title} - ${playlist[currentIndex].artists[0].name}`,
+        text: `${playlist[currentIndex].title} - ${playlist[currentIndex].artists[0].name}`,
+        url: `${window.location.origin}/${PlaylistOrAlbum}/`,
       });
     } catch (error) {
       console.log(error);
     }
-  }, [currentIndex, playlist]);
+  }, [currentIndex, playlist, PlaylistOrAlbum]);
 
   const handleSeek = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
