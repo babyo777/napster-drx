@@ -8,7 +8,7 @@ function Charts() {
         <h1 className="text-start font-semibold text-xl">Charts</h1>
       </div>
 
-      <div className="flex items-center mt-0.5 overflow-x-scroll  px-4">
+      <div className="flex items-center mt-0.5 overflow-x-scroll  space-x-3 px-4">
         <Link to={"/library/PL4fGSI1pDJn6puJdseH2Rt9sMvt9E2M4i"}>
           <div>
             <div className=" h-36 w-36">
