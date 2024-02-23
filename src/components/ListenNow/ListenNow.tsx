@@ -99,7 +99,7 @@ export function ListenNowComp() {
     <div>
       {
         //@ts-expect-error:error handling
-        isError && PlaybackError.response.data !== "url not provided" && (
+        isError && PlaybackError?.response.data !== "url not provided" && (
           <div className=" fixed  w-full px-4">
             <Alert className=" fade-in bg-red-500 top-4 ">
               <AlertTitle>Playback Server is Down !</AlertTitle>
