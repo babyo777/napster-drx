@@ -77,7 +77,7 @@ export function ListenNowComp() {
               <CarouselContent>
                 <CarouselItem>
                   <Link to={`/`}>
-                    <div className="overflow-hidden h-36 rounded-lg  relative">
+                    <div className="overflow-hidden h-32 rounded-lg  relative">
                       <AspectRatio ratio={16 / 8}>
                         <LazyLoadImage
                           width="100%"
