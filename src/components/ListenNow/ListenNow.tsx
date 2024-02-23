@@ -26,7 +26,7 @@ export function ListenNowComp() {
     return res.data;
   };
 
-  const { data } = useQuery("playbackCheck", PlaybackCheck, {
+  const { data, isError } = useQuery("playbackCheck", PlaybackCheck, {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
     refetchOnMount: false,
@@ -97,6 +97,24 @@ export function ListenNowComp() {
   return (
     <>
       {data && data !== "url not provided" && (
+        <div className=" fixed  w-full px-4">
+          <Alert className=" fade-in bg-red-500 top-4 ">
+            <AlertTitle>Playback Server is Down !</AlertTitle>
+            <AlertDescription>
+              <p>
+                music will not play for a while{" "}
+                <span
+                  className={`${report ? "text-zinc-300" : ""}`}
+                  onClick={handleReport}
+                >
+                  {report ? "@reported" : "@report here"}
+                </span>
+              </p>
+            </AlertDescription>
+          </Alert>
+        </div>
+      )}
+      {isError && (
         <div className=" fixed  w-full px-4">
           <Alert className=" fade-in bg-red-500 top-4 ">
             <AlertTitle>Playback Server is Down !</AlertTitle>
