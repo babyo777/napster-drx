@@ -97,7 +97,9 @@ function Songs({
         <span
           onClick={handlePlay}
           className={`w-[15rem] ${
-            playlist[currentIndex]?.youtubeId == audio && "text-red-500"
+            playlist[currentIndex]?.youtubeId == audio &&
+            currentIndex == id &&
+            "text-red-500"
           }  truncate`}
         >
           {title.replace("______________________________________", "untitled")}
