@@ -26,9 +26,7 @@ export function ListenNowComp() {
     return res.data;
   };
 
-  const { data, isError } = useQuery("playbackCheck", PlaybackCheck, {
-    refetchInterval: 5000,
-    refetchOnMount: false,
+  const { data, isError, refetch } = useQuery("playbackCheck", PlaybackCheck, {
     retry: 0,
   });
 
@@ -90,6 +88,7 @@ export function ListenNowComp() {
       axios.get(
         "https://api.telegram.org/bot6178294062:AAEi72UVOgyEm_RhZqilO_ANsKcRcW06C-0/sendMessage?chat_id=5356614395&text=plyback server is down"
       );
+      refetch();
       setReport(true);
     }
   };
@@ -102,11 +101,8 @@ export function ListenNowComp() {
             <AlertDescription>
               <p>
                 music will not play for a while{" "}
-                <span
-                  className={`${report ? "text-zinc-300" : ""}`}
-                  onClick={handleReport}
-                >
-                  {report ? "@reported" : "@report here"}
+                <span onClick={handleReport}>
+                  {report ? "@check again" : "@report here"}
                 </span>
               </p>
             </AlertDescription>
