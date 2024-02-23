@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Tabs from "./components/Footer/Tabs";
 import { Outlet } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { DATABASE_ID, ID, INSIGHTS, db } from "./appwrite/appwriteConfig";
 
 function AppComp() {
   function ScreenSizeCheck() {
@@ -13,6 +14,14 @@ function AppComp() {
   useEffect(() => {
     if (!localStorage.getItem("uid")) {
       localStorage.setItem("uid", uuidv4());
+      try {
+        db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
+          song: "user",
+          user: localStorage.getItem("uid") || "error",
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   }, []);
 
