@@ -62,6 +62,7 @@ export function ListenNowComp() {
 
   const getSuggested = async () => {
     const q = await db.listDocuments(DATABASE_ID, LISTEN_NOW_COLLECTION_ID, [
+      Query.orderDesc("$createdAt"),
       Query.equal("type", ["napster"]),
     ]);
     const data: homePagePlaylist[] =
