@@ -194,7 +194,7 @@ function AudioPLayerComp() {
   return (
     <Drawer>
       <DrawerTrigger>
-        <div className="items-center fade-in flex space-x-2 w-[68dvw]    px-2.5">
+        <div className="items-center fade-in flex space-x-2 w-[68dvw]   px-2.5">
           <div className=" h-11 w-11 overflow-hidden rounded-xl">
             <LazyLoadImage
               height="100%"
@@ -206,12 +206,12 @@ function AudioPLayerComp() {
             />
           </div>
           <div className="flex flex-col text-start">
-            <span className=" text-sm truncate w-48 font-semibold">
+            <p className=" text-sm truncate w-[50vw] font-semibold">
               {playlist[currentIndex].title}
-            </span>
-            <span className=" text-xs w-32 truncate">
+            </p>
+            <p className=" text-xs w-[30vw] truncate">
               {playlist[currentIndex].artists[0]?.name}
-            </span>
+            </p>
           </div>
         </div>
       </DrawerTrigger>

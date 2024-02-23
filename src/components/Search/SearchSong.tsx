@@ -91,7 +91,7 @@ function SearchSong({
           />
         </AspectRatio>
       </div>
-      <div className="flex  flex-col pl-1 text-start w-[17rem]">
+      <div className="flex  flex-col pl-1 text-start w-[70dvw]">
         <p
           onClick={handlePlay}
           className={`w-[15rem] ${
@@ -101,7 +101,7 @@ function SearchSong({
           {title}
         </p>
         <Link to={`/artist/${artistId}`}>
-          <p className="-mt-0.5 underline text-zinc-400 text-xs w-[11rem] truncate">
+          <p className="-mt-0.5 underline text-zinc-400 text-xs w-[40dvw]   truncate">
             {artist[0].name}
           </p>
         </Link>

@@ -63,15 +63,13 @@ export function Player() {
                 </AspectRatio>
               </div>
               <div className="flex flex-col text-start">
-                <span className="truncate w-44  font-semibold">
-                  Not Playing
-                </span>
+                <p className="truncate w-44   font-semibold">Not Playing</p>
               </div>
             </div>
             {isLoading ? (
               <Loader />
             ) : (
-              <div className="flex fade-in space-x-3">
+              <div className="flex fade-in space-x-3 pr-1">
                 <IoPlay className="h-7 w-7" />
 
                 <TbPlayerTrackNextFilled
@@ -90,7 +88,7 @@ export function Player() {
         ) : (
           <>
             {isPlaylist && isPlaylist.length > 0 && (
-              <div className="flex fade-in space-x-3">
+              <div className="flex fade-in space-x-3  pr-1">
                 {isPlaying ? (
                   <FaPause className="h-7 w-7" onClick={handlePlay} />
                 ) : (
