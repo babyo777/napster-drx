@@ -16,6 +16,11 @@ interface artists {
   id: string;
 }
 
+interface recentSearch {
+  song: string;
+  user: string;
+}
+
 interface SearchPlaylist {
   playlistId: string;
   title: string;
@@ -75,6 +80,7 @@ export type {
   trending,
   savedPlaylist,
   AlbumSongs,
+  recentSearch,
   albums,
   ArtistDetails,
   suggestedArtists,

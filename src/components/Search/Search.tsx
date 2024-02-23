@@ -4,19 +4,23 @@ import Header from "../Header/Header";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { SearchApi } from "@/API/api";
-import { playlistSongs, trending } from "@/Interface";
+import { playlistSongs, recentSearch, trending } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { setSearch } from "@/Store/Player";
+import { IoIosTrendingUp } from "react-icons/io";
+import { GoArrowUpRight } from "react-icons/go";
 import {
   DATABASE_ID,
+  INSIGHTS,
   TRENDING_COLLECTION_ID,
   db,
 } from "@/appwrite/appwriteConfig";
 import { Skeleton } from "../ui/skeleton";
 import SearchSong from "./SearchSong";
+import { Query } from "appwrite";
 
 function SearchComp() {
   const searchQuery = useSelector(
@@ -29,6 +33,22 @@ function SearchComp() {
     const q = await db.listDocuments(DATABASE_ID, TRENDING_COLLECTION_ID);
     return q.documents as unknown as trending[];
   };
+
+  const loadRecentSearch = async () => {
+    const r = await db.listDocuments(DATABASE_ID, INSIGHTS, [
+      Query.equal("user", [localStorage.getItem("uid") || ""]),
+    ]);
+    const p = r.documents as unknown as recentSearch[];
+    return p;
+  };
+  const { data: RecentSearch } = useQuery<recentSearch[]>(
+    "recentSearch",
+    loadRecentSearch,
+    {
+      refetchOnWindowFocus: false,
+      keepPreviousData: true,
+    }
+  );
 
   const query = async () => {
     if (searchQuery.length > 0) {
@@ -94,6 +114,25 @@ function SearchComp() {
             </div>
           )}
 
+          {RecentSearch && RecentSearch.length > 0 && (
+            <>
+              <h3 className="text-xs text-zinc-500 pt-2 pb-1 ">
+                Recently searched
+              </h3>
+              <div className="flex flex-col space-y-2.5  py-2.5">
+                {RecentSearch.map((recentSearch, i) => (
+                  <div key={recentSearch.user + recentSearch.song + i}>
+                    <p className=" flex items-center  text-sm  gap-2">
+                      <GoArrowUpRight />
+                      {recentSearch.song}
+                    </p>
+                    <div className=" h-[.05rem] w-full bg-white/30 mt-3"></div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
           {searchQuery.length == 0 && (
             <>
               <h3 className="text-xs text-zinc-500 pt-2 pb-1 ">Trending now</h3>
@@ -114,7 +153,10 @@ function SearchComp() {
                       search(0);
                     }}
                   >
-                    <span>{trend.song}</span>
+                    <p className=" flex items-center  gap-2">
+                      <IoIosTrendingUp />
+                      {trend.song}
+                    </p>
                     <div className=" h-[.05rem] w-full bg-white/30 mt-3"></div>
                   </div>
                 ))}
