@@ -42,7 +42,9 @@ function Check() {
     setCheck(false);
   }, []);
 
-  if (isDesktop) {
+  const isiPad = navigator.userAgent.match(/iPad/i) !== null;
+
+  if (isDesktop || isiPad) {
     return <Desktop />;
   }
   if (
