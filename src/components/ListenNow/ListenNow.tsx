@@ -45,7 +45,7 @@ export function ListenNowComp() {
 
   React.useEffect(() => {
     if (data !== "url not provided") {
-      localStorage.setItem("report", "t");
+      localStorage.removeItem("report");
     }
   }, [data]);
 
