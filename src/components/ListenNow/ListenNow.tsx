@@ -118,7 +118,9 @@ export function ListenNowComp() {
                   }`}
                   onClick={handleReport}
                 >
-                  @report here
+                  {localStorage.getItem("report") || report
+                    ? "@reported"
+                    : "@report here"}
                 </span>
               </p>
             </AlertDescription>
