@@ -30,19 +30,16 @@ function Check() {
   };
 
   useEffect(() => {
-    const c = setTimeout(() => {
-      const isDesktop = window.innerWidth > 786;
-      const isStandalone = window.matchMedia(
-        "(display-mode: standalone)"
-      ).matches;
-      const hardwareConcurrency = navigator.hardwareConcurrency || null;
-      setIsDesktop(isDesktop);
-      setHardwareConcurrency(hardwareConcurrency);
-      setIsStandalone(isStandalone);
-      setGraphic(checkGpuCapabilities());
-      setCheck(false);
-    }, 1100);
-    return () => clearTimeout(c);
+    const isDesktop = window.innerWidth > 786;
+    const isStandalone = window.matchMedia(
+      "(display-mode: standalone)"
+    ).matches;
+    const hardwareConcurrency = navigator.hardwareConcurrency || null;
+    setIsDesktop(isDesktop);
+    setHardwareConcurrency(hardwareConcurrency);
+    setIsStandalone(isStandalone);
+    setGraphic(checkGpuCapabilities());
+    setCheck(false);
   }, []);
 
   if (isDesktop) {
