@@ -114,24 +114,26 @@ function SearchComp() {
             </div>
           )}
 
-          {RecentSearch && RecentSearch.length > 0 && (
-            <>
-              <h3 className="text-xs text-zinc-500 pt-2 pb-1 ">
-                Recent Search
-              </h3>
-              <div className="flex flex-col space-y-2.5  py-2.5">
-                {RecentSearch.map((recentSearch, i) => (
-                  <div key={recentSearch.user + recentSearch.song + i}>
-                    <p className=" flex items-center  text-sm  gap-2">
-                      <GoArrowUpRight />
-                      {recentSearch.song}
-                    </p>
-                    <div className=" h-[.05rem] w-full bg-white/30 mt-3"></div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
+          {RecentSearch &&
+            RecentSearch.length > 0 &&
+            searchQuery.length <= 0 && (
+              <>
+                <h3 className="text-xs text-zinc-500 pt-2 pb-1 ">
+                  Recent Search
+                </h3>
+                <div className="flex flex-col space-y-2.5  py-2.5">
+                  {RecentSearch.map((recentSearch, i) => (
+                    <div key={recentSearch.user + recentSearch.song + i}>
+                      <p className=" flex items-center  text-sm  gap-2">
+                        <GoArrowUpRight />
+                        {recentSearch.song}
+                      </p>
+                      <div className=" h-[.05rem] w-full bg-white/30 mt-3"></div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
 
           {searchQuery.length == 0 && (
             <>
