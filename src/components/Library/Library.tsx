@@ -154,7 +154,7 @@ function LibraryComp() {
               <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
                 {(pDetails && pDetails[0]?.title) || "Unknown"}
               </h1>
-              <div className="flex space-x-4 py-1 justify-center  items-center w-full">
+              <div className="flex space-x-4 py-1 px-2 justify-center  items-center w-full">
                 <Button
                   onClick={handlePlay}
                   type="button"
