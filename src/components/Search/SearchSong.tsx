@@ -94,7 +94,7 @@ function SearchSong({
       <div className="flex  flex-col pl-1 text-start w-[70dvw]">
         <p
           onClick={handlePlay}
-          className={`w-[15rem] ${
+          className={`w-[60dvw]${
             playlist[currentIndex]?.youtubeId == audio && "text-red-500"
           }  truncate`}
         >
