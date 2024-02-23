@@ -3,8 +3,13 @@ import { Input } from "@/components/ui/input";
 import Header from "../Header/Header";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { SearchApi } from "@/API/api";
-import { playlistSongs, recentSearch, trending } from "@/Interface";
+import { SearchApi, SearchArtist } from "@/API/api";
+import {
+  playlistSongs,
+  recentSearch,
+  suggestedArtists,
+  trending,
+} from "@/Interface";
 import Loader from "../Loaders/Loader";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +26,7 @@ import {
 import { Skeleton } from "../ui/skeleton";
 import SearchSong from "./SearchSong";
 import { Query } from "appwrite";
+import { ArtistSearch } from "./artistSearch";
 
 function SearchComp() {
   const searchQuery = useSelector(
@@ -69,6 +75,41 @@ function SearchComp() {
     staleTime: 5 * 60000,
     refetchOnMount: false,
   });
+
+  const artists = async () => {
+    if (searchQuery.length > 0) {
+      const q = await axios.get(`${SearchArtist}${searchQuery}`);
+      return q.data as suggestedArtists[];
+    } else {
+      return [];
+    }
+  };
+  const { data: artistsData, refetch: artistsRefetch } = useQuery<
+    suggestedArtists[]
+  >(["artistsSearch", searchQuery], artists, {
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60000,
+    refetchOnMount: false,
+  });
+
+  // const playlists = async () => {
+  //   if (searchQuery.length > 0) {
+  //     const q = await axios.get(`${SearchPlaylistApi}${searchQuery}`);
+  //     console.log(q.data);
+
+  //     return q.data as SearchPlaylist[];
+  //   } else {
+  //     return [];
+  //   }
+  // };
+  // const { data: playlistsData, refetch: playlistsRefetch } = useQuery<
+  //   SearchPlaylist[]
+  // >(["PlaylistSearch", searchQuery], playlists, {
+  //   refetchOnWindowFocus: false,
+  //   staleTime: 5 * 60000,
+  //   refetchOnMount: false,
+  // });
+
   const { data: trend, isLoading: isTrend } = useQuery<trending[]>(
     "trending",
     trending,
@@ -84,18 +125,22 @@ function SearchComp() {
       s.current.value = searchQuery;
     }
   }, [searchQuery]);
+
   const search = useCallback(
     (time: number) => {
       s.current?.value.trim() == "" && dispatch(setSearch(""));
       const q = setTimeout(() => {
         if (s.current?.value) {
           s.current.value.length > 1 &&
-            (refetch(), dispatch(setSearch(s.current?.value || "")));
+            (refetch(),
+            artistsRefetch(),
+            // playlistsRefetch(),
+            dispatch(setSearch(s.current?.value || "")));
         }
       }, time);
       return () => clearTimeout(q);
     },
-    [refetch, dispatch]
+    [refetch, dispatch, artistsRefetch]
   );
 
   return (
@@ -172,9 +217,59 @@ function SearchComp() {
                 ))}
             </>
           )}
+
           {music && !isLoading && searchQuery.length > 0 && (
             <div className="h-[63vh] overflow-auto">
-              {music.map((r) => (
+              {music.slice(0, 5).map((r) => (
+                <SearchSong
+                  artistId={r.artists[0].id}
+                  audio={r.youtubeId}
+                  id={r.youtubeId}
+                  key={r.youtubeId}
+                  title={r.title}
+                  artist={r.artists}
+                  cover={r.thumbnailUrl}
+                />
+              ))}
+              {artistsData && artistsData.length > 0 && (
+                <div>
+                  {artistsData.slice(0, 4).map((a, i) => (
+                    <ArtistSearch
+                      key={a.name + a.artistId + i}
+                      name={a.name}
+                      artistId={a.artistId}
+                      thumbnailUrl={a.thumbnailUrl}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {music.slice(7, 10).map((r) => (
+                <SearchSong
+                  artistId={r.artists[0].id}
+                  audio={r.youtubeId}
+                  id={r.youtubeId}
+                  key={r.youtubeId}
+                  title={r.title}
+                  artist={r.artists}
+                  cover={r.thumbnailUrl}
+                />
+              ))}
+
+              {artistsData && artistsData.length > 0 && (
+                <div>
+                  {artistsData.slice(5, artists.length - 1).map((a, i) => (
+                    <ArtistSearch
+                      key={a.name + a.artistId + i}
+                      name={a.name}
+                      artistId={a.artistId}
+                      thumbnailUrl={a.thumbnailUrl}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {music.slice(11, music.length - 1).map((r) => (
                 <SearchSong
                   artistId={r.artists[0].id}
                   audio={r.youtubeId}

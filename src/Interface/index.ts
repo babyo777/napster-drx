@@ -25,7 +25,7 @@ interface recentSearch {
 interface SearchPlaylist {
   playlistId: string;
   title: string;
-  totalSongs: number;
+  totalSongs?: number;
   thumbnailUrl: string;
 }
 
@@ -73,6 +73,7 @@ interface savedPlaylist {
   link: string;
   for: string;
 }
+
 export type {
   playlistSongs,
   SearchPlaylist,

@@ -13,7 +13,7 @@ const getArtistsDetailsByName = `${mainApi}/gabyname/`;
 
 const SearchPlaylistApi = `${mainApi}/p/`;
 
-const SearchArtist = `${mainApi}is/a/`;
+const SearchArtist = `${mainApi}/a/`;
 
 const GetArtistDetails = `${mainApi}/ga/`;
 
