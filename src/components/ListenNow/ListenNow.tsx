@@ -43,12 +43,6 @@ export function ListenNowComp() {
     return data;
   };
 
-  React.useEffect(() => {
-    if (data !== "url not provided") {
-      localStorage.removeItem("report");
-    }
-  }, [data]);
-
   const getArtist = async () => {
     const q = await db.listDocuments(DATABASE_ID, LISTEN_NOW_COLLECTION_ID, [
       Query.orderDesc("$createdAt"),
@@ -97,7 +91,6 @@ export function ListenNowComp() {
       axios.get(
         "https://api.telegram.org/bot6178294062:AAEi72UVOgyEm_RhZqilO_ANsKcRcW06C-0/sendMessage?chat_id=5356614395&text=plyback server is down"
       );
-      localStorage.setItem("report", "t");
       setReport(true);
     }
   };
@@ -111,16 +104,10 @@ export function ListenNowComp() {
               <p>
                 music will not play for a while{" "}
                 <span
-                  className={`${
-                    localStorage.getItem("report") || report
-                      ? "text-zinc-300"
-                      : ""
-                  }`}
+                  className={`${report ? "text-zinc-300" : ""}`}
                   onClick={handleReport}
                 >
-                  {localStorage.getItem("report") || report
-                    ? "@reported"
-                    : "@report here"}
+                  {report ? "@reported" : "@report here"}
                 </span>
               </p>
             </AlertDescription>
