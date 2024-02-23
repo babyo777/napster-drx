@@ -7,13 +7,13 @@ function Artist({ data }: { data: homePagePlaylist[] }) {
     <>
       {data && (
         <>
-          <div className="flex flex-col px-4 py-2 pt-2">
+          <div className="flex flex-col px-4 py-2 ">
             <h1 className="text-start font-semibold text-xl">Top Artist</h1>
           </div>
           <div className="flex  space-x-4 px-4 overflow-x-auto pb-40  items-center">
             {data.map((artist) => (
               <Link to={`/artist/${artist.url}`} key={artist.url}>
-                <div className="flex items-center mt-1 overflow-x-scroll  ">
+                <div className="flex items-center mt-0.5 overflow-x-scroll  ">
                   <div>
                     <div className=" h-20 w-20 mb-1">
                       <LazyLoadImage
