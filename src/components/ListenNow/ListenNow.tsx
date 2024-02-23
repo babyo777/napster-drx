@@ -27,8 +27,7 @@ export function ListenNowComp() {
   };
 
   const { data, isError } = useQuery("playbackCheck", PlaybackCheck, {
-    refetchOnWindowFocus: false,
-    staleTime: Infinity,
+    refetchInterval: 5000,
     refetchOnMount: false,
     retry: 0,
   });
