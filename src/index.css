@@ -76,6 +76,18 @@
   }
 }
 
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
 body {
   font-family: "Inter" sans-serif;
 }
@@ -124,11 +136,4 @@ input[type="range"]::-ms-thumb {
   height: 5px;
   background: white;
   box-shadow: -405px 0 0 400px gray;
-}
-
-*::-webkit-scrollbar {
-  display: none;
-}
-*::-webkit-scrollbar-track {
-  display: none;
 }

@@ -56,19 +56,18 @@ export function ListenNowComp() {
     staleTime: 5 * 60000,
     refetchOnWindowFocus: false,
   });
-  console.log(artist);
 
   return (
-    <>
+    <div>
       {!chart && !artist && <ListenNo />}
       {chart && artist && (
         <>
           <Header title="Listen Now" />
 
-          <div className="flex  flex-col px-4 pb-1">
+          <div className="flex  flex-col px-4 pb-1 no-scrollbar">
             <h1 className="text-start font-semibold text-xl">What's New ?</h1>
           </div>
-          <div className=" flex justify-center items-center w-full mt-2 px-4">
+          <div className=" flex justify-center items-center w-full mt-2 px-4 no-scrollbar">
             <Carousel
               plugins={[Autoplay({ delay: 4000, stopOnInteraction: true })]}
               className="w-[93vw]"
@@ -100,7 +99,7 @@ export function ListenNowComp() {
           <Artist data={artist} />
         </>
       )}
-    </>
+    </div>
   );
 }
 
