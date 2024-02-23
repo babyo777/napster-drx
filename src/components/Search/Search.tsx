@@ -45,6 +45,7 @@ function SearchComp() {
     "recentSearch",
     loadRecentSearch,
     {
+      staleTime: 1000,
       refetchOnWindowFocus: false,
       keepPreviousData: true,
     }
