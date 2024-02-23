@@ -14,6 +14,7 @@ import {
 } from "@/Store/Player";
 import { artists, playlistSongs } from "@/Interface";
 import { Link } from "react-router-dom";
+import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 function SearchSong({
   title,
   artist,
@@ -34,6 +35,14 @@ function SearchSong({
     (state: RootState) => state.musicReducer.isPlaying
   );
   const handlePlay = useCallback(() => {
+    try {
+      db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
+        song: title,
+        user: localStorage.getItem("uid") || "error",
+      });
+    } catch (error) {
+      console.log(error);
+    }
     const m: playlistSongs = {
       youtubeId: id,
       title: title,
