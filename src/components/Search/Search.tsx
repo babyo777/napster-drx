@@ -27,6 +27,7 @@ import { Skeleton } from "../ui/skeleton";
 import SearchSong from "./SearchSong";
 import { Query } from "appwrite";
 import { ArtistSearch } from "./artistSearch";
+import { MdCancel } from "react-icons/md";
 
 function SearchComp() {
   const searchQuery = useSelector(
@@ -58,6 +59,9 @@ function SearchComp() {
     }
   );
 
+  const clearSearchQuery = useCallback(() => {
+    dispatch(setSearch(""));
+  }, [dispatch]);
   const query = async () => {
     if (searchQuery.length > 0) {
       const q = await axios.get(`${SearchApi}${searchQuery}`);
@@ -146,14 +150,20 @@ function SearchComp() {
   return (
     <>
       <Header title="Search" />
-      <div className="flex flex-col fade-in items-center space-x-1 px-4">
+      <div className="flex flex-col   fade-in items-center space-x-1 px-4">
         <Input
           ref={s}
           type="text"
           onChange={() => search(1100)}
           placeholder="Artists, Songs"
-          className=" shadow-none rounded-lg"
+          className=" relative shadow-none rounded-lg"
         />
+        {searchQuery.length > 0 && (
+          <MdCancel
+            onClick={clearSearchQuery}
+            className=" absolute fade-in right-6 mt-2 h-5 w-5"
+          />
+        )}
         <div className="flex flex-col  text-start w-full py-2">
           {isLoading && (
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
