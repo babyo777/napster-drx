@@ -19,8 +19,8 @@ import { homePagePlaylist } from "@/Interface";
 import { useQuery } from "react-query";
 import Artist from "./Artist";
 import Charts from "./Charts";
-import ListenNo from "./NewListen";
 import { Query } from "appwrite";
+import { Skeleton } from "../ui/skeleton";
 
 export function ListenNowComp() {
   const plugin = React.useRef(
@@ -29,6 +29,7 @@ export function ListenNowComp() {
 
   const getChart = async () => {
     const q = await db.listDocuments(DATABASE_ID, LISTEN_NOW_COLLECTION_ID, [
+      Query.orderDesc("$createdAt"),
       Query.equal("type", ["playlist"]),
     ]);
     const data: homePagePlaylist[] =
@@ -38,6 +39,7 @@ export function ListenNowComp() {
 
   const getArtist = async () => {
     const q = await db.listDocuments(DATABASE_ID, LISTEN_NOW_COLLECTION_ID, [
+      Query.orderDesc("$createdAt"),
       Query.notEqual("type", ["playlist"]),
     ]);
     const data: homePagePlaylist[] =
@@ -59,7 +61,33 @@ export function ListenNowComp() {
 
   return (
     <div>
-      {!chart && !artist && <ListenNo />}
+      {!chart && !artist && (
+        <>
+          <Header title="Listen Now" />
+          <div className="flex px-4  space-x-4 items-center w-full ">
+            <Skeleton className="w-[50vw] h-4 rounded-md bg-zinc-500" />
+          </div>
+          <div className="flex px-4 flex-col space-y-4 items-start w-full mt-5">
+            <Skeleton className="w-[90vw] h-36 rounded-md bg-zinc-500" />
+          </div>
+          <div className="flex px-4  space-x-4 items-center w-full mt-5">
+            <Skeleton className="w-[40vw] h-4 rounded-md bg-zinc-500" />
+          </div>
+          <div className="flex px-4 justify-center space-x-4 items-center w-full mt-5">
+            <Skeleton className="w-[50vw] h-36 rounded-md bg-zinc-500" />
+            <Skeleton className="w-[50vw] h-36 rounded-md bg-zinc-500" />
+          </div>
+          <div className="flex px-4  space-x-4 items-center w-full mt-5">
+            <Skeleton className="w-[30vw] h-4 rounded-md bg-zinc-500" />
+          </div>
+
+          <div className="flex px-4  space-x-4 items-start w-full mt-5">
+            <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
+            <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
+            <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
+          </div>
+        </>
+      )}
       {chart && artist && (
         <>
           <Header title="Listen Now" />
