@@ -117,7 +117,7 @@ function SearchComp() {
           {RecentSearch && RecentSearch.length > 0 && (
             <>
               <h3 className="text-xs text-zinc-500 pt-2 pb-1 ">
-                Recently searched
+                Recent Search
               </h3>
               <div className="flex flex-col space-y-2.5  py-2.5">
                 {RecentSearch.map((recentSearch, i) => (
