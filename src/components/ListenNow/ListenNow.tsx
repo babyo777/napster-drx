@@ -53,6 +53,7 @@ export function ListenNowComp() {
     const q = await db.listDocuments(DATABASE_ID, LISTEN_NOW_COLLECTION_ID, [
       Query.orderDesc("$createdAt"),
       Query.notEqual("type", ["playlist"]),
+      Query.notEqual("type", ["napster"]),
     ]);
     const data: homePagePlaylist[] =
       q.documents as unknown as homePagePlaylist[];
