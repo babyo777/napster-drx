@@ -123,10 +123,7 @@ export function ListenNowComp() {
             <AlertDescription>
               <p>
                 music will not play for a while{" "}
-                <span
-                  className={`${report ? "text-zinc-300" : ""}`}
-                  onClick={handleReport}
-                >
+                <span onClick={handleReport}>
                   {report ? "@check again" : "@report here"}
                 </span>
               </p>
