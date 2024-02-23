@@ -31,6 +31,8 @@ function ArtistSearch({ name, artistId, thumbnailUrl }: suggestedArtists) {
           <p className="-mt-0.5 underline text-zinc-400 text-xs w-[40dvw]   truncate">
             {name}
           </p>
+          <p className="h-2 w-5"></p>
+          <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
         </div>
       </Link>
       <Link to={`/artist/${artistId}`}>
