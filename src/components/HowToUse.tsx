@@ -24,9 +24,7 @@ function HowToUse() {
       </DialogTrigger>
       <DialogContent className="w-[87vw] rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="font-extrabold  text-lg">
-            How to use?
-          </DialogTitle>
+          <DialogTitle className="font-extrabold  text-lg">Pro Tip</DialogTitle>
         </DialogHeader>
         <DialogDescription></DialogDescription>
         <div className="m">
