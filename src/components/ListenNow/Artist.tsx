@@ -10,7 +10,7 @@ function Artist({ data }: { data: homePagePlaylist[] }) {
           <div className="flex flex-col px-4 py-2 pt-3 ">
             <h1 className="text-start font-semibold text-xl">Top Artist</h1>
           </div>
-          <div className="flex  space-x-4 px-4 overflow-x-auto items-center">
+          <div className="flex  space-x-4 px-4 overflow-x-auto pb-4 items-center">
             {data.map((artist) => (
               <Link to={`/artist/${artist.url}`} key={artist.url}>
                 <div className="flex items-center mt-1 overflow-x-scroll py-1 ">
