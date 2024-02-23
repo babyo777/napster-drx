@@ -91,9 +91,9 @@ export function ListenNowComp() {
       axios.get(
         "https://api.telegram.org/bot6178294062:AAEi72UVOgyEm_RhZqilO_ANsKcRcW06C-0/sendMessage?chat_id=5356614395&text=plyback server is down"
       );
-      refetch();
       setReport(true);
     }
+    refetch();
   };
   return (
     <>
@@ -102,12 +102,12 @@ export function ListenNowComp() {
           <Alert className=" fade-in bg-red-500 top-4 ">
             <AlertTitle>Playback Server is Down !</AlertTitle>
             <AlertDescription>
-              <p>
+              <span>
                 music will not play for a while{" "}
-                <span onClick={handleReport}>
+                <p onClick={handleReport}>
                   {report ? "@check again" : "@report here"}
-                </span>
-              </p>
+                </p>
+              </span>
             </AlertDescription>
           </Alert>
         </div>
@@ -123,7 +123,7 @@ export function ListenNowComp() {
                   className={`${report ? "text-zinc-300" : ""}`}
                   onClick={handleReport}
                 >
-                  {report ? "@reported" : "@report here"}
+                  {report ? "@check again" : "@report here"}
                 </span>
               </p>
             </AlertDescription>
