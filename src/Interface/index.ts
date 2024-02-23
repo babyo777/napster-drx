@@ -17,6 +17,7 @@ interface artists {
 }
 
 interface recentSearch {
+  $id: string;
   song: string;
   user: string;
 }

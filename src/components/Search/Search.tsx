@@ -122,9 +122,15 @@ function SearchComp() {
                   Recent Search
                 </h3>
                 <div className="flex flex-col space-y-2.5  py-2.5">
-                  {RecentSearch.map((recentSearch, i) => (
-                    <div key={recentSearch.user + recentSearch.song + i}>
-                      <p className=" flex items-center  text-sm  gap-2">
+                  {RecentSearch.slice(0, 4).map((recentSearch) => (
+                    <div
+                      key={recentSearch.$id}
+                      onClick={() => {
+                        s.current && (s.current.value = recentSearch.song);
+                        search(0);
+                      }}
+                    >
+                      <p className=" flex items-center  w-[90dvw]  text-sm  gap-2">
                         <GoArrowUpRight />
                         {recentSearch.song}
                       </p>
@@ -155,7 +161,7 @@ function SearchComp() {
                       search(0);
                     }}
                   >
-                    <p className=" flex items-center  gap-2">
+                    <p className=" flex w-[90dvw] items-center gap-2">
                       <IoIosTrendingUp />
                       {trend.song}
                     </p>
