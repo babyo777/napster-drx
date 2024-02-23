@@ -82,7 +82,10 @@ function AudioPLayerComp() {
       artist: playlist[currentIndex].artists[0]?.name,
       artwork: [
         {
-          src: playlist[currentIndex].thumbnailUrl,
+          src: playlist[currentIndex].thumbnailUrl.replace(
+            "w120-h120",
+            "w1080-h1080"
+          ),
         },
       ],
     });
@@ -223,7 +226,10 @@ function AudioPLayerComp() {
                 <LazyLoadImage
                   height="100%"
                   width="100%"
-                  src={playlist[currentIndex].thumbnailUrl}
+                  src={playlist[currentIndex].thumbnailUrl.replace(
+                    "w120-h120",
+                    "w1080-h1080"
+                  )}
                   alt="Image"
                   effect="opacity"
                   visibleByDefault
