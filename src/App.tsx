@@ -16,7 +16,7 @@ function AppComp() {
       localStorage.setItem("uid", uuidv4());
       try {
         db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
-          song: "user",
+          song: "new user",
           user: localStorage.getItem("uid") || "error",
         });
       } catch (error) {
