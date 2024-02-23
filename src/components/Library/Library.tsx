@@ -138,7 +138,12 @@ function LibraryComp() {
               width="100%"
               height="100%"
               src={
-                (pDetails && pDetails[0]?.thumbnailUrl) || data[0].thumbnailUrl
+                (pDetails &&
+                  pDetails[0]?.thumbnailUrl.replace(
+                    "w120-h120",
+                    "w1080-h1080"
+                  )) ||
+                data[0].thumbnailUrl.replace("w120-h120", "w1080-h1080")
               }
               alt="Image"
               loading="lazy"

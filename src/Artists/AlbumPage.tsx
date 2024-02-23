@@ -112,7 +112,7 @@ function AlbumPageComp() {
             <img
               width="100%"
               height="100%"
-              src={data[0].thumbnailUrl}
+              src={data[0].thumbnailUrl.replace("w120-h120", "w1080-h1080")}
               alt="Image"
               loading="lazy"
               className="object-cover opacity-80 h-[100%] w-[100%]"
