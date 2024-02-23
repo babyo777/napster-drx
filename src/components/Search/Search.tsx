@@ -36,6 +36,7 @@ function SearchComp() {
 
   const loadRecentSearch = async () => {
     const r = await db.listDocuments(DATABASE_ID, INSIGHTS, [
+      Query.orderDesc("$createdAt"),
       Query.equal("user", [localStorage.getItem("uid") || ""]),
     ]);
     const p = r.documents as unknown as recentSearch[];
