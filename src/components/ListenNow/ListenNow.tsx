@@ -152,10 +152,10 @@ export function ListenNowComp() {
         <>
           <Header title="Listen Now" />
 
-          <div className="flex  flex-col px-4 pb-1 no-scrollbar">
+          <div className="flex  flex-col px-4 pb-1">
             <h1 className="text-start font-semibold text-xl">What's New ?</h1>
           </div>
-          <div className=" flex justify-center items-center w-full mt-2 px-4 no-scrollbar">
+          <div className=" flex justify-center items-center w-full mt-2 px-4">
             <Carousel
               plugins={[Autoplay({ delay: 4000, stopOnInteraction: true })]}
               className="w-[93vw]"

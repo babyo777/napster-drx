@@ -143,9 +143,7 @@ function ArtistPage() {
       {data && data.suggestedArtists.length > 0 && (
         <div className="flex flex-col">
           <div className="flex  px-4 py-2 pt-3 ">
-            <h1 className="text-start font-semibold text-xl">
-              Suggested Artist
-            </h1>
+            <h1 className="text-start font-semibold text-xl">You might like</h1>
           </div>
           <div className="flex overflow-x-scroll items-center">
             {data.suggestedArtists.map((s) => (
