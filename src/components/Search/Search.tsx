@@ -151,7 +151,7 @@ function SearchComp() {
           ref={s}
           type="text"
           onChange={() => search(1100)}
-          placeholder="Search"
+          placeholder="Artists, Songs"
           className=" shadow-none rounded-lg"
         />
         <div className="flex flex-col  text-start w-full py-2">
