@@ -40,7 +40,9 @@ export function ListenNowComp() {
     "playbackCheck",
     PlaybackCheck,
     {
-      staleTime: 1000,
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+      refetchOnMount: false,
       retry: 0,
     }
   );
