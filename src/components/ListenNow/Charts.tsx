@@ -10,7 +10,7 @@ const Charts: React.FC<{ data: homePagePlaylist[] }> = ({ data }) => {
           <div className="flex  flex-col px-4 py-2 pt-3">
             <h1 className="text-start font-semibold text-xl">Charts</h1>
           </div>
-          <div className="flex  space-x-4 px-4 overflow-x-auto">
+          <div className="flex  space-x-4 px-4 overflow-x-auto  py-1.5 ">
             {data.map((p) => (
               <Link to={`/library/${p.url}`} key={p.url}>
                 <div className="flex items-center mt-1  relative  ">
