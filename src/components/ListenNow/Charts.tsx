@@ -13,7 +13,7 @@ const Charts: React.FC<{ data: homePagePlaylist[] }> = ({ data }) => {
           <div className="flex  space-x-4 px-4 overflow-x-auto">
             {data.map((p) => (
               <Link to={`/library/${p.url}`} key={p.url}>
-                <div className="flex items-center mt-1 overflow-x-scroll relative  ">
+                <div className="flex items-center mt-1  relative  ">
                   <div className=" h-36 w-36">
                     <LazyLoadImage
                       width="100%"
