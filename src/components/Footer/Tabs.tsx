@@ -40,7 +40,7 @@ function TabsComp() {
           </li>
           <li>
             <NavLink
-              to={`/library/${playlistUrl}`}
+              to={`/library/`}
               className={({ isActive }) =>
                 `${isActive && "text-zinc-300"} flex flex-col mb-1 items-center`
               }

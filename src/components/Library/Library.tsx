@@ -23,6 +23,7 @@ import {
 import React, { useCallback, useEffect } from "react";
 import { RootState } from "@/Store/Store";
 import AddLibrary from "./AddLibrary";
+import GoBack from "../Goback";
 function LibraryComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -118,11 +119,7 @@ function LibraryComp() {
       {data && (
         <>
           <div className="flex w-full h-[23rem]   relative ">
-            <div className=" absolute top-4 z-10 left-3">
-              <NavLink to={"/library/"}>
-                <IoIosArrowBack className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1" />
-              </NavLink>
-            </div>
+            <GoBack />
 
             <div className=" absolute top-4 z-10 right-3">
               <IoReload
