@@ -91,7 +91,7 @@ const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
     ]);
     const p = r.documents as unknown as savedPlaylist[];
 
-              dispatch(setSavedPlaylist(p.data)),
+              dispatch(setSavedPlaylist(p)),
               close.current?.click();
             clone && n("/library/");
           })
