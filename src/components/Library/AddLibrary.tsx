@@ -86,9 +86,15 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
           ID.unique(),
           payload
         )
-          .then(() => {
+          .then(async() => {
             form.reset(),
-              dispatch(setSavedPlaylist([...playlist, payload])),
+const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
+      Query.orderDesc("$createdAt"),
+      Query.equal("for", [localStorage.getItem("uid") || "default", "default"]),
+    ]);
+    const p = r.documents as unknown as savedPlaylist[];
+
+              dispatch(setSavedPlaylist(p.data)),
               close.current?.click();
             clone && n("/library/");
           })
