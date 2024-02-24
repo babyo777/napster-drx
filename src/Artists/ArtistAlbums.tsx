@@ -18,6 +18,9 @@ const ArtistAlbums: React.FC<albums> = ({
               height="100%"
               effect="blur"
               src={thumbnailUrl}
+              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
+                (e.currentTarget.src = "/demo3.jpeg")
+              }
               alt="Image"
               className="rounded-lg object-cover h-[100%] w-[100%]"
             />

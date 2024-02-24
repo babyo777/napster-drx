@@ -139,7 +139,9 @@ function ArtistPage() {
           </div>
         </div>
       )}
-
+      {data && data.suggestedArtists.length == 0 && (
+        <div className="pb-40"></div>
+      )}
       {data && data.suggestedArtists.length > 0 && (
         <div className="flex flex-col">
           <div className="flex  px-4 py-2 pt-3 ">
