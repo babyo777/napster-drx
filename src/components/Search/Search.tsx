@@ -210,9 +210,9 @@ function SearchComp() {
                 </div>
               )}
               {trend &&
-                trend.map((trend) => (
+                trend.map((trend, i) => (
                   <div
-                    key={trend.song}
+                    key={trend.song + i}
                     className="flex fade-in flex-col text-sm py-1 capitalize text-zinc-300"
                     onClick={() => {
                       s.current && (s.current.value = trend.song);
