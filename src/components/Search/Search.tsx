@@ -56,6 +56,7 @@ function SearchComp() {
     {
       staleTime: 1000,
       refetchOnWindowFocus: false,
+      refetchOnMount: false,
       keepPreviousData: true,
     }
   );
@@ -119,7 +120,7 @@ function SearchComp() {
     trending,
     {
       refetchOnWindowFocus: false,
-      staleTime: 10000,
+      staleTime: 5 * 60000,
       refetchOnMount: false,
     }
   );

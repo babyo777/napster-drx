@@ -4,14 +4,35 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { GrNext } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { SearchPlaylist } from "@/Interface";
+import { useCallback } from "react";
+import {
+  DATABASE_ID,
+  ID,
+  PLAYLIST_INSIGHTS,
+  db,
+} from "@/appwrite/appwriteConfig";
 
 function PlaylistSearchComp({
   playlistId,
   title,
   thumbnailUrl,
 }: SearchPlaylist) {
+  const handleClick = useCallback(() => {
+    try {
+      db.createDocument(DATABASE_ID, PLAYLIST_INSIGHTS, ID.unique(), {
+        playlistId: playlistId,
+        title: title,
+        user: localStorage.getItem("uid") || "error",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, [playlistId, title]);
   return (
-    <div className="flex fade-in py-2 space-x-2 items-center">
+    <div
+      onClick={handleClick}
+      className="flex fade-in py-2 space-x-2 items-center"
+    >
       <Link to={`/library/${playlistId}`}>
         <div className="overflow-hidden h-12 w-12 space-y-2">
           <AspectRatio ratio={1 / 1}>
