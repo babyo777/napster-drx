@@ -32,12 +32,6 @@ import { IoMdAdd } from "react-icons/io";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import {
-  DATABASE_ID,
-  ID,
-  PLAYLIST_COLLECTION_ID,
-  db,
-} from "@/appwrite/appwriteConfig";
 import axios from "axios";
 import { isPlaylist } from "@/API/api";
 import Loader from "../Loaders/Loader";
