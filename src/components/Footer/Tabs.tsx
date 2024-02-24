@@ -4,13 +4,8 @@ import { IoSearch } from "react-icons/io5";
 import { MdLibraryMusic } from "react-icons/md";
 import { Player } from "./Player";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "@/Store/Store";
 import React from "react";
 function TabsComp() {
-  const playlistUrl = useSelector(
-    (state: RootState) => state.musicReducer.playlistUrl
-  );
   return (
     <div className="fixed  w-full left-0 bottom-0 flex flex-col justify-center items-center">
       <Player />
