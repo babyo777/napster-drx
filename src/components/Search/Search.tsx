@@ -100,7 +100,6 @@ function SearchComp() {
   const playlists = async () => {
     if (searchQuery.length > 0) {
       const q = await axios.get(`${SearchPlaylistApi}${searchQuery}`);
-      console.log(q.data);
 
       return q.data as SearchPlaylist[];
     } else {
@@ -248,6 +247,7 @@ function SearchComp() {
                   .slice(0, 3)
                   .map((p) => (
                     <PlaylistSearchComp
+                      key={p.thumbnailUrl + p.playlistId}
                       playlistId={p.playlistId.replace("VL", "")}
                       thumbnailUrl={p.thumbnailUrl}
                       title={p.title}
@@ -271,6 +271,7 @@ function SearchComp() {
                   .slice(3, 7)
                   .map((p) => (
                     <PlaylistSearchComp
+                      key={p.thumbnailUrl + p.playlistId}
                       playlistId={p.playlistId.replace("VL", "")}
                       thumbnailUrl={p.thumbnailUrl}
                       title={p.title}
@@ -306,6 +307,7 @@ function SearchComp() {
                   .slice(8, playlistsData.length - 1)
                   .map((p) => (
                     <PlaylistSearchComp
+                      key={p.thumbnailUrl + p.playlistId}
                       playlistId={p.playlistId.replace("VL", "")}
                       thumbnailUrl={p.thumbnailUrl}
                       title={p.title}
