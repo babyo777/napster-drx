@@ -147,13 +147,15 @@ function AudioPLayerComp() {
     sound.play();
     dispatch(setPlayer(sound));
     return () => {
+sound.pause();
+sound.unload()
+      sound.off();
       navigator.mediaSession.setActionHandler("play", null);
       navigator.mediaSession.setActionHandler("pause", null);
       navigator.mediaSession.setActionHandler("nexttrack", null);
       navigator.mediaSession.setActionHandler("previoustrack", null);
       navigator.mediaSession.setActionHandler("seekto", null);
-      sound.stop();
-      sound.off();
+      
     };
   }, [
     dispatch,
