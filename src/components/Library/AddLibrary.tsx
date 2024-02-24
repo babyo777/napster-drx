@@ -37,7 +37,6 @@ import { isPlaylist } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { useDispatch } from "react-redux";
 import { setSavedPlaylist } from "@/Store/Player";
-import { RootState } from "@/Store/Store";
 import { savedPlaylist } from "@/Interface";
 import { RiMenuAddFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
