@@ -148,7 +148,6 @@ function AudioPLayerComp() {
     dispatch(setPlayer(sound));
     return () => {
 sound.pause();
-sound.unload()
       sound.off();
       navigator.mediaSession.setActionHandler("play", null);
       navigator.mediaSession.setActionHandler("pause", null);
