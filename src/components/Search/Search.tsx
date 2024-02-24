@@ -1,10 +1,10 @@
-/* demo 1.1.0 */
 import { Input } from "@/components/ui/input";
 import Header from "../Header/Header";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { SearchApi, SearchArtist } from "@/API/api";
+import { SearchApi, SearchArtist, SearchPlaylistApi } from "@/API/api";
 import {
+  SearchPlaylist,
   playlistSongs,
   recentSearch,
   suggestedArtists,
@@ -28,6 +28,7 @@ import SearchSong from "./SearchSong";
 import { Query } from "appwrite";
 import { ArtistSearch } from "./artistSearch";
 import { MdCancel } from "react-icons/md";
+import { PlaylistSearchComp } from "./playlistSearch";
 
 function SearchComp() {
   const searchQuery = useSelector(
@@ -96,23 +97,23 @@ function SearchComp() {
     refetchOnMount: false,
   });
 
-  // const playlists = async () => {
-  //   if (searchQuery.length > 0) {
-  //     const q = await axios.get(`${SearchPlaylistApi}${searchQuery}`);
-  //     console.log(q.data);
+  const playlists = async () => {
+    if (searchQuery.length > 0) {
+      const q = await axios.get(`${SearchPlaylistApi}${searchQuery}`);
+      console.log(q.data);
 
-  //     return q.data as SearchPlaylist[];
-  //   } else {
-  //     return [];
-  //   }
-  // };
-  // const { data: playlistsData, refetch: playlistsRefetch } = useQuery<
-  //   SearchPlaylist[]
-  // >(["PlaylistSearch", searchQuery], playlists, {
-  //   refetchOnWindowFocus: false,
-  //   staleTime: 5 * 60000,
-  //   refetchOnMount: false,
-  // });
+      return q.data as SearchPlaylist[];
+    } else {
+      return [];
+    }
+  };
+  const { data: playlistsData, refetch: playlistsRefetch } = useQuery<
+    SearchPlaylist[]
+  >(["PlaylistSearch", searchQuery], playlists, {
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60000,
+    refetchOnMount: false,
+  });
 
   const { data: trend, isLoading: isTrend } = useQuery<trending[]>(
     "trending",
@@ -138,13 +139,13 @@ function SearchComp() {
           s.current.value.length > 1 &&
             (refetch(),
             artistsRefetch(),
-            // playlistsRefetch(),
+            playlistsRefetch(),
             dispatch(setSearch(s.current?.value || "")));
         }
       }, time);
       return () => clearTimeout(q);
     },
-    [refetch, dispatch, artistsRefetch]
+    [refetch, dispatch, artistsRefetch, playlistsRefetch]
   );
 
   return (
@@ -155,7 +156,7 @@ function SearchComp() {
           ref={s}
           type="text"
           onChange={() => search(1100)}
-          placeholder="Artists, Songs"
+          placeholder="Artists, Songs, Playlists"
           className=" relative shadow-none rounded-lg"
         />
         {searchQuery.length > 0 && (
@@ -241,6 +242,17 @@ function SearchComp() {
                   cover={r.thumbnailUrl}
                 />
               ))}
+              {playlistsData &&
+                playlistsData.length > 0 &&
+                playlistsData
+                  .slice(0, 3)
+                  .map((p) => (
+                    <PlaylistSearchComp
+                      playlistId={p.playlistId.replace("VL", "")}
+                      thumbnailUrl={p.thumbnailUrl}
+                      title={p.title}
+                    />
+                  ))}
               {artistsData && artistsData.length > 0 && (
                 <div>
                   {artistsData.slice(0, 4).map((a, i) => (
@@ -253,7 +265,17 @@ function SearchComp() {
                   ))}
                 </div>
               )}
-
+              {playlistsData &&
+                playlistsData.length > 0 &&
+                playlistsData
+                  .slice(3, 7)
+                  .map((p) => (
+                    <PlaylistSearchComp
+                      playlistId={p.playlistId.replace("VL", "")}
+                      thumbnailUrl={p.thumbnailUrl}
+                      title={p.title}
+                    />
+                  ))}
               {music.slice(7, 10).map((r) => (
                 <SearchSong
                   artistId={r.artists[0].id}
@@ -278,7 +300,17 @@ function SearchComp() {
                   ))}
                 </div>
               )}
-
+              {playlistsData &&
+                playlistsData.length > 0 &&
+                playlistsData
+                  .slice(8, playlistsData.length - 1)
+                  .map((p) => (
+                    <PlaylistSearchComp
+                      playlistId={p.playlistId.replace("VL", "")}
+                      thumbnailUrl={p.thumbnailUrl}
+                      title={p.title}
+                    />
+                  ))}
               {music.slice(11, music.length - 1).map((r) => (
                 <SearchSong
                   artistId={r.artists[0].id}
