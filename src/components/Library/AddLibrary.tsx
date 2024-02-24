@@ -35,7 +35,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { isPlaylist } from "@/API/api";
 import Loader from "../Loaders/Loader";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setSavedPlaylist } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { savedPlaylist } from "@/Interface";
