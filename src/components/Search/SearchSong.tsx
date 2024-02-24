@@ -96,7 +96,7 @@ function SearchSong({
           onClick={handlePlay}
           className={`w-[60dvw] ${
             playlist[currentIndex]?.youtubeId == audio &&
-            currentIndex == id &&
+            currentIndex == 0 &&
             "text-red-500"
           }  truncate`}
         >
