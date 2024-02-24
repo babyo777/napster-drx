@@ -49,9 +49,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
   const close = useRef<HTMLButtonElement>(null);
 
   const dispatch = useDispatch();
-  const playlist = useSelector(
-    (state: RootState) => state.musicReducer.savedPlaylist
-  );
+
   const n = useNavigate();
   const [isSubmit, setIsSubmit] = useState<boolean>();
   const [error, setError] = useState<boolean>();
