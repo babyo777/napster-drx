@@ -102,7 +102,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
       form.setValue("link", "");
       setTimeout(() => {
         setError(false);
-      }, 1000);
+      }, 2000);
     }
   }
 
