@@ -245,7 +245,7 @@ sound.pause();
               </h1>
 
               {playlist[currentIndex].artists[0]?.name ? (
-                <Link to={`/artist/${currentArtistId}`}>
+                <Link to={`/artist/${playlist[currentIndex].artists[0]?.id || currentArtistId}`}>
                   <DrawerClose className="text-start">
                     <p className="text-base truncate underline underline-offset-4 w-64 text-red-500">
                       {" "}
