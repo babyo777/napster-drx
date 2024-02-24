@@ -32,8 +32,10 @@ function PlaylistSearchComp({
       </Link>
       <Link to={`/library/${playlistId}`}>
         <div className="flex  flex-col pl-1 text-start w-[70dvw]">
-          <p className="-mt-0.5 underline text-zinc-400 text-xs w-[40dvw]   truncate">
-            {title}
+          <p className={`w-[60dvw] truncate`}>{title}</p>
+
+          <p className="-mt-0.5  text-zinc-400 text-xs w-[40dvw]   truncate">
+            Playlist
           </p>
         </div>
       </Link>
