@@ -133,7 +133,7 @@ export function ListenNowComp() {
       )}
       <Header title="Listen Now" />
 
-      {!chart && !artist && (
+      {!chart && !artist && !suggested && (
         <>
           <div className="flex px-4  space-x-4 items-center w-full mt-3">
             <Skeleton className="w-[40vw] h-4 rounded-md bg-zinc-500" />
@@ -160,7 +160,7 @@ export function ListenNowComp() {
           </div>
         </>
       )}
-      {chart && artist && (
+      {chart && artist && suggested && (
         <>
           {suggested && suggested.length > 0 && (
             <NapsterSuggested data={suggested} />
