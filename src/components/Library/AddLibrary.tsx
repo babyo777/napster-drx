@@ -86,7 +86,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
           payload
         )
           .then(async() => {
-            form.reset(),
+            form.reset()
 const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
       Query.orderDesc("$createdAt"),
       Query.equal("for", [localStorage.getItem("uid") || "default", "default"]),
