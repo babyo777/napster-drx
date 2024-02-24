@@ -79,7 +79,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
         link: res.data,
         for: localStorage.getItem("uid") || "default",
       };
-      if (res.status == 200) {
+      if (res.status !== 500) {
         db.createDocument(
           DATABASE_ID,
           PLAYLIST_COLLECTION_ID,
