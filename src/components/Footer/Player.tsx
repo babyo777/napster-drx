@@ -58,7 +58,7 @@ export function Player() {
                     effect="blur"
                     src="https://i.pinimg.com/originals/f1/91/a4/f191a4786289ade562884722ef784cff.jpg"
                     alt="Image"
-                    className="object-cover w-[100%] h-[100%] "
+                    className="object-cover rounded-xl w-[100%] h-[100%] "
                   />
                 </AspectRatio>
               </div>

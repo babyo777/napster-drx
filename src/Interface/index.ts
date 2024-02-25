@@ -66,6 +66,14 @@ interface ArtistDetails {
   thumbnails: thumbnails[];
 }
 
+interface likedSongs {
+  for: string;
+  youtubeId: string;
+  artists: artists[];
+  title: string;
+  thumbnailUrl: string;
+}
+
 interface savedPlaylist {
   $id?: string;
   name: string;
@@ -84,6 +92,7 @@ export type {
   AlbumSongs,
   recentSearch,
   albums,
+  likedSongs,
   ArtistDetails,
   suggestedArtists,
 };

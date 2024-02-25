@@ -13,6 +13,10 @@ import {
 import { Query } from "appwrite";
 import { savedPlaylist } from "@/Interface";
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
+import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { GrNext } from "react-icons/gr";
 
 function SavedLibraryComp() {
   const dispatch = useDispatch();
@@ -43,6 +47,30 @@ function SavedLibraryComp() {
   return (
     <>
       <Header title="Library" l={true} />
+      <div className="flex space-x-2.5 px-4 mb-3 items-center justify-between">
+        <Link
+          to={`/liked`}
+          className="flex space-x-2.5 items-center justify-between"
+        >
+          <div className="overflow-hidden h-[3.2rem]  w-[3.2rem] space-y-2">
+            <AspectRatio ratio={1 / 1}>
+              <LazyLoadImage
+                height="100%"
+                width="100%"
+                effect="blur"
+                src="https://www.gstatic.com/youtube/media/ytm/images/pbg/liked-music-@576.png"
+                alt="Image"
+                className="rounded-md object-cover w-[100%] h-[100%]"
+              />
+            </AspectRatio>
+          </div>
+          <div className="flex flex-col  text-xl text-start">
+            <p className="w-[59vw]     fade-in truncate">Liked Songs</p>
+            <p className="-mt-0.5  text-sm w-[50vw] truncate h-2"></p>
+          </div>
+        </Link>
+        <GrNext className="h-5 w-5" />
+      </div>
       {isLoading && (
         <div className="flex fade-in space-y-3  flex-col px-4">
           <SkeletonP />

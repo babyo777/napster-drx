@@ -25,12 +25,16 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaRegHeart } from "react-icons/fa6";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "react-lazy-load-image-component/src/effects/opacity.css";
-// import { FaHeart } from "react-icons/fa";
+import { DATABASE_ID, ID, LIKE_SONG, db } from "@/appwrite/appwriteConfig";
+import { FaHeart } from "react-icons/fa";
+import { useQuery } from "react-query";
+import { Query } from "appwrite";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
   const music = useSelector((state: RootState) => state.musicReducer.music);
   const [progress, setProgress] = useState<number | "--:--">();
+  const [liked, SetLiked] = useState<boolean>();
   const PlaylistOrAlbum = useSelector(
     (state: RootState) => state.musicReducer.PlaylistOrAlbum
   );
@@ -55,8 +59,50 @@ function AudioPLayerComp() {
   const isLoop = useSelector((state: RootState) => state.musicReducer.isLoop);
 
   const handleLink = useCallback(() => {
-    alert("adding soon..");
-  }, []);
+    SetLiked(true);
+    db.createDocument(DATABASE_ID, LIKE_SONG, ID.unique(), {
+      youtubeId: playlist[currentIndex].youtubeId,
+      title: playlist[currentIndex].title,
+      artists: [
+        playlist[currentIndex].artists[0].id || currentArtistId,
+        playlist[currentIndex].artists[0].name,
+      ],
+      thumbnailUrl: playlist[currentIndex].thumbnailUrl,
+      for: localStorage.getItem("uid") || "default",
+    }).catch(() => {
+      SetLiked(false);
+    });
+  }, [currentIndex, playlist, currentArtistId]);
+
+  const isLikedCheck = async () => {
+    const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
+      Query.equal("for", [localStorage.getItem("uid") || "default"]),
+      Query.equal("youtubeId", [playlist[currentIndex].youtubeId]),
+      Query.equal("title", [playlist[currentIndex].title]),
+    ]);
+    return r;
+  };
+  const { data: isLiked, refetch } = useQuery("likedSongs", isLikedCheck, {
+    refetchOnWindowFocus: false,
+    staleTime: 1000,
+  });
+
+  const RemoveLike = useCallback(async () => {
+    SetLiked(false);
+    if (isLiked) {
+      try {
+        await db.deleteDocument(
+          DATABASE_ID,
+          LIKE_SONG,
+          isLiked.documents[0].$id
+        );
+        refetch();
+      } catch (error) {
+        SetLiked(true);
+      }
+    }
+  }, [isLiked, refetch]);
+
   const handlePlay = useCallback(() => {
     if (isPlaying) {
       music?.pause();
@@ -211,7 +257,7 @@ function AudioPLayerComp() {
               src={playlist[currentIndex].thumbnailUrl}
               alt="Image"
               effect="blur"
-              className="object-cover w-[100%] h-[100%] "
+              className="object-cover rounded-xl w-[100%] h-[100%] "
             />
           </div>
           <div className="flex flex-col text-start">
@@ -249,8 +295,18 @@ function AudioPLayerComp() {
                   {" "}
                   {playlist[currentIndex].title}
                 </h1>
-                <FaRegHeart className="h-7 w-7" onClick={handleLink} />
-                {/* <FaHeart className="h-7 w-7 fill-red-500" /> */}
+
+                {liked ? (
+                  <FaHeart
+                    onClick={RemoveLike}
+                    className="h-7 w-7 fade-in fill-red-500"
+                  />
+                ) : (
+                  <FaRegHeart
+                    className="h-7 w-7 fade-in"
+                    onClick={handleLink}
+                  />
+                )}
               </div>
 
               {playlist[currentIndex].artists[0]?.name ? (
