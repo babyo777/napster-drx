@@ -162,6 +162,7 @@ function AudioPLayerComp() {
         setDuration(sound.duration());
         handleMediaSession();
         dispatch(setIsLoading(true));
+        refetch();
       },
       onloaderror: () => {
         setDuration("--:--");
@@ -205,7 +206,7 @@ function AudioPLayerComp() {
       (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
     );
     sound.play();
-    refetch();
+
     dispatch(setPlayer(sound));
     return () => {
       sound.unload();
