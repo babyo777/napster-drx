@@ -7,7 +7,7 @@ import { DATABASE_ID, ID, NEW_USER, db } from "./appwrite/appwriteConfig";
 function AppComp() {
   function ScreenSizeCheck() {
     return (
-      window.screen && (window.screen.width < 500 || window.screen.height < 500)
+      window.screen && window.screen.width < 500 && window.screen.height < 500
     );
   }
 
