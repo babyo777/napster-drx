@@ -28,8 +28,8 @@ function AppComp() {
   if (!Compatible) {
     return (
       <div className=" w-full   fade-in flex-col h-screen flex justify-center items-center">
-        <span className="text-xs font-semibold text-zinc-400 py-3 ">
-          Not optimized for your device
+        <span className="text-base font-semibold text-zinc-400 py-3 ">
+          Not optimized for Android now
         </span>
       </div>
     );

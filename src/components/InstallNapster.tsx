@@ -14,7 +14,7 @@ function InstallNapster() {
       </a>
       <ul className="flex flex-col px-1.5 w-full text-start">
         <li className="mb-2">
-          <span className="font-bold text-xl">iOS (iPhone/Safari):</span>
+          <span className="font-bold text-xl ">iOS (iPhone/Safari):</span>
         </li>
         <li className="mb-2">
           <span className="font-bold">1.</span> Tap on the share icon at the
