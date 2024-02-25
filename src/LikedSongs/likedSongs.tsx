@@ -64,8 +64,6 @@ function LikedSongComp() {
   } = useQuery<likedSongs[]>(["likedSongsDetails"], getPlaylistDetails, {
     retry: 0,
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    staleTime: 2000,
   });
 
   useEffect(() => {

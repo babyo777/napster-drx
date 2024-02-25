@@ -58,6 +58,21 @@ function AudioPLayerComp() {
   );
   const isLoop = useSelector((state: RootState) => state.musicReducer.isLoop);
 
+  const isLikedCheck = async () => {
+    const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
+      Query.equal("for", [localStorage.getItem("uid") || "default"]),
+      Query.equal("youtubeId", [playlist[currentIndex].youtubeId]),
+      Query.equal("title", [playlist[currentIndex].title]),
+    ]);
+    if (r.documents.length > 0) SetLiked(true);
+    return r.documents;
+  };
+
+  const { data: isLiked, refetch } = useQuery("likedSongs", isLikedCheck, {
+    refetchOnWindowFocus: false,
+    staleTime: 1000,
+  });
+
   const handleLink = useCallback(() => {
     SetLiked(true);
     db.createDocument(DATABASE_ID, LIKE_SONG, ID.unique(), {
@@ -69,23 +84,14 @@ function AudioPLayerComp() {
       ],
       thumbnailUrl: playlist[currentIndex].thumbnailUrl,
       for: localStorage.getItem("uid") || "default",
-    }).catch(() => {
-      SetLiked(false);
-    });
-  }, [currentIndex, playlist, currentArtistId]);
-
-  const isLikedCheck = async () => {
-    const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
-      Query.equal("for", [localStorage.getItem("uid") || "default"]),
-      Query.equal("youtubeId", [playlist[currentIndex].youtubeId]),
-      Query.equal("title", [playlist[currentIndex].title]),
-    ]);
-    return r;
-  };
-  const { data: isLiked, refetch } = useQuery("likedSongs", isLikedCheck, {
-    refetchOnWindowFocus: false,
-    staleTime: 1000,
-  });
+    })
+      .then(() => {
+        refetch();
+      })
+      .catch(() => {
+        SetLiked(false);
+      });
+  }, [currentIndex, playlist, currentArtistId, refetch]);
 
   const RemoveLike = useCallback(async () => {
     SetLiked(false);
@@ -94,14 +100,14 @@ function AudioPLayerComp() {
         await db.deleteDocument(
           DATABASE_ID,
           LIKE_SONG,
-          isLiked.documents[0].$id
+          isLiked[0].$id || "default"
         );
-        refetch();
       } catch (error) {
+        console.error(error);
         SetLiked(true);
       }
     }
-  }, [isLiked, refetch]);
+  }, [isLiked]);
 
   const handlePlay = useCallback(() => {
     if (isPlaying) {
@@ -209,6 +215,7 @@ function AudioPLayerComp() {
     };
   }, [
     dispatch,
+    refetch,
     currentIndex,
     playlist,
     handleMediaSession,
