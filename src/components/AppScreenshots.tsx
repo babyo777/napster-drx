@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/carousel";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 export function AppScreenshots() {
   const plugin = React.useRef(
@@ -22,57 +23,62 @@ export function AppScreenshots() {
     >
       <CarouselContent>
         <CarouselItem>
-          <AspectRatio ratio={9 / 16} className="bg-muted rounded-md">
+          <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
             <LazyLoadImage
               height="100%"
               width="100%"
               src="/ui/2.PNG"
               alt="ui"
-              className="rounded-md object-cover h-[100%] w-[100%] "
+              effect="blur"
+              className="rounded-lg object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
         </CarouselItem>
         <CarouselItem>
-          <AspectRatio ratio={9 / 16} className="bg-muted rounded-md">
+          <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
             <LazyLoadImage
               height="100%"
               width="100%"
               src="/ui/3.PNG"
               alt="ui"
-              className="rounded-md object-cover h-[100%] w-[100%] "
+              effect="blur"
+              className="rounded-lg object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
         </CarouselItem>
         <CarouselItem>
-          <AspectRatio ratio={9 / 16} className="bg-muted rounded-md">
+          <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
             <LazyLoadImage
               height="100%"
               width="100%"
               src="/ui/4.PNG"
               alt="ui"
-              className="rounded-md object-cover h-[100%] w-[100%] "
+              effect="blur"
+              className="rounded-lg object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
         </CarouselItem>
         <CarouselItem>
-          <AspectRatio ratio={9 / 16} className="bg-muted rounded-md">
+          <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
             <LazyLoadImage
               height="100%"
               width="100%"
               src="/ui/5.PNG"
               alt="ui"
-              className="rounded-md object-cover h-[100%] w-[100%] "
+              effect="blur"
+              className="rounded-lg object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
         </CarouselItem>
         <CarouselItem>
-          <AspectRatio ratio={9 / 16} className="bg-muted rounded-md">
+          <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
             <LazyLoadImage
               height="100%"
               width="100%"
               src="/ui/1.PNG"
               alt="ui"
-              className="rounded-md object-cover h-[100%] w-[100%] "
+              effect="blur"
+              className="rounded-lg object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
         </CarouselItem>
