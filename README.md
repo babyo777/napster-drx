@@ -6,7 +6,7 @@ Napster is a music webb app where user can listen their playlist Ad free.
 
 ### ``#Live demo``
 
-[Napster - listen ad free playlist](https://napster-drx.vercel.app)
+[NapsterDrx Live demo](https://napster-drx.vercel.app)
 
 ### ``#Get Naspter Api``
 

@@ -1,5 +1,5 @@
 const mainApi = import.meta.env.VITE_API_URL;
-const streamApi = "https://unconscious-elianora-babyo7.koyeb.app/?url=";
+const streamApi = import.meta.env.VITE_API_URL;
 
 const isPlaylist = `${mainApi}/is/p?l=`;
 
