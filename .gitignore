@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # extra
-appwrite/appwriteConfig.ts
+src/appwrite/appwriteConfig.ts
