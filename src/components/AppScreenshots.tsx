@@ -17,68 +17,68 @@ export function AppScreenshots() {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-full rounded-lg"
+      className="w-full rounded-xl"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
-      <CarouselContent className="rounded-lg">
-        <CarouselItem className="rounded-lg">
-          <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
+      <CarouselContent className="rounded-xl">
+        <CarouselItem className="rounded-xl">
+          <AspectRatio ratio={9 / 16} className="bg-muted rounded-xl">
             <LazyLoadImage
               height="100%"
               width="100%"
               src="/ui/2.PNG"
               alt="ui"
               effect="opacity"
-              className="rounded-lg object-cover h-[100%] w-[100%] "
+              className="rounded-xl object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
         </CarouselItem>
-        <CarouselItem className="rounded-lg">
-          <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
+        <CarouselItem className="rounded-xl">
+          <AspectRatio ratio={9 / 16} className="bg-muted rounded-xl">
             <LazyLoadImage
               height="100%"
               width="100%"
               src="/ui/3.PNG"
               alt="ui"
               effect="opacity"
-              className="rounded-lg object-cover h-[100%] w-[100%] "
+              className="rounded-xl object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
         </CarouselItem>
-        <CarouselItem className="rounded-lg">
-          <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
+        <CarouselItem className="rounded-xl">
+          <AspectRatio ratio={9 / 16} className="bg-muted rounded-xl">
             <LazyLoadImage
               height="100%"
               width="100%"
               src="/ui/4.PNG"
               alt="ui"
               effect="opacity"
-              className="rounded-lg object-cover h-[100%] w-[100%] "
+              className="rounded-xl object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
         </CarouselItem>
-        <CarouselItem className="rounded-lg">
-          <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
+        <CarouselItem className="rounded-xl">
+          <AspectRatio ratio={9 / 16} className="bg-muted rounded-xl">
             <LazyLoadImage
               height="100%"
               width="100%"
               src="/ui/5.PNG"
               alt="ui"
               effect="opacity"
-              className="rounded-lg object-cover h-[100%] w-[100%] "
+              className="rounded-xl object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
         </CarouselItem>
-        <CarouselItem className="rounded-lg">
-          <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
+        <CarouselItem className="rounded-xl">
+          <AspectRatio ratio={9 / 16} className="bg-muted rounded-xl">
             <LazyLoadImage
               height="100%"
               width="100%"
               src="/ui/1.PNG"
               alt="ui"
               effect="opacity"
-              className="rounded-lg object-cover h-[100%] w-[100%] "
+              className="rounded-xl object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
         </CarouselItem>
