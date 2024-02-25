@@ -52,7 +52,7 @@ function SavedLibraryComp() {
           to={`/liked`}
           className="flex space-x-2.5 items-center justify-between"
         >
-          <div className="overflow-hidden h-[3.2rem]  w-[3.2rem] space-y-2">
+          <div className="overflow-hidden h-[3.2rem]  w-[3.2rem] ">
             <AspectRatio ratio={1 / 1}>
               <LazyLoadImage
                 height="100%"
