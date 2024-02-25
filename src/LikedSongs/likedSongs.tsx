@@ -6,15 +6,13 @@ import { NavLink, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  SetPlaylistOrAlbum,
   isLoop,
   play,
   setCurrentIndex,
   setPlayingPlaylistUrl,
   setPlaylist,
-  setPlaylistUrl,
 } from "@/Store/Player";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { RootState } from "@/Store/Store";
 import { DATABASE_ID, LIKE_SONG, db } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
@@ -27,10 +25,6 @@ import Songs from "@/components/Library/Songs";
 function LikedSongComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
-
-  const playlistUrl = useSelector(
-    (state: RootState) => state.musicReducer.playlistUrl
-  );
 
   const getPlaylistDetails = async () => {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
@@ -66,12 +60,6 @@ function LikedSongComp() {
     refetchOnWindowFocus: false,
   });
 
-  useEffect(() => {
-    if (id && id !== playlistUrl) {
-      dispatch(setPlaylistUrl(id));
-    }
-    dispatch(SetPlaylistOrAlbum("liked"));
-  }, [dispatch, id, playlistUrl]);
   const handleShare = useCallback(async () => {
     try {
       await navigator.share({
