@@ -26,7 +26,9 @@ function Songs({
   p,
   artistId,
   query,
+  link = true,
 }: {
+  link?: boolean;
   artistId: string;
   query?: string;
   p: string;
@@ -104,11 +106,17 @@ function Songs({
         >
           {title.replace("______________________________________", "untitled")}
         </p>
-        <Link to={`/artist/${artistId}`}>
-          <p className="-mt-0.5   text-xs underline text-zinc-400 w-[40dvw]  truncate">
+        {link ? (
+          <Link to={`/artist/${artistId}`}>
+            <p className="-mt-0.5   text-xs underline text-zinc-400 w-[40dvw]  truncate">
+              {artist}
+            </p>
+          </Link>
+        ) : (
+          <p className="-mt-0.5   text-xs  text-zinc-400 w-[40dvw]  truncate">
             {artist}
           </p>
-        </Link>
+        )}
         <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
       </div>
       <IoIosMore
