@@ -17,10 +17,10 @@ function AppComp() {
       setTester(true);
     }
     if (!localStorage.getItem("uid")) {
-      localStorage.setItem("uid", "babyo7_gtasisgta779");
+      localStorage.setItem("uid", uuidv4());
       try {
         db.createDocument(DATABASE_ID, NEW_USER, ID.unique(), {
-          user: "babyo7_gtasisgta779" || "error",
+          user: localStorage.getItem("uid") || "error",
         });
       } catch (error) {
         console.log(error);
