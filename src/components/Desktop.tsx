@@ -21,7 +21,7 @@ function Desktop() {
           />
         </div>
 
-        <div className="flex justify-center flex-col items-center mt-[3vw]">
+        <div className="flex justify-center flex-col items-center mt-[2vw]">
           <h1 className="font-bold text-zinc-500">NapsterDrx.</h1>
           <span className="font-semibold text-zinc-500 text-xs mt-1">
             Love from NapsterDrx.
