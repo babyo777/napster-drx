@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/carousel";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
+import "react-lazy-load-image-component/src/effects/opacity.css";
 
 export function AppScreenshots() {
   const plugin = React.useRef(
@@ -29,7 +29,7 @@ export function AppScreenshots() {
               width="100%"
               src="/ui/2.PNG"
               alt="ui"
-              effect="blur"
+              effect="opacity"
               className="rounded-lg object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
@@ -41,7 +41,7 @@ export function AppScreenshots() {
               width="100%"
               src="/ui/3.PNG"
               alt="ui"
-              effect="blur"
+              effect="opacity"
               className="rounded-lg object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
@@ -53,7 +53,7 @@ export function AppScreenshots() {
               width="100%"
               src="/ui/4.PNG"
               alt="ui"
-              effect="blur"
+              effect="opacity"
               className="rounded-lg object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
@@ -65,7 +65,7 @@ export function AppScreenshots() {
               width="100%"
               src="/ui/5.PNG"
               alt="ui"
-              effect="blur"
+              effect="opacity"
               className="rounded-lg object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
@@ -77,7 +77,7 @@ export function AppScreenshots() {
               width="100%"
               src="/ui/1.PNG"
               alt="ui"
-              effect="blur"
+              effect="opacity"
               className="rounded-lg object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
