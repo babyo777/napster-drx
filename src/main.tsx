@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         element: <Search />,
       },
       {
-        path: "/liked",
+        path: "/liked/:id",
         element: <LikedSong />,
       },
       {

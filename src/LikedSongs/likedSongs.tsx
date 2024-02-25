@@ -60,8 +60,9 @@ function LikedSongComp() {
     isLoading: pLoading,
     isError: pError,
     refetch: pRefetch,
-  } = useQuery<likedSongs[]>(["likedSongsDetails"], getPlaylistDetails, {
+  } = useQuery<likedSongs[]>(["likedSongsDetails", id], getPlaylistDetails, {
     retry: 0,
+    staleTime: 1000,
     refetchOnWindowFocus: false,
   });
 
@@ -166,6 +167,7 @@ function LikedSongComp() {
             {pDetails.map((data, i) => (
               <Songs
                 p={id || ""}
+                query="likedSongsDetails"
                 artistId={data.artists[0].id}
                 audio={data.youtubeId}
                 key={data.youtubeId + i}

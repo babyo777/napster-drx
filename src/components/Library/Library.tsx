@@ -144,7 +144,7 @@ function LibraryComp() {
                     "w120-h120",
                     "w1080-h1080"
                   )) ||
-                data[0].thumbnailUrl.replace("w120-h120", "w1080-h1080")
+                data[0]?.thumbnailUrl.replace("w120-h120", "w1080-h1080")
               }
               alt="Image"
               loading="lazy"
