@@ -25,7 +25,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaRegHeart } from "react-icons/fa6";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "react-lazy-load-image-component/src/effects/opacity.css";
-import { FaHeart } from "react-icons/fa";
+// import { FaHeart } from "react-icons/fa";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
@@ -54,6 +54,9 @@ function AudioPLayerComp() {
   );
   const isLoop = useSelector((state: RootState) => state.musicReducer.isLoop);
 
+  const handleLink = useCallback(() => {
+    alert("adding soon..");
+  }, []);
   const handlePlay = useCallback(() => {
     if (isPlaying) {
       music?.pause();
@@ -246,7 +249,7 @@ function AudioPLayerComp() {
                   {" "}
                   {playlist[currentIndex].title}
                 </h1>
-                <FaRegHeart className="h-7 w-7" />
+                <FaRegHeart className="h-7 w-7" onClick={handleLink} />
                 {/* <FaHeart className="h-7 w-7 fill-red-500" /> */}
               </div>
 
