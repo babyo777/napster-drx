@@ -30,7 +30,7 @@ function AppComp() {
     return (
       <div className=" w-full   fade-in flex-col h-screen flex justify-center items-center">
         <span className="text-xs font-semibold text-zinc-400 py-3 ">
-          Not optimized for this size
+          Not optimized for screens below 5.3 inches
         </span>
       </div>
     );
