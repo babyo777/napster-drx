@@ -23,14 +23,14 @@ export function AppScreenshots() {
     >
       <CarouselContent className="rounded-xl">
         <CarouselItem className="rounded-xl flex justify-center items-center">
-          <AspectRatio ratio={10 / 16} className="bg-muted rounded-xl">
+          <AspectRatio ratio={16 / 9} className="bg-muted rounded-xl">
             <LazyLoadImage
               height="100%"
               width="100%"
-              src="/install.webp"
+              src="https://www.wikihow.com/images/thumb/d/da/Add-Apps-to-iPhone-Home-Screen-Step-10.jpg/v4-460px-Add-Apps-to-iPhone-Home-Screen-Step-10.jpg.webp"
               alt="ui"
               effect="opacity"
-              className="rounded-xl  object-center h-[100%] w-[100%] "
+              className="rounded-xl  object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
         </CarouselItem>
