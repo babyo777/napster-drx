@@ -70,7 +70,7 @@ function LikedSongComp() {
     if (id && id !== playlistUrl) {
       dispatch(setPlaylistUrl(id));
     }
-    dispatch(SetPlaylistOrAlbum("library"));
+    dispatch(SetPlaylistOrAlbum("liked"));
   }, [dispatch, id, playlistUrl]);
   const handleShare = useCallback(async () => {
     try {
