@@ -176,10 +176,10 @@ function SearchComp() {
             RecentSearch.length > 0 &&
             searchQuery.length <= 0 && (
               <>
-                <h3 className="text-xs text-zinc-500 pt-2 pb-1 ">
+                <h3 className="text-xs fade-in text-zinc-500 pt-2 pb-1 ">
                   Recent Search Played
                 </h3>
-                <div className="flex flex-col space-y-2.5  py-2.5">
+                <div className="flex fade-in flex-col space-y-2.5  py-2.5">
                   {RecentSearch.slice(0, 4).map((recentSearch) => (
                     <div
                       key={recentSearch.$id}
