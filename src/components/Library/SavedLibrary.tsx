@@ -69,7 +69,9 @@ function SavedLibraryComp() {
             <p className="-mt-0.5  text-sm w-[50vw] truncate h-2"></p>
           </div>
         </Link>
-        <GrNext className="h-5 w-5" />
+        <Link to={`/liked/${localStorage.getItem("uid")}`}>
+          <GrNext className="h-5 w-5" />
+        </Link>
       </div>
       {isLoading && (
         <div className="flex fade-in space-y-3  flex-col px-4">

@@ -24,7 +24,6 @@ import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaRegHeart } from "react-icons/fa6";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import "react-lazy-load-image-component/src/effects/opacity.css";
 import { DATABASE_ID, ID, LIKE_SONG, db } from "@/appwrite/appwriteConfig";
 import { FaHeart } from "react-icons/fa";
 import { useQuery } from "react-query";
@@ -159,7 +158,6 @@ function AudioPLayerComp() {
         setDuration(sound.duration());
         handleMediaSession();
         dispatch(setIsLoading(true));
-        refetch();
       },
       onloaderror: () => {
         setDuration("--:--");
@@ -203,6 +201,7 @@ function AudioPLayerComp() {
       (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
     );
     sound.play();
+    refetch();
     dispatch(setPlayer(sound));
     return () => {
       sound.unload();
@@ -291,7 +290,6 @@ function AudioPLayerComp() {
                     "w1080-h1080"
                   )}
                   alt="Image"
-                  effect="opacity"
                   visibleByDefault
                   className="object-cover rounded-2xl w-[100%] h-[100%]"
                 />
