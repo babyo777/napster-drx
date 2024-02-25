@@ -60,7 +60,6 @@ function LikedSongComp() {
     isLoading: pLoading,
     isError: pError,
     refetch: pRefetch,
-    isRefetching: pIsRefetching,
   } = useQuery<likedSongs[]>(["likedSongsDetails"], getPlaylistDetails, {
     retry: 0,
     refetchOnWindowFocus: false,
@@ -109,11 +108,6 @@ function LikedSongComp() {
           <NavLink to={"/library/"}>
             <IoIosArrowBack className="h-7 w-7  my-5 mx-4  backdrop-blur-md text-black bg-white/70 rounded-full p-1" />
           </NavLink>
-        </div>
-      )}
-      {pIsRefetching && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <Loader />
         </div>
       )}
       {pLoading && pLoading && (
