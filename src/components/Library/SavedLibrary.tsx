@@ -47,32 +47,30 @@ function SavedLibraryComp() {
   return (
     <>
       <Header title="Library" l={true} />
-      <div className="flex space-x-2.5 px-4 mb-3 items-center justify-between">
-        <Link
-          to={`/liked/${localStorage.getItem("uid")}`}
-          className="flex space-x-2.5 items-center justify-between"
-        >
-          <div className="overflow-hidden h-[3.2rem]  w-[3.2rem] ">
-            <AspectRatio ratio={1 / 1}>
-              <LazyLoadImage
-                height="100%"
-                width="100%"
-                effect="blur"
-                src="https://www.gstatic.com/youtube/media/ytm/images/pbg/liked-music-@576.png"
-                alt="Image"
-                className="rounded-md object-cover w-[100%] h-[100%]"
-              />
-            </AspectRatio>
+      <Link to={`/liked/${localStorage.getItem("uid")}`}>
+        <div className="flex space-x-2.5 px-4 mb-3 items-center justify-between">
+          <div className="flex items-center space-x-2.5">
+            <div className="overflow-hidden h-[3.2rem]  w-[3.2rem] ">
+              <AspectRatio ratio={1 / 1}>
+                <LazyLoadImage
+                  height="100%"
+                  width="100%"
+                  effect="blur"
+                  src="https://www.gstatic.com/youtube/media/ytm/images/pbg/liked-music-@576.png"
+                  alt="Image"
+                  className="rounded-md object-cover w-[100%] h-[100%]"
+                />
+              </AspectRatio>
+            </div>
+            <div className="flex flex-col  text-xl text-start">
+              <p className="w-[59vw] fade-in truncate">Liked Songs</p>
+              <p className="-mt-0.5  text-sm w-[50vw] truncate h-2"></p>
+            </div>
           </div>
-          <div className="flex flex-col  text-xl text-start">
-            <p className="w-[59vw]     fade-in truncate">Liked Songs</p>
-            <p className="-mt-0.5  text-sm w-[50vw] truncate h-2"></p>
-          </div>
-        </Link>
-        <Link to={`/liked/${localStorage.getItem("uid")}`}>
+
           <GrNext className="h-5 w-5" />
-        </Link>
-      </div>
+        </div>
+      </Link>
       {isLoading && (
         <div className="flex fade-in space-y-3  flex-col px-4">
           <SkeletonP />
