@@ -63,7 +63,11 @@ function AudioPLayerComp() {
       Query.equal("youtubeId", [playlist[currentIndex].youtubeId]),
       Query.equal("title", [playlist[currentIndex].title]),
     ]);
-    if (r.documents.length > 0) SetLiked(true);
+    if (r.documents.length == 0) {
+      SetLiked(false);
+    } else {
+      SetLiked(true);
+    }
     return r.documents;
   };
 
