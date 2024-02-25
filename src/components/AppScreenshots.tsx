@@ -8,6 +8,7 @@ import {
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/opacity.css";
+import { IoShareOutline } from "react-icons/io5";
 
 export function AppScreenshots() {
   const plugin = React.useRef(
@@ -22,7 +23,9 @@ export function AppScreenshots() {
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent className="rounded-xl">
-        <CarouselItem className="rounded-xl flex justify-center items-center">
+        <CarouselItem className="rounded-xl flex flex-col  justify-center items-center">
+          Tap on Share
+          <IoShareOutline className="fill-black mt-1 mb-3 text-zinc-500  h-8 w-8" />
           <AspectRatio ratio={16 / 9} className="bg-muted rounded-xl">
             <LazyLoadImage
               height="100%"
