@@ -6,8 +6,14 @@ import { DATABASE_ID, ID, NEW_USER, db } from "./appwrite/appwriteConfig";
 
 function AppComp() {
   function ScreenSizeCheck() {
+    const isIPhone = /iPhone/i.test(navigator.userAgent);
+    const isIPhone11OrAbove =
+      isIPhone && window.screen.width >= 414 && window.screen.height >= 896; // iPhone 11 or above
     return (
-      window.screen && window.screen.width < 500 && window.screen.height < 500
+      !isIPhone11OrAbove &&
+      window.screen &&
+      window.screen.width < 500 &&
+      window.screen.height < 500
     );
   }
 
@@ -30,7 +36,7 @@ function AppComp() {
     return (
       <div className=" w-full   fade-in flex-col h-screen flex justify-center items-center">
         <span className="text-xs font-semibold text-zinc-400 py-3 ">
-          Not optimized for screens below 5.3 inches
+          Not optimized for your device
         </span>
       </div>
     );
