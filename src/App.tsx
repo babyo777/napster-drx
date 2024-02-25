@@ -10,10 +10,8 @@ function AppComp() {
     const isIPhone11OrAbove =
       isIPhone && window.screen.width >= 414 && window.screen.height >= 896; // iPhone 11 or above
     return (
-      !isIPhone11OrAbove &&
-      window.screen &&
-      window.screen.width < 500 &&
-      window.screen.height < 500
+      isIPhone11OrAbove ||
+      (window.screen && window.screen.width < 500 && window.screen.height < 500)
     );
   }
 
