@@ -25,4 +25,4 @@ dist-ssr
 .env
 
 # extra
-src/appwrite/appwriteConfig.ts
+/src/appwrite/appwriteConfig.ts
