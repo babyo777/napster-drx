@@ -1,5 +1,5 @@
 const mainApi = import.meta.env.VITE_API_URL;
-const streamApi = import.meta.env.VITE_API_URL;
+const streamApi = import.meta.env.VITE_STREAM_URL;
 
 const isPlaylist = `${mainApi}/is/p?l=`;
 
