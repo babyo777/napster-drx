@@ -10,6 +10,7 @@ import {
   play,
   setCurrentArtistId,
   setCurrentIndex,
+  setIsLikedSong,
   setPlayingPlaylistUrl,
   setPlaylist,
 } from "@/Store/Player";
@@ -26,8 +27,10 @@ function Songs({
   p,
   artistId,
   query,
+  liked,
   link = true,
 }: {
+  liked?: boolean;
   link?: boolean;
   artistId: string;
   query?: string;
@@ -55,6 +58,9 @@ function Songs({
     console.log(data);
 
     if (data && data.length > 0) {
+      if (liked) {
+        dispatch(setIsLikedSong(true));
+      }
       dispatch(isLoop(false));
       dispatch(setPlayingPlaylistUrl(p));
       dispatch(setCurrentArtistId(artistId));
@@ -62,7 +68,7 @@ function Songs({
       dispatch(setCurrentIndex(id));
     }
     if (!isPlaying) dispatch(play(true));
-  }, [dispatch, id, q, p, isPlaying, artistId, query]);
+  }, [dispatch, id, q, p, isPlaying, artistId, query, liked]);
 
   const handleShare = useCallback(async () => {
     if (playlist && playlist.length > 0) {

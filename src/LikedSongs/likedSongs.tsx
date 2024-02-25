@@ -157,6 +157,7 @@ function LikedSongComp() {
             {pDetails.map((data, i) => (
               <Songs
                 p={id || ""}
+                liked={true}
                 query="likedSongsDetails"
                 artistId={data.artists[0].id}
                 audio={data.youtubeId}
