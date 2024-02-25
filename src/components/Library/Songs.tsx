@@ -55,8 +55,6 @@ function Songs({
 
   const handlePlay = useCallback(async () => {
     const data = q.getQueryData<playlistSongs[]>([query || "playlist", p]);
-    console.log(data);
-
     if (data && data.length > 0) {
       if (liked) {
         dispatch(setIsLikedSong(true));
