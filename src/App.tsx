@@ -47,7 +47,7 @@ function AppComp() {
   if (!Compatible) {
     return (
       <div className=" w-full   fade-in flex-col h-screen flex justify-center items-center">
-        <span className="text-base font-semibold text-zinc-400 py-3 ">
+        <span className="text-base font-semibold text-zinc-400 py-3 px-4">
           Not optimized for Android now{" "}
           <span onClick={handleTester} className="text-red-500">
             Are you a tester?
