@@ -20,6 +20,7 @@ export function Token() {
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(token);
+      alert("copied");
     } catch (error) {
       console.log(error);
     }

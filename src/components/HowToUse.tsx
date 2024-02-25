@@ -2,7 +2,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTrigger,
@@ -19,28 +18,21 @@ function HowToUse() {
     <Dialog>
       <DialogTrigger>
         <p className=" rounded-xl py-2.5 mt-3 bg-secondary w-full text-base">
-          How to use?
+          Load from Spotify
         </p>
       </DialogTrigger>
       <DialogContent className="w-[87vw] rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="font-extrabold  text-lg">
-            How to use?
-          </DialogTitle>
+          <DialogTitle className="  text-lg">Adding Soon...</DialogTitle>
         </DialogHeader>
-        <DialogDescription></DialogDescription>
-        <div className="m">
-          <ul className="flex flex-col gap-2 pb-4 text-sm -mt-4 ml-2">
-            <li>Step 1. Copy your Playlist URL.</li>
-            <li>Step 2. Search Spotify to Youtube.</li>
-            <li>Step 3. Convert to Youtube Playlist.</li>
-          </ul>
+
+        <div>
           <AspectRatio ratio={3 / 3}>
             <LazyLoadImage
               width="100%"
               height="100%"
               effect="blur"
-              src="/demo3.jpeg"
+              src="/favicon.jpeg"
               alt="install-NGLdrx"
               className=" border rounded-xl object-cover h-[100%] w-[100%]"
             />

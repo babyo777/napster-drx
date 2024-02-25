@@ -22,8 +22,10 @@ import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { FaRegHeart } from "react-icons/fa6";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "react-lazy-load-image-component/src/effects/opacity.css";
+import { FaHeart } from "react-icons/fa";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
@@ -146,16 +148,15 @@ function AudioPLayerComp() {
     );
     sound.play();
     dispatch(setPlayer(sound));
-    return () => { 
-sound.unload()
-sound.pause();
+    return () => {
+      sound.unload();
+      sound.pause();
       sound.off();
       navigator.mediaSession.setActionHandler("play", null);
       navigator.mediaSession.setActionHandler("pause", null);
       navigator.mediaSession.setActionHandler("nexttrack", null);
       navigator.mediaSession.setActionHandler("previoustrack", null);
       navigator.mediaSession.setActionHandler("seekto", null);
-      
     };
   }, [
     dispatch,
@@ -240,15 +241,23 @@ sound.pause();
               </AspectRatio>
             </div>
             <div className=" absolute bottom-[35.5vh] w-full text-start px-2 ">
-              <h1 className="text-3xl truncate  w-80 font-semibold">
-                {" "}
-                {playlist[currentIndex].title}
-              </h1>
+              <div className="flex items-center space-x-3">
+                <h1 className="text-3xl truncate   w-[75vw] font-semibold">
+                  {" "}
+                  {playlist[currentIndex].title}
+                </h1>
+                <FaRegHeart className="h-7 w-7" />
+                {/* <FaHeart className="h-7 w-7 fill-red-500" /> */}
+              </div>
 
               {playlist[currentIndex].artists[0]?.name ? (
-                <Link to={`/artist/${playlist[currentIndex].artists[0]?.id || currentArtistId}`}>
+                <Link
+                  to={`/artist/${
+                    playlist[currentIndex].artists[0]?.id || currentArtistId
+                  }`}
+                >
                   <DrawerClose className="text-start">
-                    <p className="text-base truncate underline underline-offset-4 w-64 text-red-500">
+                    <p className="text-base truncate  underline underline-offset-4 w-[70vw] text-red-500">
                       {" "}
                       {playlist[currentIndex].artists[0]?.name}
                     </p>
