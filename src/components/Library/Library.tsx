@@ -16,6 +16,7 @@ import {
   isLoop,
   play,
   setCurrentIndex,
+  setIsLikedSong,
   setPlayingPlaylistUrl,
   setPlaylist,
   setPlaylistUrl,
@@ -66,6 +67,7 @@ function LibraryComp() {
   });
 
   useEffect(() => {
+    dispatch(setIsLikedSong(false));
     if (id && id !== playlistUrl) {
       dispatch(setPlaylistUrl(id));
     }

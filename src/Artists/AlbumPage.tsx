@@ -14,6 +14,7 @@ import {
   play,
   setCurrentArtistId,
   setCurrentIndex,
+  setIsLikedSong,
   setPlayingPlaylistUrl,
   setPlaylist,
 } from "@/Store/Player";
@@ -49,6 +50,7 @@ function AlbumPageComp() {
   });
 
   useEffect(() => {
+    dispatch(setIsLikedSong(false));
     dispatch(SetPlaylistOrAlbum("album"));
   }, [dispatch, id, playlistUrl]);
   const handleShare = useCallback(async () => {
