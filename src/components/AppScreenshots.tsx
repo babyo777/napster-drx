@@ -26,17 +26,6 @@ export function AppScreenshots() {
             <LazyLoadImage
               height="100%"
               width="100%"
-              src="/ui/1.PNG"
-              alt="ui"
-              className="rounded-md object-cover h-[100%] w-[100%] "
-            />
-          </AspectRatio>
-        </CarouselItem>
-        <CarouselItem>
-          <AspectRatio ratio={9 / 16} className="bg-muted rounded-md">
-            <LazyLoadImage
-              height="100%"
-              width="100%"
               src="/ui/2.PNG"
               alt="ui"
               className="rounded-md object-cover h-[100%] w-[100%] "
@@ -71,6 +60,17 @@ export function AppScreenshots() {
               height="100%"
               width="100%"
               src="/ui/5.PNG"
+              alt="ui"
+              className="rounded-md object-cover h-[100%] w-[100%] "
+            />
+          </AspectRatio>
+        </CarouselItem>
+        <CarouselItem>
+          <AspectRatio ratio={9 / 16} className="bg-muted rounded-md">
+            <LazyLoadImage
+              height="100%"
+              width="100%"
+              src="/ui/1.PNG"
               alt="ui"
               className="rounded-md object-cover h-[100%] w-[100%] "
             />
