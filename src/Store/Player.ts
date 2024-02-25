@@ -14,11 +14,13 @@ interface Player {
   duration: number | "--:--";
   isLoading: boolean;
   isLoop: boolean;
+  isLikedSong: boolean;
   currentArtistId: string;
   savedPlaylist: savedPlaylist[];
 }
 
 const initialState: Player = {
+  isLikedSong: false,
   currentArtistId: "",
   PlaylistOrAlbum: "",
   playingPlaylistUrl: "",
@@ -47,6 +49,9 @@ const MusicPlayer = createSlice({
     },
     isLoop: (state, action: PayloadAction<boolean>) => {
       state.isLoop = action.payload;
+    },
+    setIsLikedSong: (state, action: PayloadAction<boolean>) => {
+      state.isLikedSong = action.payload;
     },
     removePlaylist: (state, action: PayloadAction<string>) => {
       const n = state.savedPlaylist.filter((p) => p.$id !== action.payload);
@@ -98,6 +103,7 @@ export const {
   removePlaylist,
   setPlaylistUrl,
   setSavedPlaylist,
+  setIsLikedSong,
   setIsLoading,
   isLoop,
   setProgress,

@@ -9,6 +9,7 @@ import {
   isLoop,
   play,
   setCurrentIndex,
+  setIsLikedSong,
   setPlayingPlaylistUrl,
   setPlaylist,
 } from "@/Store/Player";
@@ -73,6 +74,7 @@ function LikedSongComp() {
   }, [pDetails]);
   const handlePlay = useCallback(() => {
     if (pDetails) {
+      dispatch(setIsLikedSong(true));
       dispatch(setPlaylist(pDetails));
       dispatch(setCurrentIndex(0));
       dispatch(setPlayingPlaylistUrl(id || ""));

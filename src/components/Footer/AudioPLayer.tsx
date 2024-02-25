@@ -37,6 +37,9 @@ function AudioPLayerComp() {
   const PlaylistOrAlbum = useSelector(
     (state: RootState) => state.musicReducer.PlaylistOrAlbum
   );
+  const isLikedSong = useSelector(
+    (state: RootState) => state.musicReducer.isLikedSong
+  );
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
@@ -395,7 +398,11 @@ function AudioPLayerComp() {
           <div className=" justify-center absolute bottom-[6vh] w-full px-7 text-zinc-400 items-center">
             <div className="flex items-center justify-between w-full">
               {playlist.length > 1 ? (
-                <Link to={`/${PlaylistOrAlbum}/${playingPlaylistUrl}`}>
+                <Link
+                  to={`/${
+                    isLikedSong ? "liked" : PlaylistOrAlbum
+                  }/${playingPlaylistUrl}`}
+                >
                   <DrawerClose>
                     <MdOpenInNew className="h-6 w-6" />
                   </DrawerClose>
