@@ -411,7 +411,10 @@ function AudioPLayerComp() {
                 <MdOpenInNew className="h-6 w-6 text-zinc-700" />
               )}
 
-              <IoIosRadio className="h-7 w-7" />
+              <IoIosRadio
+                onClick={() => alert("lyrics soon..")}
+                className="h-7 w-7"
+              />
               <FiShare className="h-6 w-6" onClick={handleShare} />
             </div>
           </div>
