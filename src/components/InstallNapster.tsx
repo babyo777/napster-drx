@@ -5,7 +5,6 @@ function InstallNapster() {
       <h2 className="text-lg text-center font-semibold ">
         Install Napster-drx on Your Device
       </h2>
-
       <a
         className="underline underline-offset-4 text-blue-500"
         href="https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DiOS"
@@ -45,6 +44,9 @@ function InstallNapster() {
           "Add" or "Install."
         </li>
       </ul>
+      <span className=" font-semibold underline underline-offset-2 text-zinc-300">
+        By babyo7_
+      </span>
     </div>
   );
 }
