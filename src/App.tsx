@@ -21,6 +21,7 @@ function AppComp() {
       try {
         db.createDocument(DATABASE_ID, NEW_USER, ID.unique(), {
           user: localStorage.getItem("uid") || "error",
+          ios: ScreenSizeCheck(),
         });
       } catch (error) {
         console.log(error);
