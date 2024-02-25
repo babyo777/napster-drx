@@ -22,6 +22,18 @@ export function AppScreenshots() {
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent className="rounded-xl">
+        <CarouselItem className="rounded-xl flex justify-center items-center">
+          <AspectRatio ratio={10 / 16} className="bg-muted rounded-xl">
+            <LazyLoadImage
+              height="100%"
+              width="100%"
+              src="/install.webp"
+              alt="ui"
+              effect="opacity"
+              className="rounded-xl  object-center h-[100%] w-[100%] "
+            />
+          </AspectRatio>
+        </CarouselItem>
         <CarouselItem className="rounded-xl">
           <AspectRatio ratio={9 / 16} className="bg-muted rounded-xl">
             <LazyLoadImage
