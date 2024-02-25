@@ -17,12 +17,12 @@ export function AppScreenshots() {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-full max-w-xs"
+      className="w-full rounded-lg"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
-      <CarouselContent>
-        <CarouselItem>
+      <CarouselContent className="rounded-lg">
+        <CarouselItem className="rounded-lg">
           <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
             <LazyLoadImage
               height="100%"
@@ -34,7 +34,7 @@ export function AppScreenshots() {
             />
           </AspectRatio>
         </CarouselItem>
-        <CarouselItem>
+        <CarouselItem className="rounded-lg">
           <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
             <LazyLoadImage
               height="100%"
@@ -46,7 +46,7 @@ export function AppScreenshots() {
             />
           </AspectRatio>
         </CarouselItem>
-        <CarouselItem>
+        <CarouselItem className="rounded-lg">
           <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
             <LazyLoadImage
               height="100%"
@@ -58,7 +58,7 @@ export function AppScreenshots() {
             />
           </AspectRatio>
         </CarouselItem>
-        <CarouselItem>
+        <CarouselItem className="rounded-lg">
           <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
             <LazyLoadImage
               height="100%"
@@ -70,7 +70,7 @@ export function AppScreenshots() {
             />
           </AspectRatio>
         </CarouselItem>
-        <CarouselItem>
+        <CarouselItem className="rounded-lg">
           <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
             <LazyLoadImage
               height="100%"
