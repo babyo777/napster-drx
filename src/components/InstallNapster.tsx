@@ -44,9 +44,12 @@ function InstallNapster() {
           "Add" or "Install."
         </li>
       </ul>
-      <span className=" font-semibold underline underline-offset-2 text-zinc-300">
+      <a
+        href="https://instagram.com/babyo7_"
+        className=" font-semibold underline underline-offset-2 text-zinc-300"
+      >
         By babyo7_
-      </span>
+      </a>
     </div>
   );
 }
