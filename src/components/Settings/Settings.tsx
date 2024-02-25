@@ -45,6 +45,14 @@ function Settings() {
         <Token />
         <HowToUse />
         <p
+          onClick={() =>
+            (window.location.href = "mailto:yfw111realone@gmail.com")
+          }
+          className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center text-base "
+        >
+          Report bug
+        </p>
+        <p
           onClick={() => window.open("https://tanmayo7.vercel.app")}
           className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center text-base "
         >
