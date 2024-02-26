@@ -128,7 +128,7 @@ function AlbumPageComp() {
                 <Button
                   onClick={handlePlay}
                   type="button"
-                  variant={"ghost"}
+                  variant={"secondary"}
                   className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-14"
                 >
                   <FaPlay className="mr-2" />
@@ -137,7 +137,7 @@ function AlbumPageComp() {
                 <Button
                   type="button"
                   onClick={handleShare}
-                  variant={"ghost"}
+                  variant={"secondary"}
                   className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-14"
                 >
                   <FaShare className="mr-2" />

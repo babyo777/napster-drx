@@ -55,12 +55,12 @@ export function Token() {
             type="submit"
             size="sm"
             variant={"secondary"}
-            className="px-3 bg-zinc-800 text-white"
+            className="px-3 bg-zinc-800 hover:bg-zinc-100/20 text-white"
           >
             <span className="sr-only" onClick={handleCopy}>
               Copy
             </span>
-            <CopyIcon className="h-4 w-4" onClick={handleCopy} />
+            <CopyIcon className="h-4 w-4 " onClick={handleCopy} />
           </Button>
         </div>
         <DialogFooter className="sm:justify-start">
