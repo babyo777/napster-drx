@@ -209,23 +209,25 @@ function SearchComp() {
                   <Skeleton className="w-[70vw] h-[.7rem]  rounded-md bg-zinc-500 py-1" />
                 </div>
               )}
-              {trend &&
-                trend.map((trend, i) => (
-                  <div
-                    key={trend.song + i}
-                    className="flex fade-in flex-col text-sm py-1 capitalize text-zinc-300"
-                    onClick={() => {
-                      s.current && (s.current.value = trend.song);
-                      search(0);
-                    }}
-                  >
-                    <p className=" flex w-[90dvw] items-center gap-2">
-                      <IoIosTrendingUp />
-                      {trend.song}
-                    </p>
-                    <div className=" h-[.05rem] w-full bg-white/30 mt-3"></div>
-                  </div>
-                ))}
+              <div className="pb-40">
+                {trend &&
+                  trend.map((trend, i) => (
+                    <div
+                      key={trend.song + i}
+                      className="flex fade-in flex-col text-sm py-1 capitalize text-zinc-300"
+                      onClick={() => {
+                        s.current && (s.current.value = trend.song);
+                        search(0);
+                      }}
+                    >
+                      <p className=" flex w-[90dvw] items-center gap-2">
+                        <IoIosTrendingUp />
+                        {trend.song}
+                      </p>
+                      <div className=" h-[.05rem] w-full bg-white/30 mt-3"></div>
+                    </div>
+                  ))}
+              </div>
             </>
           )}
 
