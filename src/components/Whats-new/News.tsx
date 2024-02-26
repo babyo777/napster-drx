@@ -42,7 +42,7 @@ function News() {
         <>
           {isError && (
             <div className=" fixed w-full px-4">
-              <Alert className=" fade-in bg-zinc-800 rounded-xl  top-5 ">
+              <Alert className=" fade-in bg-zinc-800 rounded-xl  top-4 ">
                 <AlertDescription>
                   <div className="flex items-center justify-between space-x-2">
                     <Avatar className="h-9 w-9">
