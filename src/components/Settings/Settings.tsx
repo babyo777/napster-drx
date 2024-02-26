@@ -43,21 +43,21 @@ function Settings() {
           Load From Token
         </p>
         <Token />
-        <HowToUse />
-        <p
+        {/* <p
           onClick={() =>
             (window.location.href = "mailto:yfw111realone@gmail.com")
           }
           className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center text-base "
         >
           Report bug
-        </p>
+        </p> */}
         <p
           onClick={() => window.open("https://tanmayo7.vercel.app")}
           className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center text-base "
         >
           More by babyo7_
         </p>
+        <HowToUse />
         <p
           onClick={handleReset}
           className=" rounded-xl py-2.5 mt-3 flex justify-center bg-red-500 text-base "
