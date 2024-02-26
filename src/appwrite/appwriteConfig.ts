@@ -14,6 +14,7 @@ export const INSIGHTS = "65d7e476ad0f598faa84";
 export const ARTIST_INSIGHTS = "65d8e6554ce945db433b";
 export const PLAYLIST_INSIGHTS = "65d8e65fc23147683f5b";
 export const NEW_USER = "65d8aa90aa8c5dcaa2ce";
+export const UPDATES = "65da232e478bcf5bbbad";
 
 export const db = new Databases(client);
 
