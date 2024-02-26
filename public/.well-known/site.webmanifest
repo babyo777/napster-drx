@@ -5,7 +5,7 @@
   "background_color": "#09090b",
   "display": "standalone",
   "version": "1.1.7",
-    "start_url": ".",
+    "start_url": "/",
   "scope": "/",
   "lang": "en",
   "categories": ["music", "entertainment"],
