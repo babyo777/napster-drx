@@ -11,7 +11,7 @@ import {
   trending,
 } from "@/Interface";
 import Loader from "../Loaders/Loader";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { setSearch } from "@/Store/Player";
@@ -31,14 +31,6 @@ import { MdCancel } from "react-icons/md";
 import { PlaylistSearchComp } from "./playlistSearch";
 
 function SearchComp() {
-  const [isLongPress, setIsLongPress] = useState<boolean>(false);
-  const timeoutRef = useRef<number | null>(null);
-
-  const handleMouseDown = useCallback(() => {
-    timeoutRef.current = window.setTimeout(() => {
-      setIsLongPress(true);
-    }, 3000);
-  }, []);
   const searchQuery = useSelector(
     (state: RootState) => state.musicReducer.search
   );
@@ -58,14 +50,16 @@ function SearchComp() {
     const p = r.documents as unknown as recentSearch[];
     return p;
   };
-  const { data: RecentSearch, refetch: RefetchRecentSearch } = useQuery<
-    recentSearch[]
-  >("recentSearch", loadRecentSearch, {
-    staleTime: 1000,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    keepPreviousData: true,
-  });
+  const { data: RecentSearch } = useQuery<recentSearch[]>(
+    "recentSearch",
+    loadRecentSearch,
+    {
+      staleTime: 1000,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      keepPreviousData: true,
+    }
+  );
 
   const clearSearchQuery = useCallback(() => {
     dispatch(setSearch(""));
@@ -136,24 +130,7 @@ function SearchComp() {
       s.current.value = searchQuery;
     }
   }, [searchQuery]);
-  const handleDelete = useCallback(
-    (doc: string) => {
-      if (timeoutRef.current !== null) {
-        clearTimeout(timeoutRef.current);
-      }
 
-      if (isLongPress) {
-        const d = confirm("Are you sure you want to delete");
-        if (d) {
-          setIsLongPress(false);
-          db.deleteDocument(DATABASE_ID, INSIGHTS, doc).then(() => {
-            RefetchRecentSearch();
-          });
-        }
-      }
-    },
-    [RefetchRecentSearch, isLongPress]
-  );
   const search = useCallback(
     (time: number) => {
       s.current?.value.trim() == "" && dispatch(setSearch(""));
@@ -206,8 +183,6 @@ function SearchComp() {
                   {RecentSearch.slice(0, 4).map((recentSearch) => (
                     <div
                       key={recentSearch.$id}
-                      onTouchStart={handleMouseDown}
-                      onTouchEnd={() => handleDelete(recentSearch.$id)}
                       onClick={() => {
                         s.current && (s.current.value = recentSearch.song);
                         search(0);
