@@ -5,7 +5,8 @@
   "background_color": "#09090b",
   "display": "standalone",
   "version": "1.1.7",
-  "scope": "./",
+    "start_url": ".",
+  "scope": ".",
   "lang": "en",
   "categories": ["music", "entertainment"],
   "related_applications": [
@@ -18,7 +19,6 @@
       "url": "https://napster-drx.vercel.app"
     }
   ],
-  "start_url": "/",
   "icons": [
     {
       "src": "/assets/icons/icon-48x48.png",
