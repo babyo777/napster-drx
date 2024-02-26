@@ -60,7 +60,7 @@ function News() {
                     bg-zinc-600 
                    font-normal hover:bg-zinc-700 text-white px-3 rounded-md h-fit`}
                     >
-                      close
+                      Close
                     </Button>
                   </div>
                 </AlertDescription>
