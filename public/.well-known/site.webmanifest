@@ -6,7 +6,7 @@
   "display": "standalone",
   "version": "1.1.7",
     "start_url": ".",
-  "scope": ".",
+  "scope": "/",
   "lang": "en",
   "categories": ["music", "entertainment"],
   "related_applications": [
