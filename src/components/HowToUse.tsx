@@ -17,7 +17,7 @@ function HowToUse() {
   return (
     <Dialog>
       <DialogTrigger>
-        <p className=" rounded-xl bg-green-500 py-2.5 mt-3 bg-secondary w-full text-base">
+        <p className=" rounded-xl bg-green-500 py-2.5 mt-3  w-full text-base">
           Connect Spotify
         </p>
       </DialogTrigger>
