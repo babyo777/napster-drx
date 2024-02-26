@@ -37,7 +37,7 @@ function SearchComp() {
   const handleMouseDown = useCallback(() => {
     timeoutRef.current = window.setTimeout(() => {
       setIsLongPress(true);
-    }, 1000);
+    }, 3000);
   }, []);
   const searchQuery = useSelector(
     (state: RootState) => state.musicReducer.search
