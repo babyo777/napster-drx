@@ -209,7 +209,7 @@ function SearchComp() {
                   <Skeleton className="w-[70vw] h-[.7rem]  rounded-md bg-zinc-500 py-1" />
                 </div>
               )}
-              <div className="pb-[10rem]">
+              <div className="pb-[9.5rem]">
                 {trend &&
                   trend.map((trend, i) => (
                     <div
