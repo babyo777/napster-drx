@@ -9,7 +9,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { FaBackward } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { FaForward } from "react-icons/fa";
-import { IoIosRadio } from "react-icons/io";
+import { TbMessage } from "react-icons/tb";
 import { FiShare } from "react-icons/fi";
 import { FaPause } from "react-icons/fa6";
 import { MdOpenInNew } from "react-icons/md";
@@ -157,7 +157,7 @@ function AudioPLayerComp() {
   useEffect(() => {
     const sound = new Howl({
       src: [`${streamApi}${playlist[currentIndex].youtubeId}`],
-      
+
       loop: isLoop,
       html5: true,
       onload: () => {
@@ -411,7 +411,7 @@ function AudioPLayerComp() {
                 <MdOpenInNew className="h-6 w-6 text-zinc-700" />
               )}
 
-              <IoIosRadio
+              <TbMessage
                 onClick={() => alert("lyrics soon..")}
                 className="h-7 w-7"
               />
