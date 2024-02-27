@@ -73,10 +73,15 @@ function AudioPLayerComp() {
     return r.documents;
   };
 
-  const { data: isLiked, refetch } = useQuery("likedSongs", isLikedCheck, {
-    refetchOnWindowFocus: false,
-    staleTime: 1000,
-  });
+  const { data: isLiked, refetch } = useQuery(
+    ["likedSongs", playlist[currentIndex].youtubeId],
+    isLikedCheck,
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+    }
+  );
 
   const handleLink = useCallback(() => {
     SetLiked(true);
@@ -125,6 +130,7 @@ function AudioPLayerComp() {
   }, [isPlaying, music, dispatch]);
 
   const handleNext = useCallback(() => {
+    SetLiked(false);
     if (playlist.length > 1) {
       dispatch(setCurrentIndex((currentIndex + 1) % playlist.length));
     }
