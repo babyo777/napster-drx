@@ -15,14 +15,13 @@ import axios from "axios";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import Header from "../Header/Header";
 import NapsterSuggested from "./NapsterSuggested";
+import { streamApi } from "@/API/api";
 
 export function ListenNowComp() {
   const [report, setReport] = React.useState<boolean>();
 
   const PlaybackCheck = async () => {
-    const res = await axios.get(
-      "https://unconscious-elianora-babyo7.koyeb.app/"
-    );
+    const res = await axios.get(streamApi);
     return res.data;
   };
 

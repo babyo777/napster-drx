@@ -1,5 +1,12 @@
 const mainApi = import.meta.env.VITE_API_URL;
-const streamApi = import.meta.env.VITE_STREAM_URL;
+
+const STREAM = [
+  "https://exotic-cloe-babyo77.koyeb.app/?url=",
+  "https://unconscious-elianora-babyo7.koyeb.app/?url=",
+  "https://economic-glynda-groot.koyeb.app/?url=",
+];
+const streamApi = STREAM[Math.floor(Math.random() * STREAM.length)];
+console.log(streamApi);
 
 const isPlaylist = `${mainApi}/is/p?l=`;
 
