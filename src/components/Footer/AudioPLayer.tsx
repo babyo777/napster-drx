@@ -163,7 +163,6 @@ function AudioPLayerComp() {
       onload: () => {
         requestAnimationFrame(seek);
         setDuration(sound.duration());
-        handleMediaSession();
         dispatch(setIsLoading(true));
         refetch();
       },
@@ -199,7 +198,7 @@ function AudioPLayerComp() {
         requestAnimationFrame(seek);
       }
     };
-
+    handleMediaSession();
     navigator.mediaSession.setActionHandler("play", () => sound.play());
     navigator.mediaSession.setActionHandler("pause", () => sound.pause());
     navigator.mediaSession.setActionHandler("nexttrack", handleNext);
@@ -208,6 +207,7 @@ function AudioPLayerComp() {
       "seekto",
       (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
     );
+
     dispatch(setPlayer(sound));
     sound.play();
     return () => {
