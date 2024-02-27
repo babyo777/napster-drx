@@ -6,7 +6,6 @@ const STREAM = [
   "https://economic-glynda-groot.koyeb.app/?url=",
 ];
 const streamApi = STREAM[Math.floor(Math.random() * STREAM.length)];
-console.log(streamApi);
 
 const isPlaylist = `${mainApi}/is/p?l=`;
 
