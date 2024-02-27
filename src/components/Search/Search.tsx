@@ -263,7 +263,9 @@ function SearchComp() {
                   .map((p) => (
                     <PlaylistSearchComp
                       key={p.thumbnailUrl + p.playlistId}
-                      playlistId={p.playlistId.replace("VL", "")}
+                      playlistId={p.playlistId
+                        .replace("VL", "")
+                        .replace("MPSP", "")}
                       thumbnailUrl={p.thumbnailUrl}
                       title={p.title}
                     />
@@ -275,7 +277,9 @@ function SearchComp() {
                   .map((p) => (
                     <PlaylistSearchComp
                       key={p.thumbnailUrl + p.playlistId}
-                      playlistId={p.playlistId.replace("VL", "")}
+                      playlistId={p.playlistId
+                        .replace("VL", "")
+                        .replace("MPSP", "")}
                       thumbnailUrl={p.thumbnailUrl}
                       title={p.title}
                     />
@@ -311,7 +315,9 @@ function SearchComp() {
                   .map((p) => (
                     <PlaylistSearchComp
                       key={p.thumbnailUrl + p.playlistId}
-                      playlistId={p.playlistId.replace("VL", "")}
+                      playlistId={p.playlistId
+                        .replace("VL", "")
+                        .replace("MPSP", "")}
                       thumbnailUrl={p.thumbnailUrl}
                       title={p.title}
                     />
