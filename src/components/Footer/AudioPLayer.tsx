@@ -165,6 +165,7 @@ function AudioPLayerComp() {
         setDuration(sound.duration());
         handleMediaSession();
         dispatch(setIsLoading(true));
+        refetch();
       },
       onloaderror: () => {
         setDuration("--:--");
@@ -221,7 +222,7 @@ function AudioPLayerComp() {
     };
   }, [
     dispatch,
-
+    refetch,
     currentIndex,
     playlist,
     handleMediaSession,
