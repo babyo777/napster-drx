@@ -157,14 +157,15 @@ function AudioPLayerComp() {
   useEffect(() => {
     const sound = new Howl({
       src: [`${streamApi}${playlist[currentIndex].youtubeId}`],
+
       loop: isLoop,
       html5: true,
       onload: () => {
         requestAnimationFrame(seek);
         setDuration(sound.duration());
-        dispatch(setIsLoading(true));
-
         handleMediaSession();
+        dispatch(setIsLoading(true));
+        refetch();
       },
       onloaderror: () => {
         setDuration("--:--");
@@ -211,8 +212,9 @@ function AudioPLayerComp() {
 
     dispatch(setPlayer(sound));
     return () => {
-      sound.off();
       sound.unload();
+      sound.pause();
+      sound.off();
       navigator.mediaSession.setActionHandler("play", null);
       navigator.mediaSession.setActionHandler("pause", null);
       navigator.mediaSession.setActionHandler("nexttrack", null);
@@ -221,7 +223,7 @@ function AudioPLayerComp() {
     };
   }, [
     dispatch,
-
+    refetch,
     currentIndex,
     playlist,
     handleMediaSession,
