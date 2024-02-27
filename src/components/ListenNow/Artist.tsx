@@ -1,18 +1,10 @@
 import { homePagePlaylist } from "@/Interface";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
-import { Skeleton } from "../ui/skeleton";
 
 function Artist({ data }: { data: homePagePlaylist[] }) {
   return (
     <>
-      {!data && (
-        <div className="flex px-4  space-x-4 items-start w-full mt-5">
-          <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
-          <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
-          <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
-        </div>
-      )}
       {data && (
         <>
           <div className="flex  flex-col px-4 py-2 ">

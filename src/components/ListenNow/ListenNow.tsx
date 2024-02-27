@@ -29,7 +29,6 @@ export function ListenNowComp() {
     refetchOnMount: false,
     staleTime: Infinity,
     refetchOnWindowFocus: false,
-    retry: 0,
   });
 
   const getChart = async () => {
