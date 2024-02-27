@@ -47,7 +47,6 @@ function LibraryComp() {
   const { data, isLoading, isError, refetch, isRefetching } = useQuery<
     playlistSongs[]
   >(["playlist", id], getPlaylist, {
-    retry: 0,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     staleTime: 60 * 60000,
@@ -60,7 +59,6 @@ function LibraryComp() {
     refetch: pRefetch,
     isRefetching: pIsRefetching,
   } = useQuery<SearchPlaylist[]>(["playlistDetails", id], getPlaylistDetails, {
-    retry: 0,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     staleTime: 60 * 60000,

@@ -44,7 +44,6 @@ function AlbumPageComp() {
   const { data, isLoading, isError, refetch, isRefetching } = useQuery<
     AlbumSongs[]
   >(["album", id], getPlaylist, {
-    retry: 0,
     refetchOnWindowFocus: false,
     staleTime: 60 * 600000,
   });
