@@ -28,6 +28,7 @@ import { DATABASE_ID, ID, LIKE_SONG, db } from "@/appwrite/appwriteConfig";
 import { FaHeart } from "react-icons/fa";
 import { useQuery } from "react-query";
 import { Query } from "appwrite";
+import { useSwipeable } from "react-swipeable";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
@@ -143,6 +144,11 @@ function AudioPLayerComp() {
       );
     }
   }, [dispatch, currentIndex, playlist.length]);
+
+  const swipeHandler = useSwipeable({
+    onSwipedLeft: handlePrev,
+    onSwipedRight: handleNext,
+  });
 
   const handleMediaSession = useCallback(() => {
     navigator.mediaSession.metadata = new MediaMetadata({
@@ -292,7 +298,10 @@ function AudioPLayerComp() {
       <DrawerContent className=" h-[96dvh]  bg-zinc-900 ">
         <div className="flex flex-col justify-start pt-2  h-full">
           <DrawerHeader>
-            <div className="overflow-hidden h-[48dvh] w-[90vw] rounded-2xl mx-1 ">
+            <div
+              {...swipeHandler}
+              className="overflow-hidden h-[48dvh] w-[90vw] rounded-2xl mx-1 "
+            >
               <AspectRatio>
                 <LazyLoadImage
                   height="100%"
