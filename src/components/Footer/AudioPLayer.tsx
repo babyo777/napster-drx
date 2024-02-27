@@ -155,50 +155,45 @@ function AudioPLayerComp() {
   }, [currentIndex, playlist]);
 
   useEffect(() => {
+    Howler.autoUnlock = true;
+  }, []);
+  useEffect(() => {
     const sound = new Howl({
       src: [`${streamApi}${playlist[currentIndex].youtubeId}`],
+      autoplay: true,
       loop: isLoop,
       html5: true,
+      onload: () => {
+        handleMediaSession();
+        requestAnimationFrame(seek);
+        setDuration(sound.duration());
+        dispatch(setIsLoading(true));
+        refetch();
+      },
+      onloaderror: () => {
+        setDuration("--:--");
+        setProgress("--:--");
+        dispatch(setIsLoading(true));
+      },
+      onplayerror: () => {
+        setDuration("--:--");
+        setProgress("--:--");
+        dispatch(setIsLoading(true));
+      },
+      onpause: () => {
+        requestAnimationFrame(seek);
+        dispatch(play(false));
+      },
+      onseek: () => {
+        requestAnimationFrame(seek);
+      },
+      onplay: () => {
+        requestAnimationFrame(seek);
+        dispatch(play(true));
+        dispatch(setIsLoading(false));
+      },
+      onend: handleNext,
     });
-
-    const handlePlay = () => {
-      requestAnimationFrame(seek);
-      dispatch(play(true));
-      dispatch(setIsLoading(false));
-    };
-
-    sound.on("load", () => {
-      handleMediaSession();
-      requestAnimationFrame(seek);
-      setDuration(sound.duration());
-      dispatch(setIsLoading(true));
-      refetch();
-    });
-
-    sound.on("loaderror", () => {
-      setDuration("--:--");
-      setProgress("--:--");
-      dispatch(setIsLoading(true));
-    });
-
-    sound.on("playerror", () => {
-      setDuration("--:--");
-      setProgress("--:--");
-      dispatch(setIsLoading(true));
-    });
-
-    sound.on("pause", () => {
-      requestAnimationFrame(seek);
-      dispatch(play(false));
-    });
-
-    sound.on("seek", () => {
-      requestAnimationFrame(seek);
-    });
-
-    sound.on("play", handlePlay);
-
-    sound.on("end", handleNext);
 
     const seek = () => {
       const s = sound.seek();
@@ -220,8 +215,8 @@ function AudioPLayerComp() {
 
     dispatch(setPlayer(sound));
     return () => {
+      sound.pause();
       sound.off();
-      sound.unload();
       navigator.mediaSession.setActionHandler("play", null);
       navigator.mediaSession.setActionHandler("pause", null);
       navigator.mediaSession.setActionHandler("nexttrack", null);
