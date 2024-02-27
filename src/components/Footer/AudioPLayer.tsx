@@ -155,9 +155,12 @@ function AudioPLayerComp() {
   }, [currentIndex, playlist]);
 
   useEffect(() => {
+    Howler.autoUnlock = true;
+  }, []);
+  useEffect(() => {
     const sound = new Howl({
       src: [`${streamApi}${playlist[currentIndex].youtubeId}`],
-
+      autoplay: true,
       loop: isLoop,
       html5: true,
       onload: () => {
@@ -212,6 +215,7 @@ function AudioPLayerComp() {
 
     dispatch(setPlayer(sound));
     return () => {
+      sound.unload();
       sound.pause();
       sound.off();
       navigator.mediaSession.setActionHandler("play", null);
