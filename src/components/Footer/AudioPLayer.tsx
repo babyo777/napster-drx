@@ -161,11 +161,11 @@ function AudioPLayerComp() {
       loop: isLoop,
       html5: true,
       onload: () => {
-        handleMediaSession();
         requestAnimationFrame(seek);
         setDuration(sound.duration());
         dispatch(setIsLoading(true));
         refetch();
+        handleMediaSession();
       },
       onloaderror: () => {
         setDuration("--:--");
