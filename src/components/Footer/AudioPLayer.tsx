@@ -64,7 +64,6 @@ function AudioPLayerComp() {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
       Query.equal("for", [localStorage.getItem("uid") || "default"]),
       Query.equal("youtubeId", [playlist[currentIndex].youtubeId]),
-      Query.equal("title", [playlist[currentIndex].title]),
     ]);
     if (r.documents.length == 0) {
       SetLiked(false);
