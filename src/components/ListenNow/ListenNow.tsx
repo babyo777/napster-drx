@@ -154,7 +154,6 @@ export function ListenNowComp() {
           <div className="flex px-4  space-x-4 items-center w-full mt-5">
             <Skeleton className="w-[27vw] h-4 rounded-md bg-zinc-500" />
           </div>
-
           <div className="flex px-4  space-x-4 items-start w-full mt-5">
             <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
             <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
