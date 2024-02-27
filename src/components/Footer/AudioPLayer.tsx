@@ -214,8 +214,8 @@ function AudioPLayerComp() {
       (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
     );
 
-    sound.play();
     dispatch(setPlayer(sound));
+    sound.play();
     return () => {
       sound.pause();
       sound.off();
