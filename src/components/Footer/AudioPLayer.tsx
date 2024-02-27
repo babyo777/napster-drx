@@ -84,8 +84,8 @@ function AudioPLayerComp() {
       youtubeId: playlist[currentIndex].youtubeId,
       title: playlist[currentIndex].title,
       artists: [
-        playlist[currentIndex].artists[0].id || currentArtistId,
-        playlist[currentIndex].artists[0].name,
+        playlist[currentIndex].artists[0]?.id || currentArtistId || "unknown",
+        playlist[currentIndex].artists[0]?.name || "unknown",
       ],
       thumbnailUrl: playlist[currentIndex].thumbnailUrl,
       for: localStorage.getItem("uid") || "default",
