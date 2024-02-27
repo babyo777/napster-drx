@@ -165,7 +165,6 @@ function AudioPLayerComp() {
         setDuration(sound.duration());
         handleMediaSession();
         dispatch(setIsLoading(true));
-        refetch();
       },
       onloaderror: () => {
         setDuration("--:--");
@@ -213,7 +212,6 @@ function AudioPLayerComp() {
     dispatch(setPlayer(sound));
     return () => {
       sound.unload();
-      sound.pause();
       sound.off();
       navigator.mediaSession.setActionHandler("play", null);
       navigator.mediaSession.setActionHandler("pause", null);
@@ -223,7 +221,7 @@ function AudioPLayerComp() {
     };
   }, [
     dispatch,
-    refetch,
+
     currentIndex,
     playlist,
     handleMediaSession,
