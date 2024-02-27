@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { play, setCurrentIndex, setIsLoading, setPlayer } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
-import { Howl, Howler } from "howler";
+import { Howl } from "howler";
 import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { Link } from "react-router-dom";
@@ -158,9 +158,7 @@ function AudioPLayerComp() {
       ],
     });
   }, [currentIndex, playlist]);
-  useEffect(() => {
-    Howler.autoUnlock = true;
-  }, []);
+
   useEffect(() => {
     const sound = new Howl({
       src: [`${streamApi}${playlist[currentIndex].youtubeId}`],
