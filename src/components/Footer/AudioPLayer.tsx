@@ -164,7 +164,7 @@ function AudioPLayerComp() {
         requestAnimationFrame(seek);
         setDuration(sound.duration());
         dispatch(setIsLoading(true));
-        refetch();
+
         handleMediaSession();
       },
       onloaderror: () => {
@@ -222,7 +222,7 @@ function AudioPLayerComp() {
     };
   }, [
     dispatch,
-    refetch,
+
     currentIndex,
     playlist,
     handleMediaSession,
