@@ -198,6 +198,7 @@ function AudioPLayerComp() {
         requestAnimationFrame(seek);
       }
     };
+    sound.load();
     sound.play();
     handleMediaSession();
     navigator.mediaSession.setActionHandler("play", () => sound.play());
