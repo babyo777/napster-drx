@@ -158,7 +158,9 @@ function AudioPLayerComp() {
       ],
     });
   }, [currentIndex, playlist]);
-
+  useEffect(() => {
+    Howler.autoUnlock = true;
+  }, []);
   useEffect(() => {
     const sound = new Howl({
       src: [`${streamApi}${playlist[currentIndex].youtubeId}`],
