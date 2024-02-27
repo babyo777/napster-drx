@@ -157,7 +157,8 @@ function AudioPLayerComp() {
   useEffect(() => {
     const sound = new Howl({
       src: [`${streamApi}${playlist[currentIndex].youtubeId}`],
-
+      autoplay: true,
+      preload: true,
       loop: isLoop,
       html5: true,
       onload: () => {
