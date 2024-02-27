@@ -140,7 +140,6 @@ function AudioPLayerComp() {
   }, [dispatch, currentIndex, playlist.length]);
 
   const handleMediaSession = useCallback(() => {
-    refetch();
     navigator.mediaSession.metadata = new MediaMetadata({
       title: playlist[currentIndex].title,
       artist: playlist[currentIndex].artists[0]?.name,
@@ -153,7 +152,7 @@ function AudioPLayerComp() {
         },
       ],
     });
-  }, [currentIndex, playlist, refetch]);
+  }, [currentIndex, playlist]);
 
   useEffect(() => {
     const sound = new Howl({
@@ -167,6 +166,7 @@ function AudioPLayerComp() {
         setDuration(sound.duration());
         handleMediaSession();
         dispatch(setIsLoading(true));
+        refetch();
       },
       onloaderror: () => {
         setDuration("--:--");
@@ -226,6 +226,7 @@ function AudioPLayerComp() {
     playlist,
     handleMediaSession,
     handleNext,
+    refetch,
     isLoop,
   ]);
 
