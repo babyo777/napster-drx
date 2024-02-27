@@ -2,10 +2,16 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import { FaCirclePlay } from "react-icons/fa6";
 import { homePagePlaylist } from "@/Interface";
-
+import { Skeleton } from "../ui/skeleton";
 const Charts: React.FC<{ data: homePagePlaylist[] }> = ({ data }) => {
   return (
     <>
+      {!data && (
+        <div className="flex px-4 justify-center space-x-4 items-center w-full mt-5">
+          <Skeleton className="w-[50vw] h-36 rounded-md bg-zinc-500" />
+          <Skeleton className="w-[50vw] h-36 rounded-md bg-zinc-500" />
+        </div>
+      )}
       {data && (
         <>
           <div className="flex   flex-col px-4 pt-1 pb-2 ">
