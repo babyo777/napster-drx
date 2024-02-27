@@ -15,7 +15,6 @@ import axios from "axios";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import Header from "../Header/Header";
 import NapsterSuggested from "./NapsterSuggested";
-import News from "../Whats-new/News";
 
 export function ListenNowComp() {
   const [report, setReport] = React.useState<boolean>();
@@ -102,7 +101,6 @@ export function ListenNowComp() {
   };
   return (
     <>
-      <News />
       {data && data !== "url not provided" && (
         <div className=" fixed  w-full px-4">
           <Alert className=" fade-in bg-red-500 top-4 ">
