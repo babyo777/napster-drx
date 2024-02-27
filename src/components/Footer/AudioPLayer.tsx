@@ -198,6 +198,7 @@ function AudioPLayerComp() {
         requestAnimationFrame(seek);
       }
     };
+    sound.play();
     handleMediaSession();
     navigator.mediaSession.setActionHandler("play", () => sound.play());
     navigator.mediaSession.setActionHandler("pause", () => sound.pause());
@@ -207,7 +208,6 @@ function AudioPLayerComp() {
       "seekto",
       (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
     );
-    sound.play();
 
     dispatch(setPlayer(sound));
     return () => {
