@@ -161,6 +161,7 @@ function AudioPLayerComp() {
       loop: isLoop,
       html5: true,
       onload: () => {
+        handleMediaSession();
         requestAnimationFrame(seek);
         setDuration(sound.duration());
         dispatch(setIsLoading(true));
@@ -198,9 +199,8 @@ function AudioPLayerComp() {
         requestAnimationFrame(seek);
       }
     };
-    sound.load();
+
     sound.play();
-    handleMediaSession();
     navigator.mediaSession.setActionHandler("play", () => sound.play());
     navigator.mediaSession.setActionHandler("pause", () => sound.pause());
     navigator.mediaSession.setActionHandler("nexttrack", handleNext);
