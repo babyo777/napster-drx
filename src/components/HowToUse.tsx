@@ -46,7 +46,7 @@ function HowToUse() {
               className="font-bold py-5 w-full rounded-xl"
             >
               <a href="https://www.tunemymusic.com/transfer" target="_blank">
-                Until Try Third Party
+                Try Third Party
               </a>
             </Button>
           </DialogClose>
