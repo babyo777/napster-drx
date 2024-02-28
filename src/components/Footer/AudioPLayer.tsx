@@ -177,15 +177,6 @@ function AudioPLayerComp() {
         setDuration(sound.duration());
         dispatch(setIsLoading(true));
         refetch();
-        handleMediaSession();
-        navigator.mediaSession.setActionHandler("play", () => sound.play());
-        navigator.mediaSession.setActionHandler("pause", () => sound.pause());
-        navigator.mediaSession.setActionHandler("nexttrack", handleNext);
-        navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
-        navigator.mediaSession.setActionHandler(
-          "seekto",
-          (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
-        );
       },
       onloaderror: () => {
         setDuration("--:--");
@@ -205,6 +196,15 @@ function AudioPLayerComp() {
         requestAnimationFrame(seek);
       },
       onplay: () => {
+        handleMediaSession();
+        navigator.mediaSession.setActionHandler("play", () => sound.play());
+        navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+        navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+        navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+        navigator.mediaSession.setActionHandler(
+          "seekto",
+          (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
+        );
         requestAnimationFrame(seek);
         dispatch(play(true));
         dispatch(setIsLoading(false));
