@@ -107,7 +107,7 @@ export function ListenNowComp() {
               <span>
                 music will not play for a while{" "}
                 <p onClick={handleReport}>
-                  {report ? "@check again" : "@report here"}
+                  {report ? "@check again" : "@send report"}
                 </p>
               </span>
             </AlertDescription>
@@ -122,7 +122,7 @@ export function ListenNowComp() {
               <p>
                 music will not play for a while{" "}
                 <span onClick={handleReport}>
-                  {report ? "@check again" : "@report here"}
+                  {report ? "@check again" : "@send report"}
                 </span>
               </p>
             </AlertDescription>
