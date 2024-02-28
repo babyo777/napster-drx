@@ -4,21 +4,8 @@
   "theme_color": "#09090b",
   "background_color": "#09090b",
   "display": "standalone",
-  "orientation": "portrait-primary",
   "version": "1.1.7",
   "scope": "./",
-  "lang": "en",
-  "categories": ["music", "entertainment"],
-  "related_applications": [
-    {
-      "platform": "itunes",
-      "url": "https://napster-drx.vercel.app"
-    },
-    {
-      "platform": "play",
-      "url": "https://napster-drx.vercel.app"
-    }
-  ],
   "start_url": "/?utm_source=standalone&utm_medium=pwa",
   "icons": [
     {
