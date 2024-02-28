@@ -72,7 +72,7 @@ function ArtistPage() {
           <img
             width="100%"
             height="100%"
-            src={data.thumbnails[0].url}
+            src={data.thumbnails[0]?.url || "/favicon.jpeg"}
             alt="Image"
             loading="lazy"
             className="object-cover opacity-80 h-[100%] w-[100%]"
@@ -80,7 +80,7 @@ function ArtistPage() {
 
           <div className=" absolute bottom-5 px-4 left-0  right-0">
             <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
-              {data.name}
+              {data?.name}
             </h1>
             <div className="flex space-x-4 py-1 justify-center  items-center w-full">
               <Button
