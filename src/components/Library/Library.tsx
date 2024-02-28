@@ -29,6 +29,8 @@ import React, { useCallback, useEffect } from "react";
 import { RootState } from "@/Store/Store";
 import AddLibrary from "./AddLibrary";
 import GoBack from "../Goback";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 function LibraryComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -167,7 +169,8 @@ function LibraryComp() {
               <AddLibrary clone={true} id={id} />
             </div>
 
-            <img
+            <LazyLoadImage
+              effect="blur"
               width="100%"
               height="100%"
               src={
