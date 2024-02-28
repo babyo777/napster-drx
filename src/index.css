@@ -133,21 +133,6 @@ input[type="range"]::-ms-thumb {
   display: none;
 }
 
-.marquee-text {
-  overflow: hidden;
-  white-space: nowrap;
-  animation: marquee 10s linear infinite;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
 .loader {
   position: relative;
   display: flex;
