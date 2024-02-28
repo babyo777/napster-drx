@@ -33,7 +33,7 @@ function HowToUse() {
               height="100%"
               effect="blur"
               src="/demo3.jpeg"
-              alt="install-NGLdrx"
+              alt="Transfer"
               className=" border rounded-xl object-cover h-[100%] w-[100%]"
             />
           </AspectRatio>
