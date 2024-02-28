@@ -29,20 +29,16 @@ function Check() {
   };
 
   useEffect(() => {
-    const t = setTimeout(() => {
-      const isDesktop = window.innerWidth > 786;
-      const isStandalone = window.matchMedia(
-        "(display-mode: standalone)"
-      ).matches;
-      const hardwareConcurrency = navigator.hardwareConcurrency || null;
-      setIsDesktop(isDesktop);
-      setHardwareConcurrency(hardwareConcurrency);
-      setIsStandalone(isStandalone);
-      setGraphic(checkGpuCapabilities());
-      setCheck(false);
-    }, 1777);
-
-    return () => clearTimeout(t);
+    const isDesktop = window.innerWidth > 786;
+    const isStandalone = window.matchMedia(
+      "(display-mode: standalone)"
+    ).matches;
+    const hardwareConcurrency = navigator.hardwareConcurrency || null;
+    setIsDesktop(isDesktop);
+    setHardwareConcurrency(hardwareConcurrency);
+    setIsStandalone(isStandalone);
+    setGraphic(checkGpuCapabilities());
+    setCheck(false);
   }, []);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
