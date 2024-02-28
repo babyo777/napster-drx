@@ -22,6 +22,7 @@ function ArtistPage() {
 
   const { data, isLoading, isError, refetch, isRefetching } =
     useQuery<ArtistDetails>(["playlist", id], getArtistDetails, {
+      retry: 5,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       staleTime: 60 * 60000,
