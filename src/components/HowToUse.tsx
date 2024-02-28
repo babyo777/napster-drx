@@ -18,12 +18,12 @@ function HowToUse() {
     <Dialog>
       <DialogTrigger>
         <p className=" rounded-xl bg-green-500 py-2.5 mt-3  w-full text-base">
-          Connect Spotify
+          Transfer from Spotify
         </p>
       </DialogTrigger>
       <DialogContent className="w-[87vw] rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="  text-lg">Adding Soon...</DialogTitle>
+          <DialogTitle className="  text-lg">In app coming soon</DialogTitle>
         </DialogHeader>
 
         <div>
@@ -45,7 +45,9 @@ function HowToUse() {
               variant={"secondary"}
               className="font-bold py-5 w-full rounded-xl"
             >
-              <p>Start listening</p>
+              <a href="https://www.tunemymusic.com/transfer" target="_blank">
+                Until Try Third Party
+              </a>
             </Button>
           </DialogClose>
         </DialogFooter>
