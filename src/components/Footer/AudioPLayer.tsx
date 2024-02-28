@@ -150,21 +150,6 @@ function AudioPLayerComp() {
     onSwipedRight: handlePrev,
   });
 
-  const handleMediaSession = useCallback(() => {
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: playlist[currentIndex].title,
-      artist: playlist[currentIndex].artists[0]?.name,
-      artwork: [
-        {
-          src: playlist[currentIndex].thumbnailUrl.replace(
-            "w120-h120",
-            "w1080-h1080"
-          ),
-        },
-      ],
-    });
-  }, [currentIndex, playlist]);
-
   useEffect(() => {
     const sound = new Howl({
       src: [`${streamApi}${playlist[currentIndex].youtubeId}`],
@@ -177,6 +162,26 @@ function AudioPLayerComp() {
         setDuration(sound.duration());
         dispatch(setIsLoading(true));
         refetch();
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: playlist[currentIndex].title,
+          artist: playlist[currentIndex].artists[0]?.name,
+          artwork: [
+            {
+              src: playlist[currentIndex].thumbnailUrl.replace(
+                "w120-h120",
+                "w1080-h1080"
+              ),
+            },
+          ],
+        });
+        navigator.mediaSession.setActionHandler("play", () => sound.play());
+        navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+        navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+        navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+        navigator.mediaSession.setActionHandler(
+          "seekto",
+          (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
+        );
       },
       onloaderror: () => {
         setDuration("--:--");
@@ -196,15 +201,6 @@ function AudioPLayerComp() {
         requestAnimationFrame(seek);
       },
       onplay: () => {
-        handleMediaSession();
-        navigator.mediaSession.setActionHandler("play", () => sound.play());
-        navigator.mediaSession.setActionHandler("pause", () => sound.pause());
-        navigator.mediaSession.setActionHandler("nexttrack", handleNext);
-        navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
-        navigator.mediaSession.setActionHandler(
-          "seekto",
-          (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
-        );
         requestAnimationFrame(seek);
         dispatch(play(true));
         dispatch(setIsLoading(false));
@@ -237,7 +233,6 @@ function AudioPLayerComp() {
     handlePrev,
     currentIndex,
     playlist,
-    handleMediaSession,
     handleNext,
     refetch,
     isLoop,
