@@ -219,6 +219,7 @@ function AudioPLayerComp() {
 
     return () => {
       sound.pause();
+      sound.load();
       sound.removeEventListener("play", handlePlay);
       sound.removeEventListener("pause", handlePause);
       sound.removeEventListener("loadedmetadata", () =>
