@@ -6,7 +6,7 @@
   "display": "standalone",
   "version": "1.1.7",
   "scope": "./",
-  "start_url": "/?utm_source=standalone&utm_medium=pwa",
+  "start_url": "https://napster-drx.vercel.app/?utm_source=pwa_install",
   "icons": [
     {
       "src": "assets/icons/icon-48x48.png",
