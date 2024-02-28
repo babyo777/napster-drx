@@ -29,19 +29,16 @@ function Check() {
   };
 
   useEffect(() => {
-    const t = setTimeout(() => {
-      const isDesktop = window.innerWidth > 786;
-      const isStandalone = window.matchMedia(
-        "(display-mode: standalone)"
-      ).matches;
-      const hardwareConcurrency = navigator.hardwareConcurrency || null;
-      setIsDesktop(isDesktop);
-      setHardwareConcurrency(hardwareConcurrency);
-      setIsStandalone(isStandalone);
-      setGraphic(checkGpuCapabilities());
-      setCheck(false);
-    }, 1777);
-    return () => clearTimeout(t);
+    const isDesktop = window.innerWidth > 786;
+    const isStandalone = window.matchMedia(
+      "(display-mode: standalone)"
+    ).matches;
+    const hardwareConcurrency = navigator.hardwareConcurrency || null;
+    setIsDesktop(isDesktop);
+    setHardwareConcurrency(hardwareConcurrency);
+    setIsStandalone(isStandalone);
+    setGraphic(checkGpuCapabilities());
+    setCheck(false);
   }, []);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
@@ -60,7 +57,7 @@ function Check() {
 
   return (
     <>
-      {check ? (
+      {check && navigator.onLine ? (
         <div className=" w-full   fade-in flex-col h-screen flex justify-center items-center">
           <div className="loader">
             <div className="loader__circle"></div>
@@ -69,7 +66,9 @@ function Check() {
             <div className="loader__circle"></div>
             <div className="loader__circle"></div>
           </div>
-          <span className="text-xs font-semibold pt-7 text-zinc-400 py-7 "></span>
+          <span className="text-xs font-semibold pt-7 text-zinc-400 py-7 ">
+            Checking Device Status
+          </span>
         </div>
       ) : (
         <InstallNapster />
