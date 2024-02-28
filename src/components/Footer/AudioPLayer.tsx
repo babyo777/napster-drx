@@ -150,20 +150,41 @@ function AudioPLayerComp() {
     onSwipedRight: handlePrev,
   });
 
-  const handleMediaSession = useCallback(() => {
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: playlist[currentIndex].title,
-      artist: playlist[currentIndex].artists[0]?.name,
-      artwork: [
-        {
-          src: playlist[currentIndex].thumbnailUrl.replace(
-            "w120-h120",
-            "w1080-h1080"
-          ),
-        },
-      ],
-    });
-  }, [currentIndex, playlist]);
+  const handleMediaSession = useCallback(
+    (sound: Howl) => {
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: playlist[currentIndex].title,
+          artist: playlist[currentIndex].artists[0]?.name,
+          artwork: [
+            {
+              src: playlist[currentIndex].thumbnailUrl.replace(
+                "w120-h120",
+                "w1080-h1080"
+              ),
+            },
+          ],
+        });
+      }
+      navigator.mediaSession.setActionHandler("play", () => sound.play());
+      navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+      navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+      navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+      navigator.mediaSession.setActionHandler(
+        "seekto",
+        (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
+      );
+
+      return () => {
+        navigator.mediaSession.setActionHandler("play", null);
+        navigator.mediaSession.setActionHandler("pause", null);
+        navigator.mediaSession.setActionHandler("nexttrack", null);
+        navigator.mediaSession.setActionHandler("previoustrack", null);
+        navigator.mediaSession.setActionHandler("seekto", null);
+      };
+    },
+    [currentIndex, playlist, handleNext, handlePrev]
+  );
 
   useEffect(() => {
     const sound = new Howl({
@@ -210,36 +231,20 @@ function AudioPLayerComp() {
         requestAnimationFrame(seek);
       }
     };
-    handleMediaSession();
-    navigator.mediaSession.setActionHandler("play", () => sound.play());
-    navigator.mediaSession.setActionHandler("pause", () => sound.pause());
-    navigator.mediaSession.setActionHandler("nexttrack", handleNext);
-    navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
-    navigator.mediaSession.setActionHandler(
-      "seekto",
-      (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
-    );
+    handleMediaSession(sound);
 
-    dispatch(setPlayer(sound));
     sound.play();
+    dispatch(setPlayer(sound));
     return () => {
-      sound.pause();
-      sound.off();
       sound.unload();
-      navigator.mediaSession.setActionHandler("play", null);
-      navigator.mediaSession.setActionHandler("pause", null);
-      navigator.mediaSession.setActionHandler("nexttrack", null);
-      navigator.mediaSession.setActionHandler("previoustrack", null);
-      navigator.mediaSession.setActionHandler("seekto", null);
     };
   }, [
     dispatch,
-    handlePrev,
     currentIndex,
     playlist,
     handleMediaSession,
-    handleNext,
     refetch,
+    handleNext,
     isLoop,
   ]);
 
