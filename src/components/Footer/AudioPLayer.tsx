@@ -219,7 +219,9 @@ function AudioPLayerComp() {
       sound.pause();
       sound.removeEventListener("play", handlePlay);
       sound.removeEventListener("pause", handlePause);
-      sound.removeEventListener("load", handleError);
+      sound.removeEventListener("loadedmetadata", () =>
+        setDuration(sound.duration)
+      );
       sound.removeEventListener("timeupdate", handleTimeUpdate);
       sound.removeEventListener("error", handleError);
       sound.removeEventListener("ended", handleNext);
