@@ -146,8 +146,8 @@ function AudioPLayerComp() {
   }, [dispatch, currentIndex, playlist.length]);
 
   const swipeHandler = useSwipeable({
-    onSwipedLeft: handlePrev,
-    onSwipedRight: handleNext,
+    onSwipedLeft: handleNext,
+    onSwipedRight: handlePrev,
   });
 
   const handleMediaSession = useCallback(() => {
