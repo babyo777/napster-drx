@@ -208,8 +208,7 @@ function AudioPLayerComp() {
     navigator.mediaSession.setActionHandler("nexttrack", handleNext);
     navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
     navigator.mediaSession.setActionHandler("seekto", handleSeek);
-    setDuration("--:--");
-    setProgress("--:--");
+
     dispatch(setIsLoading(true));
     dispatch(setPlayer(sound));
 
