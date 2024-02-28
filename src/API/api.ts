@@ -19,6 +19,8 @@ const getArtistsDetailsByName = `${mainApi}/gabyname/`;
 
 const SearchPlaylistApi = `${mainApi}/p/`;
 
+const getPlaylistDetails = `${mainApi}/gpd/`;
+
 const SearchArtist = `${mainApi}/a/`;
 
 const GetArtistDetails = `${mainApi}/ga/`;
@@ -38,5 +40,6 @@ export {
   SearchArtist,
   GetArtistDetails,
   SearchAlbum,
+  getPlaylistDetails,
   GetAlbumSongs,
 };

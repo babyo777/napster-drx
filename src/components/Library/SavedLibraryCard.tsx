@@ -5,9 +5,9 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useQuery } from "react-query";
 import { SearchPlaylist } from "@/Interface";
-import { SearchPlaylistApi } from "@/API/api";
 import axios from "axios";
 import SkeletonP from "./SkeletonP";
+import { getPlaylistDetails } from "@/API/api";
 function SavedLibraryCard({
   author,
   link,
@@ -19,14 +19,14 @@ function SavedLibraryCard({
   link?: string;
   f: string;
 }) {
-  const getPlaylistDetails = async () => {
-    const list = await axios.get(`${SearchPlaylistApi}${link}`);
+  const getPlaylistDetail = async () => {
+    const list = await axios.get(`${getPlaylistDetails}${link}`);
     return list.data as SearchPlaylist[];
   };
 
   const { data: p, isLoading } = useQuery<SearchPlaylist[]>(
     ["SavedPlaylistDetails", id],
-    getPlaylistDetails,
+    getPlaylistDetail,
     {
       retry: 0,
       refetchOnWindowFocus: false,

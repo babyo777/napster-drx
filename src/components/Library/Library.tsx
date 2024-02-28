@@ -9,7 +9,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { SearchPlaylist, playlistSongs } from "@/Interface";
 import Loader from "../Loaders/Loader";
-import { GetPlaylistSongsApi, SearchPlaylistApi } from "@/API/api";
+import { GetPlaylistSongsApi, getPlaylistDetails } from "@/API/api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   SetPlaylistOrAlbum,
@@ -36,8 +36,8 @@ function LibraryComp() {
     const list = await axios.get(`${GetPlaylistSongsApi}${id}`);
     return list.data as playlistSongs[];
   };
-  const getPlaylistDetails = async () => {
-    const list = await axios.get(`${SearchPlaylistApi}${id}`);
+  const getPlaylistDetail = async () => {
+    const list = await axios.get(`${getPlaylistDetails}${id}`);
     return list.data as SearchPlaylist[];
   };
 
@@ -58,7 +58,7 @@ function LibraryComp() {
     isError: pError,
     refetch: pRefetch,
     isRefetching: pIsRefetching,
-  } = useQuery<SearchPlaylist[]>(["playlistDetails", id], getPlaylistDetails, {
+  } = useQuery<SearchPlaylist[]>(["playlistDetails", id], getPlaylistDetail, {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     staleTime: 60 * 60000,
@@ -120,6 +120,11 @@ function LibraryComp() {
           <Loader />
         </div>
       )}
+      {!data && (
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <Loader />
+        </div>
+      )}
       {data && (
         <>
           <div className="flex w-full h-[23rem]   relative ">
@@ -139,11 +144,7 @@ function LibraryComp() {
               width="100%"
               height="100%"
               src={
-                (pDetails &&
-                  pDetails[0]?.thumbnailUrl.replace(
-                    "w120-h120",
-                    "w1080-h1080"
-                  )) ||
+                (pDetails && pDetails[0]?.thumbnailUrl) ||
                 data[0]?.thumbnailUrl.replace("w120-h120", "w1080-h1080")
               }
               alt="Image"
