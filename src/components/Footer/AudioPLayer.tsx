@@ -155,6 +155,9 @@ function AudioPLayerComp() {
     );
 
     const handlePlay = () => {
+      if (isLoop) {
+        sound.loop = true;
+      }
       setDuration(sound.duration);
       dispatch(setIsLoading(false));
       refetch();
@@ -229,6 +232,8 @@ function AudioPLayerComp() {
       navigator.mediaSession.setActionHandler("nexttrack", null);
       navigator.mediaSession.setActionHandler("previoustrack", null);
       navigator.mediaSession.setActionHandler("seekto", null);
+      sound.src = "";
+      sound.load();
     };
   }, [
     dispatch,
