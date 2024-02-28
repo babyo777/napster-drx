@@ -150,6 +150,7 @@ function AudioPLayerComp() {
   });
 
   useEffect(() => {
+    dispatch(setIsLoading(true));
     const sound: HTMLAudioElement = new Audio(
       `${streamApi}${playlist[currentIndex].youtubeId}`
     );
@@ -212,7 +213,6 @@ function AudioPLayerComp() {
     navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
     navigator.mediaSession.setActionHandler("seekto", handleSeek);
 
-    dispatch(setIsLoading(true));
     dispatch(setPlayer(sound));
 
     sound.play();
