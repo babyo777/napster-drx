@@ -21,7 +21,7 @@ function HowToUse() {
           Transfer from Spotify
         </p>
       </DialogTrigger>
-      <DialogContent className="w-[87vw] rounded-2xl">
+      <DialogContent className="w-[87vw]  rounded-2xl">
         <DialogHeader>
           <DialogTitle className="  text-lg">In app coming soon</DialogTitle>
         </DialogHeader>
@@ -32,9 +32,9 @@ function HowToUse() {
               width="100%"
               height="100%"
               effect="blur"
-              src="/demo3.jpeg"
+              src="https://i.pinimg.com/originals/27/6f/27/276f273d11f8b9dbc0a9c55bb38ea8c6.gif"
               alt="Transfer"
-              className=" border rounded-xl object-cover h-[100%] w-[100%]"
+              className=" border rounded-2xl object-cover h-[100%] w-[100%]"
             />
           </AspectRatio>
         </div>
