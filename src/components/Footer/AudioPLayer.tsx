@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { play, setCurrentIndex, setIsLoading, setPlayer } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
-import { Howl } from "howler";
 import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { Link } from "react-router-dom";
@@ -151,75 +150,79 @@ function AudioPLayerComp() {
   });
 
   useEffect(() => {
-    const sound = new Howl({
-      src: [`${streamApi}${playlist[currentIndex].youtubeId}`],
-      autoplay: true,
-      preload: true,
-      loop: isLoop,
-      html5: true,
-      onload: () => {
-        requestAnimationFrame(seek);
-        setDuration(sound.duration());
-        dispatch(setIsLoading(true));
-        refetch();
-        navigator.mediaSession.metadata = new MediaMetadata({
-          title: playlist[currentIndex].title,
-          artist: playlist[currentIndex].artists[0]?.name,
-          artwork: [
-            {
-              src: playlist[currentIndex].thumbnailUrl.replace(
-                "w120-h120",
-                "w1080-h1080"
-              ),
-            },
-          ],
-        });
-        navigator.mediaSession.setActionHandler("play", () => sound.play());
-        navigator.mediaSession.setActionHandler("pause", () => sound.pause());
-        navigator.mediaSession.setActionHandler("nexttrack", handleNext);
-        navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
-        navigator.mediaSession.setActionHandler(
-          "seekto",
-          (seek: MediaSessionActionDetails) => sound.seek(seek.seekTime)
-        );
-      },
-      onloaderror: () => {
-        setDuration("--:--");
-        setProgress("--:--");
-        dispatch(setIsLoading(true));
-      },
-      onplayerror: () => {
-        setDuration("--:--");
-        setProgress("--:--");
-        dispatch(setIsLoading(true));
-      },
-      onpause: () => {
-        requestAnimationFrame(seek);
-        dispatch(play(false));
-      },
-      onseek: () => {
-        requestAnimationFrame(seek);
-      },
-      onplay: () => {
-        requestAnimationFrame(seek);
-        dispatch(play(true));
-        dispatch(setIsLoading(false));
-      },
-      onend: handleNext,
-    });
+    const sound: HTMLAudioElement = new Audio(
+      `${streamApi}${playlist[currentIndex].youtubeId}`
+    );
 
-    const seek = () => {
-      const s = sound.seek();
-      setProgress(s);
-      if (sound.playing()) {
-        requestAnimationFrame(seek);
+    const handlePlay = () => {
+      setDuration(sound.duration);
+      dispatch(setIsLoading(false));
+      refetch();
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: playlist[currentIndex].title,
+        artist: playlist[currentIndex].artists[0]?.name,
+        artwork: [
+          {
+            src: playlist[currentIndex].thumbnailUrl.replace(
+              "w120-h120",
+              "w1080-h1080"
+            ),
+          },
+        ],
+      });
+      dispatch(play(true));
+    };
+
+    const handlePause = () => {
+      dispatch(play(false));
+    };
+
+    const handleError = () => {
+      setDuration("--:--");
+      setProgress("--:--");
+      dispatch(setIsLoading(true));
+    };
+
+    const handleSeek = (seek: MediaSessionActionDetails) => {
+      if (sound.currentTime !== seek.seekTime) {
+        sound.currentTime = seek.seekTime ?? 0;
+        if (!sound.paused) {
+          sound.play();
+        }
       }
     };
 
+    const handleTimeUpdate = () => {
+      setProgress(sound.currentTime);
+    };
+
+    sound.addEventListener("play", handlePlay);
+    sound.addEventListener("pause", handlePause);
+    sound.addEventListener("loadedmetadata", () => setDuration(sound.duration));
+    sound.addEventListener("error", handleError);
+    sound.addEventListener("timeupdate", handleTimeUpdate);
+    sound.addEventListener("ended", handleNext);
+
+    navigator.mediaSession.setActionHandler("play", () => sound.play());
+    navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+    navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+    navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+    navigator.mediaSession.setActionHandler("seekto", handleSeek);
+    setDuration("--:--");
+    setProgress("--:--");
+    dispatch(setIsLoading(true));
     dispatch(setPlayer(sound));
+
     sound.play();
+
     return () => {
-      sound.unload();
+      sound.pause();
+      sound.removeEventListener("play", handlePlay);
+      sound.removeEventListener("pause", handlePause);
+      sound.removeEventListener("load", handleError);
+      sound.removeEventListener("timeupdate", handleTimeUpdate);
+      sound.removeEventListener("error", handleError);
+      sound.removeEventListener("ended", handleNext);
       navigator.mediaSession.setActionHandler("play", null);
       navigator.mediaSession.setActionHandler("pause", null);
       navigator.mediaSession.setActionHandler("nexttrack", null);
@@ -250,7 +253,9 @@ function AudioPLayerComp() {
 
   const handleSeek = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      music?.seek(parseInt(e.target.value));
+      if (music) {
+        music.currentTime = parseInt(e.target.value) ?? 0;
+      }
     },
     [music]
   );

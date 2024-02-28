@@ -7,7 +7,7 @@ interface Player {
   playlist: playlistSongs[];
   isPlaying: boolean;
   currentIndex: number;
-  music: Howl | null;
+  music: HTMLAudioElement | null;
   search: string;
   PlaylistOrAlbum: string;
   progress: number | "--:--";
@@ -72,7 +72,8 @@ const MusicPlayer = createSlice({
     setSearch: (state, action: PayloadAction<string>) => {
       state.search = action.payload;
     },
-    setPlayer: (state, action: PayloadAction<Howl>) => {
+    setPlayer: (state, action: PayloadAction<HTMLAudioElement | null>) => {
+      //@ts-expect-error:fix
       state.music = action.payload;
     },
     setIsLoading: (state, action: PayloadAction<boolean>) => {
