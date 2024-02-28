@@ -121,7 +121,7 @@ function AlbumPageComp() {
 
             <div className=" absolute bottom-5 px-4 left-0  right-0">
               <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
-                {data[0].album}
+                {data[0]?.album}
               </h1>
               <div className="flex space-x-4 py-1 justify-center  items-center w-full">
                 <Button
