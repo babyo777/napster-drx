@@ -157,7 +157,9 @@ function LibraryComp() {
 
             <div className=" absolute top-4 z-10 right-3">
               <IoReload
-                onClick={() => (refetch(), pRefetch())}
+                onClick={() => (
+                  refetch(), pRefetch(), playlistThumbnailRefetch()
+                )}
                 className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
               />
             </div>
