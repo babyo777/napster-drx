@@ -4,13 +4,13 @@ function InstallNapster() {
   return (
     <div className="bg-white fade-in text-black bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] min-h-svh space-y-3 flex flex-col px-11 justify-center items-center">
       <h2 className="text-base text-center -mb-3 font-semibold ">
-        Install Napster-drx on Your Device
+        install napster-drx on your ios
       </h2>
       <a
-        className="underline underline-offset-4 text-xs text-red-500 font-semibold"
+        className="underline underline-offset-4 text-[.7rem] text-zinc-400 font-semibold"
         href="https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DiOS"
       >
-        How to Install?
+        how to install?
       </a>
       <AppScreenshots />
       <a
