@@ -13,20 +13,6 @@ function AppComp() {
   }
 
   useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/sw.js")
-        .then((registration) => {
-          console.log(
-            "Service Worker registered with scope:",
-            registration.scope
-          );
-        })
-        .catch((error) => {
-          console.error("Service Worker registration failed:", error);
-        });
-    }
-
     if (token == "babyo7_gtasisgta779") {
       setTester(true);
     }
@@ -59,7 +45,7 @@ function AppComp() {
     );
   }
 
-  if (!Compatible) {
+  if (Compatible) {
     return (
       <div className=" w-full   fade-in flex-col h-screen flex justify-center items-center">
         <span className="text-base font-semibold text-zinc-400 py-3 px-4">
@@ -71,13 +57,14 @@ function AppComp() {
       </div>
     );
   }
-
-  return (
-    <>
-      <Outlet />
-      <Tabs />
-    </>
-  );
+  if (!Compatible) {
+    return (
+      <>
+        <Outlet />
+        <Tabs />
+      </>
+    );
+  }
 }
 
 const App = React.memo(AppComp);
