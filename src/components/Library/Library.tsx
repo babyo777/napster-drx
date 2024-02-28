@@ -9,7 +9,11 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { SearchPlaylist, playlistSongs } from "@/Interface";
 import Loader from "../Loaders/Loader";
-import { GetPlaylistSongsApi, getPlaylistDetails } from "@/API/api";
+import {
+  GetPlaylistSongsApi,
+  SearchPlaylistApi,
+  getPlaylistDetails,
+} from "@/API/api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   SetPlaylistOrAlbum,
@@ -36,8 +40,14 @@ function LibraryComp() {
     const list = await axios.get(`${GetPlaylistSongsApi}${id}`);
     return list.data as playlistSongs[];
   };
+
   const getPlaylistDetail = async () => {
     const list = await axios.get(`${getPlaylistDetails}${id}`);
+    return list.data as SearchPlaylist[];
+  };
+
+  const getPlaylistThumbnail = async () => {
+    const list = await axios.get(`${SearchPlaylistApi}${id}`);
     return list.data as SearchPlaylist[];
   };
 
@@ -63,6 +73,21 @@ function LibraryComp() {
     refetchOnMount: false,
     staleTime: 60 * 60000,
   });
+  const {
+    data: playlistThumbnail,
+    isLoading: playlistThumbnailLoading,
+    isError: playlistThumbnailError,
+    refetch: playlistThumbnailRefetch,
+    isRefetching: playlistThumbnailIsRefetching,
+  } = useQuery<SearchPlaylist[]>(
+    ["getPlaylistThumbnail", id],
+    getPlaylistThumbnail,
+    {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: 60 * 60000,
+    }
+  );
 
   useEffect(() => {
     dispatch(setIsLikedSong(false));
@@ -100,7 +125,7 @@ function LibraryComp() {
 
   return (
     <div className=" flex flex-col items-center">
-      {isError && pError && (
+      {isError && pError && playlistThumbnailError && (
         <div className=" relative  w-full">
           <div className="fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             No playlist found
@@ -110,12 +135,12 @@ function LibraryComp() {
           </NavLink>
         </div>
       )}
-      {isRefetching && pIsRefetching && (
+      {isRefetching && pIsRefetching && playlistThumbnailIsRefetching && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <Loader />
         </div>
       )}
-      {isLoading && pLoading && (
+      {isLoading && pLoading && playlistThumbnailLoading && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <Loader />
         </div>
@@ -144,7 +169,11 @@ function LibraryComp() {
               width="100%"
               height="100%"
               src={
-                (pDetails && pDetails[0]?.thumbnailUrl) ||
+                (playlistThumbnail &&
+                  playlistThumbnail[0]?.thumbnailUrl.replace(
+                    "w120-h120",
+                    "w1080-h1080"
+                  )) ||
                 data[0]?.thumbnailUrl.replace("w120-h120", "w1080-h1080")
               }
               alt="Image"
@@ -152,9 +181,9 @@ function LibraryComp() {
               className="object-cover opacity-80 h-[100%] w-[100%]"
             />
 
-            <div className=" absolute bottom-5 px-4 left-0  right-0">
+            <div className=" absolute bottom-5  px-4 left-0  right-0">
               <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
-                {(pDetails && pDetails[0]?.title) || "Unknown"}
+                {(pDetails && pDetails[0]?.title) || ""}
               </h1>
               <div className="flex space-x-4 py-1 px-2 justify-center  items-center w-full">
                 <Button
