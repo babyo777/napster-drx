@@ -45,6 +45,13 @@ function AppComp() {
     );
   }
 
+  return (
+    <>
+      <Outlet />
+      <Tabs />
+    </>
+  );
+
   if (Compatible) {
     return (
       <div className=" w-full   fade-in flex-col h-screen flex justify-center items-center">
@@ -55,14 +62,6 @@ function AppComp() {
           </span>
         </span>
       </div>
-    );
-  }
-  if (!Compatible) {
-    return (
-      <>
-        <Outlet />
-        <Tabs />
-      </>
     );
   }
 }
