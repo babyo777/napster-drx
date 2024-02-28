@@ -32,7 +32,7 @@ function HowToUse() {
               width="100%"
               height="100%"
               effect="blur"
-              src="/favicon.jpeg"
+              src="/demo3.jpeg"
               alt="install-NGLdrx"
               className=" border rounded-xl object-cover h-[100%] w-[100%]"
             />
