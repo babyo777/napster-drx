@@ -197,7 +197,6 @@ function AudioPLayerComp() {
         requestAnimationFrame(seek);
         setDuration(sound.duration());
         dispatch(setIsLoading(true));
-        handleMediaSession(sound);
         refetch();
       },
       onloaderror: () => {
@@ -218,7 +217,6 @@ function AudioPLayerComp() {
         requestAnimationFrame(seek);
       },
       onplay: () => {
-        handleMediaSession(sound);
         requestAnimationFrame(seek);
         dispatch(play(true));
         dispatch(setIsLoading(false));
@@ -238,7 +236,8 @@ function AudioPLayerComp() {
     sound.play();
     dispatch(setPlayer(sound));
     return () => {
-      sound.unload();
+      sound.off();
+      sound.pause();
     };
   }, [
     dispatch,
