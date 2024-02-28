@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Loader from "./Loaders/Loader";
 import App from "@/App";
 import InstallNapster from "./InstallNapster";
 import { Desktop } from "./Desktop";
