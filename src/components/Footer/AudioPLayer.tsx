@@ -160,7 +160,7 @@ function AudioPLayerComp() {
         sound.loop = true;
       }
       setDuration(sound.duration);
-      dispatch(setIsLoading(false));
+
       refetch();
       navigator.mediaSession.metadata = new MediaMetadata({
         title: playlist[currentIndex].title,
@@ -202,7 +202,10 @@ function AudioPLayerComp() {
 
     sound.addEventListener("play", handlePlay);
     sound.addEventListener("pause", handlePause);
-    sound.addEventListener("loadedmetadata", () => setDuration(sound.duration));
+    sound.addEventListener(
+      "loadedmetadata",
+      () => (dispatch(setIsLoading(false)), setDuration(sound.duration))
+    );
     sound.addEventListener("error", handleError);
     sound.addEventListener("timeupdate", handleTimeUpdate);
     sound.addEventListener("ended", handleNext);
@@ -222,8 +225,9 @@ function AudioPLayerComp() {
       sound.load();
       sound.removeEventListener("play", handlePlay);
       sound.removeEventListener("pause", handlePause);
-      sound.removeEventListener("loadedmetadata", () =>
-        setDuration(sound.duration)
+      sound.removeEventListener(
+        "loadedmetadata",
+        () => (dispatch(setIsLoading(false)), setDuration(sound.duration))
       );
       sound.removeEventListener("timeupdate", handleTimeUpdate);
       sound.removeEventListener("error", handleError);
