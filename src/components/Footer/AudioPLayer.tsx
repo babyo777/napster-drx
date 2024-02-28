@@ -232,8 +232,6 @@ function AudioPLayerComp() {
       navigator.mediaSession.setActionHandler("nexttrack", null);
       navigator.mediaSession.setActionHandler("previoustrack", null);
       navigator.mediaSession.setActionHandler("seekto", null);
-      sound.src = "";
-      sound.load();
     };
   }, [
     dispatch,
