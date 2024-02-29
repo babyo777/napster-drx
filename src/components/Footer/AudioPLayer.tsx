@@ -190,7 +190,7 @@ function AudioPLayerComp() {
     const handleSeek = (seek: MediaSessionActionDetails) => {
       if (sound.currentTime !== seek.seekTime) {
         sound.currentTime = seek.seekTime ?? 0;
-        if (sound.paused) {
+        if (!sound.paused) {
           sound.play();
         }
       }
@@ -222,13 +222,12 @@ function AudioPLayerComp() {
 
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "hidden") {
-        if (sound.paused) sound.play();
+        if (!sound.paused) sound.play();
       }
     });
 
     return () => {
       sound.pause();
-      sound.load();
       document.removeEventListener("visibilitychange", () => {
         if (document.visibilityState === "visible") {
           if (!sound.paused) sound.play();
