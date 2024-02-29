@@ -207,7 +207,7 @@ function AudioPLayerComp() {
         });
       }
     };
-
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     sound.addEventListener("play", handlePlay);
     sound.addEventListener("pause", handlePause);
     sound.addEventListener(
@@ -217,9 +217,7 @@ function AudioPLayerComp() {
     sound.addEventListener("error", handleError);
     sound.addEventListener("timeupdate", handleTimeUpdate);
     sound.addEventListener("ended", handleNext);
-    sound.addEventListener("canplay", () => {
-      sound.play();
-    });
+
     navigator.mediaSession.setActionHandler("play", () => sound.play());
     navigator.mediaSession.setActionHandler("pause", () => sound.pause());
     navigator.mediaSession.setActionHandler("nexttrack", handleNext);
@@ -227,12 +225,10 @@ function AudioPLayerComp() {
     navigator.mediaSession.setActionHandler("seekto", handleSeek);
 
     dispatch(setPlayer(sound));
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    sound.play();
 
     return () => {
       sound.pause();
-      sound.load();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       sound.removeEventListener("play", handlePlay);
       sound.removeEventListener("pause", handlePause);
@@ -240,9 +236,7 @@ function AudioPLayerComp() {
         "loadedmetadata",
         () => (dispatch(setIsLoading(false)), setDuration(sound.duration))
       );
-      sound.removeEventListener("canplay", () => {
-        sound.play();
-      });
+
       sound.removeEventListener("timeupdate", handleTimeUpdate);
       sound.removeEventListener("error", handleError);
       sound.removeEventListener("ended", handleNext);
