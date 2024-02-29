@@ -1,27 +1,28 @@
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { AppScreenshots } from "./AppScreenshots";
-import { AndriodScreenshots } from "./Testing/Andriod";
-function InstallNapster() {
+import { AndroidScreenshots } from "./Andriod";
+
+function InstallNapsterAndroid() {
   return (
-    <div className="bg-white fade-in text-black bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] min-h-svh space-y-3 flex flex-col px-11 justify-center items-center">
-      <h2 className="text-lg text-center -mb-3 font-semibold ">
-        Install Napster-drx(PWA) on Your Andriod  Device 
+    <div className="bg-white fade-in text-black bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] min-h-svh space-y-3 flex flex-col px-11 justify-center items-center py-7">
+      <h2 className="text-xs text-center -mb-3 font-semibold ">
+        install napster-drx(PWA) on your android device
       </h2>
       <a
-        className="underline underline-offset-4 text-blue-500 font-semibold"
+        className="underline underline-offset-4 text-[.7rem] text-blue-500 font-semibold"
         href="https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DAndroid&oco=2"
       >
         Help?
       </a>
-      <AndriodScreenshots />
+      <AndroidScreenshots />
       <a
-        href="https://instagram.com/babyo7_"
-        className=" font-semibold underline underline-offset-2 text-zinc-300"
+        href="https://www.instagram.com/saagaarsiinggh/"
+        className=" font-semibold text-xs  text-zinc-300"
       >
-        By babyo7_
+        Page Designed By{" "}
+        <span className="underline underline-offset-2"> Sagar</span>
       </a>
     </div>
   );
 }
 
-export default InstallNapster;
+export default InstallNapsterAndroid;

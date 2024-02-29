@@ -2,7 +2,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { AppScreenshots } from "./AppScreenshots";
 function InstallNapster() {
   return (
-    <div className="bg-white fade-in text-black bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] min-h-svh space-y-3 flex flex-col px-11 justify-center items-center">
+    <div className="bg-white fade-in text-black bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] min-h-svh space-y-3 flex flex-col px-11 justify-center items-center py-7">
       <h2 className="text-base text-center -mb-3 font-semibold ">
         install napster-drx on your ios
       </h2>

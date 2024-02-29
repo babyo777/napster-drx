@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import App from "@/App";
 import InstallNapster from "./InstallNapster";
 import { Desktop } from "./Desktop";
+import InstallNapsterAndroid from "@/Testing/AndInstaller";
 
 function Check() {
   const [isDesktop, setIsDesktop] = useState<boolean>();
@@ -11,6 +12,7 @@ function Check() {
   const [hardwareConcurrency, setHardwareConcurrency] = useState<number | null>(
     null
   );
+  const isIPhone = /iPhone/i.test(navigator.userAgent);
 
   const checkGpuCapabilities = () => {
     const canvas = document.createElement("canvas");
@@ -71,7 +73,7 @@ function Check() {
           </span>
         </div>
       ) : (
-        <InstallNapster />
+        <>{isIPhone ? <InstallNapster /> : <InstallNapsterAndroid />}</>
       )}
     </>
   );

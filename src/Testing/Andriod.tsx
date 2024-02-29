@@ -9,8 +9,7 @@ import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/opacity.css";
 
-
-export function AndriodScreenshots() {
+export function AndroidScreenshots() {
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
@@ -23,7 +22,6 @@ export function AndriodScreenshots() {
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent className="rounded-xl">
-        
         <CarouselItem className="rounded-xl">
           <AspectRatio ratio={9 / 16} className="bg-muted rounded-xl">
             <LazyLoadImage
