@@ -221,7 +221,7 @@ function AudioPLayerComp() {
     sound.play();
 
     document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") {
+      if (document.visibilityState !== "visible") {
         if (!sound.paused) sound.play();
       }
     });
