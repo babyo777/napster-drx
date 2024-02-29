@@ -73,7 +73,10 @@ function SponsorsComp() {
                 >
                   <div className="py-1 w-full rounded-xl flex justify-center flex-col  space-y-2 items-center">
                     <Avatar className="h-16 w-16">
-                      <AvatarImage src={sponsor.image} />
+                      <AvatarImage
+                        className=" object-cover h-[100%] w-[100%]"
+                        src={sponsor.image}
+                      />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <p className=" text-base py-0.5 capitalize">
