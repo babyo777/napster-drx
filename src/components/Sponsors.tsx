@@ -68,12 +68,14 @@ function SponsorsComp() {
                   key={sponsor.image}
                   className="rounded-xl fade-in flex flex-col  justify-center items-center"
                 >
-                  <div className="py-4 w-full rounded-xl flex justify-center flex-col  space-y-2 items-center">
-                    <Avatar className="h-14 w-14">
+                  <div className="py-1 w-full rounded-xl flex justify-center flex-col  space-y-2 items-center">
+                    <Avatar className="h-16 w-16">
                       <AvatarImage src={sponsor.image} />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <p className=" text-base py-1 capitalize">{sponsor.name}</p>
+                    <p className=" text-base py-0.5 capitalize">
+                      {sponsor.name}
+                    </p>
                     <div className="flex space-x-3 justify-center items-center">
                       {sponsor.snapchat && (
                         <a href={sponsor.snapchat}>
