@@ -200,6 +200,14 @@ function AudioPLayerComp() {
       setProgress(sound.currentTime);
     };
 
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden" && sound.paused) {
+        sound.play().catch((error) => {
+          console.error("Error playing audio:", error);
+        });
+      }
+    };
+
     sound.addEventListener("play", handlePlay);
     sound.addEventListener("pause", handlePause);
     sound.addEventListener(
@@ -209,7 +217,9 @@ function AudioPLayerComp() {
     sound.addEventListener("error", handleError);
     sound.addEventListener("timeupdate", handleTimeUpdate);
     sound.addEventListener("ended", handleNext);
-
+    sound.addEventListener("canplay", () => {
+      sound.play();
+    });
     navigator.mediaSession.setActionHandler("play", () => sound.play());
     navigator.mediaSession.setActionHandler("pause", () => sound.pause());
     navigator.mediaSession.setActionHandler("nexttrack", handleNext);
@@ -218,27 +228,20 @@ function AudioPLayerComp() {
 
     dispatch(setPlayer(sound));
 
-    sound.play();
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "hidden") {
-        if (sound.paused) sound.play();
-      }
-    });
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
       sound.pause();
-      document.removeEventListener("visibilitychange", () => {
-        if (document.visibilityState === "visible") {
-          if (!sound.paused) sound.play();
-        }
-      });
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       sound.removeEventListener("play", handlePlay);
       sound.removeEventListener("pause", handlePause);
       sound.removeEventListener(
         "loadedmetadata",
         () => (dispatch(setIsLoading(false)), setDuration(sound.duration))
       );
+      sound.removeEventListener("canplay", () => {
+        sound.play();
+      });
       sound.removeEventListener("timeupdate", handleTimeUpdate);
       sound.removeEventListener("error", handleError);
       sound.removeEventListener("ended", handleNext);
