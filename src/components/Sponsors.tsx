@@ -84,17 +84,17 @@ function SponsorsComp() {
                     </p>
                     <div className="flex space-x-3 justify-center items-center">
                       {sponsor.snapchat && (
-                        <a href={sponsor.snapchat}>
+                        <a href={sponsor.snapchat} target="_blank">
                           <FaSnapchat className="w-5 h-5" />
                         </a>
                       )}
                       {sponsor.instagram && (
-                        <a href={sponsor.instagram}>
+                        <a href={sponsor.instagram} target="_blank">
                           <FaInstagram className="w-5 h-5" />
                         </a>
                       )}
                       {sponsor.twitter && (
-                        <a href={sponsor.twitter}>
+                        <a href={sponsor.twitter} target="_blank">
                           <FaXTwitter className="w-5 h-5" />
                         </a>
                       )}
