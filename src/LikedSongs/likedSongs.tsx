@@ -56,7 +56,7 @@ function LikedSongComp() {
     isError: pError,
     refetch: pRefetch,
   } = useQuery<likedSongs[]>(["likedSongsDetails", id], getPlaylistDetails, {
-    retry: 0,
+    retry: 5,
     staleTime: 1000,
     refetchOnWindowFocus: false,
   });

@@ -220,9 +220,20 @@ function AudioPLayerComp() {
 
     sound.play();
 
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        if (!sound.paused) sound.play();
+      }
+    });
+
     return () => {
       sound.pause();
       sound.load();
+      document.removeEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") {
+          if (!sound.paused) sound.play();
+        }
+      });
       sound.removeEventListener("play", handlePlay);
       sound.removeEventListener("pause", handlePause);
       sound.removeEventListener(
