@@ -68,8 +68,8 @@ function SponsorsComp() {
                   key={sponsor.image}
                   className="rounded-xl fade-in flex flex-col  justify-center items-center"
                 >
-                  <div className="py-2 w-full rounded-xl flex justify-center flex-col  space-y-2 items-center">
-                    <Avatar className="h-16 w-14">
+                  <div className="py-4 w-full rounded-xl flex justify-center flex-col  space-y-2 items-center">
+                    <Avatar className="h-14 w-14">
                       <AvatarImage src={sponsor.image} />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
