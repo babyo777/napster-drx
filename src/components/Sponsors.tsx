@@ -22,6 +22,7 @@ import { DATABASE_ID, SPONSORS, db } from "@/appwrite/appwriteConfig";
 import { Sponsors } from "@/Interface";
 import { useQuery } from "react-query";
 import Loader from "./Loaders/Loader";
+import { Query } from "appwrite";
 
 function SponsorsComp() {
   const plugin = React.useRef(
@@ -29,7 +30,9 @@ function SponsorsComp() {
   );
 
   const getSponsors = async () => {
-    const data = await db.listDocuments(DATABASE_ID, SPONSORS);
+    const data = await db.listDocuments(DATABASE_ID, SPONSORS, [
+      Query.orderDesc("$createdAt"),
+    ]);
     return data.documents as unknown as Sponsors[];
   };
 
