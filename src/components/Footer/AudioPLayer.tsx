@@ -222,7 +222,7 @@ function AudioPLayerComp() {
 
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "hidden") {
-        if (!sound.paused) sound.play();
+        if (sound.paused) sound.play();
       }
     });
 
