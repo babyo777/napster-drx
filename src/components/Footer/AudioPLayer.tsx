@@ -204,7 +204,7 @@ function AudioPLayerComp() {
     sound.addEventListener("pause", handlePause);
     sound.addEventListener(
       "loadedmetadata",
-      () => (dispatch(setIsLoading(false)), setDuration(sound.duration))
+      () => (dispatch(setIsLoading(false)), setDuration(sound.duration || 0))
     );
     sound.addEventListener("error", handleError);
     sound.addEventListener("timeupdate", handleTimeUpdate);

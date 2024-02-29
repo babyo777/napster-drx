@@ -68,7 +68,7 @@ export function Token() {
             <Button
               asChild
               variant={"secondary"}
-              className="font-bold py-5 w-full rounded-xl"
+              className=" py-5 w-full rounded-xl"
             >
               <p>Close</p>
             </Button>

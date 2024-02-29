@@ -11,6 +11,14 @@ interface homePagePlaylist {
   type: string;
 }
 
+interface Sponsors {
+  name: string;
+  image: string;
+  snapchat: string;
+  instagram: string;
+  twitter: string;
+}
+
 interface artists {
   name: string;
   id: string;
@@ -91,6 +99,7 @@ export type {
   savedPlaylist,
   AlbumSongs,
   recentSearch,
+  Sponsors,
   albums,
   likedSongs,
   ArtistDetails,

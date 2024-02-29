@@ -10,6 +10,7 @@ import {
 import { HowToUse } from "../HowToUse";
 import { useCallback } from "react";
 import { Token } from "../Token";
+import { SponsorsComp } from "../Sponsors";
 
 function Settings() {
   const handleReset = useCallback(() => {
@@ -51,12 +52,13 @@ function Settings() {
         >
           Report bug
         </p> */}
-        <p
+        {/* <p
           onClick={() => window.open("https://tanmayo7.vercel.app")}
           className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center text-base "
         >
           More by babyo7_
-        </p>
+        </p> */}
+        <SponsorsComp />
         <HowToUse />
         <p
           onClick={handleReset}
