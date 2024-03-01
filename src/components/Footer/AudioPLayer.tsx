@@ -155,6 +155,7 @@ function AudioPLayerComp() {
       `${streamApi}${playlist[currentIndex].youtubeId}`
     );
 
+    sound.preload = "auto";
     const handlePlay = () => {
       if (isLoop) {
         sound.loop = true;
@@ -208,6 +209,7 @@ function AudioPLayerComp() {
       }
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
+    sound.preload = "auto";
     sound.addEventListener("play", handlePlay);
     sound.addEventListener("pause", handlePause);
     sound.addEventListener(
