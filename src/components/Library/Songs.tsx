@@ -98,9 +98,11 @@ function Songs({
           />
         </AspectRatio>
       </div>
-      <div className="flex  flex-col pl-1 text-start w-[70dvw] ">
+      <div
+        onClick={handlePlay}
+        className="flex  flex-col pl-1 text-start w-[70dvw] "
+      >
         <p
-          onClick={handlePlay}
           className={`w-[60dvw] ${
             playlist[currentIndex]?.youtubeId == audio &&
             currentIndex == id &&
@@ -110,7 +112,7 @@ function Songs({
           {title.replace("______________________________________", "untitled")}
         </p>
         {link ? (
-          <Link to={`/artist/${artistId}`}>
+          <Link to={`/artist/${artistId}`} className="w-[40vw]">
             <p className="-mt-0.5   text-xs underline text-zinc-400 w-[40dvw]  truncate">
               {artist}
             </p>
