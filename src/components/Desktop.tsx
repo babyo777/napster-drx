@@ -15,10 +15,6 @@ function Desktop({ desktop, iPad }: { desktop: boolean; iPad: boolean }) {
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,#C9EBFF,transparent)]"></div>
       </div>
       <div className="flex z-10   justify-center flex-col h-screen text-center items-center py-10">
-        <span className="font-semibold text-zinc-700">
-          Not available for {desktop && "Desktop"} {iPad && "iPad"} Now
-        </span>
-
         <Carousel
           plugins={[plugin.current]}
           className="rounded-xl"
@@ -27,6 +23,9 @@ function Desktop({ desktop, iPad }: { desktop: boolean; iPad: boolean }) {
         >
           <CarouselContent className="rounded-xl">
             <CarouselItem className="rounded-xl flex flex-col  justify-center items-center">
+              <span className="font-semibold text-zinc-700">
+                Not available for {desktop && "Desktop"} {iPad && "iPad"} Now
+              </span>
               <h1 className="font-bold text-5xl mt-4 mb-4 text-zinc-700">
                 Scan this QR
               </h1>
