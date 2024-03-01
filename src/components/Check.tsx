@@ -5,15 +5,15 @@ import { Desktop } from "./Desktop";
 import InstallNapsterAndroid from "@/Testing/AndInstaller";
 
 function Check() {
-  const [isDesktop, setIsDesktop] = useState<boolean>();
   const [check, setCheck] = useState<boolean>(true);
   const [isStandalone, setIsStandalone] = useState<boolean>();
   const [graphic, setGraphic] = useState<boolean>();
   const [hardwareConcurrency, setHardwareConcurrency] = useState<number | null>(
     null
   );
-  const isIPhone = /iPhone/i.test(navigator.userAgent);
 
+  const isIPhone = /iPhone/i.test(navigator.userAgent);
+  const isDesktop = window.innerWidth > 786;
   const checkGpuCapabilities = () => {
     const canvas = document.createElement("canvas");
     const gl = canvas.getContext("webgl");
@@ -31,12 +31,10 @@ function Check() {
   };
 
   useEffect(() => {
-    const isDesktop = window.innerWidth > 786;
     const isStandalone = window.matchMedia(
       "(display-mode: standalone)"
     ).matches;
     const hardwareConcurrency = navigator.hardwareConcurrency || null;
-    setIsDesktop(isDesktop);
     setHardwareConcurrency(hardwareConcurrency);
     setIsStandalone(isStandalone);
     setGraphic(checkGpuCapabilities());
@@ -46,7 +44,7 @@ function Check() {
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
   if (isDesktop || isiPad) {
-    return <Desktop />;
+    return <Desktop desktop={isDesktop} iPad={isiPad} />;
   }
   if (
     isStandalone &&
