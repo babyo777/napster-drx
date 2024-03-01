@@ -42,7 +42,7 @@ import { savedPlaylist } from "@/Interface";
 import { RiMenuAddFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
-const AddLibrary: React.FC<{ clone?: boolean; id?: string; image: string }> = ({
+const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
   clone,
   id,
 }) => {
