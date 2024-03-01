@@ -62,7 +62,7 @@ function SavedLibraryCard({
             </div>
             <div className="flex flex-col  text-xl text-start">
               <p className="w-[59vw]     fade-in truncate">
-                {album || "Unknown"}
+                {p[0].title || "Unknown"}
               </p>
               <p className="-mt-0.5  text-sm w-[50vw] truncate">
                 {author || "NapsterDrx."}
