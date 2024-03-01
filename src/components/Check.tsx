@@ -3,6 +3,7 @@ import App from "@/App";
 import InstallNapster from "./InstallNapster";
 import { Desktop } from "./Desktop";
 import InstallNapsterAndroid from "@/Testing/AndInstaller";
+import StartLoader from "./Loaders/StartLoader";
 
 function Check() {
   const [check, setCheck] = useState<boolean>(true);
@@ -31,14 +32,17 @@ function Check() {
   };
 
   useEffect(() => {
-    const isStandalone = window.matchMedia(
-      "(display-mode: standalone)"
-    ).matches;
-    const hardwareConcurrency = navigator.hardwareConcurrency || null;
-    setHardwareConcurrency(hardwareConcurrency);
-    setIsStandalone(isStandalone);
-    setGraphic(checkGpuCapabilities());
-    setCheck(false);
+    const t = setTimeout(() => {
+      const isStandalone = window.matchMedia(
+        "(display-mode: standalone)"
+      ).matches;
+      const hardwareConcurrency = navigator.hardwareConcurrency || null;
+      setHardwareConcurrency(hardwareConcurrency);
+      setIsStandalone(isStandalone);
+      setGraphic(checkGpuCapabilities());
+      setCheck(false);
+    }, 3000);
+    return () => clearTimeout(t);
   }, []);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
@@ -58,18 +62,7 @@ function Check() {
   return (
     <>
       {check && navigator.onLine ? (
-        <div className=" w-full   fade-in flex-col h-screen flex justify-center items-center">
-          <div className="loader">
-            <div className="loader__circle"></div>
-            <div className="loader__circle"></div>
-            <div className="loader__circle"></div>
-            <div className="loader__circle"></div>
-            <div className="loader__circle"></div>
-          </div>
-          <span className="text-xs font-semibold pt-7 text-zinc-400 py-7 ">
-            Checking Device Status
-          </span>
-        </div>
+        <StartLoader />
       ) : (
         <>{isIPhone ? <InstallNapster /> : <InstallNapsterAndroid />}</>
       )}
