@@ -112,7 +112,9 @@ function SponsorsComp() {
             variant={"secondary"}
             className=" py-5 w-full rounded-xl"
           >
-            <a href="mailto:yfw111realone@gmail.com">Become a Sponsor</a>
+            <a href="mailto:yfw111realone@gmail.com?subject=Become%20a%20Sponsor&body=Name:%20%0D%0AContact:%20%0D%0A">
+              Become a Sponsor
+            </a>
           </Button>
         </DialogFooter>
       </DialogContent>
