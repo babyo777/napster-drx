@@ -79,7 +79,7 @@ function SavedLibraryComp() {
           <SkeletonP />
         </div>
       )}
-      <div className="flex fade-in  flex-col px-4">
+      <div className="flex fade-in pb-40 flex-col px-4">
         <div className="pb-36 space-y-3">
           {savedPlaylist.map((saved, id) => (
             <SavedLibraryCard
