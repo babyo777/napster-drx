@@ -39,6 +39,18 @@ export function AppScreenshots() {
         </CarouselItem>
         <CarouselItem className="rounded-xl">
           <AspectRatio ratio={9 / 16} className="bg-muted rounded-xl">
+            <video
+              height="100%"
+              width="100%"
+              src="https://cdn.discordapp.com/attachments/1213096773342601246/1213096773829001256/RPReplay_Final1709229551.mov?ex=65f43b69&is=65e1c669&hm=8b85aa134b7fb96f2fbae629294c2876ca6cc7e6da108edb5aacde51eb869437&"
+              muted
+              autoPlay
+              className="rounded-xl object-cover h-[100%] w-[100%] "
+            />
+          </AspectRatio>
+        </CarouselItem>
+        <CarouselItem className="rounded-xl">
+          <AspectRatio ratio={9 / 16} className="bg-muted rounded-xl">
             <LazyLoadImage
               height="100%"
               width="100%"
