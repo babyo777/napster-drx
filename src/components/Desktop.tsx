@@ -19,7 +19,6 @@ function Desktop({ desktop, iPad }: { desktop: boolean; iPad: boolean }) {
           Not available for {desktop && "Desktop"} {iPad && "iPad"} Now
         </span>
 
-        <span className="font-semibold text-zinc-700">on Phone</span>
         <Carousel
           plugins={[plugin.current]}
           className="rounded-xl"
@@ -28,6 +27,10 @@ function Desktop({ desktop, iPad }: { desktop: boolean; iPad: boolean }) {
         >
           <CarouselContent className="rounded-xl">
             <CarouselItem className="rounded-xl flex flex-col  justify-center items-center">
+              <h1 className="font-bold text-5xl mt-4 mb-4 text-zinc-700">
+                Scan this QR
+              </h1>
+              <span className="font-semibold text-zinc-700">on Phone</span>
               <div className="  bg-black/20 h-96 w-96  mt-5 object-center flex justify-center items-center overflow-hidden rounded-3xl">
                 <QRCodeSVG
                   value={window.location.origin}
