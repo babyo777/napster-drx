@@ -143,12 +143,12 @@ input[type="range"]::-ms-thumb {
 }
 
 .progress {
-  width: 1em;
-  height: 1em;
-  margin: 0.4em;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin: 0.4rem;
   scale: 0;
   border-radius: 50%;
-  background: rgb(181, 181, 181);
+  background: rgb(255, 255, 255);
   animation: loading_492 2s ease infinite;
   animation-delay: 1s;
 }
