@@ -109,11 +109,10 @@ function SponsorsComp() {
         <DialogFooter>
           <Button
             asChild
-            onClick={() => alert("adding soon...")}
             variant={"secondary"}
             className=" py-5 w-full rounded-xl"
           >
-            <p>Become a Sponsor</p>
+            <a href="mailto:yfw111realone@gmail.com">Become a Sponsor</a>
           </Button>
         </DialogFooter>
       </DialogContent>
