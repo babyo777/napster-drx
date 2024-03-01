@@ -86,6 +86,8 @@ function SavedLibraryComp() {
               key={saved.link + id}
               id={saved.$id || ""}
               author={saved.creator}
+              album={saved.name}
+              Image={saved.image}
               link={saved.link}
               f={saved.for}
             />

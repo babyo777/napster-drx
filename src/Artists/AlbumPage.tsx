@@ -24,6 +24,7 @@ import Loader from "@/components/Loaders/Loader";
 import { Button } from "@/components/ui/button";
 import Songs from "@/components/Library/Songs";
 import GoBack from "@/components/Goback";
+import AddAlbum from "./AddAlbum";
 
 function AlbumPageComp() {
   const dispatch = useDispatch();
@@ -110,7 +111,18 @@ function AlbumPageComp() {
                 className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
               />
             </div>
-
+            <div className=" absolute top-[3.6rem] z-10 right-3">
+              <AddAlbum
+                clone={true}
+                id={id}
+                name={data[0].artists[0].name}
+                album={data[0].title}
+                image={data[0]?.thumbnailUrl.replace(
+                  "w120-h120",
+                  "w1080-h1080"
+                )}
+              />
+            </div>
             <img
               width="100%"
               height="100%"

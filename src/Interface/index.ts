@@ -89,6 +89,7 @@ interface likedSongs {
 }
 
 interface savedPlaylist {
+  image?: string;
   $id?: string;
   name: string;
   creator: string;

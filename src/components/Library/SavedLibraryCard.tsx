@@ -13,7 +13,11 @@ function SavedLibraryCard({
   link,
   f,
   id,
+  album,
+  Image,
 }: {
+  Image?: string;
+  album?: string;
   id: string;
   author?: string;
   link?: string;
@@ -37,9 +41,9 @@ function SavedLibraryCard({
 
   return (
     <div className="flex space-x-2.5 items-center justify-between">
-      {isLoading && <SkeletonP />}
       {p && (
         <>
+          {isLoading && <SkeletonP />}
           <Link
             to={`/library/${link}`}
             className="flex space-x-2.5 items-center justify-between"
@@ -58,8 +62,37 @@ function SavedLibraryCard({
             </div>
             <div className="flex flex-col  text-xl text-start">
               <p className="w-[59vw]     fade-in truncate">
-                {p[0]?.title || "Unknown"}
+                {album || "Unknown"}
               </p>
+              <p className="-mt-0.5  text-sm w-[50vw] truncate">
+                {author || "NapsterDrx."}
+              </p>
+            </div>
+          </Link>
+          <EditInfo id={id} f={f} />
+        </>
+      )}
+
+      {link && link.startsWith("album") && (
+        <>
+          <Link
+            to={`/album/${link.replace("album", "")}`}
+            className="flex space-x-2.5 items-center justify-between"
+          >
+            <div className="overflow-hidden h-[3.2rem]  w-[3.2rem] space-y-2">
+              <AspectRatio ratio={1 / 1}>
+                <LazyLoadImage
+                  height="100%"
+                  width="100%"
+                  effect="blur"
+                  src={Image}
+                  alt="Image"
+                  className="rounded-md object-cover w-[100%] h-[100%]"
+                />
+              </AspectRatio>
+            </div>
+            <div className="flex flex-col  text-xl text-start">
+              <p className="w-[59vw]     fade-in truncate">{album}</p>
               <p className="-mt-0.5  text-sm w-[50vw] truncate">
                 {author || "NapsterDrx."}
               </p>

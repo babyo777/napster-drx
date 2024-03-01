@@ -26,26 +26,29 @@ import {
 } from "@/components/ui/form";
 
 const FormSchema = z.object({
-  link: z.string().url(),
+  link: z.string(),
   creator: z.string().min(2),
 });
 import { IoMdAdd } from "react-icons/io";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { isPlaylist } from "@/API/api";
-import Loader from "../Loaders/Loader";
+
 import { useDispatch } from "react-redux";
 import { setSavedPlaylist } from "@/Store/Player";
 import { savedPlaylist } from "@/Interface";
 import { RiMenuAddFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import Loader from "@/components/Loaders/Loader";
 
-const AddLibrary: React.FC<{ clone?: boolean; id?: string; image: string }> = ({
-  clone,
-  id,
-}) => {
+const AddAlbum: React.FC<{
+  clone?: boolean;
+  id?: string;
+  name: string;
+  album: string;
+  image: string;
+}> = ({ clone, id, name, album, image }) => {
   const close = useRef<HTMLButtonElement>(null);
 
   const dispatch = useDispatch();
@@ -61,50 +64,47 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string; image: string }> = ({
     },
   });
   useEffect(() => {
-    clone &&
-      id &&
-      form.setValue("link", `https://www.youtube.com/playlist?list=${id}`);
-  }, [clone, form, id]);
+    clone && id && form.setValue("link", `${"album" + id}`);
+    clone && id && form.setValue("creator", `${name}`);
+  }, [clone, form, id, name]);
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsSubmit(true);
 
     try {
-      const res = await axios.get(`${isPlaylist}${data.link}`);
       const payload: savedPlaylist = {
-        name: "default",
+        name: album,
+        image: image,
         creator: data.creator,
-        link: res.data,
+        link: data.link,
         for: localStorage.getItem("uid") || "default",
       };
-      if (res.status !== 500) {
-        db.createDocument(
-          DATABASE_ID,
-          PLAYLIST_COLLECTION_ID,
-          ID.unique(),
-          payload
-        )
-          .then(async () => {
-            form.reset();
-            const r = await db.listDocuments(
-              DATABASE_ID,
-              PLAYLIST_COLLECTION_ID,
-              [
-                Query.orderDesc("$createdAt"),
-                Query.equal("for", [
-                  localStorage.getItem("uid") || "default",
-                  "default",
-                ]),
-              ]
-            );
-            const p = r.documents as unknown as savedPlaylist[];
+      db.createDocument(
+        DATABASE_ID,
+        PLAYLIST_COLLECTION_ID,
+        ID.unique(),
+        payload
+      )
+        .then(async () => {
+          form.reset();
+          const r = await db.listDocuments(
+            DATABASE_ID,
+            PLAYLIST_COLLECTION_ID,
+            [
+              Query.orderDesc("$createdAt"),
+              Query.equal("for", [
+                localStorage.getItem("uid") || "default",
+                "default",
+              ]),
+            ]
+          );
+          const p = r.documents as unknown as savedPlaylist[];
 
-            dispatch(setSavedPlaylist(p)), close.current?.click();
-            clone && n("/library/");
-          })
-          .catch((error) => {
-            throw new Error(error);
-          });
-      }
+          dispatch(setSavedPlaylist(p)), close.current?.click();
+          clone && n("/library/");
+        })
+        .catch((error) => {
+          throw new Error(error);
+        });
     } catch (error) {
       setIsSubmit(false);
       setError(true);
@@ -133,7 +133,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string; image: string }> = ({
       <DialogContent className="w-[85vw]  rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-base font-medium">
-            {clone ? "Save this playlist" : "Create your own playlist"}
+            {clone ? "Save this album" : "Create your own playlist"}
           </DialogTitle>
         </DialogHeader>
 
@@ -170,6 +170,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string; image: string }> = ({
                 <FormItem>
                   <FormControl>
                     <Input
+                      disabled
                       className=" py-5"
                       placeholder="Enter your name"
                       {...field}
@@ -207,4 +208,4 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string; image: string }> = ({
   );
 };
 
-export default AddLibrary;
+export default AddAlbum;
