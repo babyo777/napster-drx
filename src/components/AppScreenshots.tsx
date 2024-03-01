@@ -43,6 +43,7 @@ export function AppScreenshots() {
               src="https://cdn.discordapp.com/attachments/1213096773342601246/1213096773829001256/RPReplay_Final1709229551.mov?ex=65f43b69&is=65e1c669&hm=8b85aa134b7fb96f2fbae629294c2876ca6cc7e6da108edb5aacde51eb869437&"
               muted
               autoPlay
+              controls
               className="rounded-xl object-cover h-[100%] w-[100%] "
             />
           </AspectRatio>
