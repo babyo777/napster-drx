@@ -13,6 +13,7 @@ interface homePagePlaylist {
 
 interface Sponsors {
   name: string;
+  discord: string;
   image: string;
   snapchat: string;
   instagram: string;

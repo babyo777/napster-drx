@@ -23,6 +23,7 @@ import { Sponsors } from "@/Interface";
 import { useQuery } from "react-query";
 import Loader from "./Loaders/Loader";
 import { Query } from "appwrite";
+import { FaDiscord } from "react-icons/fa";
 
 function SponsorsComp() {
   const plugin = React.useRef(
@@ -96,6 +97,11 @@ function SponsorsComp() {
                       {sponsor.twitter && (
                         <a href={sponsor.twitter} target="_blank">
                           <FaXTwitter className="w-5 h-5" />
+                        </a>
+                      )}
+                      {sponsor.discord && (
+                        <a href={sponsor.discord} target="_blank">
+                          <FaDiscord className="w-5 h-5" />
                         </a>
                       )}
                     </div>
