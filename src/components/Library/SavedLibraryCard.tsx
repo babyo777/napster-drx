@@ -32,6 +32,7 @@ function SavedLibraryCard({
     ["SavedPlaylistDetails", id],
     getPlaylistDetail,
     {
+      retryOnMount: false,
       retry: 0,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
