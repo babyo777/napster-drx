@@ -56,6 +56,12 @@ interface albums {
   year: string;
   thumbnailUrl: string;
 }
+
+interface searchAlbumsInterface {
+  albumId: string;
+  title: string;
+  thumbnailUrl: string;
+}
 interface suggestedArtists {
   artistId: string;
   name: string;
@@ -104,4 +110,5 @@ export type {
   likedSongs,
   ArtistDetails,
   suggestedArtists,
+  searchAlbumsInterface,
 };

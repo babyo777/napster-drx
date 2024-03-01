@@ -2,11 +2,17 @@ import { Input } from "@/components/ui/input";
 import Header from "../Header/Header";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { SearchApi, SearchArtist, SearchPlaylistApi } from "@/API/api";
+import {
+  SearchAlbum,
+  SearchApi,
+  SearchArtist,
+  SearchPlaylistApi,
+} from "@/API/api";
 import {
   SearchPlaylist,
   playlistSongs,
   recentSearch,
+  searchAlbumsInterface,
   suggestedArtists,
   trending,
 } from "@/Interface";
@@ -29,6 +35,7 @@ import { Query } from "appwrite";
 import { ArtistSearch } from "./artistSearch";
 import { MdCancel } from "react-icons/md";
 import { PlaylistSearchComp } from "./playlistSearch";
+import { AlbumSearchComp } from "./albumSearch";
 
 function SearchComp() {
   const searchQuery = useSelector(
@@ -98,6 +105,22 @@ function SearchComp() {
     refetchOnMount: false,
   });
 
+  const albums = async () => {
+    if (searchQuery.length > 0) {
+      const q = await axios.get(`${SearchAlbum}${searchQuery}`);
+      return q.data as searchAlbumsInterface[];
+    } else {
+      return [];
+    }
+  };
+  const { data: albumData, refetch: albumRefetch } = useQuery<
+    searchAlbumsInterface[]
+  >(["albumsSearch", searchQuery], albums, {
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60000,
+    refetchOnMount: false,
+  });
+
   const playlists = async () => {
     if (searchQuery.length > 0) {
       const q = await axios.get(`${SearchPlaylistApi}${searchQuery}`);
@@ -140,12 +163,13 @@ function SearchComp() {
             (refetch(),
             artistsRefetch(),
             playlistsRefetch(),
+            albumRefetch(),
             dispatch(setSearch(s.current?.value || "")));
         }
       }, time);
       return () => clearTimeout(q);
     },
-    [refetch, dispatch, artistsRefetch, playlistsRefetch]
+    [refetch, dispatch, artistsRefetch, playlistsRefetch, albumRefetch]
   );
 
   return (
@@ -156,7 +180,7 @@ function SearchComp() {
           ref={s}
           type="text"
           onChange={() => search(1100)}
-          placeholder="Artists, Songs, Playlists"
+          placeholder="Artists, Songs, Playlists, Albums"
           className=" relative shadow-none rounded-lg"
         />
         {searchQuery.length > 0 && (
@@ -244,6 +268,18 @@ function SearchComp() {
                   cover={r.thumbnailUrl}
                 />
               ))}
+              {albumData && albumData.length > 0 && (
+                <div>
+                  {albumData.slice(0, 4).map((a, i) => (
+                    <AlbumSearchComp
+                      key={a.albumId + a.title + i}
+                      title={a.title}
+                      albumId={a.albumId}
+                      thumbnailUrl={a.thumbnailUrl}
+                    />
+                  ))}
+                </div>
+              )}
               {artistsData && artistsData.length > 0 && (
                 <div>
                   {artistsData.slice(0, 4).map((a, i) => (
@@ -251,6 +287,18 @@ function SearchComp() {
                       key={a.name + a.artistId + i}
                       name={a.name}
                       artistId={a.artistId}
+                      thumbnailUrl={a.thumbnailUrl}
+                    />
+                  ))}
+                </div>
+              )}
+              {albumData && albumData.length > 0 && (
+                <div>
+                  {albumData.slice(4, 7).map((a, i) => (
+                    <AlbumSearchComp
+                      key={a.albumId + a.title + i}
+                      title={a.title}
+                      albumId={a.albumId}
                       thumbnailUrl={a.thumbnailUrl}
                     />
                   ))}
@@ -284,6 +332,18 @@ function SearchComp() {
                       title={p.title}
                     />
                   ))}
+              {albumData && albumData.length > 0 && (
+                <div>
+                  {albumData.slice(7, albumData.length - 1).map((a, i) => (
+                    <AlbumSearchComp
+                      key={a.albumId + a.title + i}
+                      title={a.title}
+                      albumId={a.albumId}
+                      thumbnailUrl={a.thumbnailUrl}
+                    />
+                  ))}
+                </div>
+              )}
               {music.slice(7, 10).map((r) => (
                 <SearchSong
                   artistId={r.artists[0].id}
