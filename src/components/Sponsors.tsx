@@ -49,9 +49,9 @@ function SponsorsComp() {
           <SiGithubsponsors className="mr-2 fill-pink-400" /> Sponsor
         </p>
       </DialogTrigger>
-      <DialogContent className="w-[87vw]  rounded-2xl">
+      <DialogContent className="w-[87vw] flex  flex-col rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="  text-lg">Sponsors</DialogTitle>
+          <DialogTitle className="text-lg">Sponsors</DialogTitle>
         </DialogHeader>
         {isLoading && (
           <div className="py-4 w-full rounded-xl flex justify-center flex-col  space-y-2 items-center">
