@@ -91,11 +91,9 @@ function SearchSong({
           />
         </AspectRatio>
       </div>
-      <div
-        onClick={handlePlay}
-        className="flex  flex-col pl-1 text-start w-[70dvw]"
-      >
+      <div className="flex  flex-col pl-1 text-start w-[70dvw]">
         <p
+          onClick={handlePlay}
           className={`w-[60dvw] ${
             playlist[currentIndex]?.youtubeId == audio &&
             currentIndex == 0 &&
