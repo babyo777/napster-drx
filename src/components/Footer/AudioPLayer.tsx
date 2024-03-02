@@ -216,7 +216,15 @@ function AudioPLayerComp() {
       ],
     });
 
-    navigator.mediaSession.setActionHandler("play", () => sound.play());
+    navigator.mediaSession.setActionHandler("play", () => {
+      if (sound.paused) {
+        sound
+          .play()
+          .catch((error) => console.error("Error playing audio:", error));
+      } else {
+        sound.pause();
+      }
+    });
     navigator.mediaSession.setActionHandler("pause", () => sound.pause());
     navigator.mediaSession.setActionHandler("nexttrack", handleNext);
     navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
@@ -244,13 +252,12 @@ function AudioPLayerComp() {
       sound.removeEventListener("timeupdate", handleTimeUpdate);
       sound.removeEventListener("error", handleError);
       sound.removeEventListener("ended", handleNext);
-      if ("mediaSession" in navigator) {
-        navigator.mediaSession.setActionHandler("play", null);
-        navigator.mediaSession.setActionHandler("pause", null);
-        navigator.mediaSession.setActionHandler("nexttrack", null);
-        navigator.mediaSession.setActionHandler("previoustrack", null);
-        navigator.mediaSession.setActionHandler("seekto", null);
-      }
+
+      navigator.mediaSession.setActionHandler("play", null);
+      navigator.mediaSession.setActionHandler("pause", null);
+      navigator.mediaSession.setActionHandler("nexttrack", null);
+      navigator.mediaSession.setActionHandler("previoustrack", null);
+      navigator.mediaSession.setActionHandler("seekto", null);
     };
   }, [
     dispatch,
