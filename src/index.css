@@ -3,6 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "napster";
+  src: url("/napster.ttf");
+  font-display: swap;
+}
+
+body {
+  font-family: "napster";
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
