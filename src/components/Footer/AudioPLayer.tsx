@@ -180,6 +180,7 @@ function AudioPLayerComp() {
           },
         ],
       });
+      navigator.mediaSession.playbackState = "playing";
       navigator.mediaSession.setActionHandler("play", () => sound.play());
       navigator.mediaSession.setActionHandler("pause", () => sound.pause());
       navigator.mediaSession.setActionHandler("nexttrack", handleNext);
@@ -247,6 +248,7 @@ function AudioPLayerComp() {
       sound.removeEventListener("timeupdate", handleTimeUpdate);
       sound.removeEventListener("error", handleError);
       sound.removeEventListener("ended", handleNext);
+      navigator.mediaSession.playbackState = "none";
       navigator.mediaSession.setActionHandler("play", null);
       navigator.mediaSession.setActionHandler("pause", null);
       navigator.mediaSession.setActionHandler("nexttrack", null);
