@@ -233,12 +233,8 @@ function AudioPLayerComp() {
     navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
     navigator.mediaSession.setActionHandler("seekto", handleSeek);
 
-    const playMusic = async () => {
-      await sound.play();
-      dispatch(setPlayer(sound));
-    };
-
-    playMusic();
+    dispatch(setPlayer(sound));
+    sound.play();
 
     return () => {
       sound.pause();
