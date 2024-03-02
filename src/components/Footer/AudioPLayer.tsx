@@ -219,15 +219,7 @@ function AudioPLayerComp() {
         ],
       });
 
-      navigator.mediaSession.setActionHandler("play", () => {
-        if (sound.paused) {
-          sound
-            .play()
-            .catch((error) => console.error("Error playing audio:", error));
-        } else {
-          sound.pause();
-        }
-      });
+      navigator.mediaSession.setActionHandler("play", () => sound.play());
       navigator.mediaSession.setActionHandler("pause", () => sound.pause());
       navigator.mediaSession.setActionHandler("nexttrack", handleNext);
       navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
