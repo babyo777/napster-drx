@@ -225,12 +225,15 @@ function AudioPLayerComp() {
     sound.addEventListener("error", handleError);
     sound.addEventListener("timeupdate", handleTimeUpdate);
     sound.addEventListener("ended", handleNext);
-
-    navigator.mediaSession.setActionHandler("play", () => sound.play());
-    navigator.mediaSession.setActionHandler("pause", () => sound.pause());
-    navigator.mediaSession.setActionHandler("nexttrack", handleNext);
-    navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
-    navigator.mediaSession.setActionHandler("seekto", handleSeek);
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.setActionHandler("play", () =>
+        sound.play().catch((err) => alert(err.message))
+      );
+      navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+      navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+      navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+      navigator.mediaSession.setActionHandler("seekto", handleSeek);
+    }
 
     dispatch(setPlayer(sound));
     sound.play();
@@ -248,11 +251,13 @@ function AudioPLayerComp() {
       sound.removeEventListener("timeupdate", handleTimeUpdate);
       sound.removeEventListener("error", handleError);
       sound.removeEventListener("ended", handleNext);
-      navigator.mediaSession.setActionHandler("play", null);
-      navigator.mediaSession.setActionHandler("pause", null);
-      navigator.mediaSession.setActionHandler("nexttrack", null);
-      navigator.mediaSession.setActionHandler("previoustrack", null);
-      navigator.mediaSession.setActionHandler("seekto", null);
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.setActionHandler("play", null);
+        navigator.mediaSession.setActionHandler("pause", null);
+        navigator.mediaSession.setActionHandler("nexttrack", null);
+        navigator.mediaSession.setActionHandler("previoustrack", null);
+        navigator.mediaSession.setActionHandler("seekto", null);
+      }
     };
   }, [
     dispatch,
