@@ -23,7 +23,14 @@ function InstallNapsterAndroid() {
         className=" font-semibold text-xs  text-zinc-300"
       >
         Page Designed By{" "}
-        <span className="underline underline-offset-2"> Sagar</span>
+        <span className="underline underline-offset-2"> Sagar</span> and app
+        made by{" "}
+        <a
+          className="underline underline-offset-2"
+          href="https://tanmayo7.vercel.app"
+        >
+          tanmay
+        </a>
       </a>
     </div>
   );
