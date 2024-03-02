@@ -161,13 +161,13 @@ function AudioPLayerComp() {
     );
 
     sound.preload = "auto";
-    const handlePlay = () => {
+    sound.autoplay = true;
+    const handlePlay = async () => {
+      await sound.play();
       if (isLoop) {
         sound.loop = true;
       }
       setDuration(sound.duration);
-
-      refetch();
       navigator.mediaSession.metadata = new MediaMetadata({
         title: playlist[currentIndex].title,
         artist: playlist[currentIndex].artists[0]?.name,
@@ -202,6 +202,12 @@ function AudioPLayerComp() {
       }
     };
 
+    const handleLoad = () => {
+      dispatch(setIsLoading(false));
+      refetch();
+      setDuration(sound.duration || 0);
+    };
+
     const handleTimeUpdate = () => {
       setProgress(sound.currentTime);
     };
@@ -218,10 +224,7 @@ function AudioPLayerComp() {
     sound.setAttribute("playsinline", "true");
     sound.addEventListener("play", handlePlay);
     sound.addEventListener("pause", handlePause);
-    sound.addEventListener(
-      "loadedmetadata",
-      () => (dispatch(setIsLoading(false)), setDuration(sound.duration || 0))
-    );
+    sound.addEventListener("loadedmetadata", handleLoad);
     sound.addEventListener("error", handleError);
     sound.addEventListener("timeupdate", handleTimeUpdate);
     sound.addEventListener("ended", handleNext);
@@ -233,17 +236,13 @@ function AudioPLayerComp() {
     navigator.mediaSession.setActionHandler("seekto", handleSeek);
 
     dispatch(setPlayer(sound));
-    sound.play();
 
     return () => {
       sound.pause();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       sound.removeEventListener("play", handlePlay);
       sound.removeEventListener("pause", handlePause);
-      sound.removeEventListener(
-        "loadedmetadata",
-        () => (dispatch(setIsLoading(false)), setDuration(sound.duration))
-      );
+      sound.removeEventListener("loadedmetadata", handleLoad);
 
       sound.removeEventListener("timeupdate", handleTimeUpdate);
       sound.removeEventListener("error", handleError);
@@ -384,7 +383,7 @@ function AudioPLayerComp() {
           <div className="flex  absolute bottom-[26vh]  w-full flex-col justify-center px-6 pt-1 ">
             <input
               type="range"
-              value={progress}
+              value={progress || 0}
               max={duration}
               onInput={handleSeek}
               step="1"
