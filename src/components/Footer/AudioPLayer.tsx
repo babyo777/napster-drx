@@ -161,6 +161,7 @@ function AudioPLayerComp() {
     );
 
     sound.preload = "auto";
+    sound.autoplay = true;
     const handlePlay = () => {
       if (isLoop) {
         sound.loop = true;
@@ -214,7 +215,7 @@ function AudioPLayerComp() {
       }
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    sound.preload = "auto";
+
     sound.setAttribute("playsinline", "true");
     sound.addEventListener("play", handlePlay);
     sound.addEventListener("pause", handlePause);
