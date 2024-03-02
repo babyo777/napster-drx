@@ -205,14 +205,14 @@ function AudioPLayerComp() {
       setProgress(sound.currentTime);
     };
 
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "hidden" && sound.paused) {
-        sound.play().catch((error) => {
-          console.error("Error playing audio:", error);
-        });
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    // const handleVisibilityChange = () => {
+    //   if (document.visibilityState === "hidden" && sound.paused) {
+    //     sound.play().catch((error) => {
+    //       console.error("Error playing audio:", error);
+    //     });
+    //   }
+    // };
+    // document.addEventListener("visibilitychange", handleVisibilityChange);
 
     sound.preload = "auto";
     sound.setAttribute("playsinline", "true");
@@ -237,7 +237,7 @@ function AudioPLayerComp() {
 
     return () => {
       sound.pause();
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      // document.removeEventListener("visibilitychange", handleVisibilityChange);
       sound.removeEventListener("play", handlePlay);
       sound.removeEventListener("pause", handlePause);
       sound.removeEventListener(
