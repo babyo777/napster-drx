@@ -233,10 +233,9 @@ function AudioPLayerComp() {
       navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
       navigator.mediaSession.setActionHandler("seekto", handleSeek);
     };
-
+    sound.preload = "auto";
     const setEventListener = () => {
       document.addEventListener("visibilitychange", handleVisibilityChange);
-      sound.preload = "auto";
       sound.setAttribute("playsinline", "true");
       sound.addEventListener("play", handlePlay);
       sound.addEventListener("pause", handlePause);
