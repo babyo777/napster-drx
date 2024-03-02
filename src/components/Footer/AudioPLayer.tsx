@@ -309,7 +309,7 @@ function AudioPLayerComp() {
             />
           </div>
           <div className="flex flex-col text-start">
-            <p className=" text-sm truncate w-[50vw] font-semibold">
+            <p className=" text-sm truncate w-[50vw] ">
               {playlist[currentIndex].title}
             </p>
             <p className=" text-xs w-[30vw] truncate">
