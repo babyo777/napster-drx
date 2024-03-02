@@ -160,7 +160,6 @@ function AudioPLayerComp() {
       `${streamApi}${playlist[currentIndex].youtubeId}`
     );
 
-    sound.preload = "auto";
     const handlePlay = () => {
       if (isLoop) {
         sound.loop = true;
@@ -169,6 +168,7 @@ function AudioPLayerComp() {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: playlist[currentIndex].title,
         artist: playlist[currentIndex].artists[0]?.name,
+        album: "",
         artwork: [
           {
             src: playlist[currentIndex].thumbnailUrl.replace(
@@ -178,6 +178,11 @@ function AudioPLayerComp() {
           },
         ],
       });
+      navigator.mediaSession.setActionHandler("play", () => sound.play());
+      navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+      navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+      navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+      navigator.mediaSession.setActionHandler("seekto", handleSeek);
       dispatch(play(true));
     };
 
@@ -226,12 +231,6 @@ function AudioPLayerComp() {
     sound.addEventListener("error", handleError);
     sound.addEventListener("timeupdate", handleTimeUpdate);
     sound.addEventListener("ended", handleNext);
-
-    navigator.mediaSession.setActionHandler("play", () => sound.play());
-    navigator.mediaSession.setActionHandler("pause", () => sound.pause());
-    navigator.mediaSession.setActionHandler("nexttrack", handleNext);
-    navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
-    navigator.mediaSession.setActionHandler("seekto", handleSeek);
 
     dispatch(setPlayer(sound));
     sound.play();
