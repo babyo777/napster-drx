@@ -154,15 +154,13 @@ function AudioPLayerComp() {
       // @ts-expect-error:ignore
       window.webkitAudioContext)();
     const source = audioContext.createBufferSource();
-    source.start(0);
-  }, []);
-  useEffect(() => {
     dispatch(setIsLoading(true));
     const sound: HTMLAudioElement = new Audio(
       `${streamApi}${playlist[currentIndex].youtubeId}`
     );
 
     const handlePlay = () => {
+      source.start(0);
       if (isLoop) {
         sound.loop = true;
       }
@@ -238,6 +236,7 @@ function AudioPLayerComp() {
     sound.play();
 
     return () => {
+      source.stop();
       sound.pause();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       sound.removeEventListener("play", handlePlay);
