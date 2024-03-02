@@ -160,27 +160,6 @@ function AudioPLayerComp() {
       `${streamApi}${playlist[currentIndex].youtubeId}`
     );
 
-    const handlePlay = () => {
-      if (isLoop) {
-        sound.loop = true;
-      }
-      setDuration(sound.duration);
-
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title: playlist[currentIndex].title,
-        artist: playlist[currentIndex].artists[0]?.name,
-        artwork: [
-          {
-            src: playlist[currentIndex].thumbnailUrl.replace(
-              "w120-h120",
-              "w1080-h1080"
-            ),
-          },
-        ],
-      });
-      dispatch(play(true));
-    };
-
     const handlePause = () => {
       dispatch(play(false));
     };
@@ -209,6 +188,36 @@ function AudioPLayerComp() {
       setDuration(sound.duration || 0);
     };
 
+    const handlePlay = () => {
+      if (isLoop) {
+        sound.loop = true;
+      }
+      setDuration(sound.duration);
+
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: playlist[currentIndex].title,
+        artist: playlist[currentIndex].artists[0]?.name,
+        artwork: [
+          {
+            src: playlist[currentIndex].thumbnailUrl.replace(
+              "w120-h120",
+              "w1080-h1080"
+            ),
+          },
+        ],
+      });
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.setActionHandler("play", () =>
+          sound.play().catch((err) => alert(err.message))
+        );
+        navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+        navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+        navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+        navigator.mediaSession.setActionHandler("seekto", handleSeek);
+      }
+      dispatch(play(true));
+    };
+
     const handleVisibilityChange = () => {
       if (document.visibilityState === "hidden" && sound.paused) {
         sound.play().catch((error) => {
@@ -226,15 +235,6 @@ function AudioPLayerComp() {
     sound.addEventListener("error", handleError);
     sound.addEventListener("timeupdate", handleTimeUpdate);
     sound.addEventListener("ended", handleNext);
-    if ("mediaSession" in navigator) {
-      navigator.mediaSession.setActionHandler("play", () =>
-        sound.play().catch((err) => alert(err.message))
-      );
-      navigator.mediaSession.setActionHandler("pause", () => sound.pause());
-      navigator.mediaSession.setActionHandler("nexttrack", handleNext);
-      navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
-      navigator.mediaSession.setActionHandler("seekto", handleSeek);
-    }
 
     dispatch(setPlayer(sound));
     sound.play();
