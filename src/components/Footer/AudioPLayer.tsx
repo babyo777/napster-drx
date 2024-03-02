@@ -192,6 +192,7 @@ function AudioPLayerComp() {
       if (isLoop) {
         sound.loop = true;
       }
+      setMediaSession();
       setDuration(sound.duration);
       dispatch(play(true));
     };
@@ -203,32 +204,34 @@ function AudioPLayerComp() {
         });
       }
     };
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: playlist[currentIndex].title || "unknown",
-      artist: playlist[currentIndex].artists[0]?.name || "unknown",
-      artwork: [
-        {
-          src: playlist[currentIndex].thumbnailUrl.replace(
-            "w120-h120",
-            "w1080-h1080"
-          ),
-        },
-      ],
-    });
+    const setMediaSession = () => {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: playlist[currentIndex].title || "unknown",
+        artist: playlist[currentIndex].artists[0]?.name || "unknown",
+        artwork: [
+          {
+            src: playlist[currentIndex].thumbnailUrl.replace(
+              "w120-h120",
+              "w1080-h1080"
+            ),
+          },
+        ],
+      });
 
-    navigator.mediaSession.setActionHandler("play", () => {
-      if (sound.paused) {
-        sound
-          .play()
-          .catch((error) => console.error("Error playing audio:", error));
-      } else {
-        sound.pause();
-      }
-    });
-    navigator.mediaSession.setActionHandler("pause", () => sound.pause());
-    navigator.mediaSession.setActionHandler("nexttrack", handleNext);
-    navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
-    navigator.mediaSession.setActionHandler("seekto", handleSeek);
+      navigator.mediaSession.setActionHandler("play", () => {
+        if (sound.paused) {
+          sound
+            .play()
+            .catch((error) => console.error("Error playing audio:", error));
+        } else {
+          sound.pause();
+        }
+      });
+      navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+      navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+      navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+      navigator.mediaSession.setActionHandler("seekto", handleSeek);
+    };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
     sound.preload = "auto";
