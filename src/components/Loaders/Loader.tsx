@@ -14,7 +14,7 @@ function Loader({
   return (
     <l-line-spinner
       size={size || "30"}
-      stroke={stroke || "2"}
+      stroke={stroke || "1"}
       speed="1"
       color={color || "gray"}
     ></l-line-spinner>
