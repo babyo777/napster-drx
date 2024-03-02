@@ -10,7 +10,7 @@ function InstallNapster() {
         className="underline underline-offset-4 text-[.7rem] text-zinc-400 font-semibold"
         href="https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DiOS"
       >
-        learn more?
+        learn more
       </a>
       <AppScreenshots />
       <p className="text-xs text-center">

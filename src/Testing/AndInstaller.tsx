@@ -11,7 +11,7 @@ function InstallNapsterAndroid() {
         className="underline underline-offset-4 text-[.7rem] text-blue-500 font-semibold"
         href="https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DAndroid&oco=2"
       >
-        learn more?
+        learn more
       </a>
       <AndroidScreenshots />
       <p className="text-xs text-center">
