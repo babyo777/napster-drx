@@ -150,10 +150,10 @@ function AudioPLayerComp() {
   });
 
   useEffect(() => {
-    // const audioContext = new (window.AudioContext ||
-    //   // @ts-expect-error:ignore
-    //   window.webkitAudioContext)();
-    // const source = audioContext.createBufferSource();
+    const audioContext = new (window.AudioContext ||
+      // @ts-expect-error:ignore
+      window.webkitAudioContext)();
+    const source = audioContext.createBufferSource();
 
     dispatch(setIsLoading(true));
     const sound: HTMLAudioElement = new Audio(
@@ -236,7 +236,7 @@ function AudioPLayerComp() {
     dispatch(setPlayer(sound));
     sound.play();
     sound.load();
-    // source.start(0);
+    source.start(0);
     return () => {
       sound.pause();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
