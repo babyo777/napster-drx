@@ -166,7 +166,6 @@ function AudioPLayerComp() {
       }
       setDuration(sound.duration);
 
-      refetch();
       navigator.mediaSession.metadata = new MediaMetadata({
         title: playlist[currentIndex].title,
         artist: playlist[currentIndex].artists[0]?.name,
@@ -204,6 +203,11 @@ function AudioPLayerComp() {
     const handleTimeUpdate = () => {
       setProgress(sound.currentTime);
     };
+    const handleLoad = () => {
+      dispatch(setIsLoading(false));
+      refetch();
+      setDuration(sound.duration || 0);
+    };
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "hidden" && sound.paused) {
@@ -218,10 +222,7 @@ function AudioPLayerComp() {
     sound.setAttribute("playsinline", "true");
     sound.addEventListener("play", handlePlay);
     sound.addEventListener("pause", handlePause);
-    sound.addEventListener(
-      "loadedmetadata",
-      () => (dispatch(setIsLoading(false)), setDuration(sound.duration || 0))
-    );
+    sound.addEventListener("loadedmetadata", handleLoad);
     sound.addEventListener("error", handleError);
     sound.addEventListener("timeupdate", handleTimeUpdate);
     sound.addEventListener("ended", handleNext);
@@ -243,11 +244,7 @@ function AudioPLayerComp() {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       sound.removeEventListener("play", handlePlay);
       sound.removeEventListener("pause", handlePause);
-      sound.removeEventListener(
-        "loadedmetadata",
-        () => (dispatch(setIsLoading(false)), setDuration(sound.duration))
-      );
-
+      sound.removeEventListener("loadedmetadata", handleLoad);
       sound.removeEventListener("timeupdate", handleTimeUpdate);
       sound.removeEventListener("error", handleError);
       sound.removeEventListener("ended", handleNext);
