@@ -3,7 +3,7 @@ import App from "@/App";
 import InstallNapster from "./InstallNapster";
 import { Desktop } from "./Desktop";
 import InstallNapsterAndroid from "@/Testing/AndInstaller";
-import StartLoader from "./Loaders/StartLoader";
+import Loader from "./Loaders/Loader";
 
 function Check() {
   const [check, setCheck] = useState<boolean>(true);
@@ -41,7 +41,7 @@ function Check() {
       setIsStandalone(isStandalone);
       setGraphic(checkGpuCapabilities());
       setCheck(false);
-    }, 3000);
+    }, 777);
     return () => clearTimeout(t);
   }, []);
 
@@ -62,7 +62,9 @@ function Check() {
   return (
     <>
       {check && navigator.onLine ? (
-        <StartLoader />
+        <div className="load flex justify-center items-center h-screen">
+          <Loader />
+        </div>
       ) : (
         <>{isIPhone ? <InstallNapster /> : <InstallNapsterAndroid />}</>
       )}
