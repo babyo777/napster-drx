@@ -183,17 +183,6 @@ function AudioPLayerComp() {
       setProgress(sound.currentTime);
     };
     const handleLoad = () => {
-      dispatch(setIsLoading(false));
-      refetch();
-      setDuration(sound.duration || 0);
-    };
-
-    const handlePlay = () => {
-      if (isLoop) {
-        sound.loop = true;
-      }
-      setDuration(sound.duration);
-
       navigator.mediaSession.metadata = new MediaMetadata({
         title: playlist[currentIndex].title,
         artist: playlist[currentIndex].artists[0]?.name,
@@ -206,15 +195,23 @@ function AudioPLayerComp() {
           },
         ],
       });
-      if ("mediaSession" in navigator) {
-        navigator.mediaSession.setActionHandler("play", () =>
-          sound.play().catch((err) => alert(err.message))
-        );
-        navigator.mediaSession.setActionHandler("pause", () => sound.pause());
-        navigator.mediaSession.setActionHandler("nexttrack", handleNext);
-        navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
-        navigator.mediaSession.setActionHandler("seekto", handleSeek);
+
+      navigator.mediaSession.setActionHandler("play", () => sound.play());
+      navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+      navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+      navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+      navigator.mediaSession.setActionHandler("seekto", handleSeek);
+      dispatch(setIsLoading(false));
+      refetch();
+      setDuration(sound.duration || 0);
+    };
+
+    const handlePlay = () => {
+      if (isLoop) {
+        sound.loop = true;
       }
+      setDuration(sound.duration);
+
       dispatch(play(true));
     };
 
