@@ -161,9 +161,7 @@ function AudioPLayerComp() {
     );
 
     sound.preload = "auto";
-    sound.autoplay = true;
-    const handlePlay = async () => {
-      await sound.play();
+    const handlePlay = () => {
       if (isLoop) {
         sound.loop = true;
       }
@@ -235,7 +233,12 @@ function AudioPLayerComp() {
     navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
     navigator.mediaSession.setActionHandler("seekto", handleSeek);
 
-    dispatch(setPlayer(sound));
+    const playMusic = async () => {
+      await sound.play();
+      dispatch(setPlayer(sound));
+    };
+
+    playMusic();
 
     return () => {
       sound.pause();
