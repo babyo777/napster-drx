@@ -189,11 +189,11 @@ function AudioPLayerComp() {
       setEventListener();
     };
 
-    const handlePlay = () => {
+    const handlePlay = async () => {
       if (isLoop) {
         sound.loop = true;
       }
-      setMediaSession();
+      await setMediaSession();
       setDuration(sound.duration);
       dispatch(play(true));
     };
@@ -209,6 +209,7 @@ function AudioPLayerComp() {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: playlist[currentIndex].title || "unknown",
         artist: playlist[currentIndex].artists[0]?.name || "unknown",
+        album: "",
         artwork: [
           {
             src: playlist[currentIndex].thumbnailUrl.replace(
