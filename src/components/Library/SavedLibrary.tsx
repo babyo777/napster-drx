@@ -63,7 +63,7 @@ function SavedLibraryComp() {
               </AspectRatio>
             </div>
             <div className="flex flex-col  text-xl text-start">
-              <p className="w-[59vw] fade-in text-base truncate">Liked Songs</p>
+              <p className="w-[59vw] fade-in text-lg truncate">Liked Songs</p>
               <p className="-mt-0.5  text-xs w-[50vw] truncate h-2"></p>
             </div>
           </div>
