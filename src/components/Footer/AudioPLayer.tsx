@@ -194,8 +194,8 @@ function AudioPLayerComp() {
       }
 
       navigator.mediaSession.metadata = new MediaMetadata({
-        title: playlist[currentIndex].title,
-        artist: playlist[currentIndex].artists[0]?.name,
+        title: playlist[currentIndex].title || "unknown",
+        artist: playlist[currentIndex].artists[0]?.name || "unknown",
         artwork: [
           {
             src: playlist[currentIndex].thumbnailUrl.replace(
