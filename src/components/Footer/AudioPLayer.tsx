@@ -149,12 +149,14 @@ function AudioPLayerComp() {
     onSwipedRight: handlePrev,
   });
 
+  // useEffect(() => {
+  //   const audioContext = new (window.AudioContext ||
+  //     // @ts-expect-error:ignore
+  //     window.webkitAudioContext)();
+  //   const source = audioContext.createBufferSource();
+  //   source.start(0);
+  // }, []);
   useEffect(() => {
-    const audioContext = new (window.AudioContext ||
-      // @ts-expect-error:ignore
-      window.webkitAudioContext)();
-    const source = audioContext.createBufferSource();
-    source.start(0);
     dispatch(setIsLoading(true));
     const sound: HTMLAudioElement = new Audio(
       `${streamApi}${playlist[currentIndex].youtubeId}`
