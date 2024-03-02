@@ -16,9 +16,7 @@ function Artist({ data }: { data: homePagePlaylist[] }) {
       {data && (
         <>
           <div className="flex  flex-col px-4 py-2 ">
-            <h1 className="text-start tracking-tighter font-semibold text-xl">
-              Top Artist
-            </h1>
+            <h1 className="text-start font-semibold text-xl">Top Artist</h1>
           </div>
           <div className="flex  space-x-4 px-4 overflow-x-auto pb-40  items-center">
             {data.map((artist) => (
