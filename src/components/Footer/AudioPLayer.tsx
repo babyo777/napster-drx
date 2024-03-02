@@ -154,11 +154,34 @@ function AudioPLayerComp() {
       // @ts-expect-error:ignore
       window.webkitAudioContext)();
     const source = audioContext.createBufferSource();
-
+    source.start(0);
     dispatch(setIsLoading(true));
     const sound: HTMLAudioElement = new Audio(
       `${streamApi}${playlist[currentIndex].youtubeId}`
     );
+
+    sound.preload = "auto";
+    const handlePlay = () => {
+      if (isLoop) {
+        sound.loop = true;
+      }
+      setDuration(sound.duration);
+
+      refetch();
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: playlist[currentIndex].title,
+        artist: playlist[currentIndex].artists[0]?.name,
+        artwork: [
+          {
+            src: playlist[currentIndex].thumbnailUrl.replace(
+              "w120-h120",
+              "w1080-h1080"
+            ),
+          },
+        ],
+      });
+      dispatch(play(true));
+    };
 
     const handlePause = () => {
       dispatch(play(false));
@@ -182,21 +205,6 @@ function AudioPLayerComp() {
     const handleTimeUpdate = () => {
       setProgress(sound.currentTime);
     };
-    const handleLoad = () => {
-      dispatch(setIsLoading(false));
-      refetch();
-      setDuration(sound.duration || 0);
-      setEventListener();
-    };
-
-    const handlePlay = async () => {
-      if (isLoop) {
-        sound.loop = true;
-      }
-      await setMediaSession();
-      setDuration(sound.duration);
-      dispatch(play(true));
-    };
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "hidden" && sound.paused) {
@@ -205,52 +213,41 @@ function AudioPLayerComp() {
         });
       }
     };
-    const setMediaSession = () => {
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title: playlist[currentIndex].title || "unknown",
-        artist: playlist[currentIndex].artists[0]?.name || "unknown",
-        album: "",
-        artwork: [
-          {
-            src: playlist[currentIndex].thumbnailUrl.replace(
-              "w120-h120",
-              "w1080-h1080"
-            ),
-          },
-        ],
-      });
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
-      navigator.mediaSession.setActionHandler("play", () => sound.play());
-      navigator.mediaSession.setActionHandler("pause", () => sound.pause());
-      navigator.mediaSession.setActionHandler("nexttrack", handleNext);
-      navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
-      navigator.mediaSession.setActionHandler("seekto", handleSeek);
-    };
-    const setEventListener = () => {
-      document.addEventListener("visibilitychange", handleVisibilityChange);
-      sound.setAttribute("playsinline", "true");
-      sound.addEventListener("play", handlePlay);
-      sound.addEventListener("pause", handlePause);
-      sound.addEventListener("loadedmetadata", handleLoad);
-      sound.addEventListener("error", handleError);
-      sound.addEventListener("timeupdate", handleTimeUpdate);
-      sound.addEventListener("ended", handleNext);
-    };
+    sound.setAttribute("playsinline", "true");
+    sound.addEventListener("play", handlePlay);
+    sound.addEventListener("pause", handlePause);
+    sound.addEventListener(
+      "loadedmetadata",
+      () => (dispatch(setIsLoading(false)), setDuration(sound.duration || 0))
+    );
+    sound.addEventListener("error", handleError);
+    sound.addEventListener("timeupdate", handleTimeUpdate);
+    sound.addEventListener("ended", handleNext);
+
+    navigator.mediaSession.setActionHandler("play", () => sound.play());
+    navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+    navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+    navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+    navigator.mediaSession.setActionHandler("seekto", handleSeek);
 
     dispatch(setPlayer(sound));
-    sound.preload = "auto";
     sound.play();
-    source.start(0);
+
     return () => {
       sound.pause();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       sound.removeEventListener("play", handlePlay);
       sound.removeEventListener("pause", handlePause);
-      sound.removeEventListener("loadedmetadata", handleLoad);
+      sound.removeEventListener(
+        "loadedmetadata",
+        () => (dispatch(setIsLoading(false)), setDuration(sound.duration))
+      );
+
       sound.removeEventListener("timeupdate", handleTimeUpdate);
       sound.removeEventListener("error", handleError);
       sound.removeEventListener("ended", handleNext);
-
       navigator.mediaSession.setActionHandler("play", null);
       navigator.mediaSession.setActionHandler("pause", null);
       navigator.mediaSession.setActionHandler("nexttrack", null);
