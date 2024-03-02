@@ -160,7 +160,6 @@ function AudioPLayerComp() {
     );
 
     const handlePlay = () => {
-      source.start(0);
       if (isLoop) {
         sound.loop = true;
       }
@@ -184,6 +183,7 @@ function AudioPLayerComp() {
       navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
       navigator.mediaSession.setActionHandler("seekto", handleSeek);
       dispatch(play(true));
+      source.start(0);
     };
 
     const handlePause = () => {
