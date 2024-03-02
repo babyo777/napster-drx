@@ -186,6 +186,7 @@ function AudioPLayerComp() {
       dispatch(setIsLoading(false));
       refetch();
       setDuration(sound.duration || 0);
+      setEventListener();
     };
 
     const handlePlay = () => {
@@ -233,15 +234,17 @@ function AudioPLayerComp() {
       navigator.mediaSession.setActionHandler("seekto", handleSeek);
     };
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    sound.preload = "auto";
-    sound.setAttribute("playsinline", "true");
-    sound.addEventListener("play", handlePlay);
-    sound.addEventListener("pause", handlePause);
-    sound.addEventListener("loadedmetadata", handleLoad);
-    sound.addEventListener("error", handleError);
-    sound.addEventListener("timeupdate", handleTimeUpdate);
-    sound.addEventListener("ended", handleNext);
+    const setEventListener = () => {
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      sound.preload = "auto";
+      sound.setAttribute("playsinline", "true");
+      sound.addEventListener("play", handlePlay);
+      sound.addEventListener("pause", handlePause);
+      sound.addEventListener("loadedmetadata", handleLoad);
+      sound.addEventListener("error", handleError);
+      sound.addEventListener("timeupdate", handleTimeUpdate);
+      sound.addEventListener("ended", handleNext);
+    };
 
     dispatch(setPlayer(sound));
     sound.play();
