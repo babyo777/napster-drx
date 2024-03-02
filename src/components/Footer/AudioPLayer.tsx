@@ -192,25 +192,6 @@ function AudioPLayerComp() {
       if (isLoop) {
         sound.loop = true;
       }
-
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title: playlist[currentIndex].title || "unknown",
-        artist: playlist[currentIndex].artists[0]?.name || "unknown",
-        artwork: [
-          {
-            src: playlist[currentIndex].thumbnailUrl.replace(
-              "w120-h120",
-              "w1080-h1080"
-            ),
-          },
-        ],
-      });
-
-      navigator.mediaSession.setActionHandler("play", () => sound.play());
-      navigator.mediaSession.setActionHandler("pause", () => sound.pause());
-      navigator.mediaSession.setActionHandler("nexttrack", handleNext);
-      navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
-      navigator.mediaSession.setActionHandler("seekto", handleSeek);
       setDuration(sound.duration);
       dispatch(play(true));
     };
@@ -222,8 +203,26 @@ function AudioPLayerComp() {
         });
       }
     };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: playlist[currentIndex].title || "unknown",
+      artist: playlist[currentIndex].artists[0]?.name || "unknown",
+      artwork: [
+        {
+          src: playlist[currentIndex].thumbnailUrl.replace(
+            "w120-h120",
+            "w1080-h1080"
+          ),
+        },
+      ],
+    });
 
+    navigator.mediaSession.setActionHandler("play", () => sound.play());
+    navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+    navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+    navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+    navigator.mediaSession.setActionHandler("seekto", handleSeek);
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     sound.preload = "auto";
     sound.setAttribute("playsinline", "true");
     sound.addEventListener("play", handlePlay);
@@ -235,7 +234,6 @@ function AudioPLayerComp() {
 
     dispatch(setPlayer(sound));
     sound.play();
-
     source.start(0);
     return () => {
       sound.pause();
