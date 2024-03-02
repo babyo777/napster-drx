@@ -387,7 +387,7 @@ function AudioPLayerComp() {
             <input
               type="range"
               value={progress || 0}
-              max={duration}
+              max={duration || 0}
               onInput={handleSeek}
               step="1"
               className="w-full h-2 bg-gray-200 overflow-hidden rounded-lg appearance-none cursor-pointer"
