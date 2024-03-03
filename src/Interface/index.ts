@@ -98,7 +98,13 @@ interface savedPlaylist {
   for: string;
 }
 
+interface favArtist {
+  for: string;
+  $id: string;
+  artistId: string;
+}
 export type {
+  favArtist,
   playlistSongs,
   SearchPlaylist,
   artists,

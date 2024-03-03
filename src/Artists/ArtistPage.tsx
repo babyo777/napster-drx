@@ -1,8 +1,8 @@
 import { GetArtistDetails } from "@/API/api";
-import { ArtistDetails } from "@/Interface";
+import { ArtistDetails, favArtist } from "@/Interface";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { FaShare } from "react-icons/fa6";
+import { FaShare, FaStar } from "react-icons/fa6";
 
 import { IoReload } from "react-icons/io5";
 import { useQuery } from "react-query";
@@ -11,13 +11,62 @@ import SuggestedArtist from "./SuggestedArtist";
 import ArtistAlbums from "./ArtistAlbums";
 import Loader from "@/components/Loaders/Loader";
 import GoBack from "@/components/Goback";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import { DATABASE_ID, FAV_ARTIST, db } from "@/appwrite/appwriteConfig";
+import { ID, Query } from "appwrite";
+import { FaRegStar } from "react-icons/fa";
 
 function ArtistPage() {
   const { id } = useParams();
+  const [isFavArtist, setIsFavArtist] = useState<boolean>();
   const getArtistDetails = async () => {
     const list = await axios.get(`${GetArtistDetails}${id}`);
     return list.data as ArtistDetails;
+  };
+
+  const loadSavedPlaylist = async () => {
+    const r = await db.listDocuments(DATABASE_ID, FAV_ARTIST, [
+      Query.equal("for", [localStorage.getItem("uid") || "default"]),
+      Query.equal("artistId", [id || "none"]),
+    ]);
+    const p = r.documents as unknown as favArtist[];
+    if (p.length == 0) {
+      setIsFavArtist(false);
+    } else {
+      setIsFavArtist(true);
+    }
+    return p;
+  };
+
+  const { data: isFav, refetch: refetchFav } = useQuery<favArtist[]>(
+    ["checkFavArtist", id],
+    loadSavedPlaylist,
+    {
+      refetchOnWindowFocus: false,
+      keepPreviousData: true,
+    }
+  );
+
+  const addToFav = async () => {
+    setIsFavArtist(true);
+    await db
+      .createDocument(DATABASE_ID, FAV_ARTIST, ID.unique(), {
+        artistId: id,
+        for: localStorage.getItem("uid"),
+      })
+      .catch(() => setIsFavArtist(true));
+    refetchFav();
+  };
+
+  const removeFromFav = async () => {
+    if (isFav) {
+      setIsFavArtist(false);
+
+      await db
+        .deleteDocument(DATABASE_ID, FAV_ARTIST, isFav[0].$id)
+        .catch(() => setIsFavArtist(false));
+      refetchFav();
+    }
   };
 
   const { data, isLoading, isError, refetch, isRefetching } =
@@ -69,7 +118,19 @@ function ArtistPage() {
               className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
             />
           </div>
-
+          <div className="absolute top-[3.6rem] z-10 right-3">
+            {isFavArtist ? (
+              <FaStar
+                onClick={removeFromFav}
+                className="h-8 w-8  backdrop-blur-md fade-in  bg-black/30 rounded-full p-1.5"
+              />
+            ) : (
+              <FaRegStar
+                onClick={addToFav}
+                className="h-8 w-8  backdrop-blur-md fade-in  bg-black/30 rounded-full p-1.5"
+              />
+            )}
+          </div>
           <img
             width="100%"
             height="100%"
