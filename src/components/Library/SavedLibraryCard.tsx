@@ -53,7 +53,7 @@ function SavedLibraryCard({
                   effect="blur"
                   src={p[0]?.thumbnailUrl || "/favicon.webp"}
                   alt="Image"
-                  className="rounded-md object-cover w-[100%] h-[100%]"
+                  className="rounded-lg object-cover w-[100%] h-[100%]"
                 />
               </AspectRatio>
             </div>
