@@ -4,7 +4,7 @@ import { FaShare } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { AlbumSongs } from "@/Interface";
+import { AlbumSongs, savedPlaylist } from "@/Interface";
 
 import { GetAlbumSongs } from "@/API/api";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,11 +25,34 @@ import { Button } from "@/components/ui/button";
 import Songs from "@/components/Library/Songs";
 import GoBack from "@/components/Goback";
 import AddAlbum from "./AddAlbum";
+import {
+  DATABASE_ID,
+  PLAYLIST_COLLECTION_ID,
+  db,
+} from "@/appwrite/appwriteConfig";
+import { Query } from "appwrite";
 
 function AlbumPageComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const artistId = useMemo(() => new URLSearchParams(location.search), []);
+
+  const loadSavedPlaylist = async () => {
+    const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
+      Query.equal("for", [localStorage.getItem("uid") || "default", "default"]),
+      Query.equal("link", [id || "none"]),
+    ]);
+    const p = r.documents as unknown as savedPlaylist[];
+    return p;
+  };
+  const { data: isSaved } = useQuery<savedPlaylist[]>(
+    ["checkIfSaved", id],
+    loadSavedPlaylist,
+    {
+      refetchOnWindowFocus: false,
+      keepPreviousData: true,
+    }
+  );
 
   const playlistUrl = useSelector(
     (state: RootState) => state.musicReducer.playlistUrl
@@ -105,24 +128,27 @@ function AlbumPageComp() {
           <div className="flex w-full h-[23rem]  relative ">
             <GoBack />
 
-            <div className=" absolute top-4 z-10 right-3">
+            <div className=" absolute fade-in top-4 z-10 right-3">
               <IoReload
                 onClick={() => refetch()}
                 className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
               />
             </div>
-            <div className=" absolute top-[3.6rem] z-10 right-3">
-              <AddAlbum
-                clone={true}
-                id={id}
-                name={data[0].artists[0].name}
-                album={data[0].title}
-                image={data[0]?.thumbnailUrl.replace(
-                  "w120-h120",
-                  "w1080-h1080"
-                )}
-              />
-            </div>
+            {isSaved && isSaved.length == 0 && (
+              <div className=" absolute top-[3.6rem] z-10 right-3">
+                <AddAlbum
+                  clone={true}
+                  id={id}
+                  name={data[0].artists[0].name}
+                  album={data[0].title}
+                  image={data[0]?.thumbnailUrl.replace(
+                    "w120-h120",
+                    "w1080-h1080"
+                  )}
+                />
+              </div>
+            )}
+
             <img
               width="100%"
               height="100%"

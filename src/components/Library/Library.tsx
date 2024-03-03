@@ -7,7 +7,7 @@ import { FaShare } from "react-icons/fa";
 import { NavLink, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { SearchPlaylist, playlistSongs } from "@/Interface";
+import { SearchPlaylist, playlistSongs, savedPlaylist } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import {
   GetPlaylistSongsApi,
@@ -31,9 +31,32 @@ import AddLibrary from "./AddLibrary";
 import GoBack from "../Goback";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import {
+  DATABASE_ID,
+  PLAYLIST_COLLECTION_ID,
+  db,
+} from "@/appwrite/appwriteConfig";
+import { Query } from "appwrite";
 function LibraryComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  const loadSavedPlaylist = async () => {
+    const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
+      Query.equal("for", [localStorage.getItem("uid") || "default", "default"]),
+      Query.equal("link", [id || "none"]),
+    ]);
+    const p = r.documents as unknown as savedPlaylist[];
+    return p;
+  };
+  const { data: isSaved } = useQuery<savedPlaylist[]>(
+    ["checkIfSaved", id],
+    loadSavedPlaylist,
+    {
+      refetchOnWindowFocus: false,
+      keepPreviousData: true,
+    }
+  );
 
   const playlistUrl = useSelector(
     (state: RootState) => state.musicReducer.playlistUrl
@@ -165,12 +188,14 @@ function LibraryComp() {
                 onClick={() => (
                   refetch(), pRefetch(), playlistThumbnailRefetch()
                 )}
-                className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
+                className="h-8 w-8 fade-in  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
               />
             </div>
-            <div className=" absolute top-[3.6rem] z-10 right-3">
-              <AddLibrary clone={true} id={id} />
-            </div>
+            {isSaved && isSaved.length == 0 && (
+              <div className=" absolute top-[3.6rem] z-10 right-3">
+                <AddLibrary clone={true} id={id} />
+              </div>
+            )}
 
             <LazyLoadImage
               effect="blur"

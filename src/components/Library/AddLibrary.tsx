@@ -121,7 +121,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
 
   return (
     <Dialog>
-      <DialogTrigger className="w-full">
+      <DialogTrigger className="w-full fade-in">
         {clone ? (
           <RiMenuAddFill className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
         ) : (
