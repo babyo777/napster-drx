@@ -46,24 +46,24 @@ const EditInfo: React.FC<{ id: string; f: string; collection?: string }> = ({
       <DialogTrigger>
         <AiOutlineMenu className="h-7 w-7 text-zinc-400" />
       </DialogTrigger>
-      <DialogContent className="items-center rounded-2xl flex flex-col w-[80vw]">
+      <DialogContent className="items-center rounded-2xl flex flex-col w-[77vw]">
         <DialogHeader>
           <DialogTitle className="text-zinc-400 font-bold">
             Are you sure?
           </DialogTitle>
         </DialogHeader>
 
-        <FcFullTrash className="h-24 w-24" />
+        <FcFullTrash className="h-20 w-20 -mb-1.5" />
         <Button
           disabled={f === "default" ? true : false}
           variant={"destructive"}
           onClick={handleDelete}
           className=" py-4 rounded-xl w-52 bg-red-500"
         >
-          Delete
+          Remove
         </Button>
 
-        <DialogClose>
+        <DialogClose className="-mt-2">
           <Button
             asChild
             ref={closeRef}
@@ -73,9 +73,6 @@ const EditInfo: React.FC<{ id: string; f: string; collection?: string }> = ({
             <p>Close</p>
           </Button>
         </DialogClose>
-        <DialogFooter className="text-center text-xs text-zinc-500">
-          {id}
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
