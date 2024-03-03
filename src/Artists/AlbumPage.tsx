@@ -140,7 +140,7 @@ function AlbumPageComp() {
                   clone={true}
                   id={id}
                   name={data[0]?.artists[0].name}
-                  album={data[0]?.title}
+                  album={data[0]?.album}
                   image={data[0]?.thumbnailUrl.replace(
                     "w120-h120",
                     "w1080-h1080"
