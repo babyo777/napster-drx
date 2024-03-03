@@ -9,6 +9,7 @@ interface Player {
   currentIndex: number;
   music: HTMLAudioElement | null;
   search: string;
+  currentToggle: string;
   PlaylistOrAlbum: string;
   progress: number | "--:--";
   duration: number | "--:--";
@@ -17,6 +18,8 @@ interface Player {
   isLikedSong: boolean;
   currentArtistId: string;
   savedPlaylist: savedPlaylist[];
+  savedAlbums: savedPlaylist[];
+  savedArtists: savedPlaylist[];
 }
 
 const initialState: Player = {
@@ -27,6 +30,7 @@ const initialState: Player = {
   progress: "--:--",
   duration: "--:--",
   isLoop: false,
+  currentToggle: "Playlists",
   playlistUrl: "",
   isLoading: false,
   playlist: [],
@@ -35,6 +39,8 @@ const initialState: Player = {
   music: null,
   search: "",
   savedPlaylist: [],
+  savedAlbums: [],
+  savedArtists: [],
 };
 
 const MusicPlayer = createSlice({
@@ -53,9 +59,8 @@ const MusicPlayer = createSlice({
     setIsLikedSong: (state, action: PayloadAction<boolean>) => {
       state.isLikedSong = action.payload;
     },
-    removePlaylist: (state, action: PayloadAction<string>) => {
-      const n = state.savedPlaylist.filter((p) => p.$id !== action.payload);
-      state.savedPlaylist = n;
+    setCurrentToggle: (state, action: PayloadAction<string>) => {
+      state.currentToggle = action.payload;
     },
     setPlayingPlaylistUrl: (state, action: PayloadAction<string>) => {
       state.playingPlaylistUrl = action.payload;
@@ -91,17 +96,25 @@ const MusicPlayer = createSlice({
     setSavedPlaylist: (state, action: PayloadAction<savedPlaylist[]>) => {
       state.savedPlaylist = action.payload;
     },
+    setSavedAlbums: (state, action: PayloadAction<savedPlaylist[]>) => {
+      state.savedAlbums = action.payload;
+    },
+    setSavedArtists: (state, action: PayloadAction<savedPlaylist[]>) => {
+      state.savedAlbums = action.payload;
+    },
   },
 });
 
 export const {
   play,
+  setSavedArtists,
+  setSavedAlbums,
+  setCurrentToggle,
   SetPlaylistOrAlbum,
   setPlaylist,
   setCurrentIndex,
   setPlayer,
   setSearch,
-  removePlaylist,
   setPlaylistUrl,
   setSavedPlaylist,
   setIsLikedSong,

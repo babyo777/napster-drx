@@ -37,7 +37,7 @@ import axios from "axios";
 import { isPlaylist } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { useDispatch } from "react-redux";
-import { setSavedPlaylist } from "@/Store/Player";
+import { setCurrentToggle, setSavedPlaylist } from "@/Store/Player";
 import { savedPlaylist } from "@/Interface";
 import { RiMenuAddFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -97,7 +97,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
               ]
             );
             const p = r.documents as unknown as savedPlaylist[];
-
+            dispatch(setCurrentToggle("Playlists"));
             dispatch(setSavedPlaylist(p)), close.current?.click();
             clone && n("/library/");
           })

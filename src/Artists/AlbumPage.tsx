@@ -26,8 +26,8 @@ import Songs from "@/components/Library/Songs";
 import GoBack from "@/components/Goback";
 import AddAlbum from "./AddAlbum";
 import {
+  ALBUM_COLLECTION_ID,
   DATABASE_ID,
-  PLAYLIST_COLLECTION_ID,
   db,
 } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
@@ -38,7 +38,7 @@ function AlbumPageComp() {
   const artistId = useMemo(() => new URLSearchParams(location.search), []);
 
   const loadSavedPlaylist = async () => {
-    const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
+    const r = await db.listDocuments(DATABASE_ID, ALBUM_COLLECTION_ID, [
       Query.equal("for", [localStorage.getItem("uid") || "default", "default"]),
       Query.equal("link", [id || "none"]),
     ]);
@@ -139,8 +139,8 @@ function AlbumPageComp() {
                 <AddAlbum
                   clone={true}
                   id={id}
-                  name={data[0].artists[0].name}
-                  album={data[0].title}
+                  name={data[0]?.artists[0].name}
+                  album={data[0]?.title}
                   image={data[0]?.thumbnailUrl.replace(
                     "w120-h120",
                     "w1080-h1080"

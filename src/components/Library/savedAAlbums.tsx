@@ -8,25 +8,30 @@ import { SearchPlaylist } from "@/Interface";
 import axios from "axios";
 import SkeletonP from "./SkeletonP";
 import { getPlaylistDetails } from "@/API/api";
-function SavedLibraryCard({
+import { ALBUM_COLLECTION_ID } from "@/appwrite/appwriteConfig";
+function SavedAlbumCard({
   author,
   link,
   f,
   id,
+  album,
+  Image,
 }: {
+  Image?: string;
+  album?: string;
   id: string;
   author?: string;
   link?: string;
   f: string;
 }) {
-  const getPlaylistDetail = async () => {
+  const getAlbumDetail = async () => {
     const list = await axios.get(`${getPlaylistDetails}${link}`);
     return list.data as SearchPlaylist[];
   };
 
-  const { data: p, isLoading } = useQuery<SearchPlaylist[]>(
-    ["SavedPlaylistDetails", id],
-    getPlaylistDetail,
+  const { isLoading } = useQuery<SearchPlaylist[]>(
+    ["SavedAlbumDetails", id],
+    getAlbumDetail,
     {
       retryOnMount: false,
       retry: 0,
@@ -39,38 +44,36 @@ function SavedLibraryCard({
   return (
     <div className="flex space-x-2.5 items-center justify-between">
       {isLoading && <SkeletonP />}
-      {p && (
+      {!isLoading && link && (
         <>
           <Link
-            to={`/library/${link}`}
+            to={`/album/${link}`}
             className="flex space-x-2.5 items-center justify-between"
           >
-            <div className="overflow-hidden h-[3rem]  w-[3rem] space-y-2">
+            <div className="overflow-hidden h-[3.2rem]  w-[3.2rem] space-y-2">
               <AspectRatio ratio={1 / 1}>
                 <LazyLoadImage
                   height="100%"
                   width="100%"
                   effect="blur"
-                  src={p[0]?.thumbnailUrl || "/favicon.webp"}
+                  src={Image}
                   alt="Image"
                   className="rounded-md object-cover w-[100%] h-[100%]"
                 />
               </AspectRatio>
             </div>
             <div className="flex flex-col   text-start">
-              <p className="w-[59vw]  text-lg   fade-in truncate">
-                {p[0].title || "Unknown"}
-              </p>
+              <p className="w-[59vw] text-lg fade-in truncate">{album}</p>
               <p className="-mt-0.5  text-xs w-[50vw] truncate">
-                {author || "NapsterDrx."}
+                {`Album - ${author}`}
               </p>
             </div>
           </Link>
-          <EditInfo id={id} f={f} />
+          <EditInfo id={id} f={f} collection={ALBUM_COLLECTION_ID} />
         </>
       )}
     </div>
   );
 }
 
-export default SavedLibraryCard;
+export default SavedAlbumCard;

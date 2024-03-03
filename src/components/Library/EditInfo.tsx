@@ -16,18 +16,30 @@ import {
   PLAYLIST_COLLECTION_ID,
   db,
 } from "@/appwrite/appwriteConfig";
-import { useDispatch } from "react-redux";
-import { removePlaylist } from "@/Store/Player";
 
-const EditInfo: React.FC<{ id: string; f: string }> = ({ id, f }) => {
-  const dispatch = useDispatch();
+import { useQueryClient } from "react-query";
+import { savedPlaylist } from "@/Interface";
+
+const EditInfo: React.FC<{ id: string; f: string; collection?: string }> = ({
+  id,
+  f,
+  collection,
+}) => {
+  const q = useQueryClient();
   const closeRef = useRef<HTMLButtonElement>(null);
   const handleDelete = useCallback(() => {
-    db.deleteDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, id).then(() => {
-      dispatch(removePlaylist(id));
+    db.deleteDocument(
+      DATABASE_ID,
+      collection || PLAYLIST_COLLECTION_ID,
+      id
+    ).then(async () => {
+      if (!collection) {
+        await q.refetchQueries<savedPlaylist[]>("savedPlaylist");
+      }
       closeRef.current?.click();
+      await q.refetchQueries<savedPlaylist[]>("savedAlbums");
     });
-  }, [id, dispatch]);
+  }, [id, collection, q]);
 
   return (
     <Dialog>

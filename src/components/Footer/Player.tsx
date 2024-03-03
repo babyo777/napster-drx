@@ -44,12 +44,12 @@ export function Player() {
 
   return (
     <>
-      <div className="flex items-center fade-in py-2 backdrop-blur-md space-x-5 bg-zinc-100/10 w-[94vw] rounded-2xl shadow-md mb-1.5">
+      <div className="flex items-center fade-in py-2 backdrop-blur-md space-x-5 bg-zinc-100/10 w-[93vw] rounded-2xl shadow-md mb-1.5">
         {isPlaylist && isPlaylist.length > 0 ? (
           <AudioPLayer />
         ) : (
           <>
-            <div className="items-center fade-in flex space-x-2 w-[68dvw]  border-white   px-2.5">
+            <div className="items-center fade-in flex space-x-2 w-[67dvw]  border-white   px-2">
               <div className=" h-11 w-11 overflow-hidden rounded-xl">
                 <AspectRatio>
                   <LazyLoadImage

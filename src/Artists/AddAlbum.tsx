@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
   DATABASE_ID,
-  PLAYLIST_COLLECTION_ID,
+  ALBUM_COLLECTION_ID,
   db,
   ID,
 } from "@/appwrite/appwriteConfig";
@@ -34,7 +34,7 @@ import { IoMdAdd } from "react-icons/io";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { useDispatch } from "react-redux";
-import { setSavedPlaylist } from "@/Store/Player";
+import { setCurrentToggle, setSavedPlaylist } from "@/Store/Player";
 import { savedPlaylist } from "@/Interface";
 import { RiMenuAddFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -64,7 +64,7 @@ const AddAlbum: React.FC<{
     },
   });
   useEffect(() => {
-    clone && id && form.setValue("link", `${"album" + id}`);
+    clone && id && form.setValue("link", id);
     clone && id && form.setValue("creator", `${name}`);
   }, [clone, form, id, name]);
   async function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -78,27 +78,18 @@ const AddAlbum: React.FC<{
         link: data.link,
         for: localStorage.getItem("uid") || "default",
       };
-      db.createDocument(
-        DATABASE_ID,
-        PLAYLIST_COLLECTION_ID,
-        ID.unique(),
-        payload
-      )
+      db.createDocument(DATABASE_ID, ALBUM_COLLECTION_ID, ID.unique(), payload)
         .then(async () => {
           form.reset();
-          const r = await db.listDocuments(
-            DATABASE_ID,
-            PLAYLIST_COLLECTION_ID,
-            [
-              Query.orderDesc("$createdAt"),
-              Query.equal("for", [
-                localStorage.getItem("uid") || "default",
-                "default",
-              ]),
-            ]
-          );
+          const r = await db.listDocuments(DATABASE_ID, ALBUM_COLLECTION_ID, [
+            Query.orderDesc("$createdAt"),
+            Query.equal("for", [
+              localStorage.getItem("uid") || "default",
+              "default",
+            ]),
+          ]);
           const p = r.documents as unknown as savedPlaylist[];
-
+          dispatch(setCurrentToggle("Albums"));
           dispatch(setSavedPlaylist(p)), close.current?.click();
           clone && n("/library/");
         })
