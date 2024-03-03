@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setPlaylistUrl,
   setSavedAlbums,
+  setSavedArtists,
   setSavedPlaylist,
 } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
@@ -12,11 +13,12 @@ import SkeletonP from "./SkeletonP";
 import {
   ALBUM_COLLECTION_ID,
   DATABASE_ID,
+  FAV_ARTIST,
   PLAYLIST_COLLECTION_ID,
   db,
 } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
-import { savedPlaylist } from "@/Interface";
+import { savedPlaylist, suggestedArtists } from "@/Interface";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
@@ -24,6 +26,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { GrNext } from "react-icons/gr";
 import { ToggleLibrary } from "./Toggle";
 import SavedAlbumCard from "./savedAAlbums";
+import { ArtistSearch } from "./savedArtists";
 
 function SavedLibraryComp() {
   const dispatch = useDispatch();
@@ -35,6 +38,9 @@ function SavedLibraryComp() {
   );
   const currentToggle = useSelector(
     (state: RootState) => state.musicReducer.currentToggle
+  );
+  const savedArtists = useSelector(
+    (state: RootState) => state.musicReducer.savedArtists
   );
   const loadSavedPlaylist = async () => {
     const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
@@ -60,6 +66,18 @@ function SavedLibraryComp() {
     refetchOnWindowFocus: false,
     keepPreviousData: true,
   });
+  const loadSavedArtists = async () => {
+    const r = await db.listDocuments(DATABASE_ID, FAV_ARTIST, [
+      Query.orderDesc("$createdAt"),
+      Query.equal("for", [localStorage.getItem("uid") || "default"]),
+    ]);
+    const p = r.documents as unknown as suggestedArtists[];
+    return p;
+  };
+  const { data: SavedArtists } = useQuery("savedArtists", loadSavedArtists, {
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
+  });
 
   useEffect(() => {
     dispatch(setSavedPlaylist([]));
@@ -68,38 +86,43 @@ function SavedLibraryComp() {
       if (SavedAlbums) {
         dispatch(setSavedAlbums(SavedAlbums));
       }
+      if (SavedArtists) {
+        dispatch(setSavedArtists(SavedArtists));
+      }
       dispatch(setSavedPlaylist([...data]));
     }
-  }, [dispatch, data, SavedAlbums]);
+  }, [dispatch, data, SavedAlbums, SavedArtists]);
 
   return (
     <>
       <Header title="Library" l={true} />
       <ToggleLibrary />
-      <Link to={`/liked/${localStorage.getItem("uid")}`}>
-        <div className="flex space-x-2 px-5 mb-3 items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="overflow-hidden h-[3rem]  w-[3rem] ">
-              <AspectRatio ratio={1 / 1}>
-                <LazyLoadImage
-                  height="100%"
-                  width="100%"
-                  effect="blur"
-                  src="https://preview.redd.it/rnqa7yhv4il71.jpg?width=640&crop=smart&auto=webp&s=819eb2bda1b35c7729065035a16e81824132e2f1"
-                  alt="Image"
-                  className="rounded-lg object-cover w-[100%] h-[100%]"
-                />
-              </AspectRatio>
+      {currentToggle === "Playlists" && savedPlaylist.length > 0 && (
+        <Link to={`/liked/${localStorage.getItem("uid")}`}>
+          <div className="flex space-x-2 px-5 mb-3 items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <div className="overflow-hidden h-[3rem]  w-[3rem] ">
+                <AspectRatio ratio={1 / 1}>
+                  <LazyLoadImage
+                    height="100%"
+                    width="100%"
+                    effect="blur"
+                    src="https://preview.redd.it/rnqa7yhv4il71.jpg?width=640&crop=smart&auto=webp&s=819eb2bda1b35c7729065035a16e81824132e2f1"
+                    alt="Image"
+                    className="rounded-lg object-cover w-[100%] h-[100%]"
+                  />
+                </AspectRatio>
+              </div>
+              <div className="flex flex-col  text-xl text-start">
+                <p className="w-[59vw] fade-in text-lg truncate">Liked Songs</p>
+                <p className="-mt-2  text-xs w-[50vw] truncate h-2"></p>
+              </div>
             </div>
-            <div className="flex flex-col  text-xl text-start">
-              <p className="w-[59vw] fade-in text-lg truncate">Liked Songs</p>
-              <p className="-mt-2  text-xs w-[50vw] truncate h-2"></p>
-            </div>
-          </div>
 
-          <GrNext className="h-5  w-5" />
-        </div>
-      </Link>
+            <GrNext className="h-5  w-5" />
+          </div>
+        </Link>
+      )}
       {isLoading && (
         <div className="flex fade-in space-y-3  flex-col px-5">
           <SkeletonP />
@@ -132,6 +155,15 @@ function SavedLibraryComp() {
                 Image={saved.image}
                 link={saved.link}
                 f={saved.for}
+              />
+            ))}
+          {currentToggle === "Artists" &&
+            savedArtists.map((saved, id) => (
+              <ArtistSearch
+                key={saved.artistId + id}
+                artistId={saved.artistId}
+                name={saved.name}
+                thumbnailUrl={saved.thumbnailUrl}
               />
             ))}
         </div>

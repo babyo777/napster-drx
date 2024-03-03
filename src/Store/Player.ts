@@ -1,4 +1,4 @@
-import { savedPlaylist, playlistSongs } from "@/Interface";
+import { savedPlaylist, playlistSongs, suggestedArtists } from "@/Interface";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface Player {
@@ -19,7 +19,7 @@ interface Player {
   currentArtistId: string;
   savedPlaylist: savedPlaylist[];
   savedAlbums: savedPlaylist[];
-  savedArtists: savedPlaylist[];
+  savedArtists: suggestedArtists[];
 }
 
 const initialState: Player = {
@@ -99,8 +99,8 @@ const MusicPlayer = createSlice({
     setSavedAlbums: (state, action: PayloadAction<savedPlaylist[]>) => {
       state.savedAlbums = action.payload;
     },
-    setSavedArtists: (state, action: PayloadAction<savedPlaylist[]>) => {
-      state.savedAlbums = action.payload;
+    setSavedArtists: (state, action: PayloadAction<suggestedArtists[]>) => {
+      state.savedArtists = action.payload;
     },
   },
 });

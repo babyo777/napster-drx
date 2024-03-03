@@ -52,6 +52,8 @@ function ArtistPage() {
     await db
       .createDocument(DATABASE_ID, FAV_ARTIST, ID.unique(), {
         artistId: id,
+        name: data?.name,
+        thumbnailUrl: data?.thumbnails[0].url,
         for: localStorage.getItem("uid"),
       })
       .catch(() => setIsFavArtist(true));
