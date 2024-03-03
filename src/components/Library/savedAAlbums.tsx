@@ -65,9 +65,7 @@ function SavedAlbumCard({
             <div className="flex flex-col   text-start">
               <p className="w-[59vw] text-lg fade-in truncate">{album}</p>
 
-              <p className="-mt-0.5  text-xs w-[50vw] truncate">
-                {`Album - ${author}`}
-              </p>
+              <p className="-mt-0.5   text-xs w-[50vw] truncate">{author}</p>
             </div>
           </Link>
           <EditInfo id={id} f={f} collection={ALBUM_COLLECTION_ID} />

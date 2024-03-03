@@ -91,6 +91,7 @@ interface likedSongs {
 
 interface savedPlaylist {
   image?: string;
+  artistId?: string;
   $id?: string;
   name: string;
   creator: string;
