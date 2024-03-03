@@ -58,7 +58,7 @@ function SavedAlbumCard({
                   effect="blur"
                   src={Image}
                   alt="Image"
-                  className="rounded-md object-cover w-[100%] h-[100%]"
+                  className="rounded-lg object-cover w-[100%] h-[100%]"
                 />
               </AspectRatio>
             </div>
