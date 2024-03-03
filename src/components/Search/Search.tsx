@@ -63,7 +63,6 @@ function SearchComp() {
     {
       staleTime: 1000,
       refetchOnWindowFocus: false,
-      refetchOnMount: false,
       keepPreviousData: true,
     }
   );
