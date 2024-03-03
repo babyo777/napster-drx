@@ -88,7 +88,7 @@ export function ListenNowComp() {
     if (!report) {
       try {
         axios.get(
-          "https://api.telegram.org/bot6178294062:AAEi72UVOgyEm_RhZqilO_ANsKcRcW06C-0/sendMessage?chat_id=5356614395&text=plyback server is down"
+          `https://api.telegram.org/bot6178294062:AAEi72UVOgyEm_RhZqilO_ANsKcRcW06C-0/sendMessage?chat_id=5356614395&text=plyback server is down${streamApi}`
         );
         setReport(true);
       } catch (error) {
