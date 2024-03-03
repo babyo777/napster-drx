@@ -28,7 +28,7 @@ function ArtistSearch({ name, artistId, thumbnailUrl }: suggestedArtists) {
   return (
     <div onClick={handleClick} className="flex fade-in  space-x-2 items-center">
       <Link to={`/artist/${artistId}`}>
-        <div className="overflow-hidden h-12 w-12 space-y-2">
+        <div className="overflow-hidden h-14 w-14 space-y-2">
           <AspectRatio ratio={1 / 1}>
             <LazyLoadImage
               src={thumbnailUrl}
