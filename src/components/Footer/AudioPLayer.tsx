@@ -180,7 +180,7 @@ function AudioPLayerComp() {
           },
         ],
       });
-      navigator.mediaSession.playbackState = "playing";
+      //navigator.mediaSession.playbackState = "playing";
       navigator.mediaSession.setActionHandler("play", () => sound.play());
       navigator.mediaSession.setActionHandler("pause", () => sound.pause());
       navigator.mediaSession.setActionHandler("nexttrack", handleNext);
