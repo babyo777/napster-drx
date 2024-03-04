@@ -5,6 +5,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  SetPlaylistOrAlbum,
   isLoop,
   play,
   setCurrentIndex,
@@ -66,6 +67,7 @@ function LikedSongComp() {
       dispatch(shuffle(pDetails));
       dispatch(setCurrentIndex(0));
       dispatch(setPlayingPlaylistUrl(id || ""));
+      dispatch(SetPlaylistOrAlbum("liked"));
       if (pDetails.length == 1) {
         dispatch(isLoop(true));
       } else {
@@ -82,6 +84,7 @@ function LikedSongComp() {
       dispatch(setPlaylist(pDetails));
       dispatch(setCurrentIndex(0));
       dispatch(setPlayingPlaylistUrl(id || ""));
+      dispatch(SetPlaylistOrAlbum("liked"));
       if (pDetails.length == 1) {
         dispatch(isLoop(true));
       } else {
