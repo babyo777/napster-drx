@@ -332,7 +332,7 @@ function SearchComp() {
 
               {albumData && albumData.length > 0 && (
                 <div>
-                  {albumData.slice(7, albumData.length - 1).map((a, i) => (
+                  {albumData.slice(4, 7).map((a, i) => (
                     <AlbumSearchComp
                       key={a.albumId + a.title + i}
                       title={a.title}
@@ -342,6 +342,7 @@ function SearchComp() {
                   ))}
                 </div>
               )}
+
               {music.slice(11, music.length - 1).map((r) => (
                 <SearchSong
                   artistId={r.artists[0].id}
@@ -368,9 +369,10 @@ function SearchComp() {
                       title={p.title}
                     />
                   ))}
+
               {albumData && albumData.length > 0 && (
                 <div>
-                  {albumData.slice(4, 7).map((a, i) => (
+                  {albumData.slice(7, albumData.length - 1).map((a, i) => (
                     <AlbumSearchComp
                       key={a.albumId + a.title + i}
                       title={a.title}
