@@ -228,7 +228,9 @@ function AudioPLayerComp() {
       }
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
-
+    if (/iPhone/i.test(navigator.userAgent)) {
+      navigator.mediaSession.playbackState = "playing";
+    }
     sound.setAttribute("playsinline", "true");
     sound.addEventListener("play", handlePlay);
     sound.addEventListener("pause", handlePause);
