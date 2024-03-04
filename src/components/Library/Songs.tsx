@@ -102,9 +102,7 @@ function Songs({
         <p
           onClick={handlePlay}
           className={`w-[60dvw] ${
-            playlist[currentIndex]?.youtubeId == audio &&
-            currentIndex == id &&
-            "text-red-500"
+            playlist[currentIndex]?.youtubeId == audio && "text-red-500"
           }  truncate`}
         >
           {title.replace("______________________________________", "untitled")}
