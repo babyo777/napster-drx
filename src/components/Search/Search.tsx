@@ -279,6 +279,17 @@ function SearchComp() {
                   ))}
                 </div>
               )}
+              {music.slice(4, 6).map((r) => (
+                <SearchSong
+                  artistId={r.artists[0].id}
+                  audio={r.youtubeId}
+                  id={r.youtubeId}
+                  key={r.youtubeId}
+                  title={r.title}
+                  artist={r.artists}
+                  cover={r.thumbnailUrl}
+                />
+              ))}
               {artistsData && artistsData.length > 0 && (
                 <div>
                   {artistsData.slice(0, 4).map((a, i) => (
@@ -291,7 +302,8 @@ function SearchComp() {
                   ))}
                 </div>
               )}
-              {music.slice(4, 6).map((r) => (
+
+              {music.slice(7, 10).map((r) => (
                 <SearchSong
                   artistId={r.artists[0].id}
                   audio={r.youtubeId}
@@ -302,18 +314,6 @@ function SearchComp() {
                   cover={r.thumbnailUrl}
                 />
               ))}
-              {albumData && albumData.length > 0 && (
-                <div>
-                  {albumData.slice(4, 7).map((a, i) => (
-                    <AlbumSearchComp
-                      key={a.albumId + a.title + i}
-                      title={a.title}
-                      albumId={a.albumId}
-                      thumbnailUrl={a.thumbnailUrl}
-                    />
-                  ))}
-                </div>
-              )}
               {playlistsData &&
                 playlistsData.length > 0 &&
                 playlistsData
@@ -328,6 +328,20 @@ function SearchComp() {
                       title={p.title}
                     />
                   ))}
+
+              {albumData && albumData.length > 0 && (
+                <div>
+                  {albumData.slice(7, albumData.length - 1).map((a, i) => (
+                    <AlbumSearchComp
+                      key={a.albumId + a.title + i}
+                      title={a.title}
+                      albumId={a.albumId}
+                      thumbnailUrl={a.thumbnailUrl}
+                    />
+                  ))}
+                </div>
+              )}
+
               {playlistsData &&
                 playlistsData.length > 0 &&
                 playlistsData
@@ -344,7 +358,7 @@ function SearchComp() {
                   ))}
               {albumData && albumData.length > 0 && (
                 <div>
-                  {albumData.slice(7, albumData.length - 1).map((a, i) => (
+                  {albumData.slice(4, 7).map((a, i) => (
                     <AlbumSearchComp
                       key={a.albumId + a.title + i}
                       title={a.title}
@@ -354,18 +368,6 @@ function SearchComp() {
                   ))}
                 </div>
               )}
-              {music.slice(7, 10).map((r) => (
-                <SearchSong
-                  artistId={r.artists[0].id}
-                  audio={r.youtubeId}
-                  id={r.youtubeId}
-                  key={r.youtubeId}
-                  title={r.title}
-                  artist={r.artists}
-                  cover={r.thumbnailUrl}
-                />
-              ))}
-
               {artistsData && artistsData.length > 0 && (
                 <div>
                   {artistsData.slice(5, artists.length - 1).map((a, i) => (
