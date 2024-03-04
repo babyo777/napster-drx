@@ -455,7 +455,7 @@ function AudioPLayerComp() {
                 className="h-7 w-7"
               />
               <ImLoop
-                className={`h-[1.35rem] w-[1.35rem] ${
+                className={`h-[1.3rem] w-[1.3rem] ${
                   music && music.loop ? "text-zinc-400" : "text-zinc-700"
                 }`}
                 onClick={handleLoop}
