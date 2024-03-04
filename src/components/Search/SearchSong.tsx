@@ -34,6 +34,9 @@ function SearchSong({
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
+  // const setSuggestedplaylist = ()=>{
+
+  // }
   const handlePlay = useCallback(() => {
     try {
       db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
