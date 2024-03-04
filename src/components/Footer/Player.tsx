@@ -44,7 +44,7 @@ export function Player() {
     if (isPlaylist.length > 1) {
       dispatch(setCurrentIndex((currentIndex + 1) % isPlaylist.length));
     }
-  }, [dispatch, currentIndex, isPlaylist.length]);
+  }, [dispatch, currentIndex, isPlaylist.length,isLooped]);
 
   return (
     <>
