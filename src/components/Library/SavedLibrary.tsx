@@ -107,7 +107,7 @@ function SavedLibraryComp() {
                     height="100%"
                     width="100%"
                     effect="blur"
-                    src="https://preview.redd.it/rnqa7yhv4il71.jpg?width=640&crop=smart&auto=webp&s=819eb2bda1b35c7729065035a16e81824132e2f1"
+                    src="/liked.webp"
                     alt="Image"
                     className="rounded-lg object-cover w-[100%] h-[100%]"
                   />

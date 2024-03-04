@@ -121,7 +121,7 @@ function LikedSongComp() {
             <img
               width="100%"
               height="100%"
-              src="https://preview.redd.it/rnqa7yhv4il71.jpg?width=640&crop=smart&auto=webp&s=819eb2bda1b35c7729065035a16e81824132e2f1"
+              src="/liked.webp"
               alt="Image"
               loading="lazy"
               className="object-cover opacity-80 h-[100%] w-[100%]"
