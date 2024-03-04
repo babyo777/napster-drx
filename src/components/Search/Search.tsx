@@ -342,6 +342,17 @@ function SearchComp() {
                   ))}
                 </div>
               )}
+              {music.slice(11, music.length - 1).map((r) => (
+                <SearchSong
+                  artistId={r.artists[0].id}
+                  audio={r.youtubeId}
+                  id={r.youtubeId}
+                  key={r.youtubeId}
+                  title={r.title}
+                  artist={r.artists}
+                  cover={r.thumbnailUrl}
+                />
+              ))}
 
               {playlistsData &&
                 playlistsData.length > 0 &&
@@ -395,17 +406,6 @@ function SearchComp() {
                       title={p.title}
                     />
                   ))}
-              {music.slice(11, music.length - 1).map((r) => (
-                <SearchSong
-                  artistId={r.artists[0].id}
-                  audio={r.youtubeId}
-                  id={r.youtubeId}
-                  key={r.youtubeId}
-                  title={r.title}
-                  artist={r.artists}
-                  cover={r.thumbnailUrl}
-                />
-              ))}
             </div>
           )}
         </div>
