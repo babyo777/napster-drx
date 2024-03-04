@@ -1,7 +1,6 @@
 import { FaPlay } from "react-icons/fa6";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoReload } from "react-icons/io5";
-import { FaShare } from "react-icons/fa";
 import { NavLink, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +11,7 @@ import {
   setIsLikedSong,
   setPlayingPlaylistUrl,
   setPlaylist,
+  shuffle,
 } from "@/Store/Player";
 import React, { useCallback } from "react";
 import { RootState } from "@/Store/Store";
@@ -22,6 +22,7 @@ import Loader from "@/components/Loaders/Loader";
 import GoBack from "@/components/Goback";
 import { Button } from "@/components/ui/button";
 import Songs from "@/components/Library/Songs";
+import { RxShuffle } from "react-icons/rx";
 
 function LikedSongComp() {
   const dispatch = useDispatch();
@@ -60,18 +61,21 @@ function LikedSongComp() {
     staleTime: 1000,
     refetchOnWindowFocus: false,
   });
-
-  const handleShare = useCallback(async () => {
-    try {
-      await navigator.share({
-        title: `${pDetails && pDetails[0].title}`,
-        text: `${pDetails && pDetails[0].title}}`,
-        url: window.location.origin + `/liked/${localStorage.getItem("uid")}`,
-      });
-    } catch (error) {
-      console.log(error);
+  const handleShufflePlay = useCallback(async () => {
+    if (pDetails) {
+      dispatch(shuffle(pDetails));
+      dispatch(setCurrentIndex(0));
+      dispatch(setPlayingPlaylistUrl(id || ""));
+      if (pDetails.length == 1) {
+        dispatch(isLoop(true));
+      } else {
+        dispatch(isLoop(false));
+      }
+      if (!isPlaying) {
+        dispatch(play(true));
+      }
     }
-  }, [pDetails]);
+  }, [dispatch, pDetails, isPlaying, id]);
   const handlePlay = useCallback(() => {
     if (pDetails) {
       dispatch(setIsLikedSong(true));
@@ -143,12 +147,12 @@ function LikedSongComp() {
                 </Button>
                 <Button
                   type="button"
-                  onClick={handleShare}
+                  onClick={handleShufflePlay}
                   variant={"secondary"}
                   className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-14"
                 >
-                  <FaShare className="mr-2" />
-                  Share
+                  <RxShuffle className="mr-2" />
+                  Shuffle
                 </Button>
               </div>
             </div>

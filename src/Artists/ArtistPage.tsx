@@ -167,17 +167,18 @@ function ArtistPage() {
             <h1 className="text-start font-semibold text-xl">Albums</h1>
           </div>
           <div className="flex overflow-x-scroll items-center">
-            {data.albums.map((s) => (
-              <ArtistAlbums
-                artistId={id}
-                key={s.albumId}
-                title={s.title}
-                thumbnailUrl={s.thumbnailUrl}
-                type={s.type}
-                year={s.year}
-                albumId={s.albumId}
-              />
-            ))}
+            {data &&
+              data.albums.map((s) => (
+                <ArtistAlbums
+                  artistId={id}
+                  key={s.albumId}
+                  title={s.title}
+                  thumbnailUrl={s.thumbnailUrl}
+                  type={s.type}
+                  year={s.year}
+                  albumId={s.albumId}
+                />
+              ))}
           </div>
         </div>
       )}

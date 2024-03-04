@@ -1,6 +1,5 @@
 import { FaPlay } from "react-icons/fa6";
 import { IoReload } from "react-icons/io5";
-import { FaShare } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -17,6 +16,7 @@ import {
   setIsLikedSong,
   setPlayingPlaylistUrl,
   setPlaylist,
+  shuffle,
 } from "@/Store/Player";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { RootState } from "@/Store/Store";
@@ -31,6 +31,7 @@ import {
   db,
 } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
+import { RxShuffle } from "react-icons/rx";
 
 function AlbumPageComp() {
   const dispatch = useDispatch();
@@ -77,17 +78,21 @@ function AlbumPageComp() {
     dispatch(setIsLikedSong(false));
     dispatch(SetPlaylistOrAlbum("album"));
   }, [dispatch, id, playlistUrl]);
-  const handleShare = useCallback(async () => {
-    try {
-      await navigator.share({
-        title: `${data && data[0].album}`,
-        text: `${data && data[0].album}}`,
-        url: window.location.origin + `/library/${id}`,
-      });
-    } catch (error) {
-      console.log(error);
+  const handleShufflePlay = useCallback(async () => {
+    if (data) {
+      dispatch(shuffle(data));
+      dispatch(setCurrentIndex(0));
+      dispatch(setPlayingPlaylistUrl(id || ""));
+      if (data.length == 1) {
+        dispatch(isLoop(true));
+      } else {
+        dispatch(isLoop(false));
+      }
+      if (!isPlaying) {
+        dispatch(play(true));
+      }
     }
-  }, [id, data]);
+  }, [dispatch, data, isPlaying, id]);
   const handlePlay = useCallback(() => {
     if (data) {
       dispatch(setPlaylist(data));
@@ -174,12 +179,12 @@ function AlbumPageComp() {
                 </Button>
                 <Button
                   type="button"
-                  onClick={handleShare}
+                  onClick={handleShufflePlay}
                   variant={"secondary"}
                   className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-14"
                 >
-                  <FaShare className="mr-2" />
-                  Share
+                  <RxShuffle className="mr-2" />
+                  Shuffle
                 </Button>
               </div>
             </div>
