@@ -15,13 +15,7 @@ import { FaPause } from "react-icons/fa6";
 import { MdOpenInNew } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  isLoop,
-  play,
-  setCurrentIndex,
-  setIsLoading,
-  setPlayer,
-} from "@/Store/Player";
+import { play, setCurrentIndex, setIsLoading, setPlayer } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";

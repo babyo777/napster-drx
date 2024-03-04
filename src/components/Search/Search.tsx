@@ -267,18 +267,7 @@ function SearchComp() {
                   cover={r.thumbnailUrl}
                 />
               ))}
-              {albumData && albumData.length > 0 && (
-                <div>
-                  {albumData.slice(0, 4).map((a, i) => (
-                    <AlbumSearchComp
-                      key={a.albumId + a.title + i}
-                      title={a.title}
-                      albumId={a.albumId}
-                      thumbnailUrl={a.thumbnailUrl}
-                    />
-                  ))}
-                </div>
-              )}
+
               {music.slice(4, 6).map((r) => (
                 <SearchSong
                   artistId={r.artists[0].id}
@@ -302,7 +291,18 @@ function SearchComp() {
                   ))}
                 </div>
               )}
-
+              {albumData && albumData.length > 0 && (
+                <div>
+                  {albumData.slice(0, 4).map((a, i) => (
+                    <AlbumSearchComp
+                      key={a.albumId + a.title + i}
+                      title={a.title}
+                      albumId={a.albumId}
+                      thumbnailUrl={a.thumbnailUrl}
+                    />
+                  ))}
+                </div>
+              )}
               {music.slice(7, 10).map((r) => (
                 <SearchSong
                   artistId={r.artists[0].id}
@@ -314,6 +314,7 @@ function SearchComp() {
                   cover={r.thumbnailUrl}
                 />
               ))}
+
               {playlistsData &&
                 playlistsData.length > 0 &&
                 playlistsData
