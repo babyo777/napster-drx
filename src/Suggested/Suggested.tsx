@@ -49,18 +49,19 @@ function Suggested() {
           </div>
         </div>
         <div className="py-3 pb-[9.5rem]">
-          {data.map((data, i) => (
-            <Songs
-              p={""}
-              artistId={data.artists[0]?.id}
-              audio={data.youtubeId}
-              key={data.youtubeId + i}
-              id={i}
-              title={data.title}
-              artist={data.artists[0]?.name}
-              cover={data.thumbnailUrl}
-            />
-          ))}
+          {data &&
+            data.map((data, i) => (
+              <Songs
+                p={""}
+                artistId={data.artists[0]?.id}
+                audio={data.youtubeId}
+                key={data.youtubeId + i}
+                id={i}
+                title={data.title}
+                artist={data.artists[0]?.name}
+                cover={data.thumbnailUrl}
+              />
+            ))}
         </div>
       </>
     </div>
