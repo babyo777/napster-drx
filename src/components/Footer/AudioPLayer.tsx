@@ -274,18 +274,14 @@ function AudioPLayerComp() {
   ]);
 
   const handleLoop = useCallback(async () => {
-    if (isLooped) {
-      if (music) {
+    if (music) {
+      if (music.loop) {
         music.loop = false;
-      }
-      dispatch(isLoop(false));
-    } else {
-      if (music) {
+      } else {
         music.loop = true;
       }
-      dispatch(isLoop(true));
     }
-  }, [dispatch, music, isLooped]);
+  }, [music]);
 
   const handleSeek = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -466,7 +462,7 @@ function AudioPLayerComp() {
               />
               <ImLoop
                 className={`h-[1.35rem] w-[1.35rem] ${
-                  isLooped ? "text-zinc-400" : "text-zinc-700"
+                  music && music.loop ? "text-zinc-400" : "text-zinc-700"
                 }`}
                 onClick={handleLoop}
               />
