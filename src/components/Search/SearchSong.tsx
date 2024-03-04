@@ -70,6 +70,7 @@ function SearchSong({
     if (data) {
       dispatch(setPlaylist(data));
       dispatch(setCurrentIndex(0));
+      dispatch(SetPlaylistOrAlbum("suggested"));
     }
     dispatch(setCurrentArtistId(artistId));
     dispatch(SetPlaylistOrAlbum("suggested"));
