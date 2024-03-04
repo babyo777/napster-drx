@@ -16,6 +16,7 @@ import AlbumPage from "./Artists/AlbumPage.tsx";
 import ArtistPage from "./Artists/ArtistPage.tsx";
 import ListenNow from "./components/ListenNow/ListenNow.tsx";
 import LikedSong from "./LikedSongs/likedSongs.tsx";
+import Suggested from "./Suggested/Suggested.tsx";
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/liked/:id",
         element: <LikedSong />,
+      },
+      {
+        path: "/suggested",
+        element: <Suggested />,
       },
       {
         path: "*",

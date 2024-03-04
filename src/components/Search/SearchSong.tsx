@@ -6,7 +6,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import {
-  isLoop,
+  SetPlaylistOrAlbum,
   play,
   setCurrentArtistId,
   setCurrentIndex,
@@ -15,6 +15,9 @@ import {
 import { artists, playlistSongs } from "@/Interface";
 import { Link } from "react-router-dom";
 import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
+import axios from "axios";
+import { SuggestionSearchApi } from "@/API/api";
+import { useQuery } from "react-query";
 function SearchSong({
   title,
   artist,
@@ -34,10 +37,19 @@ function SearchSong({
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
-  // const setSuggestedplaylist = ()=>{
+  const getSuggestedSongs = async () => {
+    const r = await axios.get(`${SuggestionSearchApi}${id}`);
+    return r.data as playlistSongs[];
+  };
+  const { data } = useQuery<playlistSongs[]>(
+    ["suggestedSongs", id],
+    getSuggestedSongs,
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
-  // }
-  const handlePlay = useCallback(() => {
+  const handlePlay = useCallback(async () => {
     try {
       db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
         song: title,
@@ -52,12 +64,17 @@ function SearchSong({
       artists: artist,
       thumbnailUrl: cover,
     };
-    dispatch(setCurrentIndex(0));
+
     dispatch(setPlaylist([m]));
-    dispatch(isLoop(true));
+
+    if (data) {
+      dispatch(setPlaylist(data));
+      dispatch(setCurrentIndex(0));
+    }
     dispatch(setCurrentArtistId(artistId));
+    dispatch(SetPlaylistOrAlbum("suggested"));
     if (!isPlaying) dispatch(play(true));
-  }, [artist, isPlaying, cover, id, title, dispatch, artistId]);
+  }, [isPlaying, title, id, artist, cover, dispatch, artistId, data]);
   const handleShare = useCallback(async () => {
     try {
       await navigator.share({
