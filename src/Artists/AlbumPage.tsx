@@ -76,13 +76,13 @@ function AlbumPageComp() {
 
   useEffect(() => {
     dispatch(setIsLikedSong(false));
-    dispatch(SetPlaylistOrAlbum("album"));
   }, [dispatch, id, playlistUrl]);
   const handleShufflePlay = useCallback(async () => {
     if (data) {
       dispatch(shuffle(data));
       dispatch(setCurrentIndex(0));
       dispatch(setPlayingPlaylistUrl(id || ""));
+      dispatch(SetPlaylistOrAlbum("album"));
       if (data.length == 1) {
         dispatch(isLoop(true));
       } else {
@@ -100,6 +100,7 @@ function AlbumPageComp() {
         setCurrentArtistId(data[0].artists[0].id || artistId.get("id") || "")
       );
       dispatch(setCurrentIndex(0));
+      dispatch(SetPlaylistOrAlbum("album"));
       dispatch(setPlayingPlaylistUrl(id || ""));
       if (data.length === 1) dispatch(isLoop(true));
       if (!isPlaying) {

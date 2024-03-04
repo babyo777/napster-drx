@@ -123,13 +123,13 @@ function LibraryComp() {
     if (id && id !== playlistUrl) {
       dispatch(setPlaylistUrl(id));
     }
-    dispatch(SetPlaylistOrAlbum("library"));
   }, [dispatch, id, playlistUrl]);
   const handleShufflePlay = useCallback(async () => {
     if (data) {
       dispatch(shuffle(data));
       dispatch(setCurrentIndex(0));
       dispatch(setPlayingPlaylistUrl(id || ""));
+      dispatch(SetPlaylistOrAlbum("library"));
       if (data.length == 1) {
         dispatch(isLoop(true));
       } else {
@@ -145,6 +145,7 @@ function LibraryComp() {
       dispatch(setPlaylist(data));
       dispatch(setCurrentIndex(0));
       dispatch(setPlayingPlaylistUrl(id || ""));
+      dispatch(SetPlaylistOrAlbum("library"));
       if (data.length == 1) {
         dispatch(isLoop(true));
       } else {
