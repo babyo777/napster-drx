@@ -135,7 +135,7 @@ function AudioPLayerComp() {
     if (playlist.length > 1) {
       dispatch(setCurrentIndex((currentIndex + 1) % playlist.length));
     }
-  }, [dispatch, currentIndex, playlist.length]);
+  }, [dispatch, currentIndex, playlist.length,isLooped]);
 
   const handlePrev = useCallback(() => {
     if(isLooped) return
@@ -144,7 +144,7 @@ function AudioPLayerComp() {
         setCurrentIndex((currentIndex - 1 + playlist.length) % playlist.length)
       );
     }
-  }, [dispatch, currentIndex, playlist.length]);
+  }, [dispatch, currentIndex, playlist.length,isLooped]);
 
   const swipeHandler = useSwipeable({
     onSwipedLeft: handleNext,
