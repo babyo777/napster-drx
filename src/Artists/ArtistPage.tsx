@@ -189,17 +189,18 @@ function ArtistPage() {
             <h1 className="text-start font-semibold text-xl">Singles</h1>
           </div>
           <div className="flex overflow-x-scroll items-center">
-            {data.singles.map((s) => (
-              <ArtistAlbums
-                artistId={id}
-                key={s.albumId}
-                title={s.title}
-                thumbnailUrl={s.thumbnailUrl}
-                type={s.type}
-                year={s.year}
-                albumId={s.albumId}
-              />
-            ))}
+            {data &&
+              data.singles.map((s) => (
+                <ArtistAlbums
+                  artistId={id}
+                  key={s.albumId}
+                  title={s.title}
+                  thumbnailUrl={s.thumbnailUrl}
+                  type={s.type}
+                  year={s.year}
+                  albumId={s.albumId}
+                />
+              ))}
           </div>
         </div>
       )}
@@ -212,14 +213,15 @@ function ArtistPage() {
             <h1 className="text-start font-semibold text-xl">You might like</h1>
           </div>
           <div className="flex overflow-x-scroll items-center">
-            {data.suggestedArtists.map((s) => (
-              <SuggestedArtist
-                key={s.artistId}
-                artistId={s.artistId}
-                name={s.name}
-                thumbnailUrl={s.thumbnailUrl}
-              />
-            ))}
+            {data &&
+              data.suggestedArtists.map((s) => (
+                <SuggestedArtist
+                  key={s.artistId}
+                  artistId={s.artistId}
+                  name={s.name}
+                  thumbnailUrl={s.thumbnailUrl}
+                />
+              ))}
           </div>
         </div>
       )}
