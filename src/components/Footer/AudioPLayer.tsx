@@ -15,7 +15,13 @@ import { FaPause } from "react-icons/fa6";
 import { MdOpenInNew } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { isLoop, play, setCurrentIndex, setIsLoading, setPlayer } from "@/Store/Player";
+import {
+  isLoop,
+  play,
+  setCurrentIndex,
+  setIsLoading,
+  setPlayer,
+} from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
@@ -130,21 +136,21 @@ function AudioPLayerComp() {
   }, [isPlaying, music, dispatch]);
 
   const handleNext = useCallback(() => {
-    if(isLooped) return
+    if (isLooped) return;
     SetLiked(false);
     if (playlist.length > 1) {
       dispatch(setCurrentIndex((currentIndex + 1) % playlist.length));
     }
-  }, [dispatch, currentIndex, playlist.length,isLooped]);
+  }, [dispatch, currentIndex, playlist.length, isLooped]);
 
   const handlePrev = useCallback(() => {
-    if(isLooped) return
+    if (isLooped) return;
     if (playlist.length > 1) {
       dispatch(
         setCurrentIndex((currentIndex - 1 + playlist.length) % playlist.length)
       );
     }
-  }, [dispatch, currentIndex, playlist.length,isLooped]);
+  }, [dispatch, currentIndex, playlist.length, isLooped]);
 
   const swipeHandler = useSwipeable({
     onSwipedLeft: handleNext,
@@ -264,22 +270,22 @@ function AudioPLayerComp() {
     playlist,
     handleNext,
     refetch,
-    isLoop,
+    isLooped,
   ]);
 
   const handleLoop = useCallback(async () => {
-    if(isLooped){
-      if(music){
-        music.loop = false
-      } 
-      dispatch(isLoop(false))
-    }else{ 
-      if(music){
-        music.loop = true
-      } 
-    dispatch(isLoop(true))
+    if (isLooped) {
+      if (music) {
+        music.loop = false;
+      }
+      dispatch(isLoop(false));
+    } else {
+      if (music) {
+        music.loop = true;
+      }
+      dispatch(isLoop(true));
     }
-  }, [dispatch,music,isLooped]);
+  }, [dispatch, music, isLooped]);
 
   const handleSeek = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -458,7 +464,12 @@ function AudioPLayerComp() {
                 onClick={() => alert("lyrics soon..")}
                 className="h-7 w-7"
               />
-              <ImLoop className={`h-[1.35rem] w-[1.35rem] ${isLooped ? "text-zinc-400" : "text-zinc-700" }`} onClick={handleLoop} />
+              <ImLoop
+                className={`h-[1.35rem] w-[1.35rem] ${
+                  isLooped ? "text-zinc-400" : "text-zinc-700"
+                }`}
+                onClick={handleLoop}
+              />
             </div>
           </div>
         </div>

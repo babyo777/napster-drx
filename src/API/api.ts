@@ -10,7 +10,7 @@ const streamApi = STREAM[Math.floor(Math.random() * STREAM.length)];
 
 const isPlaylist = `${mainApi}/is/p?l=`;
 
-const SuggestionSearchApi = `${mainApi}/ss/p?l=`;
+const SuggestionSearchApi = `${mainApi}/ss/`;
 
 const SearchApi = `${mainApi}/s/`;
 
