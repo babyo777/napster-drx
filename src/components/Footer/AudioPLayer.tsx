@@ -10,12 +10,12 @@ import { FaBackward } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { FaForward } from "react-icons/fa";
 import { TbMessage } from "react-icons/tb";
-import { FiShare } from "react-icons/fi";
+import { ImLoop } from "react-icons/im";
 import { FaPause } from "react-icons/fa6";
 import { MdOpenInNew } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { play, setCurrentIndex, setIsLoading, setPlayer } from "@/Store/Player";
+import { isLoop, play, setCurrentIndex, setIsLoading, setPlayer } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
@@ -58,7 +58,7 @@ function AudioPLayerComp() {
   const playingPlaylistUrl = useSelector(
     (state: RootState) => state.musicReducer.playingPlaylistUrl
   );
-  const isLoop = useSelector((state: RootState) => state.musicReducer.isLoop);
+  const isLooped = useSelector((state: RootState) => state.musicReducer.isLoop);
 
   const isLikedCheck = async () => {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
@@ -130,6 +130,7 @@ function AudioPLayerComp() {
   }, [isPlaying, music, dispatch]);
 
   const handleNext = useCallback(() => {
+    if(isLooped) return
     SetLiked(false);
     if (playlist.length > 1) {
       dispatch(setCurrentIndex((currentIndex + 1) % playlist.length));
@@ -137,6 +138,7 @@ function AudioPLayerComp() {
   }, [dispatch, currentIndex, playlist.length]);
 
   const handlePrev = useCallback(() => {
+    if(isLooped) return
     if (playlist.length > 1) {
       dispatch(
         setCurrentIndex((currentIndex - 1 + playlist.length) % playlist.length)
@@ -163,7 +165,7 @@ function AudioPLayerComp() {
     );
 
     const handlePlay = () => {
-      if (isLoop) {
+      if (isLooped) {
         sound.loop = true;
       }
       setDuration(sound.duration);
@@ -265,17 +267,22 @@ function AudioPLayerComp() {
     isLoop,
   ]);
 
-  const handleShare = useCallback(async () => {
-    try {
-      await navigator.share({
-        title: `${playlist[currentIndex].title} - ${playlist[currentIndex].artists[0].name}`,
-        text: `${playlist[currentIndex].title} - ${playlist[currentIndex].artists[0].name}`,
-        url: `${window.location.origin}/${PlaylistOrAlbum}/`,
-      });
-    } catch (error) {
-      console.log(error);
+  const handleLoop = useCallback(async () => {
+    
+    if(isLooped){
+      if(music){
+        music.loop = false
+      } 
+      dispatch(isLoop(false))
+    }else{ 
+      if(music){
+        music.loop = true
+      } 
+    dispatch(isLoop(true))
     }
-  }, [currentIndex, playlist, PlaylistOrAlbum]);
+    console.log(isLooped);
+    
+  }, [dispatch,music,isLooped]);
 
   const handleSeek = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -454,7 +461,7 @@ function AudioPLayerComp() {
                 onClick={() => alert("lyrics soon..")}
                 className="h-7 w-7"
               />
-              <FiShare className="h-6 w-6" onClick={handleShare} />
+              <ImLoop className={`h-[1.35rem] w-[1.35rem] ${isLooped ? "text-zinc-400" : "text-zinc-700" }`} onClick={handleLoop} />
             </div>
           </div>
         </div>

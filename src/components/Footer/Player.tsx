@@ -19,6 +19,9 @@ export function Player() {
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
+  const isLooped = useSelector(
+    (state: RootState) => state.musicReducer.isLoop
+  );
   const isPlaylist = useSelector(
     (state: RootState) => state.musicReducer.playlist
   );
@@ -37,6 +40,7 @@ export function Player() {
   }, [dispatch, isPlaying, music]);
 
   const handleNext = useCallback(() => {
+    if(isLooped) return
     if (isPlaylist.length > 1) {
       dispatch(setCurrentIndex((currentIndex + 1) % isPlaylist.length));
     }
