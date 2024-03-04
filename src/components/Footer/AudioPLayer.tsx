@@ -268,7 +268,6 @@ function AudioPLayerComp() {
   ]);
 
   const handleLoop = useCallback(async () => {
-    
     if(isLooped){
       if(music){
         music.loop = false
@@ -280,8 +279,6 @@ function AudioPLayerComp() {
       } 
     dispatch(isLoop(true))
     }
-    console.log(isLooped);
-    
   }, [dispatch,music,isLooped]);
 
   const handleSeek = useCallback(
