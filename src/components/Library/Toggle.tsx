@@ -35,7 +35,10 @@ export function ToggleLibrary() {
   }, [currentToggle]);
 
   return (
-    <ToggleGroup type="single" className=" justify-start p-0 m-0 pb-3 px-4 ">
+    <ToggleGroup
+      type="single"
+      className=" justify-start p-0 m-0 pb-3 px-4  space-x-0.5"
+    >
       <ToggleGroupItem
         ref={PlaylistRef}
         className=" rounded-2xl fade-in text-xs font-normal p-0 m-0 px-3.5 h-fit py-1.5"
