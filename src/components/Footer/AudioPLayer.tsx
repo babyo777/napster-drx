@@ -257,6 +257,7 @@ function AudioPLayerComp() {
     sound.play();
 
     return () => {
+      sound.src = "";
       sound.pause();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       sound.removeEventListener("play", handlePlay);
