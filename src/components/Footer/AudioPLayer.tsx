@@ -287,7 +287,7 @@ function AudioPLayerComp() {
         music.currentTime = parseInt(e.target.value) ?? 0;
       }
     },
-    [music, dispatch]
+    [music]
   );
 
   const formatDuration = useCallback((seconds: number | "--:--") => {
