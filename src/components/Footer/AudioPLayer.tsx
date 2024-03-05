@@ -14,8 +14,14 @@ import { ImLoop } from "react-icons/im";
 import { FaPause } from "react-icons/fa6";
 import { MdOpenInNew } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { play, setCurrentIndex, setIsLoading, setPlayer } from "@/Store/Player";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  play,
+  setCurrentIndex,
+  setIsIphone,
+  setIsLoading,
+  setPlayer,
+} from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
@@ -59,7 +65,9 @@ function AudioPLayerComp() {
     (state: RootState) => state.musicReducer.playingPlaylistUrl
   );
   const isLooped = useSelector((state: RootState) => state.musicReducer.isLoop);
-
+  const isStandalone = useSelector(
+    (state: RootState) => state.musicReducer.isIphone
+  );
   const isLikedCheck = async () => {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
       Query.equal("for", [localStorage.getItem("uid") || "default"]),
@@ -130,12 +138,15 @@ function AudioPLayerComp() {
   }, [isPlaying, music, dispatch]);
 
   const handleNext = useCallback(() => {
+    if (!isStandalone) {
+      dispatch(setIsIphone(true));
+    }
     if (isLooped) return;
     SetLiked(false);
     if (playlist.length > 1) {
       dispatch(setCurrentIndex((currentIndex + 1) % playlist.length));
     }
-  }, [dispatch, currentIndex, playlist.length, isLooped]);
+  }, [dispatch, currentIndex, playlist.length, isLooped, isStandalone]);
 
   const handlePrev = useCallback(() => {
     if (isLooped) return;
@@ -161,6 +172,7 @@ function AudioPLayerComp() {
 
   useEffect(() => {
     dispatch(setIsLoading(true));
+
     const sound: HTMLAudioElement = new Audio(
       `${streamApi}${playlist[currentIndex].youtubeId}`
     );
@@ -301,181 +313,178 @@ function AudioPLayerComp() {
   }, []);
 
   return (
-    <Drawer>
-      <DrawerTrigger>
-        <div className="items-center fade-in flex space-x-2 w-[68dvw]   px-2.5">
-          <div className=" h-11 w-11 overflow-hidden rounded-xl">
-            <LazyLoadImage
-              height="100%"
-              width="100%"
-              src={
-                playlist[currentIndex].thumbnailUrl ||
-                "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg"
-              }
-              alt="Image"
-              effect="blur"
-              className="object-cover rounded-xl w-[100%] h-[100%] "
-            />
-          </div>
-          <div className="flex flex-col text-start">
-            <p className=" text-sm truncate w-[50vw] ">
-              {playlist[currentIndex].title}
-            </p>
-            <p className=" text-xs w-[30vw] truncate">
-              {playlist[currentIndex].artists[0]?.name}
-            </p>
-          </div>
-        </div>
-      </DrawerTrigger>
-      <DrawerContent className=" h-[96dvh]  bg-zinc-900 ">
-        <div className="flex flex-col justify-start pt-2  h-full">
-          <DrawerHeader>
-            <div
-              {...swipeHandler}
-              className="overflow-hidden h-[48dvh] w-[90vw] rounded-2xl mx-1 "
-            >
-              <AspectRatio>
+    <>
+      {!isStandalone ? (
+        <p className="w-[68dvw]  px-4">app not installed</p>
+      ) : (
+        <Drawer>
+          <DrawerTrigger>
+            <div className="items-center fade-in flex space-x-2 w-[68dvw]   px-2.5">
+              <div className=" h-11 w-11 overflow-hidden rounded-xl">
                 <LazyLoadImage
                   height="100%"
                   width="100%"
-                  src={playlist[currentIndex].thumbnailUrl.replace(
-                    "w120-h120",
-                    "w1080-h1080"
-                  )}
-                  onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
-                    (e.currentTarget.src =
-                      "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg")
+                  src={
+                    playlist[currentIndex].thumbnailUrl ||
+                    "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg"
                   }
                   alt="Image"
-                  visibleByDefault
-                  className="object-cover rounded-2xl w-[100%] h-[100%]"
+                  effect="blur"
+                  className="object-cover rounded-xl w-[100%] h-[100%] "
                 />
-              </AspectRatio>
-            </div>
-            <div className=" absolute bottom-[35.5vh] w-full text-start px-2 ">
-              <div className="flex items-center space-x-3">
-                <h1 className="text-3xl truncate   w-[75vw] font-semibold">
-                  {" "}
+              </div>
+              <div className="flex flex-col text-start">
+                <p className=" text-sm truncate w-[50vw] ">
                   {playlist[currentIndex].title}
-                </h1>
-
-                {liked ? (
-                  <FaHeart
-                    onClick={RemoveLike}
-                    className="h-7 w-7 fade-in fill-red-500"
-                  />
-                ) : (
-                  <FaRegHeart
-                    className="h-7 w-7 fade-in"
-                    onClick={handleLink}
-                  />
-                )}
-              </div>
-
-              {playlist[currentIndex].artists[0]?.name ? (
-                <Link
-                  to={`/artist/${
-                    playlist[currentIndex].artists[0]?.id || currentArtistId
-                  }`}
-                >
-                  <DrawerClose className="text-start">
-                    <p className="text-base truncate  underline underline-offset-4 w-[70vw] text-red-500">
-                      {" "}
-                      {playlist[currentIndex].artists[0]?.name}
-                    </p>
-                  </DrawerClose>
-                </Link>
-              ) : (
-                <p className="text-base truncate  w-64 text-red-500">
-                  {" "}
-                  Unknown
                 </p>
-              )}
-            </div>
-          </DrawerHeader>
-          <div className="flex  absolute bottom-[26vh]  w-full flex-col justify-center px-6 pt-1 ">
-            <input
-              type="range"
-              value={progress || 0}
-              max={duration || 0}
-              onInput={handleSeek}
-              step="1"
-              className="w-full h-2 bg-gray-200 overflow-hidden rounded-lg appearance-none cursor-pointer"
-            />
-            <div className="flex text-sm justify-between py-2 px-1">
-              <span>
-                {useMemo(
-                  () => formatDuration(progress as "--:--"),
-                  [formatDuration, progress]
-                )}
-              </span>
-              <span>
-                {useMemo(
-                  () => formatDuration(duration as "--:--"),
-                  [formatDuration, duration]
-                )}
-              </span>
-            </div>
-          </div>
-          <div className="flex absolute bottom-[16vh] w-full space-x-16 justify-center  items-center">
-            <FaBackward
-              className={`h-8 w-10 ${
-                playlist.length > 1 ? "text-zinc-300" : "text-zinc-500"
-              } `}
-              onClick={handlePrev}
-            />
-            {isLoading ? (
-              <div className="h-12 w-12 flex justify-center items-center">
-                <Loader size="37" />
+                <p className=" text-xs w-[30vw] truncate">
+                  {playlist[currentIndex].artists[0]?.name}
+                </p>
               </div>
-            ) : (
-              <>
-                {isPlaying ? (
-                  <FaPause className="h-12 w-12" onClick={handlePlay} />
-                ) : (
-                  <IoPlay className="h-12 w-12" onClick={handlePlay} />
-                )}
-              </>
-            )}
-
-            <FaForward
-              className={`h-8 w-9 ${
-                playlist.length > 1 ? "text-zinc-300" : "text-zinc-500"
-              } `}
-              onClick={handleNext}
-            />
-          </div>
-          <div className=" justify-center absolute bottom-[6vh] w-full px-7 text-zinc-400 items-center">
-            <div className="flex items-center justify-between w-full">
-              {playlist.length > 1 ? (
-                <Link
-                  to={`/${
-                    isLikedSong ? "liked" : PlaylistOrAlbum
-                  }/${playingPlaylistUrl}`}
-                >
-                  <DrawerClose>
-                    <MdOpenInNew className="h-6 w-6" />
-                  </DrawerClose>
-                </Link>
-              ) : (
-                <MdOpenInNew className="h-6 w-6 text-zinc-700" />
-              )}
-
-              <TbMessage
-                onClick={() => alert("lyrics soon..")}
-                className="h-7 w-7"
-              />
-              <ImLoop
-                className={`h-[1.3rem] w-[1.3rem] ${
-                  music && music.loop ? "text-zinc-400" : "text-zinc-700"
-                }`}
-                onClick={handleLoop}
-              />
             </div>
-          </div>
-        </div>
-      </DrawerContent>
-    </Drawer>
+          </DrawerTrigger>
+
+          <DrawerContent className=" h-[96dvh]  bg-zinc-900 ">
+            <div className="flex flex-col justify-start pt-2  h-full">
+              <DrawerHeader>
+                <div
+                  {...swipeHandler}
+                  className="overflow-hidden h-[48dvh] w-[90vw] rounded-2xl mx-1 "
+                >
+                  <AspectRatio>
+                    <LazyLoadImage
+                      height="100%"
+                      width="100%"
+                      src={playlist[currentIndex].thumbnailUrl.replace(
+                        "w120-h120",
+                        "w1080-h1080"
+                      )}
+                      onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                        (e.currentTarget.src =
+                          "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg")
+                      }
+                      alt="Image"
+                      visibleByDefault
+                      className="object-cover rounded-2xl w-[100%] h-[100%]"
+                    />
+                  </AspectRatio>
+                </div>
+                <div className=" absolute bottom-[35.5vh] w-full text-start px-2 ">
+                  <div className="flex items-center space-x-3">
+                    <h1 className="text-3xl truncate   w-[75vw] font-semibold">
+                      {" "}
+                      {playlist[currentIndex].title}
+                    </h1>
+
+                    {liked ? (
+                      <FaHeart
+                        onClick={RemoveLike}
+                        className="h-7 w-7 fade-in fill-red-500"
+                      />
+                    ) : (
+                      <FaRegHeart
+                        className="h-7 w-7 fade-in"
+                        onClick={handleLink}
+                      />
+                    )}
+                  </div>
+
+                  {playlist[currentIndex].artists[0]?.name ? (
+                    <Link
+                      to={`/artist/${
+                        playlist[currentIndex].artists[0]?.id || currentArtistId
+                      }`}
+                    >
+                      <DrawerClose className="text-start">
+                        <p className="text-base truncate  underline underline-offset-4 w-[70vw] text-red-500">
+                          {" "}
+                          {playlist[currentIndex].artists[0]?.name}
+                        </p>
+                      </DrawerClose>
+                    </Link>
+                  ) : (
+                    <p className="text-base truncate  w-64 text-red-500">
+                      {" "}
+                      Unknown
+                    </p>
+                  )}
+                </div>
+              </DrawerHeader>
+              <div className="flex  absolute bottom-[26vh]  w-full flex-col justify-center px-6 pt-1 ">
+                <input
+                  type="range"
+                  value={progress || 0}
+                  max={duration || 0}
+                  onInput={handleSeek}
+                  step="1"
+                  className="w-full h-2 bg-gray-200 overflow-hidden rounded-lg appearance-none cursor-pointer"
+                />
+                <div className="flex text-sm justify-between py-2 px-1">
+                  <span>{formatDuration(progress as "--:--")}</span>
+                  <span>{formatDuration(duration as "--:--")}</span>
+                </div>
+              </div>
+              <div className="flex absolute bottom-[16vh] w-full space-x-16 justify-center  items-center">
+                <FaBackward
+                  className={`h-8 w-10 ${
+                    playlist.length > 1 ? "text-zinc-300" : "text-zinc-500"
+                  } `}
+                  onClick={handlePrev}
+                />
+                {isLoading ? (
+                  <div className="h-12 w-12 flex justify-center items-center">
+                    <Loader size="37" />
+                  </div>
+                ) : (
+                  <>
+                    {isPlaying ? (
+                      <FaPause className="h-12 w-12" onClick={handlePlay} />
+                    ) : (
+                      <IoPlay className="h-12 w-12" onClick={handlePlay} />
+                    )}
+                  </>
+                )}
+
+                <FaForward
+                  className={`h-8 w-9 ${
+                    playlist.length > 1 ? "text-zinc-300" : "text-zinc-500"
+                  } `}
+                  onClick={handleNext}
+                />
+              </div>
+              <div className=" justify-center absolute bottom-[6vh] w-full px-7 text-zinc-400 items-center">
+                <div className="flex items-center justify-between w-full">
+                  {playlist.length > 1 ? (
+                    <Link
+                      to={`/${
+                        isLikedSong ? "liked" : PlaylistOrAlbum
+                      }/${playingPlaylistUrl}`}
+                    >
+                      <DrawerClose>
+                        <MdOpenInNew className="h-6 w-6" />
+                      </DrawerClose>
+                    </Link>
+                  ) : (
+                    <MdOpenInNew className="h-6 w-6 text-zinc-700" />
+                  )}
+
+                  <TbMessage
+                    onClick={() => alert("lyrics soon..")}
+                    className="h-7 w-7"
+                  />
+                  <ImLoop
+                    className={`h-[1.3rem] w-[1.3rem] ${
+                      music && music.loop ? "text-zinc-400" : "text-zinc-700"
+                    }`}
+                    onClick={handleLoop}
+                  />
+                </div>
+              </div>
+            </div>
+          </DrawerContent>
+        </Drawer>
+      )}
+    </>
   );
 }
 const AudioPLayer = React.memo(AudioPLayerComp);
