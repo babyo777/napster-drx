@@ -31,6 +31,7 @@ function LikedSongComp() {
 
   const getPlaylistDetails = async () => {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
+      Query.orderDesc("$createdAt"),
       Query.equal("for", [id || localStorage.getItem("uid") || ""]),
       Query.limit(999),
     ]);
