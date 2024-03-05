@@ -10,8 +10,7 @@ import { SearchPlaylist, playlistSongs, savedPlaylist } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import { RxShuffle } from "react-icons/rx";
 import {
-  // GetPlaylistHundredSongsApi,
-  GetPlaylistSongsApi,
+  GetPlaylistHundredSongsApi,
   SearchPlaylistApi,
   getPlaylistDetails,
 } from "@/API/api";
@@ -64,7 +63,7 @@ function LibraryComp() {
     (state: RootState) => state.musicReducer.playlistUrl
   );
   const getPlaylist = async () => {
-    const list = await axios.get(`${GetPlaylistSongsApi}${id}`);
+    const list = await axios.get(`${GetPlaylistHundredSongsApi}${id}`);
     return list.data as playlistSongs[];
   };
 
