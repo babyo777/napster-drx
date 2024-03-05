@@ -45,7 +45,7 @@ function SavedLibraryCard({
             to={`/library/${link}`}
             className="flex space-x-2.5 items-center justify-between"
           >
-            <div className="overflow-hidden h-[3rem]  w-[3rem] space-y-2">
+            <div className="overflow-hidden h-[3.4rem]  w-[3.4rem] space-y-2">
               <AspectRatio ratio={1 / 1}>
                 <LazyLoadImage
                   height="100%"

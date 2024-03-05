@@ -166,7 +166,7 @@ function ArtistPage() {
           <div className="flex  px-4 py-2 pt-3 ">
             <h1 className="text-start font-semibold text-xl">Albums</h1>
           </div>
-          <div className="flex overflow-x-scroll items-center">
+          <div className="flex overflow-x-scroll -space-x-4  items-center">
             {data &&
               data.albums.map((s) => (
                 <ArtistAlbums
@@ -188,7 +188,7 @@ function ArtistPage() {
           <div className="flex  px-4 py-2 pt-3 ">
             <h1 className="text-start font-semibold text-xl">Singles</h1>
           </div>
-          <div className="flex overflow-x-scroll items-center">
+          <div className="flex overflow-x-scroll -space-x-4  items-center">
             {data &&
               data.singles.map((s) => (
                 <ArtistAlbums
@@ -212,7 +212,7 @@ function ArtistPage() {
           <div className="flex  px-4 py-2 pt-3 ">
             <h1 className="text-start font-semibold text-xl">You might like</h1>
           </div>
-          <div className="flex overflow-x-scroll items-center">
+          <div className="flex overflow-x-scroll -space-x-4 items-center">
             {data &&
               data.suggestedArtists.map((s) => (
                 <SuggestedArtist
