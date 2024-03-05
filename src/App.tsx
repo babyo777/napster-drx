@@ -3,12 +3,16 @@ import Tabs from "./components/Footer/Tabs";
 import { Outlet } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { DATABASE_ID, ID, NEW_USER, db } from "./appwrite/appwriteConfig";
+import { useDispatch } from "react-redux";
+import { setIsIphone } from "./Store/Player";
 
 function AppComp() {
+  const dispatch = useDispatch();
   const [token, setToken] = useState<string>("none");
   const [tester, setTester] = useState<boolean>();
   function ScreenSizeCheck() {
     const isIPhone = /iPhone/i.test(navigator.userAgent);
+    dispatch(setIsIphone(isIPhone));
     return isIPhone;
   }
 
