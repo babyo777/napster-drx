@@ -182,9 +182,7 @@ function AudioPLayerComp() {
           },
         ],
       });
-      if (/iPhone/i.test(navigator.userAgent)) {
-        navigator.mediaSession.playbackState = "playing";
-      }
+
       navigator.mediaSession.setActionHandler("play", () => sound.play());
       navigator.mediaSession.setActionHandler("pause", () => sound.pause());
       navigator.mediaSession.setActionHandler("nexttrack", handleNext);
@@ -231,6 +229,9 @@ function AudioPLayerComp() {
         });
       }
     };
+    if (/iPhone/i.test(navigator.userAgent)) {
+      navigator.mediaSession.playbackState = "playing";
+    }
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     sound.setAttribute("playsinline", "true");
