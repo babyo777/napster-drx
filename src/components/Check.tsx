@@ -4,8 +4,12 @@ import InstallNapster from "./InstallNapster";
 import { Desktop } from "./Desktop";
 import InstallNapsterAndroid from "@/Testing/AndInstaller";
 import Loader from "./Loaders/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsIphone } from "@/Store/Player";
+import { RootState } from "@/Store/Store";
 
 function Check() {
+  const dispatch = useDispatch();
   const [check, setCheck] = useState<boolean>(true);
   const [isStandalone, setIsStandalone] = useState<boolean>();
   const [graphic, setGraphic] = useState<boolean>();
@@ -13,6 +17,9 @@ function Check() {
     null
   );
 
+  const isStandaloneWep = useSelector(
+    (state: RootState) => state.musicReducer.isIphone
+  );
   const isIPhone = /iPhone/i.test(navigator.userAgent);
   const isDesktop = window.innerWidth > 786;
   const checkGpuCapabilities = () => {
@@ -39,19 +46,23 @@ function Check() {
       const hardwareConcurrency = navigator.hardwareConcurrency || null;
       setHardwareConcurrency(hardwareConcurrency);
       setIsStandalone(isStandalone);
+      dispatch(setIsIphone(isStandalone));
       setGraphic(checkGpuCapabilities());
       setCheck(false);
     }, 777);
     return () => clearTimeout(t);
-  }, []);
+  }, [dispatch]);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
   if (isDesktop || isiPad) {
     return <Desktop desktop={isDesktop} iPad={isiPad} />;
   }
+  if (isStandalone) {
+    return <App />;
+  }
   if (
-    isStandalone &&
+    !isStandaloneWep &&
     hardwareConcurrency &&
     hardwareConcurrency >= 4 &&
     graphic
