@@ -46,6 +46,7 @@ function SavedLibraryComp() {
     const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
       Query.orderDesc("$createdAt"),
       Query.equal("for", [localStorage.getItem("uid") || "default", "default"]),
+      Query.limit(999),
     ]);
     const p = r.documents as unknown as savedPlaylist[];
     return p;
@@ -58,6 +59,7 @@ function SavedLibraryComp() {
     const r = await db.listDocuments(DATABASE_ID, ALBUM_COLLECTION_ID, [
       Query.orderDesc("$createdAt"),
       Query.equal("for", [localStorage.getItem("uid") || "default"]),
+      Query.limit(999),
     ]);
     const p = r.documents as unknown as savedPlaylist[];
     return p;
@@ -70,6 +72,7 @@ function SavedLibraryComp() {
     const r = await db.listDocuments(DATABASE_ID, FAV_ARTIST, [
       Query.orderDesc("$createdAt"),
       Query.equal("for", [localStorage.getItem("uid") || "default"]),
+      Query.limit(999),
     ]);
     const p = r.documents as unknown as suggestedArtists[];
     return p;
