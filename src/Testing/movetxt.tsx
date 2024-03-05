@@ -75,4 +75,4 @@ export function Moved() {
     </Carousel>
   );
 }
-// SAgar singh
+
