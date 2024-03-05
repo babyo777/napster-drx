@@ -15,11 +15,12 @@ function Header({ title, l }: { title?: string; l?: boolean }) {
         <h1 className="  font-bold tracking-tight text-3xl ">
           {title || "NapsterDrx."}
         </h1>
-        {!window.matchMedia("(display-mode: standalone)").matches && (
-          <p className="-mr-24" onClick={handlePwa}>
-            Install
-          </p>
-        )}
+        {!window.matchMedia("(display-mode: standalone)").matches &&
+          title == "Listen Now" && (
+            <p className="-mr-28" onClick={handlePwa}>
+              Install
+            </p>
+          )}
         {l && <AddLibrary />}
         <Settings />
       </nav>
