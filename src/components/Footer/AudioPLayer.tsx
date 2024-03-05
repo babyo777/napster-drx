@@ -59,9 +59,6 @@ function AudioPLayerComp() {
     (state: RootState) => state.musicReducer.playingPlaylistUrl
   );
   const isLooped = useSelector((state: RootState) => state.musicReducer.isLoop);
-  const isiPhone = useSelector(
-    (state: RootState) => state.musicReducer.isIphone
-  );
 
   const isLikedCheck = async () => {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
@@ -233,9 +230,7 @@ function AudioPLayerComp() {
         });
       }
     };
-    if (isiPhone) {
-      navigator.mediaSession.playbackState = "playing";
-    }
+
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     sound.setAttribute("playsinline", "true");
@@ -274,7 +269,6 @@ function AudioPLayerComp() {
     handleNext,
     refetch,
     isLooped,
-    isiPhone,
   ]);
 
   const handleLoop = useCallback(async () => {
