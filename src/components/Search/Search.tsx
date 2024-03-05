@@ -174,7 +174,7 @@ function SearchComp() {
   return (
     <>
       <Header title="Search" />
-      <div className="flex flex-col   fade-in items-center space-x-1 px-4">
+      <div className="flex flex-col fade-in items-center space-x-1 px-4">
         <Input
           ref={s}
           type="text"
@@ -255,7 +255,7 @@ function SearchComp() {
           )}
 
           {music && !isLoading && searchQuery.length > 0 && (
-            <div className="h-[63vh] overflow-auto">
+            <div className="h-[63vh] overflow-auto flex  flex-col items-center">
               {music.slice(0, 3).map((r) => (
                 <SearchSong
                   artistId={r.artists[0].id}

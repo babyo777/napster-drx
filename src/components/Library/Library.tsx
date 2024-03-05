@@ -213,7 +213,7 @@ function LibraryComp() {
                     "w120-h120",
                     "w1080-h1080"
                   )) ||
-                data[0]?.thumbnailUrl.replace("w120-h120", "w1080-h1080")
+                "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg"
               }
               alt="Image"
               loading="lazy"
