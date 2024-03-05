@@ -182,7 +182,9 @@ function AudioPLayerComp() {
           },
         ],
       });
-      //navigator.mediaSession.playbackState = "playing";
+      if (/iPhone/i.test(navigator.userAgent)) {
+        navigator.mediaSession.playbackState = "playing";
+      }
       navigator.mediaSession.setActionHandler("play", () => sound.play());
       navigator.mediaSession.setActionHandler("pause", () => sound.pause());
       navigator.mediaSession.setActionHandler("nexttrack", handleNext);
@@ -198,6 +200,8 @@ function AudioPLayerComp() {
     const handleError = () => {
       setDuration("--:--");
       setProgress("--:--");
+      sound.pause();
+      sound.play();
       dispatch(setIsLoading(true));
     };
 
@@ -218,6 +222,7 @@ function AudioPLayerComp() {
 
     const handleTimeUpdate = () => {
       setProgress(sound.currentTime);
+      dispatch(setIsLoading(false));
     };
 
     const handleVisibilityChange = () => {
@@ -228,9 +233,7 @@ function AudioPLayerComp() {
       }
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    if (/iPhone/i.test(navigator.userAgent)) {
-      navigator.mediaSession.playbackState = "playing";
-    }
+
     sound.setAttribute("playsinline", "true");
     sound.addEventListener("play", handlePlay);
     sound.addEventListener("pause", handlePause);
@@ -282,10 +285,11 @@ function AudioPLayerComp() {
   const handleSeek = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (music) {
+        dispatch(setIsLoading(true));
         music.currentTime = parseInt(e.target.value) ?? 0;
       }
     },
-    [music]
+    [music, dispatch]
   );
 
   const formatDuration = useCallback((seconds: number | "--:--") => {
