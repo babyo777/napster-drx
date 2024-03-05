@@ -163,6 +163,8 @@ function AudioPLayerComp() {
   // }, []);
 
   useEffect(() => {
+    setDuration("--:--");
+    setProgress("--:--");
     dispatch(setIsLoading(true));
     const sound: HTMLAudioElement = new Audio(
       `${streamApi}${playlist[currentIndex].youtubeId}`
