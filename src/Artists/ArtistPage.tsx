@@ -1,8 +1,7 @@
 import { GetArtistDetails } from "@/API/api";
 import { ArtistDetails, favArtist } from "@/Interface";
-import { Button } from "@/components/ui/button";
+
 import axios from "axios";
-import { FaShare, FaStar } from "react-icons/fa6";
 
 import { IoReload } from "react-icons/io5";
 import { useQuery } from "react-query";
@@ -11,10 +10,11 @@ import SuggestedArtist from "./SuggestedArtist";
 import ArtistAlbums from "./ArtistAlbums";
 import Loader from "@/components/Loaders/Loader";
 import GoBack from "@/components/Goback";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { DATABASE_ID, FAV_ARTIST, db } from "@/appwrite/appwriteConfig";
 import { ID, Query } from "appwrite";
 import { FaRegStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa6";
 
 function ArtistPage() {
   const { id } = useParams();
@@ -79,17 +79,17 @@ function ArtistPage() {
       staleTime: 60 * 60000,
     });
 
-  const handleShare = useCallback(async () => {
-    try {
-      await navigator.share({
-        title: `${data && data.name}`,
-        text: `${data && data.name}}`,
-        url: window.location.origin + `/artist/${id}`,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, [data, id]);
+  // const handleShare = useCallback(async () => {
+  //   try {
+  //     await navigator.share({
+  //       title: `${data && data.name}`,
+  //       text: `${data && data.name}}`,
+  //       url: window.location.origin + `/artist/${id}`,
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [data, id]);
   return (
     <>
       {isError && (
@@ -111,7 +111,7 @@ function ArtistPage() {
         </div>
       )}
       {data && (
-        <div className="flex w-full h-[17rem]  relative ">
+        <div className="flex w-full h-[25rem]  relative ">
           <GoBack />
 
           <div className=" absolute top-4 z-10 right-3">
@@ -142,20 +142,20 @@ function ArtistPage() {
             className="object-cover opacity-80 h-[100%] w-[100%]"
           />
 
-          <div className=" absolute bottom-5 px-4 left-0  right-0">
-            <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
+          <div className=" absolute bottom-2 px-4 left-0  right-0">
+            <h1 className="text-center  font-semibold py-2 text-3xl capitalize">
               {data?.name}
             </h1>
             <div className="flex space-x-4 py-1 justify-center  items-center w-full">
-              <Button
+              {/* <Button
                 onClick={handleShare}
                 type="button"
                 variant={"ghost"}
-                className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-14"
+                className="text-base py-6 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-[12dvw]"
               >
                 <FaShare className="mr-2" />
                 Share
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
