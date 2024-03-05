@@ -115,7 +115,7 @@ function LikedSongComp() {
       )}
       {pDetails && (
         <>
-          <div className="flex w-full h-[23rem]   relative ">
+          <div className="flex w-full h-[25rem]   relative ">
             <GoBack />
 
             <div className=" absolute top-4 z-10 right-3">
@@ -143,7 +143,7 @@ function LikedSongComp() {
                   onClick={handlePlay}
                   type="button"
                   variant={"secondary"}
-                  className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-[13dvw]"
+                  className="text-lg py-6 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-[12dvw]"
                 >
                   <FaPlay className="mr-2" />
                   Play
@@ -152,7 +152,7 @@ function LikedSongComp() {
                   type="button"
                   onClick={handleShufflePlay}
                   variant={"secondary"}
-                  className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-[13dvw]"
+                  className="text-lg py-6 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-[12dvw]"
                 >
                   <RxShuffle className="mr-2" />
                   Shuffle
