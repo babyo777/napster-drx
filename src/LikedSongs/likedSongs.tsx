@@ -143,7 +143,7 @@ function LikedSongComp() {
                   onClick={handlePlay}
                   type="button"
                   variant={"secondary"}
-                  className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-14"
+                  className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-[13dvw]"
                 >
                   <FaPlay className="mr-2" />
                   Play
@@ -152,7 +152,7 @@ function LikedSongComp() {
                   type="button"
                   onClick={handleShufflePlay}
                   variant={"secondary"}
-                  className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-14"
+                  className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-[13dvw]"
                 >
                   <RxShuffle className="mr-2" />
                   Shuffle
