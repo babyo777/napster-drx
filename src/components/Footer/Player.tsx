@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { FaPause } from "react-icons/fa6";
 import { useCallback } from "react";
-import { play, setCurrentIndex } from "@/Store/Player";
+import { play, setCurrentIndex, setIsIphone } from "@/Store/Player";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -19,16 +19,16 @@ export function Player() {
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
-  const isLooped = useSelector(
-    (state: RootState) => state.musicReducer.isLoop
-  );
+  const isLooped = useSelector((state: RootState) => state.musicReducer.isLoop);
   const isPlaylist = useSelector(
     (state: RootState) => state.musicReducer.playlist
   );
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
-
+  const isStandalone = useSelector(
+    (state: RootState) => state.musicReducer.isIphone
+  );
   const handlePlay = useCallback(() => {
     if (isPlaying) {
       music?.pause();
@@ -40,11 +40,14 @@ export function Player() {
   }, [dispatch, isPlaying, music]);
 
   const handleNext = useCallback(() => {
-    if(isLooped) return
+    if (!isStandalone) {
+      dispatch(setIsIphone(true));
+    }
+    if (isLooped) return;
     if (isPlaylist.length > 1) {
       dispatch(setCurrentIndex((currentIndex + 1) % isPlaylist.length));
     }
-  }, [dispatch, currentIndex, isPlaylist.length,isLooped]);
+  }, [dispatch, currentIndex, isPlaylist.length, isLooped, isStandalone]);
 
   return (
     <>
