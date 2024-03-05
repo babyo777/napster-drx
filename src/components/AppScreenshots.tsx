@@ -24,8 +24,8 @@ export function AppScreenshots() {
     >
       <CarouselContent className="rounded-xl">
         <CarouselItem className="rounded-xl flex flex-col  justify-center items-center">
-          Tap on Share
-          <IoShareOutline className="fill-black mt-1 mb-3 text-zinc-500  h-8 w-8" />
+          Open in Safari <br /> <span className="py-1">Tap on Share</span>
+          <IoShareOutline className="fill-black mt-1 mb-4  text-zinc-500  h-8 w-8" />
           <AspectRatio ratio={16 / 9} className="bg-muted rounded-xl">
             <LazyLoadImage
               height="100%"
