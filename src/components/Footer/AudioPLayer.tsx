@@ -222,7 +222,6 @@ function AudioPLayerComp() {
 
     const handleTimeUpdate = () => {
       setProgress(sound.currentTime);
-      dispatch(setIsLoading(false));
     };
 
     const handleVisibilityChange = () => {
@@ -285,7 +284,6 @@ function AudioPLayerComp() {
   const handleSeek = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (music) {
-        dispatch(setIsLoading(true));
         music.currentTime = parseInt(e.target.value) ?? 0;
       }
     },
