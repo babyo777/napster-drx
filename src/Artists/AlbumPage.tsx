@@ -192,7 +192,7 @@ function AlbumPageComp() {
                   onClick={handlePlay}
                   type="button"
                   variant={"secondary"}
-                  className="text-lg py-6 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-[12dvw]"
+                  className="text-lg py-6 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-[13dvw]"
                 >
                   <FaPlay className="mr-2" />
                   Play
