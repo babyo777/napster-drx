@@ -79,6 +79,7 @@ interface ArtistDetails {
   singles: albums[];
   suggestedArtists: suggestedArtists[];
   thumbnails: thumbnails[];
+  songsPlaylistId: string;
 }
 
 interface likedSongs {

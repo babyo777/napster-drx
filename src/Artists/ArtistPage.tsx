@@ -1,8 +1,7 @@
-import { GetArtistDetails } from "@/API/api";
-import { ArtistDetails, favArtist } from "@/Interface";
-
+import { GetArtistDetails, GetPlaylistHundredSongsApi } from "@/API/api";
+import { ArtistDetails, favArtist, playlistSongs } from "@/Interface";
+import { Button } from "@/components/ui/button";
 import axios from "axios";
-
 import { IoReload } from "react-icons/io5";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
@@ -10,13 +9,26 @@ import SuggestedArtist from "./SuggestedArtist";
 import ArtistAlbums from "./ArtistAlbums";
 import Loader from "@/components/Loaders/Loader";
 import GoBack from "@/components/Goback";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { DATABASE_ID, FAV_ARTIST, db } from "@/appwrite/appwriteConfig";
 import { ID, Query } from "appwrite";
 import { FaRegStar } from "react-icons/fa";
+import { RxShuffle } from "react-icons/rx";
+import {
+  SetPlaylistOrAlbum,
+  isLoop,
+  play,
+  setCurrentIndex,
+  setPlayingPlaylistUrl,
+  setPlaylist,
+  shuffle,
+} from "@/Store/Player";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/Store/Store";
 import { FaStar } from "react-icons/fa6";
 
 function ArtistPage() {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const [isFavArtist, setIsFavArtist] = useState<boolean>();
   const getArtistDetails = async () => {
@@ -24,7 +36,7 @@ function ArtistPage() {
     return list.data as ArtistDetails;
   };
 
-  const loadSavedPlaylist = async () => {
+  const loadIsFav = async () => {
     const r = await db.listDocuments(DATABASE_ID, FAV_ARTIST, [
       Query.equal("for", [localStorage.getItem("uid") || "default"]),
       Query.equal("artistId", [id || "none"]),
@@ -40,7 +52,7 @@ function ArtistPage() {
 
   const { data: isFav, refetch: refetchFav } = useQuery<favArtist[]>(
     ["checkFavArtist", id],
-    loadSavedPlaylist,
+    loadIsFav,
     {
       refetchOnWindowFocus: false,
       keepPreviousData: true,
@@ -72,24 +84,62 @@ function ArtistPage() {
   };
 
   const { data, isLoading, isError, refetch, isRefetching } =
-    useQuery<ArtistDetails>(["playlist", id], getArtistDetails, {
+    useQuery<ArtistDetails>(["artist", id], getArtistDetails, {
       retry: 5,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       staleTime: 60 * 60000,
     });
 
-  // const handleShare = useCallback(async () => {
-  //   try {
-  //     await navigator.share({
-  //       title: `${data && data.name}`,
-  //       text: `${data && data.name}}`,
-  //       url: window.location.origin + `/artist/${id}`,
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, [data, id]);
+  const getPlaylist = async () => {
+    const list = await axios.get(
+      `${GetPlaylistHundredSongsApi}${
+        data?.songsPlaylistId.replace("VL", "") || ""
+      }`
+    );
+
+    return list.data as playlistSongs[];
+  };
+
+  const { data: song, refetch: songRefetch } = useQuery<playlistSongs[]>(
+    ["playlist", id],
+    getPlaylist,
+    {
+      enabled: false,
+      retry: 5,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: 60 * 60000,
+    }
+  );
+  const isPlaying = useSelector(
+    (state: RootState) => state.musicReducer.isPlaying
+  );
+  useEffect(() => {
+    if (data) {
+      songRefetch();
+    }
+  }, [data, songRefetch]);
+
+  const handleShufflePlay = useCallback(async () => {
+    if (song) {
+      dispatch(setPlaylist(song));
+      dispatch(shuffle(song));
+      dispatch(setCurrentIndex(0));
+      dispatch(
+        setPlayingPlaylistUrl(data?.songsPlaylistId.replace("VL", "") || "")
+      );
+      dispatch(SetPlaylistOrAlbum("library"));
+      if (song.length == 1) {
+        dispatch(isLoop(true));
+      } else {
+        dispatch(isLoop(false));
+      }
+      if (!isPlaying) {
+        dispatch(play(true));
+      }
+    }
+  }, [dispatch, song, isPlaying, data?.songsPlaylistId, songRefetch]);
   return (
     <>
       {isError && (
@@ -136,26 +186,29 @@ function ArtistPage() {
           <img
             width="100%"
             height="100%"
-            src={data.thumbnails[0]?.url || "/favicon.jpeg"}
+            src={
+              data.thumbnails[0]?.url.replace("w540-h225", "w1080-h1080") ||
+              "/favicon.jpeg"
+            }
             alt="Image"
             loading="lazy"
             className="object-cover opacity-80 h-[100%] w-[100%]"
           />
 
-          <div className=" absolute bottom-2 px-4 left-0  right-0">
-            <h1 className="text-center  font-semibold py-2 text-3xl capitalize">
+          <div className=" absolute bottom-5 px-4 left-0  right-0">
+            <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
               {data?.name}
             </h1>
             <div className="flex space-x-4 py-1 justify-center  items-center w-full">
-              {/* <Button
-                onClick={handleShare}
+              <Button
                 type="button"
-                variant={"ghost"}
-                className="text-base py-6 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-[12dvw]"
+                onClick={handleShufflePlay}
+                variant={"secondary"}
+                className="text-lg py-6 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-[12dvw]"
               >
-                <FaShare className="mr-2" />
-                Share
-              </Button> */}
+                <RxShuffle className="mr-2" />
+                Shuffle
+              </Button>
             </div>
           </div>
         </div>

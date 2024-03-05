@@ -309,7 +309,10 @@ function AudioPLayerComp() {
             <LazyLoadImage
               height="100%"
               width="100%"
-              src={playlist[currentIndex].thumbnailUrl}
+              src={
+                playlist[currentIndex].thumbnailUrl ||
+                "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg"
+              }
               alt="Image"
               effect="blur"
               className="object-cover rounded-xl w-[100%] h-[100%] "
@@ -340,6 +343,10 @@ function AudioPLayerComp() {
                     "w120-h120",
                     "w1080-h1080"
                   )}
+                  onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                    (e.currentTarget.src =
+                      "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg")
+                  }
                   alt="Image"
                   visibleByDefault
                   className="object-cover rounded-2xl w-[100%] h-[100%]"
