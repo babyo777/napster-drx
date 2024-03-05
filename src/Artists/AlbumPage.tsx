@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { AlbumSongs, savedPlaylist } from "@/Interface";
 
-import { GetAlbumSongs } from "@/API/api";
+import { GetAlbumSongs, SearchAlbum } from "@/API/api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   SetPlaylistOrAlbum,
@@ -55,9 +55,6 @@ function AlbumPageComp() {
     }
   );
 
-  const playlistUrl = useSelector(
-    (state: RootState) => state.musicReducer.playlistUrl
-  );
   const getPlaylist = async () => {
     const list = await axios.get(`${GetAlbumSongs}${id}`);
     return list.data as AlbumSongs[];
@@ -74,13 +71,33 @@ function AlbumPageComp() {
     staleTime: 60 * 600000,
   });
 
+  const artistSearch = async () => {
+    const q = await axios.get(
+      `${SearchAlbum}${(data && data[0].album) || ""} ${
+        (data && data[0].artists[0].name) || ""
+      }`
+    );
+    dispatch(setCurrentArtistId(q.data[0].artistId));
+    return q.data[0].artistId as string;
+  };
+
+  const { refetch: a } = useQuery<string>(["searchAlbumArtist"], artistSearch, {
+    enabled: false,
+    refetchOnWindowFocus: false,
+  });
+
   useEffect(() => {
     dispatch(setIsLikedSong(false));
-  }, [dispatch, id, playlistUrl]);
-  const handleShufflePlay = useCallback(async () => {
+  }, [dispatch]);
+  const handleArtist = useCallback(async () => {
+    a();
+  }, [a]);
+  const handleShufflePlay = useCallback(() => {
     if (data) {
+      handleArtist();
       dispatch(shuffle(data));
       dispatch(setCurrentIndex(0));
+
       dispatch(setPlayingPlaylistUrl(id || ""));
       dispatch(SetPlaylistOrAlbum("album"));
       if (data.length == 1) {
@@ -92,13 +109,15 @@ function AlbumPageComp() {
         dispatch(play(true));
       }
     }
-  }, [dispatch, data, isPlaying, id]);
+  }, [dispatch, data, isPlaying, id, handleArtist]);
   const handlePlay = useCallback(() => {
     if (data) {
+      handleArtist();
       dispatch(setPlaylist(data));
       dispatch(
         setCurrentArtistId(data[0].artists[0].id || artistId.get("id") || "")
       );
+
       dispatch(setCurrentIndex(0));
       dispatch(SetPlaylistOrAlbum("album"));
       dispatch(setPlayingPlaylistUrl(id || ""));
@@ -107,7 +126,7 @@ function AlbumPageComp() {
         dispatch(play(true));
       }
     }
-  }, [dispatch, data, isPlaying, id, artistId]);
+  }, [dispatch, data, isPlaying, id, artistId, handleArtist]);
 
   return (
     <div className=" flex flex-col items-center">
@@ -192,18 +211,23 @@ function AlbumPageComp() {
           </div>
           <div className="py-3 pb-[9.5rem]">
             {data.map((data, i) => (
-              <Songs
-                p={id || ""}
-                query="album"
-                link={false}
-                artistId={data.artists[0]?.id || artistId.get("id") || ""}
-                audio={data.youtubeId}
-                key={data.youtubeId + i}
-                id={i}
-                title={data.title}
-                artist={data.artists[0]?.name}
-                cover={data.thumbnailUrl}
-              />
+              <div
+                onClick={handleArtist}
+                key={data.artists[0].id + i + data.title}
+              >
+                <Songs
+                  p={id || ""}
+                  query="album"
+                  link={false}
+                  artistId={data.artists[0]?.id || artistId.get("id") || ""}
+                  audio={data.youtubeId}
+                  key={data.youtubeId + i}
+                  id={i}
+                  title={data.title}
+                  artist={data.artists[0]?.name}
+                  cover={data.thumbnailUrl}
+                />
+              </div>
             ))}
           </div>
         </>

@@ -23,7 +23,6 @@ import {
   setIsLikedSong,
   setPlayingPlaylistUrl,
   setPlaylist,
-  setPlaylistUrl,
   shuffle,
 } from "@/Store/Player";
 import React, { useCallback, useEffect } from "react";
@@ -59,9 +58,6 @@ function LibraryComp() {
     }
   );
 
-  const playlistUrl = useSelector(
-    (state: RootState) => state.musicReducer.playlistUrl
-  );
   const getPlaylist = async () => {
     const list = await axios.get(`${GetPlaylistHundredSongsApi}${id}`);
     return list.data as playlistSongs[];
@@ -120,10 +116,7 @@ function LibraryComp() {
 
   useEffect(() => {
     dispatch(setIsLikedSong(false));
-    if (id && id !== playlistUrl) {
-      dispatch(setPlaylistUrl(id));
-    }
-  }, [dispatch, id, playlistUrl]);
+  }, [dispatch]);
   const handleShufflePlay = useCallback(async () => {
     if (data) {
       dispatch(shuffle(data));
