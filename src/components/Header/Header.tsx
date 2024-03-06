@@ -17,7 +17,7 @@ function Header({ title, l }: { title?: string; l?: boolean }) {
         </h1>
         {!window.matchMedia("(display-mode: standalone)").matches &&
           title == "Listen Now" && (
-            <p className="-mr-28" onClick={handlePwa}>
+            <p className="-mr-[25vw]" onClick={handlePwa}>
               Install
             </p>
           )}
