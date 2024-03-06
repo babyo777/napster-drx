@@ -3,10 +3,10 @@ import App from "@/App";
 import InstallNapster from "./InstallNapster";
 import { Desktop } from "./Desktop";
 import InstallNapsterAndroid from "@/Testing/AndInstaller";
-import Loader from "./Loaders/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsIphone } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
+import Loader from "./Loaders/Loader";
 
 function Check() {
   const dispatch = useDispatch();
