@@ -125,11 +125,12 @@ function ArtistPage() {
     if (song) {
       dispatch(setPlaylist(song));
       dispatch(shuffle(song));
+      dispatch(SetPlaylistOrAlbum("library"));
       dispatch(setCurrentIndex(0));
       dispatch(
         setPlayingPlaylistUrl(data?.songsPlaylistId.replace("VL", "") || "")
       );
-      dispatch(SetPlaylistOrAlbum("library"));
+
       if (song.length == 1) {
         dispatch(isLoop(true));
       } else {
@@ -139,7 +140,7 @@ function ArtistPage() {
         dispatch(play(true));
       }
     }
-  }, [dispatch, song, isPlaying, data?.songsPlaylistId, songRefetch]);
+  }, [dispatch, song, isPlaying, data?.songsPlaylistId]);
   return (
     <>
       {isError && (
