@@ -53,6 +53,7 @@ function SearchComp() {
     const r = await db.listDocuments(DATABASE_ID, INSIGHTS, [
       Query.orderDesc("$createdAt"),
       Query.equal("user", [localStorage.getItem("uid") || ""]),
+      Query.limit(7),
     ]);
     const p = r.documents as unknown as recentSearch[];
     return p;
@@ -203,7 +204,7 @@ function SearchComp() {
                   Recent Search Played
                 </h3>
                 <div className="flex fade-in flex-col space-y-2.5  py-2.5">
-                  {RecentSearch.slice(0, 4).map((recentSearch) => (
+                  {RecentSearch.map((recentSearch) => (
                     <div
                       key={recentSearch.$id}
                       onClick={() => {
