@@ -222,7 +222,7 @@ function LibraryComp() {
                   onClick={handlePlay}
                   type="button"
                   variant={"secondary"}
-                  className="text-lg py-6 text-black shadow-none bg-white/90 rounded-lg px-[13dvw]"
+                  className="text-lg py-6 text-black shadow-none bg-white/95 rounded-lg px-[13dvw]"
                 >
                   <FaPlay className="mr-2" />
                   Play
@@ -231,7 +231,7 @@ function LibraryComp() {
                   type="button"
                   onClick={handleShufflePlay}
                   variant={"secondary"}
-                  className="text-lg py-6 text-black shadow-none bg-white/90 rounded-lg px-[12dvw]"
+                  className="text-lg py-6 text-black shadow-none bg-white/95 rounded-lg px-[12dvw]"
                 >
                   <RxShuffle className="mr-2" />
                   Shuffle

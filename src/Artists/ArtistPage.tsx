@@ -205,7 +205,7 @@ function ArtistPage() {
                 type="button"
                 onClick={handleShufflePlay}
                 variant={"secondary"}
-                className="text-lg py-6 text-black shadow-none bg-white/90
+                className="text-lg py-6 text-black shadow-none bg-white/95
                   rounded-lg px-[12dvw]"
               >
                 <RxShuffle className="mr-2" />
