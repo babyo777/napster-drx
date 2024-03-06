@@ -1,4 +1,3 @@
-import { IoIosMore } from "react-icons/io";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { useCallback } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -17,6 +16,7 @@ import {
 import { playlistSongs } from "@/Interface";
 import { useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
+import SongsOptions from "./SongsOptions";
 
 function Songs({
   title,
@@ -68,20 +68,6 @@ function Songs({
     if (!isPlaying) dispatch(play(true));
   }, [dispatch, id, q, p, isPlaying, artistId, query, liked]);
 
-  const handleShare = useCallback(async () => {
-    if (playlist && playlist.length > 0) {
-      try {
-        await navigator.share({
-          title: `${title} - ${artist}`,
-          text: `${title} - ${artist}`,
-          url: window.location.origin,
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, [artist, title, playlist]);
-
   return (
     <div id={artistId} className="flex fade-in py-2 space-x-2 items-center">
       <div className="overflow-hidden h-12 w-12 space-y-2">
@@ -120,10 +106,7 @@ function Songs({
         )}
         <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
       </div>
-      <IoIosMore
-        onClick={handleShare}
-        className={playlist.length > 0 ? "text-zinc-100" : "text-zinc-600"}
-      />
+      <SongsOptions />
     </div>
   );
 }

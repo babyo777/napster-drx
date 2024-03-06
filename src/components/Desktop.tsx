@@ -6,7 +6,7 @@ import { AspectRatio } from "./ui/aspect-ratio";
 
 function Desktop({ desktop, iPad }: { desktop: boolean; iPad: boolean }) {
   const plugin = React.useRef(
-    Autoplay({ delay: 1000, stopOnInteraction: true })
+    Autoplay({ delay: 4000, stopOnInteraction: true })
   );
 
   return (

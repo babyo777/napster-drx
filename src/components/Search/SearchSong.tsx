@@ -1,4 +1,3 @@
-import { IoIosMore } from "react-icons/io";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { useCallback } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -18,6 +17,7 @@ import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 import axios from "axios";
 import { SuggestionSearchApi } from "@/API/api";
 import { useQuery } from "react-query";
+import SongsOptions from "../Library/SongsOptions";
 function SearchSong({
   title,
   artist,
@@ -76,17 +76,7 @@ function SearchSong({
     dispatch(SetPlaylistOrAlbum("suggested"));
     if (!isPlaying) dispatch(play(true));
   }, [isPlaying, title, id, artist, cover, dispatch, artistId, data]);
-  const handleShare = useCallback(async () => {
-    try {
-      await navigator.share({
-        title: `${title} - ${artist[0].name}`,
-        text: `${title} - ${artist[0].name}`,
-        url: window.location.origin + "/library/expand",
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, [artist, title]);
+
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
@@ -130,7 +120,7 @@ function SearchSong({
         </Link>
         <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
       </div>
-      <IoIosMore onClick={handleShare} />
+      <SongsOptions />
     </div>
   );
 }
