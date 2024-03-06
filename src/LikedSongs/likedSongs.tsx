@@ -24,10 +24,22 @@ import GoBack from "@/components/Goback";
 import { Button } from "@/components/ui/button";
 import Songs from "@/components/Library/Songs";
 import { RxShuffle } from "react-icons/rx";
+import { RiFocus3Line } from "react-icons/ri";
 
 function LikedSongComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  const currentIndex = useSelector(
+    (state: RootState) => state.musicReducer.currentIndex
+  );
+  const playingPlaylistUrl = useSelector(
+    (state: RootState) => state.musicReducer.playingPlaylistUrl
+  );
+
+  const playlist = useSelector(
+    (state: RootState) => state.musicReducer.playlist
+  );
 
   const getPlaylistDetails = async () => {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
@@ -98,6 +110,11 @@ function LikedSongComp() {
     }
   }, [dispatch, isPlaying, id, pDetails]);
 
+  const handleFocus = useCallback(() => {
+    const toFocus = document.getElementById(playlist[currentIndex].youtubeId);
+    toFocus?.scrollIntoView({ behavior: "smooth" });
+  }, [currentIndex, playlist]);
+
   return (
     <div className=" flex flex-col items-center">
       {pError && pError && (
@@ -119,14 +136,20 @@ function LikedSongComp() {
         <>
           <div className="flex w-full h-[25rem]   relative ">
             <GoBack />
+            <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
+              <div className="">
+                <IoReload
+                  onClick={() => pRefetch()}
+                  className="h-8 w-8  mb-2 backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
+                />
+              </div>
 
-            <div className=" absolute top-4 z-10 right-3">
-              <IoReload
-                onClick={() => pRefetch()}
-                className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
-              />
+              {playingPlaylistUrl == id && (
+                <div className="" onClick={handleFocus}>
+                  <RiFocus3Line className="h-8 w-8 fade-in  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+                </div>
+              )}
             </div>
-
             <img
               width="100%"
               height="100%"

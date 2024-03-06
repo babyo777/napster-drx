@@ -9,6 +9,7 @@ import axios from "axios";
 import { SearchPlaylist, playlistSongs, savedPlaylist } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import { RxShuffle } from "react-icons/rx";
+import { RiFocus3Line } from "react-icons/ri";
 import {
   GetPlaylistHundredSongsApi,
   SearchPlaylistApi,
@@ -40,6 +41,17 @@ import { Query } from "appwrite";
 function LibraryComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  const currentIndex = useSelector(
+    (state: RootState) => state.musicReducer.currentIndex
+  );
+  const playingPlaylistUrl = useSelector(
+    (state: RootState) => state.musicReducer.playingPlaylistUrl
+  );
+
+  const playlist = useSelector(
+    (state: RootState) => state.musicReducer.playlist
+  );
 
   const loadSavedPlaylist = async () => {
     const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
@@ -150,6 +162,11 @@ function LibraryComp() {
     }
   }, [dispatch, data, isPlaying, id]);
 
+  const handleFocus = useCallback(() => {
+    const toFocus = document.getElementById(playlist[currentIndex].youtubeId);
+    toFocus?.scrollIntoView({ behavior: "smooth" });
+  }, [currentIndex, playlist]);
+
   return (
     <div className=" flex flex-col items-center">
       {isError && pError && playlistThumbnailError && (
@@ -182,19 +199,26 @@ function LibraryComp() {
           <div className="flex w-full h-[25rem]   relative ">
             <GoBack />
 
-            <div className=" absolute top-4 z-10 right-3">
-              <IoReload
-                onClick={() => (
-                  refetch(), pRefetch(), playlistThumbnailRefetch()
-                )}
-                className="h-8 w-8 fade-in  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
-              />
-            </div>
-            {isSaved && isSaved.length == 0 && (
-              <div className=" absolute top-[3.6rem] z-10 right-3">
-                <AddLibrary clone={true} id={id} />
+            <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
+              <div className="">
+                <IoReload
+                  onClick={() => (
+                    refetch(), pRefetch(), playlistThumbnailRefetch()
+                  )}
+                  className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
+                />
               </div>
-            )}
+              {isSaved && isSaved.length == 0 && (
+                <div className="">
+                  <AddLibrary clone={true} id={id} />
+                </div>
+              )}
+              {playingPlaylistUrl == id && (
+                <div className="" onClick={handleFocus}>
+                  <RiFocus3Line className="h-8 w-8 fade-in  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+                </div>
+              )}
+            </div>
 
             <LazyLoadImage
               effect="blur"

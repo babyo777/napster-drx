@@ -32,11 +32,23 @@ import {
 } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
 import { RxShuffle } from "react-icons/rx";
+import { RiFocus3Line } from "react-icons/ri";
 
 function AlbumPageComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const artistId = useMemo(() => new URLSearchParams(location.search), []);
+
+  const currentIndex = useSelector(
+    (state: RootState) => state.musicReducer.currentIndex
+  );
+  const playingPlaylistUrl = useSelector(
+    (state: RootState) => state.musicReducer.playingPlaylistUrl
+  );
+
+  const playlist = useSelector(
+    (state: RootState) => state.musicReducer.playlist
+  );
 
   const loadSavedPlaylist = async () => {
     const r = await db.listDocuments(DATABASE_ID, ALBUM_COLLECTION_ID, [
@@ -128,6 +140,11 @@ function AlbumPageComp() {
     }
   }, [dispatch, data, isPlaying, id, artistId, handleArtist]);
 
+  const handleFocus = useCallback(() => {
+    const toFocus = document.getElementById(playlist[currentIndex].youtubeId);
+    toFocus?.scrollIntoView({ behavior: "smooth" });
+  }, [currentIndex, playlist]);
+
   return (
     <div className=" flex flex-col items-center">
       {isError && (
@@ -152,27 +169,33 @@ function AlbumPageComp() {
         <>
           <div className="flex w-full h-[25rem]  relative ">
             <GoBack />
-
-            <div className=" absolute fade-in top-4 z-10 right-3">
-              <IoReload
-                onClick={() => refetch()}
-                className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
-              />
-            </div>
-            {isSaved && isSaved.length == 0 && (
-              <div className=" absolute top-[3.6rem] z-10 right-3">
-                <AddAlbum
-                  clone={true}
-                  id={id}
-                  name={data[0]?.artists[0].name}
-                  album={data[0]?.album}
-                  image={data[0]?.thumbnailUrl.replace(
-                    "w120-h120",
-                    "w1080-h1080"
-                  )}
+            <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
+              <div className="">
+                <IoReload
+                  onClick={() => refetch()}
+                  className="h-8 w-8 mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
                 />
               </div>
-            )}
+              {isSaved && isSaved.length == 0 && (
+                <div className=" ">
+                  <AddAlbum
+                    clone={true}
+                    id={id}
+                    name={data[0]?.artists[0].name}
+                    album={data[0]?.album}
+                    image={data[0]?.thumbnailUrl.replace(
+                      "w120-h120",
+                      "w1080-h1080"
+                    )}
+                  />
+                </div>
+              )}
+              {playingPlaylistUrl == id && (
+                <div className="" onClick={handleFocus}>
+                  <RiFocus3Line className="h-8 w-8 fade-in  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+                </div>
+              )}
+            </div>
 
             <img
               width="100%"
