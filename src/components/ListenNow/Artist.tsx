@@ -2,6 +2,7 @@ import { homePagePlaylist } from "@/Interface";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import { Skeleton } from "../ui/skeleton";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 function Artist({ data }: { data: homePagePlaylist[] }) {
   return (
