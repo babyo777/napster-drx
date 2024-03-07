@@ -3,6 +3,7 @@ import Tabs from "./components/Footer/Tabs";
 import { Outlet } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { DATABASE_ID, ID, NEW_USER, db } from "./appwrite/appwriteConfig";
+import Loader from "./components/Loaders/Loader";
 
 function AppComp() {
   const [token, setToken] = useState<string>("none");
@@ -36,22 +37,36 @@ function AppComp() {
 
   const Compatible = ScreenSizeCheck();
 
-  if (tester) {
+  try {
+    if (tester) {
+      return (
+        <>
+          <Outlet />
+          <Tabs />
+        </>
+      );
+    }
+  } catch (error) {
+    return (
+      <div className="load flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
+  }
+  try {
     return (
       <>
         <Outlet />
         <Tabs />
       </>
     );
+  } catch (error) {
+    return (
+      <div className="load flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
   }
-
-  return (
-    <>
-      <Outlet />
-      <Tabs />
-    </>
-  );
-
   if (Compatible) {
     return (
       <div className=" w-full   fade-in flex-col h-screen flex justify-center items-center">

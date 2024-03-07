@@ -94,7 +94,12 @@ function Check() {
 
         dispatch(setPlaylist(newD));
       } else {
-        dispatch(setPlaylist([r.data[0], ...list.data]));
+        if (r.data[0].youtubeId == data.curentsongid) {
+          const n = list.data.slice(1);
+          dispatch(setPlaylist([r.data[0], ...n]));
+        } else {
+          dispatch(setPlaylist([r.data[0], ...list.data]));
+        }
       }
 
       return list.data as playlistSongs[];
@@ -116,7 +121,12 @@ function Check() {
 
         dispatch(setPlaylist(newD));
       } else {
-        dispatch(setPlaylist([r.data[0], ...list.data]));
+        if (r.data[0].youtubeId == data.curentsongid) {
+          const n = list.data.slice(1);
+          dispatch(setPlaylist([r.data[0], ...n]));
+        } else {
+          dispatch(setPlaylist([r.data[0], ...list.data]));
+        }
       }
 
       return list.data as AlbumSongs[];
@@ -177,7 +187,13 @@ function Check() {
 
         dispatch(setPlaylist(newD));
       } else {
-        dispatch(setPlaylist([s.data[0], ...modified]));
+        if (s.data[0].youtubeId == data.curentsongid) {
+          const n = modified.slice(1);
+
+          dispatch(setPlaylist([s.data[0], ...n]));
+        } else {
+          dispatch(setPlaylist([s.data[0], ...modified]));
+        }
       }
     }
     return modified as unknown as likedSongs[];
