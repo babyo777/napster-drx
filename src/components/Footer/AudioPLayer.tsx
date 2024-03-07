@@ -200,7 +200,6 @@ function AudioPLayerComp() {
         if (isLooped) {
           sound.loop = true;
         }
-        setDuration(sound.duration);
         dispatch(play(true));
       };
 
@@ -226,6 +225,7 @@ function AudioPLayerComp() {
       const handleLoad = () => {
         dispatch(setIsLoading(false));
         refetch();
+        setDuration(sound.duration);
       };
 
       const handleTimeUpdate = () => {
