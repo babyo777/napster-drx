@@ -113,7 +113,7 @@ function Check() {
     ["likedSongsDetails", localStorage.getItem("uid")],
     getLikedPlaylistDetails,
     {
-      retry: 5,
+      retry: 1,
       staleTime: 1000,
       enabled: false,
       refetchOnWindowFocus: false,
@@ -125,7 +125,7 @@ function Check() {
     isError,
     data: playlist,
   } = useQuery<playlistSongs[]>(["playlist", data?.playlisturl], getPlaylist, {
-    retry: 5,
+    retry: 1,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     staleTime: 60 * 60000,
