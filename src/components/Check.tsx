@@ -65,15 +65,11 @@ function Check() {
     return lastPlayed as unknown as lastPlayed;
   };
 
-  const { data, isLoading, isError } = useQuery<lastPlayed>(
-    "lastPlayed",
-    getLastPlayed,
-    {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      staleTime: Infinity,
-    }
-  );
+  const { data, isError } = useQuery<lastPlayed>("lastPlayed", getLastPlayed, {
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    staleTime: Infinity,
+  });
 
   const getPlaylist = async () => {
     const list = await axios.get(
@@ -89,7 +85,7 @@ function Check() {
     return list.data as playlistSongs[];
   };
 
-  const { refetch, isLoading: playlistSongs } = useQuery<playlistSongs[]>(
+  const { refetch, data: playlistSongs } = useQuery<playlistSongs[]>(
     ["playlist", data?.playlisturl],
     getPlaylist,
     {
@@ -194,7 +190,7 @@ function Check() {
 
   return (
     <>
-      {check && navigator.onLine && isLoading && playlistSongs ? (
+      {check && navigator.onLine && !data && !playlistSongs ? (
         <div className="load flex justify-center items-center h-screen">
           <Loader />
         </div>
