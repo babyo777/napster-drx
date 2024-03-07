@@ -22,7 +22,11 @@ import {
 import { useQuery } from "react-query";
 import { lastPlayed, likedSongs, playlistSongs } from "@/Interface";
 import axios from "axios";
-import { GetPlaylistHundredSongsApi, SuggestionSearchApi } from "@/API/api";
+import {
+  GetAlbumSongs,
+  GetPlaylistHundredSongsApi,
+  SuggestionSearchApi,
+} from "@/API/api";
 import { Query } from "appwrite";
 
 function Check() {
@@ -88,9 +92,35 @@ function Check() {
       return [];
     }
   };
+  const getAlbum = async () => {
+    if (data) {
+      const list = await axios.get(`${GetAlbumSongs}${data?.playlisturl}`);
+      const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
+      if (r.data[0] == list.data[0]) {
+        const ps = (list.data as playlistSongs[]).slice(1);
+        dispatch(setPlaylist([r.data[0], ...ps]));
+      } else {
+        dispatch(setPlaylist([r.data[0], ...list.data]));
+      }
+      return list.data as playlistSongs[];
+    } else {
+      return [];
+    }
+  };
 
   const { refetch, data: playlistSongs } = useQuery<playlistSongs[]>(
     ["playlist", data?.playlisturl],
+    getPlaylist,
+    {
+      retry: 5,
+      enabled: false,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: 60 * 60000,
+    }
+  );
+  const { refetch: album } = useQuery<playlistSongs[]>(
+    ["albumSongs", data?.playlisturl],
     getPlaylist,
     {
       retry: 5,
@@ -159,6 +189,9 @@ function Check() {
       if (data.navigator == "library") {
         refetch();
       }
+      if (data.navigator == "album") {
+        album();
+      }
       if (data.navigator == "liked") {
         likedSong();
       }
@@ -175,7 +208,7 @@ function Check() {
     dispatch(setIsIphone(isStandalone));
     setGraphic(checkGpuCapabilities());
     setCheck(false);
-  }, [dispatch, data, refetch, likedSong, suggested]);
+  }, [dispatch, data, refetch, likedSong, suggested, album]);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
