@@ -166,7 +166,7 @@ function Check() {
     dispatch(setIsIphone(isStandalone));
     setGraphic(checkGpuCapabilities());
     setCheck(false);
-  }, [dispatch, data, refetch, likedSong]);
+  }, [dispatch, data, refetch, likedSong, suggested]);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
