@@ -137,6 +137,7 @@ function Check() {
       Query.equal("for", [localStorage.getItem("uid") || ""]),
       Query.limit(999),
     ]);
+    const s = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
     const modified = r.documents.map((doc) => ({
       for: doc.for,
       youtubeId: doc.youtubeId,
@@ -149,7 +150,7 @@ function Check() {
       title: doc.title,
       thumbnailUrl: doc.thumbnailUrl,
     }));
-    dispatch(setPlaylist(modified));
+    dispatch(setPlaylist([s.data[0], ...modified]));
     return modified as unknown as likedSongs[];
   };
 
