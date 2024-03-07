@@ -96,9 +96,6 @@ function Check() {
       dispatch(SetPlaylistOrAlbum(data.navigator));
       refetch();
     }
-  }, [data, dispatch, refetch]);
-
-  useEffect(() => {
     const isStandalone = window.matchMedia(
       "(display-mode: standalone)"
     ).matches;
@@ -108,7 +105,7 @@ function Check() {
     dispatch(setIsIphone(isStandalone));
     setGraphic(checkGpuCapabilities());
     setCheck(false);
-  }, [dispatch]);
+  }, [data, dispatch, refetch]);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
