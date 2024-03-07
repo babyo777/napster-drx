@@ -6,7 +6,6 @@ import InstallNapsterAndroid from "@/Testing/AndInstaller";
 import { useDispatch, useSelector } from "react-redux";
 import {
   SetPlaylistOrAlbum,
-  setCurrentIndex,
   setIsIphone,
   setPlayingPlaylistUrl,
   setPlaylist,
@@ -79,7 +78,8 @@ function Check() {
     const list = await axios.get(
       `${GetPlaylistHundredSongsApi}${data?.playlisturl}`
     );
-    dispatch(setPlaylist(list.data));
+    const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
+    dispatch(setPlaylist([r.data[0], ...list.data]));
     return list.data as playlistSongs[];
   };
 
@@ -138,6 +138,7 @@ function Check() {
     ["suggestedSongs", data?.curentsongid],
     getSuggestedSongs,
     {
+      enabled: false,
       refetchOnMount: false,
       staleTime: 5 * 6000,
       refetchOnWindowFocus: false,
@@ -147,7 +148,6 @@ function Check() {
   useEffect(() => {
     if (data) {
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
-      dispatch(setCurrentIndex(data.index));
       dispatch(SetPlaylistOrAlbum(data.navigator));
       refetch();
       if (data.navigator == "liked") {
