@@ -267,6 +267,7 @@ function LibraryComp() {
             {data.map((data, i) => (
               <Songs
                 p={id || ""}
+                where="library"
                 artistId={data.artists[0]?.id}
                 audio={data.youtubeId}
                 key={data.youtubeId + i}

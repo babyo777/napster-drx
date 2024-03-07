@@ -5,6 +5,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import {
+  SetPlaylistOrAlbum,
   isLoop,
   play,
   setCurrentArtistId,
@@ -28,8 +29,10 @@ function Songs({
   artistId,
   query,
   liked,
+  where,
   link = true,
 }: {
+  where: string;
   liked?: boolean;
   link?: boolean;
   artistId: string;
@@ -63,6 +66,7 @@ function Songs({
       dispatch(setPlayingPlaylistUrl(p));
       dispatch(setCurrentArtistId(artistId));
       dispatch(setPlaylist(data));
+      dispatch(SetPlaylistOrAlbum(where));
       dispatch(setCurrentIndex(id));
     }
     if (!isPlaying) dispatch(play(true));

@@ -195,6 +195,7 @@ function LikedSongComp() {
                 audio={data.youtubeId}
                 key={data.youtubeId + i}
                 id={i}
+                where="liked"
                 title={data.title}
                 artist={data.artists[0].name}
                 cover={data.thumbnailUrl}

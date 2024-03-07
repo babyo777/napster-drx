@@ -241,6 +241,7 @@ function AlbumPageComp() {
                 <Songs
                   p={id || ""}
                   query="album"
+                  where="album"
                   link={false}
                   artistId={data.artists[0]?.id || artistId.get("id") || ""}
                   audio={data.youtubeId}
