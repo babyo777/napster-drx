@@ -79,7 +79,12 @@ function Check() {
       `${GetPlaylistHundredSongsApi}${data?.playlisturl}`
     );
     const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
-    dispatch(setPlaylist([r.data[0], ...list.data]));
+    if (r.data[0] == list.data[0]) {
+      const ps = (list.data as playlistSongs[]).slice(1);
+      dispatch(setPlaylist([r.data[0], ...ps]));
+    } else {
+      dispatch(setPlaylist([r.data[0], ...list.data]));
+    }
     return list.data as playlistSongs[];
   };
 
