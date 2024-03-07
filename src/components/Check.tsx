@@ -138,7 +138,7 @@ function Check() {
       dispatch(SetPlaylistOrAlbum(data.navigator));
       refetch();
     }
-    if (playlist?.length == 0) {
+    if (data?.navigator == "liked") {
       pRefetch();
     }
 
@@ -151,7 +151,7 @@ function Check() {
     dispatch(setIsIphone(isStandalone));
     setGraphic(checkGpuCapabilities());
     setCheck(false);
-  }, [data, dispatch, pRefetch, playlist, refetch]);
+  }, [data, dispatch, pRefetch, refetch]);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
