@@ -52,6 +52,7 @@ function Suggested() {
           {data.map((data, i) => (
             <Songs
               p={""}
+              where="suggested"
               artistId={data.artists[0]?.id}
               audio={data.youtubeId}
               key={data.youtubeId + i}
