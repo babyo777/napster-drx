@@ -33,7 +33,7 @@ function SponsorsComp() {
   const getSponsors = async () => {
     const data = await db.listDocuments(DATABASE_ID, SPONSORS, [
       Query.orderDesc("$createdAt"),
-      Query.equal("name", ["nikhil", "tanmay"]),
+      Query.equal("visible", "true"),
     ]);
     return data.documents as unknown as Sponsors[];
   };
