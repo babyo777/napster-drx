@@ -154,7 +154,7 @@ function Check() {
   };
 
   const { refetch: likedSong } = useQuery<likedSongs[]>(
-    ["likedSongsDetails", data?.playlisturl],
+    ["likedSongsDetailsP", data?.playlisturl],
     getPlaylistDetails,
     {
       retry: 5,
