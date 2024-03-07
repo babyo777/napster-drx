@@ -169,6 +169,7 @@ function Check() {
     {
       retry: 5,
       enabled: false,
+      refetchOnMount: false,
       staleTime: 1000,
       refetchOnWindowFocus: false,
     }
@@ -184,6 +185,7 @@ function Check() {
     ["suggestedSongs", data?.curentsongid],
     getSuggestedSongs,
     {
+      retry: 5,
       enabled: false,
       refetchOnMount: false,
       staleTime: 5 * 6000,
