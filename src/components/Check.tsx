@@ -156,8 +156,10 @@ function Check() {
     }));
     if (s.data[0]?.youtubeId == modified[0].youtubeId) {
       const mm = modified.slice(1);
+
       dispatch(setPlaylist([s.data[0], ...mm]));
     } else {
+      console.log([s.data[0], ...modified]);
       dispatch(setPlaylist([s.data[0], ...modified]));
     }
     return modified as unknown as likedSongs[];
@@ -197,7 +199,7 @@ function Check() {
     if (data) {
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
       dispatch(SetPlaylistOrAlbum(data.navigator));
-      dispatch(setCurrentIndex(data.index));
+      dispatch(setCurrentIndex(0));
 
       if (data.navigator == "library") {
         refetch();
