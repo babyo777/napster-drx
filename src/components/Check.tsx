@@ -89,7 +89,7 @@ function Check() {
     return list.data as playlistSongs[];
   };
 
-  const { refetch, data: playlistSongs } = useQuery<playlistSongs[]>(
+  const { refetch, isLoading: playlistSongs } = useQuery<playlistSongs[]>(
     ["playlist", data?.playlisturl],
     getPlaylist,
     {
