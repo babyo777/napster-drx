@@ -16,13 +16,11 @@ import { MdOpenInNew } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
-  SetCurrentSongId,
   play,
   setCurrentIndex,
   setIsIphone,
   setIsLoading,
   setPlayer,
-  setPlayingPlaylistUrl,
 } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { streamApi } from "@/API/api";
@@ -31,13 +29,7 @@ import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaRegHeart } from "react-icons/fa6";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import {
-  DATABASE_ID,
-  ID,
-  LAST_PLAYED,
-  LIKE_SONG,
-  db,
-} from "@/appwrite/appwriteConfig";
+import { DATABASE_ID, ID, LIKE_SONG, db } from "@/appwrite/appwriteConfig";
 import { FaHeart } from "react-icons/fa";
 import { useQuery } from "react-query";
 import { Query } from "appwrite";
@@ -75,9 +67,6 @@ function AudioPLayerComp() {
   const isLooped = useSelector((state: RootState) => state.musicReducer.isLoop);
   const isStandalone = useSelector(
     (state: RootState) => state.musicReducer.isIphone
-  );
-  const currentSongId = useSelector(
-    (state: RootState) => state.musicReducer.currentSongId
   );
   const isLikedCheck = async () => {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
@@ -180,33 +169,7 @@ function AudioPLayerComp() {
   //   const source = audioContext.createBufferSource();
   //   source.start(0);
   // }, []);
-  const saveLastPlayed = useCallback(async () => {
-    try {
-      await db.createDocument(
-        DATABASE_ID,
-        LAST_PLAYED,
-        localStorage.getItem("uid") || "",
-        {
-          user: localStorage.getItem("uid"),
-          SetCurrentSongId: playlist[currentIndex].youtubeId,
-          playlisturl: playingPlaylistUrl,
-          navigator: PlaylistOrAlbum,
-        }
-      );
-    } catch (error) {
-      await db.updateDocument(
-        DATABASE_ID,
-        LAST_PLAYED,
-        localStorage.getItem("uid") || "",
-        {
-          user: localStorage.getItem("uid"),
-          SetCurrentSongId: playlist[currentIndex].youtubeId,
-          playlisturl: playingPlaylistUrl,
-          navigator: PlaylistOrAlbum,
-        }
-      );
-    }
-  }, [playingPlaylistUrl, PlaylistOrAlbum, playlist, currentIndex]);
+
   const audioRef = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
     if (audioRef.current) {
@@ -228,6 +191,7 @@ function AudioPLayerComp() {
             },
           ],
         });
+
         navigator.mediaSession.setActionHandler("play", () => sound.play());
         navigator.mediaSession.setActionHandler("pause", () => sound.pause());
         navigator.mediaSession.setActionHandler("nexttrack", handleNext);
@@ -236,6 +200,7 @@ function AudioPLayerComp() {
         if (isLooped) {
           sound.loop = true;
         }
+        setDuration(sound.duration);
         dispatch(play(true));
       };
 
@@ -260,11 +225,7 @@ function AudioPLayerComp() {
 
       const handleLoad = () => {
         dispatch(setIsLoading(false));
-        dispatch(setPlayingPlaylistUrl(playingPlaylistUrl));
-        dispatch(SetCurrentSongId(""));
         refetch();
-        saveLastPlayed();
-        setDuration(sound.duration);
       };
 
       const handleTimeUpdate = () => {
@@ -320,8 +281,6 @@ function AudioPLayerComp() {
     handleNext,
     refetch,
     isLooped,
-    saveLastPlayed,
-    playingPlaylistUrl,
   ]);
 
   const handleLoop = useCallback(async () => {
@@ -358,11 +317,7 @@ function AudioPLayerComp() {
       <audio
         hidden
         ref={audioRef}
-        src={` ${streamApi}${
-          currentSongId.length > 0
-            ? currentSongId
-            : playlist[currentIndex].youtubeId
-        }`}
+        src={`${streamApi}${playlist[currentIndex].youtubeId}`}
       ></audio>
       {!isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
