@@ -231,7 +231,6 @@ function AudioPLayerComp() {
           sound.loop = true;
         }
         dispatch(play(true));
-        saveLastPlayed();
       };
 
       const handlePause = () => {
@@ -256,6 +255,7 @@ function AudioPLayerComp() {
       const handleLoad = () => {
         dispatch(setIsLoading(false));
         refetch();
+        saveLastPlayed();
         setDuration(sound.duration);
       };
 
@@ -351,7 +351,7 @@ function AudioPLayerComp() {
         ref={audioRef}
         src={`${streamApi}${playlist[currentIndex].youtubeId}`}
       ></audio>
-      {!isStandalone ? (
+      {isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>
