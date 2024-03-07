@@ -347,7 +347,7 @@ function AudioPLayerComp() {
         ref={audioRef}
         src={`${streamApi}${playlist[currentIndex].youtubeId}`}
       ></audio>
-      {isStandalone ? (
+      {!isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>
