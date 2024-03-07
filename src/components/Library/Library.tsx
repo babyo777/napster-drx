@@ -164,7 +164,7 @@ function LibraryComp() {
 
   const handleFocus = useCallback(() => {
     const toFocus = document.getElementById(playlist[currentIndex].youtubeId);
-    toFocus?.scrollIntoView({ behavior: "smooth" });
+    toFocus?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [currentIndex, playlist]);
 
   return (
