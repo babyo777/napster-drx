@@ -10,8 +10,8 @@ import {
   SetPlaylistOrAlbum,
   setCurrentIndex,
   setIsIphone,
+  setPlayingPlaylistUrl,
   setPlaylist,
-  setPlaylistUrl,
 } from "@/Store/Player";
 
 import { DATABASE_ID, LAST_PLAYED, db } from "@/appwrite/appwriteConfig";
@@ -91,7 +91,7 @@ function Check() {
 
   useEffect(() => {
     if (data) {
-      dispatch(setPlaylistUrl(data.playlisturl));
+      dispatch(setPlayingPlaylistUrl(data.playlisturl));
       dispatch(setCurrentIndex(data.currentindex));
       dispatch(SetPlaylistOrAlbum(data.navigator));
       refetch();
