@@ -29,7 +29,13 @@ import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaRegHeart } from "react-icons/fa6";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { DATABASE_ID, ID, LIKE_SONG, db } from "@/appwrite/appwriteConfig";
+import {
+  DATABASE_ID,
+  ID,
+  LAST_PLAYED,
+  LIKE_SONG,
+  db,
+} from "@/appwrite/appwriteConfig";
 import { FaHeart } from "react-icons/fa";
 import { useQuery } from "react-query";
 import { Query } from "appwrite";
@@ -169,7 +175,31 @@ function AudioPLayerComp() {
   //   const source = audioContext.createBufferSource();
   //   source.start(0);
   // }, []);
-
+  const saveLastPlayed = useCallback(async () => {
+    try {
+      await db.createDocument(
+        DATABASE_ID,
+        LAST_PLAYED,
+        localStorage.getItem("uid") || "",
+        {
+          user: localStorage.getItem("uid"),
+          currentindex: currentIndex,
+          playlisturl: playingPlaylistUrl,
+        }
+      );
+    } catch (error) {
+      await db.updateDocument(
+        DATABASE_ID,
+        LAST_PLAYED,
+        localStorage.getItem("uid") || "",
+        {
+          user: localStorage.getItem("uid"),
+          currentindex: currentIndex,
+          playlisturl: playingPlaylistUrl,
+        }
+      );
+    }
+  }, [currentIndex, playingPlaylistUrl]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
     if (audioRef.current) {
@@ -191,7 +221,6 @@ function AudioPLayerComp() {
             },
           ],
         });
-
         navigator.mediaSession.setActionHandler("play", () => sound.play());
         navigator.mediaSession.setActionHandler("pause", () => sound.pause());
         navigator.mediaSession.setActionHandler("nexttrack", handleNext);
@@ -201,6 +230,7 @@ function AudioPLayerComp() {
           sound.loop = true;
         }
         dispatch(play(true));
+        saveLastPlayed();
       };
 
       const handlePause = () => {
@@ -210,8 +240,6 @@ function AudioPLayerComp() {
       const handleError = () => {
         setDuration("--:--");
         setProgress("--:--");
-        sound.pause();
-        sound.play();
         dispatch(setIsLoading(true));
       };
 
@@ -283,6 +311,7 @@ function AudioPLayerComp() {
     handleNext,
     refetch,
     isLooped,
+    saveLastPlayed,
   ]);
 
   const handleLoop = useCallback(async () => {

@@ -19,6 +19,7 @@ export const ALBUM_INSIGHTS = "65e16f879455cda020d4";
 export const NEW_USER = "65d8aa90aa8c5dcaa2ce";
 export const UPDATES = "65da232e478bcf5bbbad";
 export const SPONSORS = "65e08a335e4df7351d5a";
+export const LAST_PLAYED = "65e75b144ddb0ceccd5f";
 
 export const db = new Databases(client);
 

@@ -82,6 +82,11 @@ interface ArtistDetails {
   songsPlaylistId: string;
 }
 
+interface lastPlayed {
+  user: string;
+  currentindex: number;
+  playlisturl: string;
+}
 interface likedSongs {
   for: string;
   youtubeId: string;
@@ -116,6 +121,7 @@ export type {
   AlbumSongs,
   recentSearch,
   Sponsors,
+  lastPlayed,
   albums,
   likedSongs,
   ArtistDetails,
