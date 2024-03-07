@@ -139,7 +139,7 @@ function Check() {
     ]);
     const modified = r.documents.map((doc) => ({
       for: doc.for,
-      youtubeId: doc.youtubeId,
+      youtubeId: doc.youtubeId || "",
       artists: [
         {
           id: doc.artists[0],
