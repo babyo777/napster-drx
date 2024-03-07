@@ -81,7 +81,7 @@ function Check() {
         `${GetPlaylistHundredSongsApi}${data?.playlisturl}`
       );
       const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
-      if (r.data[0] == list.data[0]) {
+      if (r.data[0]?.youtubeId == list.data[0]?.youtubeId) {
         const ps = (list.data as playlistSongs[]).slice(1);
         dispatch(setPlaylist([r.data[0], ...ps]));
       } else {
@@ -96,7 +96,7 @@ function Check() {
     if (data) {
       const list = await axios.get(`${GetAlbumSongs}${data?.playlisturl}`);
       const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
-      if (r.data[0] == list.data[0]) {
+      if (r.data[0]?.youtubeId == list.data[0]?.youtubeId) {
         const ps = (list.data as AlbumSongs[]).slice(1);
         dispatch(setPlaylist([r.data[0], ...ps]));
       } else {
@@ -150,7 +150,12 @@ function Check() {
       title: doc.title,
       thumbnailUrl: doc.thumbnailUrl,
     }));
-    dispatch(setPlaylist([s.data[0], ...modified]));
+    if (s.data[0]?.youtubeId == modified[0].youtubeId) {
+      const mm = modified.slice(1);
+      dispatch(setPlaylist([s.data[0], ...mm]));
+    } else {
+      dispatch(setPlaylist([s.data[0], ...modified]));
+    }
     return modified as unknown as likedSongs[];
   };
 
