@@ -159,7 +159,6 @@ function Check() {
 
       dispatch(setPlaylist([s.data[0], ...mm]));
     } else {
-      console.log([s.data[0], ...modified]);
       dispatch(setPlaylist([s.data[0], ...modified]));
     }
     return modified as unknown as likedSongs[];
