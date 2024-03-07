@@ -6,6 +6,7 @@ import InstallNapsterAndroid from "@/Testing/AndInstaller";
 import { useDispatch, useSelector } from "react-redux";
 import {
   SetPlaylistOrAlbum,
+  setCurrentIndex,
   setIsIphone,
   setPlayingPlaylistUrl,
   setPlaylist,
@@ -154,6 +155,7 @@ function Check() {
     if (data) {
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
       dispatch(SetPlaylistOrAlbum(data.navigator));
+      dispatch(setCurrentIndex(data.index));
       refetch();
       if (data.navigator == "liked") {
         likedSong();
