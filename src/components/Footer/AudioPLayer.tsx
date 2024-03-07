@@ -253,6 +253,7 @@ function AudioPLayerComp() {
       const handleLoad = () => {
         dispatch(setIsLoading(false));
         setDuration(sound.duration);
+        setProgress(sound.currentTime);
         refetch();
       };
 
@@ -346,7 +347,7 @@ function AudioPLayerComp() {
       <audio
         hidden
         ref={audioRef}
-        src={`${streamApi}${playlist[currentIndex].youtubeId}`}
+        src={`${streamApi}${playlist[currentIndex]?.youtubeId}`}
       ></audio>
       {!isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
