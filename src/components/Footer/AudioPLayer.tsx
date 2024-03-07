@@ -359,7 +359,7 @@ function AudioPLayerComp() {
         hidden
         ref={audioRef}
         src={` ${streamApi}${
-          currentSongId && currentSongId.length > 0
+          currentSongId.length > 0
             ? currentSongId
             : playlist[currentIndex].youtubeId
         }`}
