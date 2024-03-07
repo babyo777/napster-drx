@@ -156,7 +156,9 @@ function Check() {
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
       dispatch(SetPlaylistOrAlbum(data.navigator));
       dispatch(setCurrentIndex(data.index));
-      refetch();
+      if (data.navigator == "library") {
+        refetch();
+      }
       if (data.navigator == "liked") {
         likedSong();
       }
