@@ -178,10 +178,6 @@ function AudioPLayerComp() {
     );
 
     const handlePlay = () => {
-      if (isLooped) {
-        sound.loop = true;
-      }
-      setDuration(sound.duration);
       navigator.mediaSession.metadata = new MediaMetadata({
         title: playlist[currentIndex].title,
         artist: playlist[currentIndex].artists[0]?.name,
@@ -201,6 +197,10 @@ function AudioPLayerComp() {
       navigator.mediaSession.setActionHandler("nexttrack", handleNext);
       navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
       navigator.mediaSession.setActionHandler("seekto", handleSeek);
+      if (isLooped) {
+        sound.loop = true;
+      }
+      setDuration(sound.duration);
       dispatch(play(true));
     };
 
@@ -211,8 +211,6 @@ function AudioPLayerComp() {
     const handleError = () => {
       setDuration("--:--");
       setProgress("--:--");
-      sound.pause();
-      sound.play();
       dispatch(setIsLoading(true));
     };
 
@@ -244,7 +242,6 @@ function AudioPLayerComp() {
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
-
     sound.setAttribute("playsinline", "true");
     sound.addEventListener("play", handlePlay);
     sound.addEventListener("pause", handlePause);
@@ -257,13 +254,12 @@ function AudioPLayerComp() {
     sound.play();
 
     return () => {
-      sound.src = "";
+      sound.load();
       sound.pause();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       sound.removeEventListener("play", handlePlay);
       sound.removeEventListener("pause", handlePause);
       sound.removeEventListener("loadedmetadata", handleLoad);
-
       sound.removeEventListener("timeupdate", handleTimeUpdate);
       sound.removeEventListener("error", handleError);
       sound.removeEventListener("ended", handleNext);
