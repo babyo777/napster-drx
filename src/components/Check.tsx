@@ -20,7 +20,7 @@ import {
   db,
 } from "@/appwrite/appwriteConfig";
 import { useQuery } from "react-query";
-import { lastPlayed, likedSongs, playlistSongs } from "@/Interface";
+import { AlbumSongs, lastPlayed, likedSongs, playlistSongs } from "@/Interface";
 import axios from "axios";
 import {
   GetAlbumSongs,
@@ -97,20 +97,20 @@ function Check() {
       const list = await axios.get(`${GetAlbumSongs}${data?.playlisturl}`);
       const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
       if (r.data[0] == list.data[0]) {
-        const ps = (list.data as playlistSongs[]).slice(1);
+        const ps = (list.data as AlbumSongs[]).slice(1);
         dispatch(setPlaylist([r.data[0], ...ps]));
       } else {
         dispatch(setPlaylist([r.data[0], ...list.data]));
       }
-      return list.data as playlistSongs[];
+      return list.data as AlbumSongs[];
     } else {
       return [];
     }
   };
 
-  const { refetch, data: playlistSongs } = useQuery<playlistSongs[]>(
+  const { refetch, data: playlistSongs } = useQuery<AlbumSongs[]>(
     ["playlist", data?.playlisturl],
-    getPlaylist,
+    getAlbum,
     {
       retry: 5,
       enabled: false,
