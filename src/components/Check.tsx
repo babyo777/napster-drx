@@ -14,11 +14,17 @@ import {
   setPlaylist,
 } from "@/Store/Player";
 
-import { DATABASE_ID, LAST_PLAYED, db } from "@/appwrite/appwriteConfig";
-import { lastPlayed, playlistSongs } from "@/Interface";
+import {
+  DATABASE_ID,
+  LAST_PLAYED,
+  LIKE_SONG,
+  db,
+} from "@/appwrite/appwriteConfig";
+import { lastPlayed, likedSongs, playlistSongs } from "@/Interface";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { GetPlaylistHundredSongsApi } from "@/API/api";
+import { Query } from "appwrite";
 function Check() {
   const dispatch = useDispatch();
   const [check, setCheck] = useState<boolean>(true);
@@ -76,6 +82,43 @@ function Check() {
     return list.data as playlistSongs[];
   };
 
+  const getLikedPlaylistDetails = async () => {
+    const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
+      Query.orderDesc("$createdAt"),
+      Query.equal("for", [localStorage.getItem("uid") || ""]),
+      Query.limit(999),
+    ]);
+    const modified = r.documents.map((doc) => ({
+      for: doc.for,
+      youtubeId: doc.youtubeId,
+      artists: [
+        {
+          id: doc.artists[0],
+          name: doc.artists[1],
+        },
+      ],
+      title: doc.title,
+      thumbnailUrl: doc.thumbnailUrl,
+    }));
+    dispatch(setPlaylist(modified));
+    return modified as unknown as likedSongs[];
+  };
+
+  const {
+    data: pDetails,
+    isLoading: pLoading,
+    isError: pError,
+    refetch: pRefetch,
+  } = useQuery<likedSongs[]>(
+    ["likedSongsDetails", localStorage.getItem("uid")],
+    getLikedPlaylistDetails,
+    {
+      retry: 5,
+      staleTime: 1000,
+      enabled: false,
+      refetchOnWindowFocus: false,
+    }
+  );
   const {
     refetch,
     isLoading,
@@ -83,7 +126,6 @@ function Check() {
     data: playlist,
   } = useQuery<playlistSongs[]>(["playlist", data?.playlisturl], getPlaylist, {
     retry: 5,
-    enabled: false,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     staleTime: 60 * 60000,
@@ -96,6 +138,10 @@ function Check() {
       dispatch(SetPlaylistOrAlbum(data.navigator));
       refetch();
     }
+    if (playlist?.length == 0) {
+      pRefetch();
+    }
+
     const isStandalone = window.matchMedia(
       "(display-mode: standalone)"
     ).matches;
@@ -105,7 +151,7 @@ function Check() {
     dispatch(setIsIphone(isStandalone));
     setGraphic(checkGpuCapabilities());
     setCheck(false);
-  }, [data, dispatch, refetch]);
+  }, [data, dispatch, pRefetch, playlist, refetch]);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
@@ -128,7 +174,7 @@ function Check() {
     <>
       {check && navigator.onLine ? (
         <>
-          {isLoading && dbLoading && (
+          {isLoading && dbLoading && pLoading && (
             <div className="load flex justify-center items-center h-screen">
               <Loader />
             </div>
@@ -136,13 +182,21 @@ function Check() {
         </>
       ) : (
         <>
-          {isIPhone && data && playlist ? (
+          {isIPhone && data && playlist && pDetails ? (
             <InstallNapster />
           ) : (
             <InstallNapsterAndroid />
           )}
-          {isIPhone && isError ? <InstallNapster /> : <InstallNapsterAndroid />}
-          {isIPhone && dbError ? <InstallNapster /> : <InstallNapsterAndroid />}
+          {isIPhone && isError && pError ? (
+            <InstallNapster />
+          ) : (
+            <InstallNapsterAndroid />
+          )}
+          {isIPhone && dbError && pError ? (
+            <InstallNapster />
+          ) : (
+            <InstallNapsterAndroid />
+          )}
         </>
       )}
     </>

@@ -5,21 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { FaPause } from "react-icons/fa6";
 import { useCallback } from "react";
+import { play, setCurrentIndex } from "@/Store/Player";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Loader from "../Loaders/Loader";
-import {
-  play,
-  setCurrentIndex,
-  setIsIphone,
-  setPlayingPlaylistUrl,
-} from "@/Store/Player";
-import { DATABASE_ID, LAST_PLAYED, db } from "@/appwrite/appwriteConfig";
-
 export function Player() {
   const dispatch = useDispatch();
-
   const isLoading = useSelector(
     (state: RootState) => state.musicReducer.isLoading
   );
@@ -34,43 +26,7 @@ export function Player() {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
-  const isStandalone = useSelector(
-    (state: RootState) => state.musicReducer.isIphone
-  );
 
-  const PlaylistOrAlbum = useSelector(
-    (state: RootState) => state.musicReducer.PlaylistOrAlbum
-  );
-  const playingPlaylistUrl = useSelector(
-    (state: RootState) => state.musicReducer.playingPlaylistUrl
-  );
-
-  const saveLastPlayed = useCallback(async () => {
-    try {
-      await db.createDocument(
-        DATABASE_ID,
-        LAST_PLAYED,
-        localStorage.getItem("uid") || "",
-        {
-          user: localStorage.getItem("uid"),
-          currentindex: currentIndex,
-          playlisturl: setPlayingPlaylistUrl,
-        }
-      );
-    } catch (error) {
-      await db.updateDocument(
-        DATABASE_ID,
-        LAST_PLAYED,
-        localStorage.getItem("uid") || "",
-        {
-          user: localStorage.getItem("uid"),
-          currentindex: currentIndex,
-          playlisturl: playingPlaylistUrl,
-          navigator: PlaylistOrAlbum,
-        }
-      );
-    }
-  }, [currentIndex, playingPlaylistUrl, PlaylistOrAlbum]);
   const handlePlay = useCallback(() => {
     if (isPlaying) {
       music?.pause();
@@ -78,19 +34,15 @@ export function Player() {
     } else {
       music?.play();
       dispatch(play(true));
-      saveLastPlayed();
     }
-  }, [dispatch, isPlaying, music, saveLastPlayed]);
+  }, [dispatch, isPlaying, music]);
 
   const handleNext = useCallback(() => {
-    if (!isStandalone) {
-      dispatch(setIsIphone(true));
-    }
     if (isLooped) return;
     if (isPlaylist.length > 1) {
       dispatch(setCurrentIndex((currentIndex + 1) % isPlaylist.length));
     }
-  }, [dispatch, currentIndex, isPlaylist.length, isLooped, isStandalone]);
+  }, [dispatch, currentIndex, isPlaylist.length, isLooped]);
 
   return (
     <>
