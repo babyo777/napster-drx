@@ -72,17 +72,21 @@ function Check() {
   });
 
   const getPlaylist = async () => {
-    const list = await axios.get(
-      `${GetPlaylistHundredSongsApi}${data?.playlisturl}`
-    );
-    const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
-    if (r.data[0] == list.data[0]) {
-      const ps = (list.data as playlistSongs[]).slice(1);
-      dispatch(setPlaylist([r.data[0], ...ps]));
+    if (data) {
+      const list = await axios.get(
+        `${GetPlaylistHundredSongsApi}${data?.playlisturl}`
+      );
+      const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
+      if (r.data[0] == list.data[0]) {
+        const ps = (list.data as playlistSongs[]).slice(1);
+        dispatch(setPlaylist([r.data[0], ...ps]));
+      } else {
+        dispatch(setPlaylist([r.data[0], ...list.data]));
+      }
+      return list.data as playlistSongs[];
     } else {
-      dispatch(setPlaylist([r.data[0], ...list.data]));
+      return [];
     }
-    return list.data as playlistSongs[];
   };
 
   const { refetch, data: playlistSongs } = useQuery<playlistSongs[]>(
