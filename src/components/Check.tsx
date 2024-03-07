@@ -86,24 +86,14 @@ function Check() {
       );
       const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
 
-      if (r.data[0]?.youtubeId == list.data[0]?.youtubeId) {
-        const ps = (list.data as playlistSongs[]).slice(1);
-        const newD = [
-          ...ps.slice(0, data?.index - 1),
-          r.data[0],
-          ...ps.slice(5),
-        ];
+      const newD = [
+        ...list.data.slice(0, data?.index - 1),
+        r.data[0],
+        ...list.data.slice(5),
+      ];
 
-        dispatch(setPlaylist(newD));
-      } else {
-        const newD = [
-          ...list.data.slice(0, data?.index - 1),
-          r.data[0],
-          ...list.data.slice(5),
-        ];
+      dispatch(setPlaylist(newD));
 
-        dispatch(setPlaylist(newD));
-      }
       return list.data as playlistSongs[];
     } else {
       return [];
@@ -113,24 +103,15 @@ function Check() {
     if (data) {
       const list = await axios.get(`${GetAlbumSongs}${data?.playlisturl}`);
       const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
-      if (r.data[0]?.youtubeId == list.data[0]?.youtubeId) {
-        const ps = (list.data as AlbumSongs[]).slice(1);
-        const newD = [
-          ...ps.slice(0, data?.index - 1),
-          r.data[0],
-          ...ps.slice(5),
-        ];
 
-        dispatch(setPlaylist(newD));
-      } else {
-        const newD = [
-          ...list.data.slice(0, data?.index - 1),
-          r.data[0],
-          ...list.data.slice(5),
-        ];
+      const newD = [
+        ...list.data.slice(0, data?.index - 1),
+        r.data[0],
+        ...list.data.slice(5),
+      ];
 
-        dispatch(setPlaylist(newD));
-      }
+      dispatch(setPlaylist(newD));
+
       return list.data as AlbumSongs[];
     } else {
       return [];
@@ -179,26 +160,17 @@ function Check() {
       title: doc.title,
       thumbnailUrl: doc.thumbnailUrl,
     }));
+
     if (data) {
-      if (s.data[0]?.youtubeId == modified[0].youtubeId) {
-        const mm = modified.slice(1);
+      const newD = [
+        ...modified.slice(0, data.index - 1),
+        s.data[0],
+        ...modified.slice(5),
+      ];
 
-        const newD = [
-          ...modified.slice(0, data?.index - 1),
-          s.data[0],
-          ...mm.slice(5),
-        ];
-        dispatch(setPlaylist(newD));
-      } else {
-        const newD = [
-          ...modified.slice(0, data?.index - 1),
-          s.data[0],
-          ...modified.slice(5),
-        ];
-
-        dispatch(setPlaylist(newD));
-      }
+      dispatch(setPlaylist(newD));
     }
+
     return modified as unknown as likedSongs[];
   };
 
