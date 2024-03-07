@@ -160,7 +160,6 @@ function Check() {
       dispatch(setPlaylist([s.data[0], ...mm]));
     } else {
       const m = modified.filter((m) => m.youtubeId !== s.data[0].youtubeId);
-      console.log([s.data[0], ...m]);
 
       dispatch(setPlaylist([s.data[0], ...m]));
     }
