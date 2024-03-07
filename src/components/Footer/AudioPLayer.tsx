@@ -16,6 +16,7 @@ import { MdOpenInNew } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
+  SetCurrentSongId,
   play,
   setCurrentIndex,
   setIsIphone,
@@ -260,6 +261,7 @@ function AudioPLayerComp() {
       const handleLoad = () => {
         dispatch(setIsLoading(false));
         dispatch(setPlayingPlaylistUrl(playingPlaylistUrl));
+        dispatch(SetCurrentSongId(""));
         refetch();
         saveLastPlayed();
         setDuration(sound.duration);
@@ -357,7 +359,9 @@ function AudioPLayerComp() {
         hidden
         ref={audioRef}
         src={` ${streamApi}${
-          currentSongId ? currentSongId : playlist[currentIndex].youtubeId
+          currentSongId && currentSongId.length > 0
+            ? currentSongId
+            : playlist[currentIndex].youtubeId
         }`}
       ></audio>
       {!isStandalone ? (
