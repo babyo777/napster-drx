@@ -89,7 +89,7 @@ function AudioPLayerComp() {
   };
 
   const { data: isLiked, refetch } = useQuery(
-    ["likedSongs", playlist[currentIndex]?.youtubeId],
+    ["likedSongs", playlist[currentIndex].youtubeId],
     isLikedCheck,
     {
       refetchOnMount: false,
