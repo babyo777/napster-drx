@@ -84,9 +84,10 @@ interface ArtistDetails {
 
 interface lastPlayed {
   user: string;
-  SetCurrentSongId: string;
   playlisturl: string;
   navigator: string;
+  curentsongid: string;
+  index: number;
 }
 interface likedSongs {
   for: string;

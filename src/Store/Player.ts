@@ -17,6 +17,7 @@ interface Player {
   duration: number | "--:--";
   isLoading: boolean;
   isLoop: boolean;
+  uid: string | null;
   isLikedSong: boolean;
   currentArtistId: string;
   savedPlaylist: savedPlaylist[];
@@ -26,6 +27,7 @@ interface Player {
 
 const initialState: Player = {
   isLikedSong: false,
+  uid: localStorage.getItem("uid"),
   currentArtistId: "",
   isIphone: false,
   PlaylistOrAlbum: "",

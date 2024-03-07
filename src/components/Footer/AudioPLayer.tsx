@@ -29,7 +29,13 @@ import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaRegHeart } from "react-icons/fa6";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { DATABASE_ID, ID, LIKE_SONG, db } from "@/appwrite/appwriteConfig";
+import {
+  DATABASE_ID,
+  ID,
+  LAST_PLAYED,
+  LIKE_SONG,
+  db,
+} from "@/appwrite/appwriteConfig";
 import { FaHeart } from "react-icons/fa";
 import { useQuery } from "react-query";
 import { Query } from "appwrite";
@@ -68,6 +74,7 @@ function AudioPLayerComp() {
   const isStandalone = useSelector(
     (state: RootState) => state.musicReducer.isIphone
   );
+  const uid = useSelector((state: RootState) => state.musicReducer.uid);
   const isLikedCheck = async () => {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
       Query.equal("for", [localStorage.getItem("uid") || "default"]),
@@ -170,6 +177,25 @@ function AudioPLayerComp() {
   //   source.start(0);
   // }, []);
 
+  const saveLastPlayed = useCallback(() => {
+    if (uid) {
+      db.createDocument(DATABASE_ID, LAST_PLAYED, uid, {
+        user: uid,
+        playlisturl: playingPlaylistUrl,
+        navigator: PlaylistOrAlbum,
+        curentsongid: playlist[currentIndex].youtubeId,
+        index: currentIndex,
+      }).catch(() => {
+        db.updateDocument(DATABASE_ID, LAST_PLAYED, uid, {
+          user: uid,
+          playlisturl: playingPlaylistUrl,
+          navigator: PlaylistOrAlbum,
+          curentsongid: playlist[currentIndex].youtubeId,
+          index: currentIndex,
+        });
+      });
+    }
+  }, [playlist, currentIndex, PlaylistOrAlbum, uid, playingPlaylistUrl]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
     if (audioRef.current) {
@@ -202,6 +228,7 @@ function AudioPLayerComp() {
         }
         setDuration(sound.duration);
         dispatch(play(true));
+        saveLastPlayed();
       };
 
       const handlePause = () => {
@@ -281,6 +308,7 @@ function AudioPLayerComp() {
     handleNext,
     refetch,
     isLooped,
+    saveLastPlayed,
   ]);
 
   const handleLoop = useCallback(async () => {
@@ -319,7 +347,7 @@ function AudioPLayerComp() {
         ref={audioRef}
         src={`${streamApi}${playlist[currentIndex].youtubeId}`}
       ></audio>
-      {!isStandalone ? (
+      {isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>
