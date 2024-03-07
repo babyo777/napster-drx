@@ -196,7 +196,11 @@ function Check() {
         </div>
       ) : (
         <>
-          {isIPhone ? <InstallNapster /> : <InstallNapsterAndroid />}
+          {isIPhone && data && playlistSongs ? (
+            <InstallNapster />
+          ) : (
+            <InstallNapsterAndroid />
+          )}
           {isIPhone && isError ? <InstallNapster /> : <InstallNapsterAndroid />}
         </>
       )}
