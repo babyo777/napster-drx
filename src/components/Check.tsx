@@ -108,9 +108,9 @@ function Check() {
     }
   };
 
-  const { refetch, data: playlistSongs } = useQuery<AlbumSongs[]>(
+  const { refetch, data: playlistSongs } = useQuery<playlistSongs[]>(
     ["playlist", data?.playlisturl],
-    getAlbum,
+    getPlaylist,
     {
       retry: 5,
       enabled: false,
@@ -119,9 +119,9 @@ function Check() {
       staleTime: 60 * 60000,
     }
   );
-  const { refetch: album } = useQuery<playlistSongs[]>(
+  const { refetch: album } = useQuery<AlbumSongs[]>(
     ["albumSongs", data?.playlisturl],
-    getPlaylist,
+    getAlbum,
     {
       retry: 5,
       enabled: false,
@@ -186,7 +186,6 @@ function Check() {
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
       dispatch(SetPlaylistOrAlbum(data.navigator));
       dispatch(setCurrentIndex(data.index));
-      refetch();
       if (data.navigator == "library") {
         refetch();
       }
