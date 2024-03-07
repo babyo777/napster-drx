@@ -75,6 +75,9 @@ function AudioPLayerComp() {
   const isStandalone = useSelector(
     (state: RootState) => state.musicReducer.isIphone
   );
+  const currentSongId = useSelector(
+    (state: RootState) => state.musicReducer.currentSongId
+  );
   const isLikedCheck = async () => {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
       Query.equal("for", [localStorage.getItem("uid") || "default"]),
@@ -184,8 +187,9 @@ function AudioPLayerComp() {
         localStorage.getItem("uid") || "",
         {
           user: localStorage.getItem("uid"),
-          currentindex: currentIndex,
+          SetCurrentSongId: playlist[currentIndex].youtubeId,
           playlisturl: playingPlaylistUrl,
+          navigator: PlaylistOrAlbum,
         }
       );
     } catch (error) {
@@ -195,13 +199,13 @@ function AudioPLayerComp() {
         localStorage.getItem("uid") || "",
         {
           user: localStorage.getItem("uid"),
-          currentindex: currentIndex,
+          SetCurrentSongId: playlist[currentIndex].youtubeId,
           playlisturl: playingPlaylistUrl,
           navigator: PlaylistOrAlbum,
         }
       );
     }
-  }, [currentIndex, playingPlaylistUrl, PlaylistOrAlbum]);
+  }, [playingPlaylistUrl, PlaylistOrAlbum, playlist, currentIndex]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
     if (audioRef.current) {
@@ -352,7 +356,9 @@ function AudioPLayerComp() {
       <audio
         hidden
         ref={audioRef}
-        src={`${streamApi}${playlist[currentIndex].youtubeId}`}
+        src={` ${streamApi}${
+          currentSongId ? currentSongId : playlist[currentIndex].youtubeId
+        }`}
       ></audio>
       {!isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>

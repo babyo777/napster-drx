@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import Loader from "./Loaders/Loader";
 import {
+  SetCurrentSongId,
   SetPlaylistOrAlbum,
-  setCurrentIndex,
   setIsIphone,
   setPlayingPlaylistUrl,
   setPlaylist,
@@ -37,6 +37,7 @@ function Check() {
   const isStandaloneWep = useSelector(
     (state: RootState) => state.musicReducer.isIphone
   );
+
   const isIPhone = /iPhone/i.test(navigator.userAgent);
   const isDesktop = window.innerWidth > 786;
   const checkGpuCapabilities = () => {
@@ -134,7 +135,7 @@ function Check() {
   useEffect(() => {
     if (data) {
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
-      dispatch(setCurrentIndex(data.currentindex));
+      dispatch(SetCurrentSongId(data.SetCurrentSongId));
       dispatch(SetPlaylistOrAlbum(data.navigator));
       refetch();
     }
