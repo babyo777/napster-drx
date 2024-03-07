@@ -21,6 +21,7 @@ import {
   setIsIphone,
   setIsLoading,
   setPlayer,
+  setPlayingPlaylistUrl,
 } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { streamApi } from "@/API/api";
@@ -254,6 +255,7 @@ function AudioPLayerComp() {
 
       const handleLoad = () => {
         dispatch(setIsLoading(false));
+        dispatch(setPlayingPlaylistUrl(playingPlaylistUrl));
         refetch();
         saveLastPlayed();
         setDuration(sound.duration);
