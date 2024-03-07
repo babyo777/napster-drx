@@ -69,11 +69,15 @@ function Check() {
     return lastPlayed as unknown as lastPlayed;
   };
 
-  const { data, isError } = useQuery<lastPlayed>("lastPlayed", getLastPlayed, {
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    staleTime: Infinity,
-  });
+  const { data, isError } = useQuery<lastPlayed>(
+    "lastPlayedSongs",
+    getLastPlayed,
+    {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: Infinity,
+    }
+  );
 
   const getPlaylist = async () => {
     if (data) {
