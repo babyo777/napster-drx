@@ -60,6 +60,10 @@ const router = createBrowserRouter([
         element: <Suggested />,
       },
       {
+        path: "/suggested/:id",
+        element: <Suggested />,
+      },
+      {
         path: "*",
         element: <NotFound />,
       },
