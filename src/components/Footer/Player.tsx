@@ -9,7 +9,13 @@ import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Loader from "../Loaders/Loader";
-import { play, setCurrentIndex, setIsIphone } from "@/Store/Player";
+import {
+  play,
+  setCurrentIndex,
+  setIsIphone,
+  setPlayingPlaylistUrl,
+} from "@/Store/Player";
+import { DATABASE_ID, LAST_PLAYED, db } from "@/appwrite/appwriteConfig";
 
 export function Player() {
   const dispatch = useDispatch();
@@ -31,6 +37,40 @@ export function Player() {
   const isStandalone = useSelector(
     (state: RootState) => state.musicReducer.isIphone
   );
+
+  const PlaylistOrAlbum = useSelector(
+    (state: RootState) => state.musicReducer.PlaylistOrAlbum
+  );
+  const playingPlaylistUrl = useSelector(
+    (state: RootState) => state.musicReducer.playingPlaylistUrl
+  );
+
+  const saveLastPlayed = useCallback(async () => {
+    try {
+      await db.createDocument(
+        DATABASE_ID,
+        LAST_PLAYED,
+        localStorage.getItem("uid") || "",
+        {
+          user: localStorage.getItem("uid"),
+          currentindex: currentIndex,
+          playlisturl: setPlayingPlaylistUrl,
+        }
+      );
+    } catch (error) {
+      await db.updateDocument(
+        DATABASE_ID,
+        LAST_PLAYED,
+        localStorage.getItem("uid") || "",
+        {
+          user: localStorage.getItem("uid"),
+          currentindex: currentIndex,
+          playlisturl: playingPlaylistUrl,
+          navigator: PlaylistOrAlbum,
+        }
+      );
+    }
+  }, [currentIndex, playingPlaylistUrl, PlaylistOrAlbum]);
   const handlePlay = useCallback(() => {
     if (isPlaying) {
       music?.pause();
@@ -38,8 +78,9 @@ export function Player() {
     } else {
       music?.play();
       dispatch(play(true));
+      saveLastPlayed();
     }
-  }, [dispatch, isPlaying, music]);
+  }, [dispatch, isPlaying, music, saveLastPlayed]);
 
   const handleNext = useCallback(() => {
     if (!isStandalone) {
