@@ -196,10 +196,11 @@ function AudioPLayerComp() {
           user: localStorage.getItem("uid"),
           currentindex: currentIndex,
           playlisturl: playingPlaylistUrl,
+          navigator: PlaylistOrAlbum,
         }
       );
     }
-  }, [currentIndex, playingPlaylistUrl]);
+  }, [currentIndex, playingPlaylistUrl, PlaylistOrAlbum]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
     if (audioRef.current) {

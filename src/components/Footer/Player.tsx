@@ -6,6 +6,7 @@ import { RootState } from "@/Store/Store";
 import { FaPause } from "react-icons/fa6";
 import { useCallback, useEffect } from "react";
 import {
+  SetPlaylistOrAlbum,
   play,
   setCurrentIndex,
   setIsIphone,
@@ -64,6 +65,7 @@ export function Player() {
     if (data) {
       dispatch(setPlaylistUrl(data.playlisturl));
       dispatch(setCurrentIndex(data.currentindex));
+      dispatch(SetPlaylistOrAlbum(data.navigator));
       refetch();
     }
   }, [data, dispatch, refetch]);

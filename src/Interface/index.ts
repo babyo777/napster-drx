@@ -86,6 +86,7 @@ interface lastPlayed {
   user: string;
   currentindex: number;
   playlisturl: string;
+  navigator: string;
 }
 interface likedSongs {
   for: string;
