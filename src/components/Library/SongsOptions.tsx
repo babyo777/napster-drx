@@ -16,11 +16,11 @@ function SongsOptions() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-zinc-300/10 border-none backdrop-blur-2xl mx-4">
         <DropdownMenuItem className="flex items-center justify-between space-x-2">
-          <p className="text-sm">Add to library</p>
+          <p className="text-base">Add to library</p>
           <IoAddSharp className="h-5 w-5" />
         </DropdownMenuItem>
         <DropdownMenuItem className="flex items-center justify-between space-x-2">
-          <p className="text-sm">Add to a Playlist...</p>
+          <p className="text-base">Add to a Playlist...</p>
           <MdPlaylistAdd className="h-5 w-5" />
         </DropdownMenuItem>
       </DropdownMenuContent>
