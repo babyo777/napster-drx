@@ -216,7 +216,7 @@ function LibraryComp() {
               )}
               {playingPlaylistUrl == id && (
                 <div className="" onClick={handleFocus}>
-                  <RiFocus3Line className="h-8 w-8 fade-in  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+                  <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
                 </div>
               )}
               <Share />
