@@ -45,7 +45,7 @@ function SavedLibraryComp() {
   const loadSavedPlaylist = async () => {
     const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
       Query.orderDesc("$createdAt"),
-      Query.equal("for", [localStorage.getItem("uid") || "default", "default"]),
+      Query.equal("for", [localStorage.getItem("uid") || "default"]),
       Query.limit(999),
     ]);
     const p = r.documents as unknown as savedPlaylist[];
@@ -100,7 +100,7 @@ function SavedLibraryComp() {
     <>
       <Header title="Library" l={true} />
       <ToggleLibrary />
-      {currentToggle === "Playlists" && savedPlaylist.length > 0 && (
+      {currentToggle === "Playlists" && (
         <Link to={`/liked/${localStorage.getItem("uid")}`}>
           <div className="flex space-x-2 px-5 mb-3 items-center justify-between">
             <div className="flex items-center space-x-2">
