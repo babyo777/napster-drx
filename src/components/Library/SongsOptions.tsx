@@ -20,15 +20,19 @@ function SongsOptions({ library }: { library?: boolean }) {
           <p className="text-base">Add to library</p>
           <IoAddSharp className="h-5 w-5" />
         </DropdownMenuItem>
+        <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
         <DropdownMenuItem className="flex items-center justify-between space-x-2">
           <p className="text-base">Add to a Playlist...</p>
           <MdPlaylistAdd className="h-5 w-5" />
         </DropdownMenuItem>
         {library && (
-          <DropdownMenuItem className="flex items-center justify-between space-x-2">
-            <p className="text-base">Remove</p>
-            <IoIosRemoveCircleOutline className="h-5 w-5" />
-          </DropdownMenuItem>
+          <>
+            <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
+            <DropdownMenuItem className="flex items-center justify-between space-x-2">
+              <p className="text-base">Remove</p>
+              <IoIosRemoveCircleOutline className="h-5 w-5" />
+            </DropdownMenuItem>
+          </>
         )}
       </DropdownMenuContent>
     </DropdownMenu>
