@@ -87,9 +87,9 @@ function Check() {
       const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
       if (data.index !== 0) {
         const newD = [
-          ...list.data.slice(0, data?.index - 1),
+          ...list.data.slice(0, data.index),
           r.data[0],
-          ...list.data.slice(data.index - 1),
+          ...list.data.slice(data.index),
         ];
 
         dispatch(setPlaylist(newD));
@@ -114,9 +114,9 @@ function Check() {
 
       if (data.index !== 0) {
         const newD = [
-          ...list.data.slice(0, data?.index - 1),
+          ...list.data.slice(0, data?.index),
           r.data[0],
-          ...list.data.slice(data.index - 1),
+          ...list.data.slice(data.index),
         ];
 
         dispatch(setPlaylist(newD));
@@ -180,9 +180,9 @@ function Check() {
     if (data) {
       if (data.index !== 0) {
         const newD = [
-          ...modified.slice(0, data.index - 1),
+          ...modified.slice(0, data.index),
           s.data[0],
-          ...modified.slice(data.index - 1),
+          ...modified.slice(data.index),
         ];
 
         dispatch(setPlaylist(newD));
