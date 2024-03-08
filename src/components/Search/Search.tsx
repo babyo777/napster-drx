@@ -256,7 +256,7 @@ function SearchComp() {
           )}
 
           {music && !isLoading && searchQuery.length > 0 && (
-            <div className="h-[63vh] overflow-auto flex  flex-col items-center">
+            <div className="h-[63vh] overflow-y-scroll overflow-hidden flex flex-col items-center">
               {music.slice(0, 3).map((r) => (
                 <SearchSong
                   artistId={r.artists[0].id}

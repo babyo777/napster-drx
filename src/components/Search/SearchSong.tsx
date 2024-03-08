@@ -102,7 +102,7 @@ function SearchSong({
           />
         </AspectRatio>
       </div>
-      <div className="flex  flex-col pl-1 text-start w-[70dvw]">
+      <div className="flex space-y-0.5 flex-col pl-1 text-start w-[70dvw]">
         <p
           onClick={handlePlay}
           className={`w-[60dvw] ${
