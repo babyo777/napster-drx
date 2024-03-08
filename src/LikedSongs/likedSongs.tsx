@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import Songs from "@/components/Library/Songs";
 import { RxShuffle } from "react-icons/rx";
 import { RiFocus3Line } from "react-icons/ri";
+import Share from "@/HandleShare/Share";
 
 function LikedSongComp() {
   const dispatch = useDispatch();
@@ -146,9 +147,10 @@ function LikedSongComp() {
 
               {playingPlaylistUrl == id && (
                 <div className="" onClick={handleFocus}>
-                  <RiFocus3Line className="h-8 w-8 fade-in  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+                  <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
                 </div>
               )}
+              <Share />
             </div>
             <img
               width="100%"
