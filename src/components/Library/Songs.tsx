@@ -110,7 +110,7 @@ function Songs({
         )}
         <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
       </div>
-      <SongsOptions />
+      <SongsOptions library={where == "liked" && true} />
     </div>
   );
 }
