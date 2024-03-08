@@ -182,7 +182,7 @@ function Check() {
         const newD = [
           ...modified.slice(0, data.index - 1),
           s.data[0],
-          ...modified.slice(5),
+          ...modified.slice(data.index - 1),
         ];
 
         dispatch(setPlaylist(newD));
