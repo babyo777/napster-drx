@@ -110,7 +110,7 @@ function SavedLibraryComp() {
                     height="100%"
                     width="100%"
                     effect="blur"
-                    src="/liked.webp"
+                    src="https://i.pinimg.com/564x/6b/5f/67/6b5f67f1eea97e95a36dba42daeb8e57.jpg"
                     alt="Image"
                     className="rounded-lg object-cover w-[100%] h-[100%]"
                   />
