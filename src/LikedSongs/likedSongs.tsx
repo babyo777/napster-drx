@@ -155,7 +155,7 @@ function LikedSongComp() {
             <img
               width="100%"
               height="100%"
-              src="https://i.pinimg.com/564x/a5/db/7f/a5db7f1f3e8ad7c11f689c6b6d176f72.jpg"
+              src="/liked.webp"
               alt="Image"
               loading="lazy"
               className="object-cover opacity-80 h-[100%] w-[100%]"
