@@ -17,6 +17,7 @@ import ArtistPage from "./Artists/ArtistPage.tsx";
 import ListenNow from "./components/ListenNow/ListenNow.tsx";
 import LikedSong from "./LikedSongs/likedSongs.tsx";
 import Suggested from "./Suggested/Suggested.tsx";
+import { ErrorBoundary } from "react-error-boundary";
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -72,12 +73,20 @@ const router = createBrowserRouter([
 ]);
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <QueryClientProvider client={client}>
-        <ThemeProvider>
-          <RouterProvider router={router} />
-        </ThemeProvider>
-      </QueryClientProvider>
-    </Provider>
+    <ErrorBoundary
+      fallback={
+        <div className="flex h-screen justify-center items-center">
+          Something went wrong
+        </div>
+      }
+    >
+      <Provider store={store}>
+        <QueryClientProvider client={client}>
+          <ThemeProvider>
+            <RouterProvider router={router} />
+          </ThemeProvider>
+        </QueryClientProvider>
+      </Provider>
+    </ErrorBoundary>
   </React.StrictMode>
 );
