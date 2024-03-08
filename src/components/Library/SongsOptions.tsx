@@ -6,17 +6,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IoAddSharp } from "react-icons/io5";
-
+import { MdPlaylistAdd } from "react-icons/md";
 function SongsOptions() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="m-0 p-0">
-        <IoIosMore />
+        <IoIosMore className="h-5 w-5" />
+        <div className="h-[.05rem] w-[8vw] bg-zinc-300/10 mt-[1.35rem] -ml-2"></div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-zinc-800 mx-4">
-        <DropdownMenuItem className="flex items-center space-x-1">
+      <DropdownMenuContent className="bg-zinc-300/10 border-none backdrop-blur-2xl mx-4">
+        <DropdownMenuItem className="flex items-center justify-between space-x-2">
+          <p className="text-sm">Add to library</p>
           <IoAddSharp className="h-5 w-5" />
-          <p className="text-xs">Add to library</p>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="flex items-center justify-between space-x-2">
+          <p className="text-sm">Add to a Playlist...</p>
+          <MdPlaylistAdd className="h-5 w-5" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
