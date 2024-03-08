@@ -9,7 +9,7 @@ import SuggestedArtist from "./SuggestedArtist";
 import ArtistAlbums from "./ArtistAlbums";
 import Loader from "@/components/Loaders/Loader";
 import GoBack from "@/components/Goback";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { DATABASE_ID, FAV_ARTIST, db } from "@/appwrite/appwriteConfig";
 import { ID, Query } from "appwrite";
 import { FaRegStar } from "react-icons/fa";
@@ -26,8 +26,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { FaStar } from "react-icons/fa6";
+import Share from "@/HandleShare/Share";
 
-function ArtistPage() {
+function ArtistPageComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [isFavArtist, setIsFavArtist] = useState<boolean>();
@@ -175,14 +176,15 @@ function ArtistPage() {
             {isFavArtist ? (
               <FaStar
                 onClick={removeFromFav}
-                className="h-8 w-8  backdrop-blur-md fade-in  bg-black/30 rounded-full p-1.5"
+                className="h-8 w-8  backdrop-blur-md mb-2 fade-in  bg-black/30 rounded-full p-1.5"
               />
             ) : (
               <FaRegStar
                 onClick={addToFav}
-                className="h-8 w-8  backdrop-blur-md fade-in  bg-black/30 rounded-full p-1.5"
+                className="h-8 w-8 mb-2 backdrop-blur-md fade-in  bg-black/30 rounded-full p-1.5"
               />
             )}
+            <Share />
           </div>
           <img
             width="100%"
@@ -283,5 +285,5 @@ function ArtistPage() {
     </>
   );
 }
-
+const ArtistPage = React.memo(ArtistPageComp);
 export default ArtistPage;

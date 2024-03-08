@@ -38,6 +38,7 @@ import {
   db,
 } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
+import Share from "@/HandleShare/Share";
 function LibraryComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -218,6 +219,7 @@ function LibraryComp() {
                   <RiFocus3Line className="h-8 w-8 fade-in  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
                 </div>
               )}
+              <Share />
             </div>
 
             <LazyLoadImage

@@ -33,6 +33,7 @@ import {
 import { Query } from "appwrite";
 import { RxShuffle } from "react-icons/rx";
 import { RiFocus3Line } from "react-icons/ri";
+import Share from "@/HandleShare/Share";
 
 function AlbumPageComp() {
   const dispatch = useDispatch();
@@ -195,6 +196,7 @@ function AlbumPageComp() {
                   <RiFocus3Line className="h-8 w-8 fade-in  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
                 </div>
               )}
+              <Share />
             </div>
 
             <img
