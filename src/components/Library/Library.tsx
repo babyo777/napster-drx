@@ -232,7 +232,7 @@ function LibraryComp() {
                     "w120-h120",
                     "w1080-h1080"
                   )) ||
-                "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg"
+                "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
               }
               alt="Image"
               loading="lazy"
