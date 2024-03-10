@@ -10,8 +10,8 @@ import {
 } from "@/API/api";
 import {
   SearchPlaylist,
+  likedSongs,
   playlistSongs,
-  recentSearch,
   searchAlbumsInterface,
   suggestedArtists,
 } from "@/Interface";
@@ -20,7 +20,6 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { setSearch } from "@/Store/Player";
-import { GoArrowUpRight } from "react-icons/go";
 import { DATABASE_ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 import { Skeleton } from "../ui/skeleton";
 import SearchSong from "./SearchSong";
@@ -40,14 +39,14 @@ function SearchComp() {
   const loadRecentSearch = async () => {
     const r = await db.listDocuments(DATABASE_ID, INSIGHTS, [
       Query.orderDesc("$createdAt"),
-      Query.equal("user", [localStorage.getItem("uid") || ""]),
-      Query.limit(7),
+      Query.equal("for", [localStorage.getItem("uid") || ""]),
+      Query.limit(11),
     ]);
-    const p = r.documents as unknown as recentSearch[];
+    const p = r.documents as unknown as likedSongs[];
     return p;
   };
   const { data: RecentSearch, isLoading: RecentLoading } = useQuery<
-    recentSearch[]
+    likedSongs[]
   >("recentSearch", loadRecentSearch, {
     staleTime: 1000,
     refetchOnWindowFocus: false,
@@ -180,20 +179,19 @@ function SearchComp() {
                   Recent Search Played
                 </h3>
                 <div className="flex fade-in flex-col space-y-2.5  py-2.5">
-                  {RecentSearch.map((recentSearch) => (
-                    <div
-                      key={recentSearch.$id}
-                      onClick={() => {
-                        s.current && (s.current.value = recentSearch.song);
-                        search(0);
-                      }}
-                    >
-                      <p className=" flex items-center  w-[90dvw]  text-sm  gap-2">
-                        <GoArrowUpRight />
-                        {recentSearch.song}
-                      </p>
-                      <div className=" h-[.05rem] w-full bg-white/30 mt-3"></div>
-                    </div>
+                  {RecentSearch.map((r) => (
+                    <SearchSong
+                      //@ts-expect-error:custom
+                      artistId={r.artists[0]}
+                      //@ts-expect-error:custom
+                      artistName={r.artists[1]}
+                      audio={r.youtubeId}
+                      id={r.youtubeId}
+                      key={r.youtubeId}
+                      title={r.title}
+                      artist={r.artists}
+                      cover={r.thumbnailUrl}
+                    />
                   ))}
                 </div>
               </>
@@ -217,6 +215,7 @@ function SearchComp() {
                 <SearchSong
                   artistId={r.artists[0].id}
                   audio={r.youtubeId}
+                  artistName={r.artists[0].name}
                   id={r.youtubeId}
                   key={r.youtubeId}
                   title={r.title}
@@ -229,6 +228,7 @@ function SearchComp() {
                 <SearchSong
                   artistId={r.artists[0].id}
                   audio={r.youtubeId}
+                  artistName={r.artists[0].name}
                   id={r.youtubeId}
                   key={r.youtubeId}
                   title={r.title}
@@ -262,6 +262,7 @@ function SearchComp() {
               )}
               {music.slice(7, 10).map((r) => (
                 <SearchSong
+                  artistName={r.artists[0].name}
                   artistId={r.artists[0].id}
                   audio={r.youtubeId}
                   id={r.youtubeId}
@@ -303,6 +304,7 @@ function SearchComp() {
               {music.slice(11, music.length - 1).map((r) => (
                 <SearchSong
                   artistId={r.artists[0].id}
+                  artistName={r.artists[0].name}
                   audio={r.youtubeId}
                   id={r.youtubeId}
                   key={r.youtubeId}

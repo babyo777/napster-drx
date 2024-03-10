@@ -25,12 +25,14 @@ function SearchSong({
   id,
   audio,
   artistId,
+  artistName,
 }: {
   audio: string;
   id: string;
   title: string;
   artist: artists[];
   cover: string;
+  artistName?: string;
   artistId: string;
 }) {
   const dispatch = useDispatch();
@@ -52,8 +54,12 @@ function SearchSong({
   const handlePlay = useCallback(async () => {
     try {
       db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
-        song: title,
+        youtubeId: id,
+        title: title,
+        thumbnailUrl: cover,
+        artists: [artistId, artistName],
         user: localStorage.getItem("uid") || "error",
+        for: localStorage.getItem("uid"),
       });
     } catch (error) {
       console.log(error);
@@ -75,7 +81,17 @@ function SearchSong({
     dispatch(setCurrentArtistId(artistId));
     dispatch(SetPlaylistOrAlbum("suggested"));
     if (!isPlaying) dispatch(play(true));
-  }, [isPlaying, title, id, artist, cover, dispatch, artistId, data]);
+  }, [
+    isPlaying,
+    title,
+    id,
+    artist,
+    cover,
+    dispatch,
+    artistId,
+    data,
+    artistName,
+  ]);
 
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
@@ -114,8 +130,8 @@ function SearchSong({
           {title}
         </p>
         <Link to={`/artist/${artistId}`} className="w-[40dvw]">
-          <p className="-mt-0.5 h-[1rem] underline text-zinc-400 text-xs w-[40dvw]   truncate">
-            {artist[0].name}
+          <p className="-mt-0.5 h-[1rem] underline  text-zinc-400 text-xs w-[40dvw]   truncate">
+            {artist[0].name || artistName}
           </p>
         </Link>
         <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>

@@ -17,12 +17,13 @@ function AlbumSearchComp({
       db.createDocument(DATABASE_ID, ALBUM_INSIGHTS, ID.unique(), {
         id: albumId,
         name: title,
+        thumbnailUrl: thumbnailUrl,
         user: localStorage.getItem("uid") || "error",
       });
     } catch (error) {
       console.log(error);
     }
-  }, [albumId, title]);
+  }, [albumId, title, thumbnailUrl]);
   return (
     <div
       onClick={handleClick}

@@ -17,13 +17,14 @@ function ArtistSearch({ name, artistId, thumbnailUrl }: suggestedArtists) {
     try {
       db.createDocument(DATABASE_ID, ARTIST_INSIGHTS, ID.unique(), {
         id: artistId,
+        thumbnailUrl: thumbnailUrl,
         name: name,
         user: localStorage.getItem("uid") || "error",
       });
     } catch (error) {
       console.log(error);
     }
-  }, [artistId, name]);
+  }, [artistId, name, thumbnailUrl]);
 
   return (
     <div
