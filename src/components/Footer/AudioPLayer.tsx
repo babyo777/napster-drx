@@ -199,6 +199,7 @@ function AudioPLayerComp() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
     if (audioRef.current) {
+      setDuration("--:--");
       dispatch(setIsLoading(true));
 
       const sound: HTMLAudioElement | null = audioRef.current;
