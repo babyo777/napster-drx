@@ -406,7 +406,7 @@ function AudioPLayerComp() {
                       }
                       alt="Image"
                       visibleByDefault
-                      className={`object-cover shadow-lg transition-all duration-700 rounded-2xl ${
+                      className={`object-cover shadow-lg transition-all duration-500 rounded-2xl ${
                         music && !music.paused
                           ? "w-[90vw] h-[48dvh]"
                           : "w-[70vw] h-[33dvh]"
