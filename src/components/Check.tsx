@@ -281,13 +281,7 @@ function Check() {
           <Loader />
         </div>
       ) : (
-        <>
-          {isIPhone && data && playlistSongs ? (
-            <InstallNapster />
-          ) : (
-            <InstallNapsterAndroid />
-          )}
-        </>
+        <>{isIPhone ? <InstallNapster /> : <InstallNapsterAndroid />}</>
       )}
     </>
   );
