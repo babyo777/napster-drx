@@ -5,6 +5,7 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { FaBackward } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { FaForward } from "react-icons/fa";
@@ -391,33 +392,29 @@ function AudioPLayerComp() {
               <DrawerHeader>
                 <div
                   {...swipeHandler}
-                  className={`overflow-hidden  flex justify-center items-center 
+                  className={`overflow-hidden flex justify-center items-center 
                    
                      rounded-2xl mx-1 `}
                 >
-                  <div className=" flex justify-center w-[90vw] h-[44dvh]  items-center ">
-                    <div
-                      className={` shadow-lg transition-all duration-300 rounded-2xl ${
+                  <AspectRatio className="flex justify-center items-center">
+                    <LazyLoadImage
+                      src={playlist[currentIndex].thumbnailUrl.replace(
+                        "w120-h120",
+                        "w1080-h1080"
+                      )}
+                      onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                        (e.currentTarget.src =
+                          "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg")
+                      }
+                      alt="Image"
+                      visibleByDefault
+                      className={`object-cover shadow-lg transition-all duration-300 rounded-2xl ${
                         music && !music.paused
                           ? "w-[90vw] h-[48dvh]"
                           : "w-[70vw] h-[33dvh]"
                       }`}
-                    >
-                      <LazyLoadImage
-                        src={playlist[currentIndex].thumbnailUrl.replace(
-                          "w120-h120",
-                          "w1080-h1080"
-                        )}
-                        onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
-                          (e.currentTarget.src =
-                            "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg")
-                        }
-                        alt="Image"
-                        visibleByDefault
-                        className={`object-cover h-[100%] w-[100%] rounded-2xl`}
-                      />
-                    </div>
-                  </div>
+                    />
+                  </AspectRatio>
                 </div>
                 <div className=" absolute bottom-[35.5vh] w-full text-start px-2 ">
                   <div className="flex items-center space-x-3">
