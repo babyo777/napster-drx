@@ -9,7 +9,6 @@ import {
   isLoop,
   play,
   setCurrentIndex,
-  setIsLikedSong,
   setPlayingPlaylistUrl,
   setPlaylist,
   shuffle,
@@ -95,7 +94,6 @@ function LikedSongComp() {
   }, [dispatch, pDetails, isPlaying, id]);
   const handlePlay = useCallback(() => {
     if (pDetails) {
-      dispatch(setIsLikedSong(true));
       dispatch(setPlaylist(pDetails));
       dispatch(setCurrentIndex(0));
       dispatch(setPlayingPlaylistUrl(id || ""));
