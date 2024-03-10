@@ -69,15 +69,11 @@ function Check() {
     return lastPlayed as unknown as lastPlayed;
   };
 
-  const { data, isError } = useQuery<lastPlayed>(
-    "lastPlayedSongs",
-    getLastPlayed,
-    {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      staleTime: Infinity,
-    }
-  );
+  const { data } = useQuery<lastPlayed>("lastPlayedSongs", getLastPlayed, {
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    staleTime: Infinity,
+  });
 
   const getPlaylist = async () => {
     if (data) {
@@ -291,7 +287,6 @@ function Check() {
           ) : (
             <InstallNapsterAndroid />
           )}
-          {isIPhone && isError ? <InstallNapster /> : <InstallNapsterAndroid />}
         </>
       )}
     </>
