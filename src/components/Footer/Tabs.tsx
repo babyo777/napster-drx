@@ -18,7 +18,7 @@ function TabsComp() {
                 `${isActive && "text-zinc-300"} flex flex-col  items-center`
               }
             >
-              <GoHomeFill className="h-6 w-6" />
+              <GoHomeFill className="h-7 w-7" />
               <span className="text-xs mt-1">Home</span>
             </NavLink>
           </li>
