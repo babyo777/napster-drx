@@ -261,15 +261,15 @@ function AudioPLayerComp() {
         setProgress(sound.currentTime);
       };
 
-      const handleVisibilityChange = () => {
-        if (document.visibilityState === "hidden" && sound.paused) {
-          sound.play().catch((error) => {
-            console.error("Error playing audio:", error);
-          });
-        }
-      };
+      // const handleVisibilityChange = () => {
+      //   if (document.visibilityState === "hidden" && sound.paused) {
+      //     sound.play().catch((error) => {
+      //       console.error("Error playing audio:", error);
+      //     });
+      //   }
+      // };
 
-      document.addEventListener("visibilitychange", handleVisibilityChange);
+      // document.addEventListener("visibilitychange", handleVisibilityChange);
       sound.setAttribute("playsinline", "true");
       sound.addEventListener("play", handlePlay);
       sound.addEventListener("pause", handlePause);
@@ -284,10 +284,10 @@ function AudioPLayerComp() {
       return () => {
         sound.load();
         sound.pause();
-        document.removeEventListener(
-          "visibilitychange",
-          handleVisibilityChange
-        );
+        // document.removeEventListener(
+        //   "visibilitychange",
+        //   handleVisibilityChange
+        // );
         sound.removeEventListener("play", handlePlay);
         sound.removeEventListener("pause", handlePause);
         sound.removeEventListener("loadedmetadata", handleLoad);
