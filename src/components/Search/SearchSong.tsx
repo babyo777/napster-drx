@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 import axios from "axios";
 import { SuggestionSearchApi } from "@/API/api";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import SongsOptions from "../Library/SongsOptions";
 function SearchSong({
   title,
@@ -35,7 +35,6 @@ function SearchSong({
   artistName?: string;
   artistId: string;
 }) {
-  const q = useQueryClient();
   const dispatch = useDispatch();
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
@@ -73,7 +72,6 @@ function SearchSong({
     };
 
     dispatch(setPlaylist([m]));
-    q.fetchQuery("recentSearch");
 
     if (data) {
       dispatch(setPlaylist(data));
@@ -93,7 +91,6 @@ function SearchSong({
     artistId,
     data,
     artistName,
-    q,
   ]);
 
   const currentIndex = useSelector(

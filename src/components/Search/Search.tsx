@@ -48,7 +48,7 @@ function SearchComp() {
   const { data: RecentSearch, isLoading: RecentLoading } = useQuery<
     likedSongs[]
   >("recentSearch", loadRecentSearch, {
-    staleTime: 1,
+    staleTime: 1000,
     refetchOnWindowFocus: false,
     keepPreviousData: true,
   });
