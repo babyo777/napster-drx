@@ -357,7 +357,7 @@ function AudioPLayerComp() {
   return (
     <>
       <audio hidden ref={audioRef} src={""}></audio>
-      {!isStandalone ? (
+      {isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>
@@ -392,12 +392,12 @@ function AudioPLayerComp() {
               <DrawerHeader>
                 <div
                   {...swipeHandler}
-                  className="overflow-hidden h-[48dvh] w-[90vw] rounded-2xl mx-1 "
+                  className={`overflow-hidden flex justify-center items-center 
+                   
+                     rounded-2xl mx-1 `}
                 >
-                  <AspectRatio>
+                  <AspectRatio className="flex justify-center items-center">
                     <LazyLoadImage
-                      height="100%"
-                      width="100%"
                       src={playlist[currentIndex].thumbnailUrl.replace(
                         "w120-h120",
                         "w1080-h1080"
@@ -408,7 +408,11 @@ function AudioPLayerComp() {
                       }
                       alt="Image"
                       visibleByDefault
-                      className="object-cover rounded-2xl w-[100%] h-[100%]"
+                      className={`object-cover rounded-2xl ${
+                        music && !music.paused
+                          ? "w-[90vw] h-[48dvh]"
+                          : "w-[70vw] h-[35dvh]"
+                      }`}
                     />
                   </AspectRatio>
                 </div>
