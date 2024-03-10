@@ -34,6 +34,7 @@ import {
   ID,
   LAST_PLAYED,
   LIKE_SONG,
+  MOST_PLAYED,
   db,
 } from "@/appwrite/appwriteConfig";
 import { FaHeart } from "react-icons/fa";
@@ -196,10 +197,18 @@ function AudioPLayerComp() {
       });
     }
   }, [playlist, currentIndex, PlaylistOrAlbum, uid, playingPlaylistUrl]);
+
+  const playingInsights = useCallback(() => {
+    db.createDocument(DATABASE_ID, MOST_PLAYED, ID.unique(), {
+      user: localStorage.getItem("uid"),
+      sname: playlist[currentIndex].title,
+      sid: playlist[currentIndex].youtubeId,
+      sartist: playlist[currentIndex].artists[0].name,
+    });
+  }, [playlist, currentIndex]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
     if (audioRef.current) {
-      setDuration("--:--");
       dispatch(setIsLoading(true));
 
       const sound: HTMLAudioElement | null = audioRef.current;
@@ -230,6 +239,7 @@ function AudioPLayerComp() {
         setDuration(sound.duration);
         dispatch(play(true));
         saveLastPlayed();
+        playingInsights();
       };
 
       const handlePause = () => {
@@ -312,6 +322,7 @@ function AudioPLayerComp() {
     refetch,
     isLooped,
     saveLastPlayed,
+    playingInsights,
   ]);
 
   const handleLoop = useCallback(async () => {
