@@ -72,7 +72,7 @@ function SearchSong({
     };
 
     dispatch(setPlaylist([m]));
-    q.getQueryData("recentSearch");
+    q.refetchQueries("recentSearch");
 
     if (data) {
       dispatch(setPlaylist(data));
