@@ -51,7 +51,7 @@ function Suggested() {
         <div className="py-3 pb-[9.5rem]">
           {data.map((data, i) => (
             <Songs
-              p={""}
+              p={"suggested"}
               where="suggested"
               artistId={data.artists[0]?.id}
               audio={data.youtubeId}

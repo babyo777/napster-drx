@@ -68,6 +68,16 @@ function Songs({
       dispatch(setPlaylist(data));
       dispatch(SetPlaylistOrAlbum(where));
       dispatch(setCurrentIndex(id));
+    } else if (p == "suggested") {
+      if (liked) {
+        dispatch(setIsLikedSong(true));
+      }
+      dispatch(isLoop(false));
+      dispatch(setPlayingPlaylistUrl(p));
+      dispatch(setCurrentArtistId(artistId));
+      dispatch(setPlaylist(playlist));
+      dispatch(SetPlaylistOrAlbum(where));
+      dispatch(setCurrentIndex(id));
     }
     if (!isPlaying) dispatch(play(true));
   }, [dispatch, id, q, p, isPlaying, artistId, query, liked, where]);
