@@ -238,6 +238,7 @@ function AudioPLayerComp() {
       const handleError = () => {
         setDuration("--:--");
         setProgress("--:--");
+        sound.load();
         dispatch(setIsLoading(true));
       };
 
