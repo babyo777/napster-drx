@@ -50,9 +50,7 @@ function AudioPLayerComp() {
   const PlaylistOrAlbum = useSelector(
     (state: RootState) => state.musicReducer.PlaylistOrAlbum
   );
-  const isLikedSong = useSelector(
-    (state: RootState) => state.musicReducer.isLikedSong
-  );
+
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
@@ -357,7 +355,7 @@ function AudioPLayerComp() {
   return (
     <>
       <audio hidden ref={audioRef} src={""}></audio>
-      {!isStandalone ? (
+      {isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>
@@ -502,11 +500,7 @@ function AudioPLayerComp() {
               <div className=" justify-center absolute bottom-[6vh] w-full px-7 text-zinc-400 items-center">
                 <div className="flex items-center justify-between w-full">
                   {playlist.length > 1 ? (
-                    <Link
-                      to={`/${
-                        isLikedSong ? "liked" : PlaylistOrAlbum
-                      }/${playingPlaylistUrl}`}
-                    >
+                    <Link to={`/${PlaylistOrAlbum}/${playingPlaylistUrl}`}>
                       <DrawerClose>
                         <MdOpenInNew className="h-6 w-6" />
                       </DrawerClose>

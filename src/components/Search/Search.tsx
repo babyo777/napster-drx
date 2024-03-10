@@ -178,7 +178,7 @@ function SearchComp() {
                   Recent Search Played
                 </h3>
                 <div className="flex fade-in flex-col -space-y-1  ">
-                  {RecentSearch.map((r) => (
+                  {RecentSearch.map((r, i) => (
                     <SearchSong
                       //@ts-expect-error:custom
                       artistId={r.artists[0]}
@@ -186,7 +186,7 @@ function SearchComp() {
                       artistName={r.artists[1]}
                       audio={r.youtubeId}
                       id={r.youtubeId}
-                      key={r.youtubeId}
+                      key={r.youtubeId + i}
                       title={r.title}
                       artist={r.artists}
                       cover={r.thumbnailUrl}
