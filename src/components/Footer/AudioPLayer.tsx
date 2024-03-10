@@ -411,7 +411,7 @@ function AudioPLayerComp() {
                       className={`object-cover transition-all duration-300 rounded-2xl ${
                         music && !music.paused
                           ? "w-[90vw] h-[48dvh]"
-                          : "w-[70vw] h-[35dvh]"
+                          : "w-[70vw] h-[33dvh]"
                       }`}
                     />
                   </AspectRatio>
