@@ -58,7 +58,6 @@ function SearchSong({
         title: title,
         thumbnailUrl: cover,
         artists: [artistId, artistName],
-        user: localStorage.getItem("uid") || "error",
         for: localStorage.getItem("uid"),
       });
     } catch (error) {
