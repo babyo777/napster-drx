@@ -1,19 +1,36 @@
 import { RootState } from "@/Store/Store";
 import GoBack from "@/components/Goback";
 import Songs from "@/components/Library/Songs";
+import { useCallback } from "react";
+import { RiFocus3Line } from "react-icons/ri";
 // import { Button } from "@/components/ui/button";
 // import { FaPlay } from "react-icons/fa6";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useSelector } from "react-redux";
 
 function Suggested() {
+  const currentIndex = useSelector(
+    (state: RootState) => state.musicReducer.currentIndex
+  );
+
+  const playlist = useSelector(
+    (state: RootState) => state.musicReducer.playlist
+  );
+  const handleFocus = useCallback(() => {
+    const toFocus = document.getElementById(playlist[currentIndex].youtubeId);
+    toFocus?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [currentIndex, playlist]);
   const data = useSelector((state: RootState) => state.musicReducer.playlist);
   return (
     <div className=" flex flex-col items-center">
       <>
         <div className="flex w-full h-[23rem] relative ">
           <GoBack />
-
+          <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
+            <div className="" onClick={handleFocus}>
+              <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+            </div>
+          </div>
           <LazyLoadImage
             effect="blur"
             width="100%"
