@@ -214,6 +214,7 @@ function Check() {
   const getSuggestedSongs = async () => {
     const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
     dispatch(setPlaylist(r.data));
+
     return r.data as playlistSongs[];
   };
 
@@ -245,6 +246,7 @@ function Check() {
         likedSong();
       }
       if (data.navigator == "suggested") {
+        dispatch(setCurrentIndex(0));
         suggested();
       }
     }
