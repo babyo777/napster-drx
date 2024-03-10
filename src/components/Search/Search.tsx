@@ -178,7 +178,7 @@ function SearchComp() {
                 <h3 className="text-xs fade-in text-zinc-500 pt-2 pb-1 ">
                   Recent Search Played
                 </h3>
-                <div className="flex fade-in flex-col space-y-2.5  py-2.5">
+                <div className="flex fade-in flex-col -space-y-1  py-2.5">
                   {RecentSearch.map((r) => (
                     <SearchSong
                       //@ts-expect-error:custom
