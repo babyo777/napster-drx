@@ -252,6 +252,7 @@ function AudioPLayerComp() {
 
       const handleLoad = () => {
         dispatch(setIsLoading(false));
+        setDuration(sound.duration);
         setProgress(sound.currentTime);
         refetch();
       };
