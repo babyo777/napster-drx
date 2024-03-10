@@ -129,7 +129,7 @@ export function ListenNowComp() {
           </Alert>
         </div>
       )}
-      <Header title="Listen Now" />
+      <Header title="Home" />
 
       {!chart && !artist && !suggested && (
         <>

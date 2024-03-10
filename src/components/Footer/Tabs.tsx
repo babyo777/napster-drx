@@ -1,9 +1,9 @@
-import { FaRegCirclePlay } from "react-icons/fa6";
 import { IoIosRadio } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { MdLibraryMusic } from "react-icons/md";
 import { Player } from "./Player";
 import { NavLink } from "react-router-dom";
+import { GoHomeFill } from "react-icons/go";
 import React from "react";
 function TabsComp() {
   return (
@@ -18,8 +18,8 @@ function TabsComp() {
                 `${isActive && "text-zinc-300"} flex flex-col  items-center`
               }
             >
-              <FaRegCirclePlay className="h-6 w-6" />
-              <span className="text-xs mt-1">Listen now</span>
+              <GoHomeFill className="h-6 w-6" />
+              <span className="text-xs mt-1">Home</span>
             </NavLink>
           </li>
           <li>
