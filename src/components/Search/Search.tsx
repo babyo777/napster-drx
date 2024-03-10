@@ -40,7 +40,7 @@ function SearchComp() {
     const r = await db.listDocuments(DATABASE_ID, INSIGHTS, [
       Query.orderDesc("$createdAt"),
       Query.equal("for", [localStorage.getItem("uid") || ""]),
-      Query.limit(11),
+      Query.limit(7),
     ]);
     const p = r.documents as unknown as likedSongs[];
     return p;
