@@ -202,7 +202,7 @@ function AudioPLayerComp() {
       dispatch(setIsLoading(true));
 
       const sound: HTMLAudioElement | null = audioRef.current;
-
+      sound.src = `${streamApi}${playlist[currentIndex]?.youtubeId}`;
       const handlePlay = () => {
         navigator.mediaSession.metadata = new MediaMetadata({
           title: playlist[currentIndex].title,
@@ -344,11 +344,7 @@ function AudioPLayerComp() {
 
   return (
     <>
-      <audio
-        hidden
-        ref={audioRef}
-        src={`${streamApi}${playlist[currentIndex]?.youtubeId}`}
-      ></audio>
+      <audio hidden ref={audioRef} src={""}></audio>
       {!isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
