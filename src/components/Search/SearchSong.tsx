@@ -53,6 +53,7 @@ function SearchSong({
   );
 
   const handlePlay = useCallback(async () => {
+    dispatch(SetPlaylistOrAlbum("suggested"));
     try {
       db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
         youtubeId: id,
