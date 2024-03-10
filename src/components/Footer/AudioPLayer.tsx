@@ -228,6 +228,7 @@ function AudioPLayerComp() {
         }
         setDuration(sound.duration);
         dispatch(play(true));
+        saveLastPlayed();
       };
 
       const handlePause = () => {
@@ -253,7 +254,6 @@ function AudioPLayerComp() {
         dispatch(setIsLoading(false));
         setDuration(sound.duration);
         setProgress(sound.currentTime);
-        saveLastPlayed();
         refetch();
       };
 
