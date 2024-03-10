@@ -80,7 +80,7 @@ function Songs({
       dispatch(setCurrentIndex(id));
     }
     if (!isPlaying) dispatch(play(true));
-  }, [dispatch, id, q, p, isPlaying, artistId, query, liked, where]);
+  }, [dispatch, id, q, p, isPlaying, artistId, query, liked, where, playlist]);
 
   return (
     <div id={audio} className="flex fade-in py-2 space-x-2 items-center">
