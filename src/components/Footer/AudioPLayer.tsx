@@ -197,16 +197,13 @@ function AudioPLayerComp() {
   }, [playlist, currentIndex, PlaylistOrAlbum, uid, playingPlaylistUrl]);
 
   const playingInsights = useCallback(() => {
-    if (progress === 30) {
-      db.createDocument(DATABASE_ID, MOST_PLAYED, ID.unique(), {
-        user: localStorage.getItem("uid"),
-        sname: playlist[currentIndex].title,
-        sid: playlist[currentIndex].youtubeId,
-        sartist: playlist[currentIndex].artists[0].name,
-      });
-    }
-  }, [playlist, currentIndex, progress]);
-
+    db.createDocument(DATABASE_ID, MOST_PLAYED, ID.unique(), {
+      user: localStorage.getItem("uid"),
+      sname: playlist[currentIndex].title,
+      sid: playlist[currentIndex].youtubeId,
+      sartist: playlist[currentIndex].artists[0].name,
+    });
+  }, [playlist, currentIndex]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
     if (audioRef.current) {
@@ -240,6 +237,7 @@ function AudioPLayerComp() {
         setDuration(sound.duration);
         dispatch(play(true));
         saveLastPlayed();
+        playingInsights();
       };
 
       const handlePause = () => {
@@ -270,9 +268,6 @@ function AudioPLayerComp() {
 
       const handleTimeUpdate = () => {
         setProgress(sound.currentTime);
-        if (Math.floor(sound.currentTime) === 30) {
-          playingInsights();
-        }
       };
 
       // const handleVisibilityChange = () => {
