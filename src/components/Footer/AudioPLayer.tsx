@@ -42,6 +42,7 @@ import { useQuery } from "react-query";
 import { Query } from "appwrite";
 import { useSwipeable } from "react-swipeable";
 function AudioPLayerComp() {
+  const [insight, setInsight] = useState<boolean>();
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
   const music = useSelector((state: RootState) => state.musicReducer.music);
@@ -237,6 +238,7 @@ function AudioPLayerComp() {
         setDuration(sound.duration);
         dispatch(play(true));
         saveLastPlayed();
+        setInsight(false);
       };
 
       const handlePause = () => {
@@ -266,7 +268,8 @@ function AudioPLayerComp() {
       };
 
       const handleTimeUpdate = () => {
-        if (Math.floor(sound.currentTime) === 30) {
+        if (Math.floor(sound.currentTime) === 30 && !insight) {
+          setInsight(true);
           playingInsights();
         }
         setProgress(sound.currentTime);
@@ -322,6 +325,7 @@ function AudioPLayerComp() {
     refetch,
     isLooped,
     saveLastPlayed,
+    insight,
     playingInsights,
   ]);
 
