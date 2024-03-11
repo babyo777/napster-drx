@@ -180,6 +180,7 @@ function SearchComp() {
                 <div className="flex fade-in flex-col -space-y-1  ">
                   {RecentSearch.map((r, i) => (
                     <SearchSong
+                      fromSearch={true}
                       //@ts-expect-error:custom
                       artistId={r.artists[0]}
                       //@ts-expect-error:custom

@@ -25,8 +25,10 @@ function SearchSong({
   id,
   audio,
   artistId,
+  fromSearch,
   artistName,
 }: {
+  fromSearch?: boolean;
   audio: string;
   id: string;
   title: string;
@@ -52,16 +54,18 @@ function SearchSong({
   );
 
   const handlePlay = useCallback(async () => {
-    try {
-      db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
-        youtubeId: id,
-        title: title,
-        thumbnailUrl: cover,
-        artists: [artistId, artistName],
-        for: localStorage.getItem("uid"),
-      });
-    } catch (error) {
-      console.log(error);
+    if (!fromSearch) {
+      try {
+        db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
+          youtubeId: id,
+          title: title,
+          thumbnailUrl: cover,
+          artists: [artistId, artistName],
+          for: localStorage.getItem("uid"),
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
     const m: playlistSongs = {
       youtubeId: id,
@@ -89,6 +93,7 @@ function SearchSong({
     dispatch,
     artistId,
     data,
+    fromSearch,
     artistName,
   ]);
 
