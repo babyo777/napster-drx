@@ -200,7 +200,7 @@ function SearchComp() {
           {searchQuery.length == 0 && (
             <>
               {RecentLoading && (
-                <div className="flex fade-in space-y-3  flex-col px-5">
+                <div className="flex flex-col space-y-2.5  py-2.5">
                   <SkeletonP />
                   <SkeletonP />
                   <SkeletonP />
