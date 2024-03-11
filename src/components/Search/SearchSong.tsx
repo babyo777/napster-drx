@@ -135,7 +135,7 @@ function SearchSong({
         </p>
         <Link to={`/artist/${artistId}`} className="w-[40dvw]">
           <p className="-mt-0.5 h-[1rem] underline  text-zinc-400 text-xs w-[40dvw]   truncate">
-            {artist[0].name || artistName}
+            {artist[0]?.name || artistName}
           </p>
         </Link>
         <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
