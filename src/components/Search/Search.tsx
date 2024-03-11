@@ -21,13 +21,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { setSearch } from "@/Store/Player";
 import { DATABASE_ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
-import { Skeleton } from "../ui/skeleton";
 import SearchSong from "./SearchSong";
 import { Query } from "appwrite";
 import { ArtistSearch } from "./artistSearch";
 import { MdCancel } from "react-icons/md";
 import { PlaylistSearchComp } from "./playlistSearch";
 import { AlbumSearchComp } from "./albumSearch";
+import SkeletonP from "../Library/SkeletonP";
 
 function SearchComp() {
   const searchQuery = useSelector(
@@ -200,10 +200,11 @@ function SearchComp() {
           {searchQuery.length == 0 && (
             <>
               {RecentLoading && (
-                <div className="flex flex-col space-y-2.5  py-2.5">
-                  <Skeleton className="w-[90vw] h-[.7rem]  rounded-md bg-zinc-500 py-1" />
-                  <Skeleton className="w-[90vw] h-[.7rem]  rounded-md bg-zinc-500 py-1" />
-                  <Skeleton className="w-[70vw] h-[.7rem]  rounded-md bg-zinc-500 py-1" />
+                <div className="flex fade-in space-y-3  flex-col px-5">
+                  <SkeletonP />
+                  <SkeletonP />
+                  <SkeletonP />
+                  <SkeletonP />
                 </div>
               )}
             </>
