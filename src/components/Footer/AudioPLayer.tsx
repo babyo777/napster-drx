@@ -266,7 +266,10 @@ function AudioPLayerComp() {
       };
 
       const handleTimeUpdate = () => {
-        if (sound.currentTime == sound.duration / 2) {
+        const currentTimeInSeconds = Math.floor(sound.currentTime);
+        const durationInSeconds = Math.floor(sound.duration / 2);
+
+        if (currentTimeInSeconds == durationInSeconds) {
           playingInsights();
         }
         setProgress(sound.currentTime);
