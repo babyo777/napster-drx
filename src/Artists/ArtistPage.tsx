@@ -269,7 +269,7 @@ function ArtistPageComp() {
           <div className="flex  px-4 py-2 pt-3 ">
             <h1 className="text-start font-semibold text-xl">Fans also like</h1>
           </div>
-          <div className="flex overflow-x-scroll -space-x-6 items-center">
+          <div className="flex overflow-x-scroll -space-x-5 items-center">
             {data &&
               data.suggestedArtists.map((s) => (
                 <SuggestedArtist
