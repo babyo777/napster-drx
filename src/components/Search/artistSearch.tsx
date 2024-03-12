@@ -59,8 +59,6 @@ function ArtistSearch({
           <p className="-mt-0.5  text-zinc-400 text-xs w-[40dvw]   truncate">
             Artist
           </p>
-
-          <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
         </div>
       </Link>
       <Link to={`/artist/${artistId}`}>
