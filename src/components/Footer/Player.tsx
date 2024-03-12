@@ -52,7 +52,7 @@ export function Player() {
 
   return (
     <>
-      <div className="flex items-center fade-in py-2 backdrop-blur-md space-x-5 bg-zinc-100/10 w-[94vw] rounded-2xl shadow-md mb-1.5">
+      <div className="flex items-center fade-in py-2 backdrop-blur-md space-x-5 bg-zinc-100/10 w-[94vw] rounded-2xl shadow-md z-10 -mb-1">
         {isPlaylist && isPlaylist.length > 0 ? (
           <AudioPLayer />
         ) : (
