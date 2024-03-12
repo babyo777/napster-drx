@@ -5,21 +5,17 @@ import { GrNext } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { suggestedArtists } from "@/Interface";
 import { useCallback } from "react";
-import {
-  ARTIST_INSIGHTS,
-  DATABASE_ID,
-  ID,
-  db,
-} from "@/appwrite/appwriteConfig";
+import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 
 function ArtistSearch({ name, artistId, thumbnailUrl }: suggestedArtists) {
   const handleClick = useCallback(() => {
     try {
-      db.createDocument(DATABASE_ID, ARTIST_INSIGHTS, ID.unique(), {
-        id: artistId,
+      db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
+        youtubeId: artistId,
         thumbnailUrl: thumbnailUrl,
-        name: name,
-        user: localStorage.getItem("uid") || "error",
+        title: name,
+        type: "artist",
+        for: localStorage.getItem("uid") || "error",
       });
     } catch (error) {
       console.log(error);
