@@ -9,7 +9,13 @@ import { IoAddSharp } from "react-icons/io5";
 import { MdPlaylistAdd } from "react-icons/md";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { useCallback } from "react";
-function SongsOptions({ library }: { library?: boolean }) {
+function SongsOptions({
+  library,
+  underline,
+}: {
+  library?: boolean;
+  underline?: boolean;
+}) {
   const handleBeat = useCallback(() => {
     alert("soon...");
   }, []);
@@ -17,7 +23,9 @@ function SongsOptions({ library }: { library?: boolean }) {
     <DropdownMenu>
       <DropdownMenuTrigger className="m-0 p-0">
         <IoIosMore className="h-5 w-5" />
-        <div className="h-[.05rem] w-[8vw] bg-zinc-300/10 mt-[1.35rem] -ml-2"></div>
+        {!underline && (
+          <div className="h-[.05rem] w-[8vw] bg-zinc-300/10 mt-[1.35rem] -ml-2"></div>
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-zinc-400/10 border-none rounded-lg backdrop-blur-2xl mx-4 -mt-5">
         <DropdownMenuItem

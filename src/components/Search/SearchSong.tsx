@@ -141,7 +141,7 @@ function SearchSong({
         </Link>
         {/* <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div> */}
       </div>
-      <SongsOptions />
+      <SongsOptions underline={true} />
     </div>
   );
 }
