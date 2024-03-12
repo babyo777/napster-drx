@@ -89,8 +89,6 @@ function Check() {
         ];
 
         dispatch(setPlaylist(newD));
-      } else if (r.data[0].youtubeId == list.data[data.index].youtubeId) {
-        dispatch(setPlaylist(list.data));
       } else {
         if (r.data[0].youtubeId == data.curentsongid) {
           const n = list.data.slice(1);
@@ -118,8 +116,6 @@ function Check() {
         ];
 
         dispatch(setPlaylist(newD));
-      } else if (r.data[0].youtubeId == list.data[data.index].youtubeId) {
-        dispatch(setPlaylist(list.data));
       } else {
         if (r.data[0].youtubeId == data.curentsongid) {
           const n = list.data.slice(1);
@@ -186,8 +182,6 @@ function Check() {
         ];
 
         dispatch(setPlaylist(newD));
-      } else if (s.data[0].youtubeId == modified[data.index].youtubeId) {
-        dispatch(setPlaylist(modified));
       } else {
         if (s.data[0].youtubeId == data.curentsongid) {
           const n = modified.slice(1);
