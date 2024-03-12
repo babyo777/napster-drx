@@ -32,6 +32,7 @@ interface recentSearch {
 }
 
 interface SearchPlaylist {
+  fromSearch?: boolean;
   playlistId: string;
   title: string;
   totalSongs?: number;
@@ -59,11 +60,13 @@ interface albums {
 }
 
 interface searchAlbumsInterface {
+  fromSearch?: boolean;
   albumId: string;
   title: string;
   thumbnailUrl: string;
 }
 interface suggestedArtists {
+  fromSearch?: boolean;
   artistId: string;
   name: string;
   thumbnailUrl: string;
@@ -90,6 +93,7 @@ interface lastPlayed {
   index: number;
 }
 interface likedSongs {
+  type?: "album" | "playlist" | "music" | "artist";
   for: string;
   youtubeId: string;
   artists: artists[];

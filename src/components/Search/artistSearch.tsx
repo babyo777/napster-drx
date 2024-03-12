@@ -7,20 +7,27 @@ import { suggestedArtists } from "@/Interface";
 import { useCallback } from "react";
 import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 
-function ArtistSearch({ name, artistId, thumbnailUrl }: suggestedArtists) {
+function ArtistSearch({
+  name,
+  artistId,
+  thumbnailUrl,
+  fromSearch,
+}: suggestedArtists) {
   const handleClick = useCallback(() => {
-    try {
-      db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
-        youtubeId: artistId,
-        thumbnailUrl: thumbnailUrl,
-        title: name,
-        type: "artist",
-        for: localStorage.getItem("uid") || "error",
-      });
-    } catch (error) {
-      console.log(error);
+    if (!fromSearch) {
+      try {
+        db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
+          youtubeId: artistId,
+          thumbnailUrl: thumbnailUrl,
+          title: name,
+          type: "artist",
+          for: localStorage.getItem("uid") || "error",
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, [artistId, name, thumbnailUrl]);
+  }, [artistId, name, thumbnailUrl, fromSearch]);
 
   return (
     <div

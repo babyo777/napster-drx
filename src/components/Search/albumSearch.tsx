@@ -11,20 +11,23 @@ function AlbumSearchComp({
   albumId,
   title,
   thumbnailUrl,
+  fromSearch,
 }: searchAlbumsInterface) {
   const handleClick = useCallback(() => {
-    try {
-      db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
-        youtubeId: albumId,
-        title: title,
-        thumbnailUrl: thumbnailUrl,
-        type: "album",
-        for: localStorage.getItem("uid") || "error",
-      });
-    } catch (error) {
-      console.log(error);
+    if (!fromSearch) {
+      try {
+        db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
+          youtubeId: albumId,
+          title: title,
+          thumbnailUrl: thumbnailUrl,
+          type: "album",
+          for: localStorage.getItem("uid") || "error",
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, [albumId, title, thumbnailUrl]);
+  }, [albumId, title, thumbnailUrl, fromSearch]);
   return (
     <div
       onClick={handleClick}

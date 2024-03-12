@@ -28,6 +28,7 @@ import { MdCancel } from "react-icons/md";
 import { PlaylistSearchComp } from "./playlistSearch";
 import { AlbumSearchComp } from "./albumSearch";
 import SkeletonP from "../Library/SkeletonP";
+import RecentSearchesComp from "./RecentSearches";
 
 function SearchComp() {
   const searchQuery = useSelector(
@@ -40,8 +41,7 @@ function SearchComp() {
     const r = await db.listDocuments(DATABASE_ID, INSIGHTS, [
       Query.orderDesc("$createdAt"),
       Query.equal("for", [localStorage.getItem("uid") || ""]),
-      Query.equal("type", "music"),
-      Query.limit(7),
+      Query.limit(8),
     ]);
     const p = r.documents as unknown as likedSongs[];
     return p;
@@ -180,19 +180,7 @@ function SearchComp() {
                 </h3>
                 <div className="flex fade-in flex-col -space-y-1  ">
                   {RecentSearch.map((r, i) => (
-                    <SearchSong
-                      fromSearch={true}
-                      //@ts-expect-error:custom
-                      artistId={r.artists[0]}
-                      //@ts-expect-error:custom
-                      artistName={r.artists[1]}
-                      audio={r.youtubeId}
-                      id={r.youtubeId}
-                      key={r.youtubeId + i}
-                      title={r.title}
-                      artist={r.artists}
-                      cover={r.thumbnailUrl}
-                    />
+                    <RecentSearchesComp r={r} key={r.youtubeId + i} />
                   ))}
                 </div>
               </>

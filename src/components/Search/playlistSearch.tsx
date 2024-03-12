@@ -10,21 +10,24 @@ import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 function PlaylistSearchComp({
   playlistId,
   title,
+  fromSearch,
   thumbnailUrl,
 }: SearchPlaylist) {
   const handleClick = useCallback(() => {
-    try {
-      db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
-        youtubeId: playlistId,
-        title: title,
-        type: "playlist",
-        thumbnailUrl: thumbnailUrl,
-        for: localStorage.getItem("uid") || "error",
-      });
-    } catch (error) {
-      console.log(error);
+    if (!fromSearch) {
+      try {
+        db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
+          youtubeId: playlistId,
+          title: title,
+          type: "playlist",
+          thumbnailUrl: thumbnailUrl,
+          for: localStorage.getItem("uid") || "error",
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, [playlistId, title, thumbnailUrl]);
+  }, [playlistId, title, thumbnailUrl, fromSearch]);
   return (
     <div
       onClick={handleClick}
