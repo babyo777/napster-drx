@@ -171,7 +171,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
                   <FormControl>
                     <Input
                       className=" py-5"
-                      placeholder="Enter your name"
+                      placeholder="Give a name..."
                       {...field}
                     ></Input>
                   </FormControl>
