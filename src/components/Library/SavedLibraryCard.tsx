@@ -61,7 +61,7 @@ function SavedLibraryCard({
               <p className="w-[59vw]  text-lg   fade-in truncate">
                 {author || "NapsterDrx."}
               </p>
-              <p className="-mt-0.5  hidden text-xs w-[50vw] truncate">
+              <p className="-mt-0.5  text-xs w-[50vw] truncate">
                 {p[0].title || "Unknown"}
               </p>
             </div>
