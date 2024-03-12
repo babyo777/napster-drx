@@ -5,12 +5,7 @@ import { GrNext } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { SearchPlaylist } from "@/Interface";
 import { useCallback } from "react";
-import {
-  DATABASE_ID,
-  ID,
-  PLAYLIST_INSIGHTS,
-  db,
-} from "@/appwrite/appwriteConfig";
+import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 
 function PlaylistSearchComp({
   playlistId,
@@ -19,15 +14,17 @@ function PlaylistSearchComp({
 }: SearchPlaylist) {
   const handleClick = useCallback(() => {
     try {
-      db.createDocument(DATABASE_ID, PLAYLIST_INSIGHTS, ID.unique(), {
-        playlistId: playlistId,
+      db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
+        youtubeId: playlistId,
         title: title,
-        user: localStorage.getItem("uid") || "error",
+        type: "playlist",
+        thumbnailUrl: thumbnailUrl,
+        for: localStorage.getItem("uid") || "error",
       });
     } catch (error) {
       console.log(error);
     }
-  }, [playlistId, title]);
+  }, [playlistId, title, thumbnailUrl]);
   return (
     <div
       onClick={handleClick}

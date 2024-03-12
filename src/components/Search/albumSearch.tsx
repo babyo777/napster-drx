@@ -5,7 +5,7 @@ import { GrNext } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { searchAlbumsInterface } from "@/Interface";
 import { useCallback } from "react";
-import { ALBUM_INSIGHTS, DATABASE_ID, ID, db } from "@/appwrite/appwriteConfig";
+import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 
 function AlbumSearchComp({
   albumId,
@@ -14,11 +14,12 @@ function AlbumSearchComp({
 }: searchAlbumsInterface) {
   const handleClick = useCallback(() => {
     try {
-      db.createDocument(DATABASE_ID, ALBUM_INSIGHTS, ID.unique(), {
-        id: albumId,
-        name: title,
+      db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
+        youtubeId: albumId,
+        title: title,
         thumbnailUrl: thumbnailUrl,
-        user: localStorage.getItem("uid") || "error",
+        type: "album",
+        for: localStorage.getItem("uid") || "error",
       });
     } catch (error) {
       console.log(error);

@@ -61,6 +61,7 @@ function SearchSong({
           title: title,
           thumbnailUrl: cover,
           artists: [artistId, artistName],
+          type: "music",
           for: localStorage.getItem("uid"),
         });
       } catch (error) {
