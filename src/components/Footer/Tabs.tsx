@@ -4,13 +4,14 @@ import { Player } from "./Player";
 import { NavLink } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
 import { BiLibrary } from "react-icons/bi";
+// import { MdOutlineGridView } from "react-icons/md";
 import React from "react";
 function TabsComp() {
   return (
     <div className="fixed fade-in w-full right-0 left-0 bottom-0 flex flex-col justify-center items-center">
       <Player />
       <nav className="py-3 pb-6  backdrop-blur-md bg-zinc-950/70 w-full">
-        <ul className="flex items-center text-zinc-500 space-x-12 justify-center">
+        <ul className="flex items-center text-zinc-500 space-x-14 justify-center">
           <li>
             <NavLink
               to={""}
@@ -19,9 +20,20 @@ function TabsComp() {
               }
             >
               <GoHomeFill className="h-7 w-7" />
-              <span className="text-xs mt-1">Home</span>
+              <span className="text-xs">Home</span>
             </NavLink>
           </li>
+          {/* <li>
+            <NavLink
+              to={`/library/`}
+              className={({ isActive }) =>
+                `${isActive && "text-zinc-300"} flex flex-col mb-1 items-center`
+              }
+            >
+              <MdOutlineGridView className="h-7 w-7" />
+              <span className="text-xs ">Browse</span>
+            </NavLink>
+          </li> */}
           <li>
             <NavLink
               to={"/share-play"}
@@ -44,6 +56,7 @@ function TabsComp() {
               <span className="text-xs ">Library</span>
             </NavLink>
           </li>
+
           <li>
             <NavLink
               to={"/search"}
