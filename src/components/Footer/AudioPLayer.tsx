@@ -468,10 +468,10 @@ function AudioPLayerComp() {
                   className="w-full h-2 bg-gray-200 overflow-hidden rounded-lg appearance-none cursor-pointer"
                 />
                 <div className="flex text-sm justify-between py-2 px-1">
-                  <span className="text-zinc-300">
+                  <span className="text-zinc-500">
                     {formatDuration(progress as "--:--")}
                   </span>
-                  <span className="text-zinc-300">
+                  <span className="text-zinc-500">
                     {formatDuration(duration as "--:--")}
                   </span>
                 </div>
@@ -479,7 +479,7 @@ function AudioPLayerComp() {
               <div className="flex absolute bottom-[16vh] w-full space-x-16 justify-center  items-center">
                 <FaBackward
                   className={`h-8 w-10 ${
-                    playlist.length > 1 ? "text-zinc-300" : "text-zinc-500"
+                    playlist.length > 1 ? "text-zinc-200" : "text-zinc-500"
                   } `}
                   onClick={handlePrev}
                 />
@@ -499,7 +499,7 @@ function AudioPLayerComp() {
 
                 <FaForward
                   className={`h-8 w-9 ${
-                    playlist.length > 1 ? "text-zinc-300" : "text-zinc-500"
+                    playlist.length > 1 ? "text-zinc-200" : "text-zinc-500"
                   } `}
                   onClick={handleNext}
                 />
