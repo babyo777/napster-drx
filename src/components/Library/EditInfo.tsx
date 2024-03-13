@@ -46,7 +46,7 @@ const EditInfo: React.FC<{ id: string; f: string; collection?: string }> = ({
       </DialogTrigger>
       <DialogContent className="items-center rounded-2xl flex flex-col w-[60vw]">
         <DialogHeader>
-          <DialogTitle className="text-zinc-400 font-bold">
+          <DialogTitle className="text-zinc-400 text-sm font-bold">
             Are you sure?
           </DialogTitle>
         </DialogHeader>
