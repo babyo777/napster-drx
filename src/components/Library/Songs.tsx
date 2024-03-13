@@ -120,7 +120,20 @@ function Songs({
         )}
         <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
       </div>
-      <SongsOptions library={where == "liked" && true} />
+      <SongsOptions
+        music={{
+          youtubeId: audio,
+          title: title,
+          thumbnailUrl: cover,
+          artists: [
+            {
+              id: artistId,
+              name: artist,
+            },
+          ],
+        }}
+        library={where == "liked" && true}
+      />
     </div>
   );
 }

@@ -141,7 +141,15 @@ function SearchSong({
         </Link>
         {/* <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div> */}
       </div>
-      <SongsOptions underline={true} />
+      <SongsOptions
+        underline={true}
+        music={{
+          youtubeId: id,
+          title: title,
+          thumbnailUrl: cover,
+          artists: artist,
+        }}
+      />
     </div>
   );
 }
