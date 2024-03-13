@@ -35,7 +35,6 @@ function SongsOptions({
     console.log(playlist.length);
     const newPlaylist = [...playlist];
     newPlaylist.splice(currentIndex + 1, 0, music);
-
     dispatch(setPlaylist(newPlaylist));
     console.log(playlist.length);
   }, [music, dispatch, playlist, currentIndex]);
