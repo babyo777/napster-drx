@@ -6,16 +6,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { AiOutlineMenu } from "react-icons/ai";
 import { Button } from "../ui/button";
-import { FcFullTrash } from "react-icons/fc";
 import { useCallback, useRef } from "react";
+
 import {
   DATABASE_ID,
   PLAYLIST_COLLECTION_ID,
   db,
 } from "@/appwrite/appwriteConfig";
-
+import { IoRemoveCircleOutline } from "react-icons/io5";
 import { useQueryClient } from "react-query";
 import { savedPlaylist } from "@/Interface";
 
@@ -42,36 +41,37 @@ const EditInfo: React.FC<{ id: string; f: string; collection?: string }> = ({
 
   return (
     <Dialog>
-      <DialogTrigger>
-        <AiOutlineMenu className="h-7 w-7 text-zinc-400" />
+      <DialogTrigger className="flex w-full items-center justify-end space-x-2">
+        <IoRemoveCircleOutline className="h-6 w-6 text-zinc-400" />
       </DialogTrigger>
-      <DialogContent className="items-center rounded-2xl flex flex-col w-[77vw]">
+      <DialogContent className="items-center rounded-2xl flex flex-col w-[60vw]">
         <DialogHeader>
           <DialogTitle className="text-zinc-400 font-bold">
             Are you sure?
           </DialogTitle>
         </DialogHeader>
 
-        <FcFullTrash className="h-20 w-20 -mb-1.5" />
-        <Button
-          disabled={f === "default" ? true : false}
-          variant={"destructive"}
-          onClick={handleDelete}
-          className=" py-4 rounded-xl w-52 bg-red-500"
-        >
-          Remove
-        </Button>
-
-        <DialogClose className="-mt-2">
+        <div className="flex items-center justify-center space-x-2 ">
           <Button
-            asChild
-            ref={closeRef}
-            variant={"secondary"}
-            className=" py-4 rounded-xl w-52"
+            disabled={f === "default" ? true : false}
+            variant={"destructive"}
+            onClick={handleDelete}
+            className="px-7 rounded-xl  bg-red-500"
           >
-            <p>Close</p>
+            Yes
           </Button>
-        </DialogClose>
+
+          <DialogClose>
+            <Button
+              asChild
+              ref={closeRef}
+              variant={"secondary"}
+              className="px-7 rounded-xl "
+            >
+              <p>No</p>
+            </Button>
+          </DialogClose>
+        </div>
       </DialogContent>
     </Dialog>
   );

@@ -1,4 +1,3 @@
-import { IoIosMore } from "react-icons/io";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +13,8 @@ import { playlistSongs } from "@/Interface";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaylist } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
+import { SlOptions } from "react-icons/sl";
+
 function SongsOptions({
   library,
   underline,
@@ -43,7 +44,7 @@ function SongsOptions({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="m-0 p-0">
-        <IoIosMore className="h-5 w-5" />
+        <SlOptions className="h-5 w-5 text-zinc-400" />
         {!underline && (
           <div className="h-[.05rem] w-[8vw] bg-zinc-300/10 mt-[1.35rem] -ml-2"></div>
         )}
@@ -64,6 +65,7 @@ function SongsOptions({
           <p className="text-base">Add to a Playlist...</p>
           <RiPlayListAddLine className="h-[1.1rem] w-[1.1rem]" />
         </DropdownMenuItem>
+        <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
         <DropdownMenuItem
           onClick={handleQueue}
           className="flex items-center justify-between space-x-2"
