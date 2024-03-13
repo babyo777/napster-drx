@@ -1,5 +1,5 @@
+import { IoRemoveCircleOutline } from "react-icons/io5";
 import { Skeleton } from "../ui/skeleton";
-import { AiOutlineMenu } from "react-icons/ai";
 function SkeletonP() {
   return (
     <div className=" w-full flex space-x-2 justify-between">
@@ -13,7 +13,7 @@ function SkeletonP() {
         </div>
       </div>
       <Skeleton className=" bg-transparent flex items-center">
-        <AiOutlineMenu className="h-7 w-7 text-zinc-500" />
+        <IoRemoveCircleOutline className="h-6 w-6 text-zinc-400" />
       </Skeleton>
     </div>
   );
