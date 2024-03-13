@@ -208,7 +208,7 @@ function ArtistPageComp() {
                 type="button"
                 onClick={handleShufflePlay}
                 variant={"secondary"}
-                className="px-2.5 flex justify-center items-center   text-white shadow-none bg-zinc-100/10 backdrop-blur-lg
+                className="px-2.5 flex justify-center items-center   text-white shadow-none bg-red-600 backdrop-blur-lg
                   rounded-full "
               >
                 <IoPlay className="h-4 w-4" />
