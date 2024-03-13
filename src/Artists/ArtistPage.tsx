@@ -200,7 +200,7 @@ function ArtistPageComp() {
           />
 
           <div className=" absolute flex bottom-2 px-4  left-0 items-center justify-between right-0">
-            <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
+            <h1 className="text-center  font-semibold py-2 text-3xl capitalize">
               {data?.name}
             </h1>
             <div className="flex space-x-4 py-1">
