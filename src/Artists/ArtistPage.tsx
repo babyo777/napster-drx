@@ -163,7 +163,7 @@ function ArtistPageComp() {
         </div>
       )}
       {data && (
-        <div className="flex w-full h-[25rem]  relative ">
+        <div className="flex w-full h-[30rem]  relative ">
           <GoBack />
 
           <div className=" absolute top-4 z-10 right-3">
