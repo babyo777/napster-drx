@@ -1,9 +1,9 @@
 import { IoIosRadio } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
-import { MdLibraryMusic } from "react-icons/md";
 import { Player } from "./Player";
 import { NavLink } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
+import { BiLibrary } from "react-icons/bi";
 import React from "react";
 function TabsComp() {
   return (
@@ -40,7 +40,7 @@ function TabsComp() {
                 `${isActive && "text-zinc-300"} flex flex-col mb-1 items-center`
               }
             >
-              <MdLibraryMusic className="h-7 w-7" />
+              <BiLibrary className="h-7 w-7" />
               <span className="text-xs ">Library</span>
             </NavLink>
           </li>
