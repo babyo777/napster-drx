@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { FaStar } from "react-icons/fa6";
 import Share from "@/HandleShare/Share";
+import { IoPlay } from "react-icons/io5";
 
 function ArtistPageComp() {
   const dispatch = useDispatch();
@@ -163,7 +164,7 @@ function ArtistPageComp() {
         </div>
       )}
       {data && (
-        <div className="flex w-full h-[30rem]  relative ">
+        <div className="flex w-full h-[23rem]  relative ">
           <GoBack />
 
           <div className=" absolute top-4 z-10 right-3">
@@ -198,20 +199,19 @@ function ArtistPageComp() {
             className="object-cover opacity-80 h-[100%] w-[100%]"
           />
 
-          <div className=" absolute bottom-5 px-4 left-0  right-0">
+          <div className=" absolute flex bottom-2 px-4  left-0 items-center justify-between right-0">
             <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
               {data?.name}
             </h1>
-            <div className="flex space-x-4 py-1 justify-center  items-center w-full">
+            <div className="flex space-x-4 py-1">
               <Button
                 type="button"
                 onClick={handleShufflePlay}
                 variant={"secondary"}
-                className="text-lg py-6 text-black shadow-none bg-white/95
-                  rounded-lg px-[12dvw]"
+                className="px-2.5 flex justify-center items-center   text-white shadow-none bg-zinc-100/10 backdrop-blur-lg
+                  rounded-full "
               >
-                <RxShuffle className="mr-2" />
-                Shuffle
+                <IoPlay className="h-4 w-4" />
               </Button>
             </div>
           </div>
