@@ -39,7 +39,6 @@ import Loader from "../Loaders/Loader";
 import { useDispatch } from "react-redux";
 import { setCurrentToggle, setSavedPlaylist } from "@/Store/Player";
 import { savedPlaylist } from "@/Interface";
-import { RiMenuAddFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
@@ -123,7 +122,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
     <Dialog>
       <DialogTrigger className="w-full fade-in">
         {clone ? (
-          <RiMenuAddFill className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+          <IoMdAdd className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
         ) : (
           <span className="text-center  justify-end px-3 flex  text-lg truncate">
             <IoMdAdd className="h-8 w-8 fill-zinc-100" />
