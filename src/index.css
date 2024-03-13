@@ -107,7 +107,7 @@ input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   height: 5px;
-  background: #555555;
+  background: rgb(63 63 70 / var(--tw-text-opacity));
   box-shadow: -405px 0 0 400px white;
 }
 
@@ -116,7 +116,7 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
   appearance: none;
   height: 5px;
-  background: #555555;
+  background: rgb(63 63 70 / var(--tw-text-opacity));
   box-shadow: -405px 0 0 400px white;
 }
 
@@ -125,7 +125,7 @@ input[type="range"]::-ms-thumb {
   cursor: pointer;
   appearance: none;
   height: 5px;
-  background: #555555;
+  background: rgb(63 63 70 / var(--tw-text-opacity));
   box-shadow: -405px 0 0 400px white;
 }
 
