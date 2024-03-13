@@ -395,7 +395,7 @@ function AudioPLayerComp() {
                    
                      rounded-2xl mx-1 `}
                 >
-                  <div className="flex justify-center items-center w-[90vw] h-[44dvh]">
+                  <div className="flex justify-center items-center  h-[44dvh]">
                     <LazyLoadImage
                       src={playlist[currentIndex].thumbnailUrl.replace(
                         "w120-h120",
