@@ -461,9 +461,11 @@ function AudioPLayerComp() {
                 <input
                   type="range"
                   value={progress || 0}
-                  max={duration || 0}
+                  max={duration || 1}
                   onInput={handleSeek}
-                  step="1"
+                  min="0"
+                  step=".01"
+                  dir="ltr"
                   className="w-full h-2 bg-gray-200 overflow-hidden rounded-lg appearance-none cursor-pointer"
                 />
                 <div className="flex text-sm justify-between py-2 px-1">
