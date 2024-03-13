@@ -30,7 +30,6 @@ function SongsOptions({
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
-
   const handleQueue = useCallback(() => {
     console.log(playlist.length);
     const newPlaylist = [...playlist];
