@@ -54,9 +54,9 @@ const EditInfo: React.FC<{ id: string; f: string; collection?: string }> = ({
         <div className="flex items-center justify-center space-x-2 ">
           <Button
             disabled={f === "default" ? true : false}
-            variant={"destructive"}
+            variant={"secondary"}
             onClick={handleDelete}
-            className="px-7 rounded-xl  bg-red-500"
+            className="px-7 rounded-xl bg-red-500 "
           >
             Yes
           </Button>
