@@ -5,7 +5,6 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { FaBackward } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { FaForward } from "react-icons/fa";
@@ -396,7 +395,7 @@ function AudioPLayerComp() {
                    
                      rounded-2xl mx-1 `}
                 >
-                  <AspectRatio className="flex justify-center items-center">
+                  <div className="flex justify-center items-center w-[90vw] h-[44dvh]">
                     <LazyLoadImage
                       src={playlist[currentIndex].thumbnailUrl.replace(
                         "w120-h120",
@@ -408,13 +407,13 @@ function AudioPLayerComp() {
                       }
                       alt="Image"
                       visibleByDefault
-                      className={`object-cover shadow-lg transition-all duration-500 rounded-2xl ${
+                      className={`object-fit shadow-lg transition-all duration-500 rounded-2xl ${
                         music && !music.paused
-                          ? "w-[90vw] h-[48dvh]"
+                          ? "w-[90vw] h-[44dvh]"
                           : "w-[70vw] h-[33dvh]"
                       }`}
                     />
-                  </AspectRatio>
+                  </div>
                 </div>
                 <div className=" absolute bottom-[35.5vh] w-full text-start px-2 ">
                   <div className="flex items-center space-x-3">
