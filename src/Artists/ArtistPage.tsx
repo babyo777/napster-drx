@@ -66,7 +66,10 @@ function ArtistPageComp() {
       .createDocument(DATABASE_ID, FAV_ARTIST, ID.unique(), {
         artistId: id,
         name: data?.name,
-        thumbnailUrl: data?.thumbnails[0].url,
+        thumbnailUrl: data?.thumbnails[0].url.replace(
+          "w540-h225",
+          "w1080-h1080"
+        ),
         for: localStorage.getItem("uid"),
       })
       .catch(() => setIsFavArtist(true));
