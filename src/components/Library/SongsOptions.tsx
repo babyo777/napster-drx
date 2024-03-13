@@ -57,7 +57,7 @@ function SongsOptions({
           <p className="text-base">Add to library</p>
           <IoAddSharp className="h-5 w-5" />
         </DropdownMenuItem>
-        <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
+        <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
         <DropdownMenuItem
           onClick={handleBeat}
           className="flex items-center justify-between space-x-2"
@@ -65,7 +65,7 @@ function SongsOptions({
           <p className="text-base">Add to a Playlist...</p>
           <RiPlayListAddLine className="h-[1.1rem] w-[1.1rem]" />
         </DropdownMenuItem>
-        <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
+        <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
         <DropdownMenuItem
           onClick={handleQueue}
           className="flex items-center justify-between space-x-2"
