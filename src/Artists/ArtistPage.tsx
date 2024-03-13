@@ -13,7 +13,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { DATABASE_ID, FAV_ARTIST, db } from "@/appwrite/appwriteConfig";
 import { ID, Query } from "appwrite";
 import { FaRegStar } from "react-icons/fa";
-import { RxShuffle } from "react-icons/rx";
 import {
   SetPlaylistOrAlbum,
   isLoop,
