@@ -9,6 +9,7 @@ import { homePagePlaylist } from "@/Interface";
 import { useQuery } from "react-query";
 import Artist from "./Artist";
 import Charts from "./Charts";
+import NewCharts from "./neewChart";
 import { Query } from "appwrite";
 import { Skeleton } from "../ui/skeleton";
 import axios from "axios";
@@ -164,7 +165,7 @@ export function ListenNowComp() {
           )}
 
           <Charts data={chart} />
-          <Charts data={chart} />
+          <NewCharts data={chart} />
           <Artist data={artist} />
         </>
       )}
