@@ -208,7 +208,7 @@ function AlbumPageComp() {
               className="object-cover opacity-80 h-[100%] w-[100%]"
             />
 
-            <div className=" absolute bottom-5 px-4 left-0  right-0">
+            <div className=" absolute bottom-3 px-4 left-0  right-0">
               <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
                 {data[0]?.album}
               </h1>

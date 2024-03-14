@@ -239,7 +239,7 @@ function LibraryComp() {
               className="object-cover opacity-80 h-[100%] w-[100%]"
             />
 
-            <div className=" absolute bottom-5  px-4 left-0  right-0">
+            <div className=" absolute bottom-3  px-4 left-0  right-0">
               <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
                 {(pDetails && pDetails[0]?.title) || ""}
               </h1>
