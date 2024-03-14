@@ -13,7 +13,6 @@ import { playlistSongs } from "@/Interface";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaylist } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
-import { SlOptions } from "react-icons/sl";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 
 function SongsOptions({
