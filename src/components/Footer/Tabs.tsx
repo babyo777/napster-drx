@@ -10,7 +10,7 @@ function TabsComp() {
   return (
     <div className="fixed fade-in w-full right-0 left-0 bottom-0 flex flex-col justify-center items-center">
       <Player />
-      <nav className="py-3 pb-6  backdrop-blur-md bg-zinc-950/70 w-full">
+      <nav className="py-3 pb-6 pt-5 backdrop-blur-md bg-zinc-950/70 w-full">
         <ul className="flex items-center text-zinc-500 space-x-14 justify-center">
           <li>
             <NavLink
