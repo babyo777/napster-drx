@@ -357,7 +357,7 @@ function AudioPLayerComp() {
   return (
     <>
       <audio hidden ref={audioRef} src={""}></audio>
-      {isStandalone ? (
+      {!isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>
@@ -507,6 +507,17 @@ function AudioPLayerComp() {
               </div>
               <div className=" justify-center absolute bottom-[5vh] w-full px-8 text-zinc-400 items-center">
                 <div className="flex items-center justify-between w-full">
+                  <TfiLoop
+                    className={`h-6 w-6 ${
+                      music && music.loop ? "text-zinc-400" : "text-zinc-700"
+                    }`}
+                    onClick={handleLoop}
+                  />
+
+                  <BsChatSquareQuote
+                    onClick={() => alert("lyrics soon..")}
+                    className="h-6 w-6"
+                  />
                   {playlist.length > 1 ? (
                     <Link to={`/${PlaylistOrAlbum}/${playingPlaylistUrl}`}>
                       <DrawerClose>
@@ -516,17 +527,6 @@ function AudioPLayerComp() {
                   ) : (
                     <IoIosList className="h-6 w-6 text-zinc-700" />
                   )}
-
-                  <BsChatSquareQuote
-                    onClick={() => alert("lyrics soon..")}
-                    className="h-6 w-6"
-                  />
-                  <TfiLoop
-                    className={`h-6 w-6 ${
-                      music && music.loop ? "text-zinc-400" : "text-zinc-700"
-                    }`}
-                    onClick={handleLoop}
-                  />
                 </div>
               </div>
             </div>
