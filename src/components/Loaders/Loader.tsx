@@ -6,8 +6,10 @@ function Loader({
   size,
   color,
   stroke,
+  loading,
 }: {
   size?: string;
+  loading?: boolean;
   color?: string;
   stroke?: string;
 }) {
@@ -19,7 +21,7 @@ function Loader({
         speed="1"
         color={color || "gray"}
       ></l-line-spinner>
-      <p>Loading...</p>
+      {!loading && <p>Loading...</p>}
     </div>
   );
 }

@@ -75,7 +75,7 @@ export function Player() {
               </div>
             </div>
             {isLoading ? (
-              <Loader />
+              <Loader loading={true} />
             ) : (
               <div className="flex fade-in space-x-3 pr-1">
                 <IoPlay className="h-7 w-7" />

@@ -486,7 +486,7 @@ function AudioPLayerComp() {
                 />
                 {isLoading ? (
                   <div className="h-12 w-12 flex justify-center items-center">
-                    <Loader size="37" />
+                    <Loader size="37" loading={true} />
                   </div>
                 ) : (
                   <>
