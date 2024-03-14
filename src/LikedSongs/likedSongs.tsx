@@ -185,7 +185,7 @@ function LikedSongComp() {
               </div>
             </div>
           </div>
-          <div className="py-3 pb-[8.3rem]">
+          <div className="py-3 pb-[8.5rem]">
             {pDetails.map((data, i) => (
               <Songs
                 p={id || ""}
