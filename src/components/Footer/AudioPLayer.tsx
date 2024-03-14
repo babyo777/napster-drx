@@ -8,7 +8,6 @@ import {
 import { FaBackward, FaRegStar } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { FaForward } from "react-icons/fa";
-import { TbMessage } from "react-icons/tb";
 import { TfiLoop } from "react-icons/tfi";
 import { FaPause } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,6 +38,7 @@ import { Query } from "appwrite";
 import { useSwipeable } from "react-swipeable";
 import { IoIosList } from "react-icons/io";
 import { GoStarFill } from "react-icons/go";
+import { BsChatSquareQuote } from "react-icons/bs";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
@@ -357,7 +357,7 @@ function AudioPLayerComp() {
   return (
     <>
       <audio hidden ref={audioRef} src={""}></audio>
-      {!isStandalone ? (
+      {isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>
@@ -517,9 +517,9 @@ function AudioPLayerComp() {
                     <IoIosList className="h-6 w-6 text-zinc-700" />
                   )}
 
-                  <TbMessage
+                  <BsChatSquareQuote
                     onClick={() => alert("lyrics soon..")}
-                    className="h-7 w-7"
+                    className="h-6 w-6"
                   />
                   <TfiLoop
                     className={`h-6 w-6 ${
