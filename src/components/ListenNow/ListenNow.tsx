@@ -164,6 +164,7 @@ export function ListenNowComp() {
           )}
 
           <Charts data={chart} />
+          <Charts data={chart} />
           <Artist data={artist} />
         </>
       )}
