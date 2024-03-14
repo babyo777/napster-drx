@@ -9,9 +9,8 @@ import { FaBackward } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { FaForward } from "react-icons/fa";
 import { TbMessage } from "react-icons/tb";
-import { ImLoop } from "react-icons/im";
+import { TfiLoop } from "react-icons/tfi";
 import { FaPause } from "react-icons/fa6";
-import { MdOpenInNew } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -40,6 +39,7 @@ import { FaHeart } from "react-icons/fa";
 import { useQuery } from "react-query";
 import { Query } from "appwrite";
 import { useSwipeable } from "react-swipeable";
+import { IoIosList } from "react-icons/io";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
@@ -465,7 +465,7 @@ function AudioPLayerComp() {
                   min="0"
                   step=".01"
                   dir="ltr"
-                  className="w-full h-2 bg-gray-200 overflow-hidden rounded-lg appearance-none cursor-pointer"
+                  className="w-full h-2 bg-zinc-300/75 overflow-hidden rounded-lg appearance-none cursor-pointer"
                 />
                 <div className="flex text-sm justify-between py-2 px-1">
                   <span className="text-zinc-400 font-semibold">
@@ -504,24 +504,24 @@ function AudioPLayerComp() {
                   onClick={handleNext}
                 />
               </div>
-              <div className=" justify-center absolute bottom-[6vh] w-full px-7 text-zinc-400 items-center">
+              <div className=" justify-center absolute bottom-[5vh] w-full px-8 text-zinc-400 items-center">
                 <div className="flex items-center justify-between w-full">
                   {playlist.length > 1 ? (
                     <Link to={`/${PlaylistOrAlbum}/${playingPlaylistUrl}`}>
                       <DrawerClose>
-                        <MdOpenInNew className="h-6 w-6" />
+                        <IoIosList className="h-6 w-6" />
                       </DrawerClose>
                     </Link>
                   ) : (
-                    <MdOpenInNew className="h-6 w-6 text-zinc-700" />
+                    <IoIosList className="h-6 w-6 text-zinc-700" />
                   )}
 
                   <TbMessage
                     onClick={() => alert("lyrics soon..")}
                     className="h-7 w-7"
                   />
-                  <ImLoop
-                    className={`h-[1.3rem] w-[1.3rem] ${
+                  <TfiLoop
+                    className={`h-6 w-6 ${
                       music && music.loop ? "text-zinc-400" : "text-zinc-700"
                     }`}
                     onClick={handleLoop}
