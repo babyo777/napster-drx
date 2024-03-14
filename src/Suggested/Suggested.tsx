@@ -24,22 +24,13 @@ function Suggested() {
   return (
     <div className=" flex flex-col items-center">
       <>
-        <div className="flex w-full h-[23rem] relative ">
+        <div className="flex w-full fixed h-[3rem]  ">
           <GoBack />
           <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
             <div className="" onClick={handleFocus}>
               <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
             </div>
           </div>
-          <LazyLoadImage
-            effect="blur"
-            width="100%"
-            height="100%"
-            src="/favicon.jpeg"
-            alt="Image"
-            loading="lazy"
-            className="object-cover opacity-80 h-[100%] w-[100%]"
-          />
 
           <div className=" absolute bottom-5  px-4 left-0  right-0">
             <h1 className="text-center  font-semibold py-2 text-2xl capitalize"></h1>
@@ -65,7 +56,7 @@ function Suggested() {
             </div>
           </div>
         </div>
-        <div className="py-3 pb-[9.5rem]">
+        <div className="py-3 pt-12 pb-[9.5rem]">
           {data.map((data, i) => (
             <Songs
               p={"suggested"}
