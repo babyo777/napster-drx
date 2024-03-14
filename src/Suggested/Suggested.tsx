@@ -5,7 +5,6 @@ import { useCallback } from "react";
 import { RiFocus3Line } from "react-icons/ri";
 // import { Button } from "@/components/ui/button";
 // import { FaPlay } from "react-icons/fa6";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useSelector } from "react-redux";
 
 function Suggested() {
