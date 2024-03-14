@@ -27,6 +27,8 @@ import { RootState } from "@/Store/Store";
 import { FaStar } from "react-icons/fa6";
 import Share from "@/HandleShare/Share";
 import { IoPlay } from "react-icons/io5";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 function ArtistPageComp() {
   const dispatch = useDispatch();
@@ -189,7 +191,8 @@ function ArtistPageComp() {
             )}
             <Share />
           </div>
-          <img
+          <LazyLoadImage
+            effect="blur"
             width="100%"
             height="100%"
             src={

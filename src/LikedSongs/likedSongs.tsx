@@ -25,7 +25,8 @@ import Songs from "@/components/Library/Songs";
 import { RxShuffle } from "react-icons/rx";
 import { RiFocus3Line } from "react-icons/ri";
 import Share from "@/HandleShare/Share";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 function LikedSongComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -150,7 +151,8 @@ function LikedSongComp() {
               )}
               <Share />
             </div>
-            <img
+            <LazyLoadImage
+              effect="blur"
               width="100%"
               height="100%"
               src="/liked.webp"

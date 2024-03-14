@@ -34,6 +34,8 @@ import { Query } from "appwrite";
 import { RxShuffle } from "react-icons/rx";
 import { RiFocus3Line } from "react-icons/ri";
 import Share from "@/HandleShare/Share";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 function AlbumPageComp() {
   const dispatch = useDispatch();
@@ -199,7 +201,8 @@ function AlbumPageComp() {
               <Share />
             </div>
 
-            <img
+            <LazyLoadImage
+              effect="blur"
               width="100%"
               height="100%"
               src={data[0]?.thumbnailUrl.replace("w120-h120", "w1080-h1080")}
