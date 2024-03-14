@@ -55,7 +55,7 @@ function Suggested() {
             </div>
           </div>
         </div>
-        <div className="py-3 pt-12 pb-[9.5rem]">
+        <div className="py-3 pt-12 pb-[9rem]">
           {data.map((data, i) => (
             <Songs
               p={"suggested"}
