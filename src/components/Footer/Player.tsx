@@ -92,7 +92,7 @@ export function Player() {
           </>
         )}
         {isLoading ? (
-          <Loader />
+          <Loader loading={true} />
         ) : (
           <>
             {isPlaylist && isPlaylist.length > 0 && (
