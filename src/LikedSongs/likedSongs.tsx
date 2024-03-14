@@ -162,7 +162,7 @@ function LikedSongComp() {
             />
 
             <div className=" absolute bottom-3 px-4 left-0  right-0">
-              <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
+              <h1 className="text-center  text-black font-semibold py-2 text-2xl capitalize">
                 Liked Songs
               </h1>
               <div className="flex space-x-4 py-1 px-2 justify-center  items-center w-full">
