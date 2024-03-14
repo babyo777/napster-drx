@@ -42,7 +42,8 @@ import Share from "@/HandleShare/Share";
 function LibraryComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
-
+  const search = new URLSearchParams(location.search);
+  const cover = search.get("cover");
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
@@ -227,12 +228,14 @@ function LibraryComp() {
               width="100%"
               height="100%"
               src={
-                (playlistThumbnail &&
-                  playlistThumbnail[0]?.thumbnailUrl.replace(
-                    "w120-h120",
-                    "w1080-h1080"
-                  )) ||
-                "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
+                cover
+                  ? cover
+                  : (playlistThumbnail &&
+                      playlistThumbnail[0]?.thumbnailUrl.replace(
+                        "w120-h120",
+                        "w1080-h1080"
+                      )) ||
+                    "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
               }
               alt="Image"
               loading="lazy"
