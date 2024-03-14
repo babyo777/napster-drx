@@ -23,7 +23,7 @@ function Suggested() {
   return (
     <div className=" flex flex-col items-center">
       <>
-        <div className="flex w-full z-10 fixed h-[3rem]  ">
+        <div className="flex w-full z-10  fixed h-[3rem]  ">
           <GoBack />
           <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
             <div className="" onClick={handleFocus}>
