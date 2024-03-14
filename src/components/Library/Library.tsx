@@ -268,7 +268,7 @@ function LibraryComp() {
               </div>
             </div>
           </div>
-          <div className="py-3 pb-[9.5rem]">
+          <div className="py-3 pb-[9rem]">
             {data.map((data, i) => (
               <Songs
                 p={id || ""}

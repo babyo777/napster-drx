@@ -178,7 +178,7 @@ function SearchComp() {
                 <h3 className="text-xs fade-in text-zinc-500 pt-2 pb-1 ">
                   Recently Searched
                 </h3>
-                <div className="flex fade-in pb-36 justify-center flex-col -space-y-1  ">
+                <div className="flex fade-in pb-[9rem] justify-center flex-col -space-y-1  ">
                   {RecentSearch.map((r, i) => (
                     <RecentSearchesComp r={r} key={r.youtubeId + i} />
                   ))}
