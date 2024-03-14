@@ -176,7 +176,7 @@ function SearchComp() {
             searchQuery.length <= 0 && (
               <>
                 <h3 className="text-xs fade-in text-zinc-500 pt-2 pb-1 ">
-                  Recent Searches
+                  Recently Searched
                 </h3>
                 <div className="flex fade-in pb-36 justify-center flex-col -space-y-1  ">
                   {RecentSearch.map((r, i) => (
