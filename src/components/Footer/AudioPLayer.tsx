@@ -205,6 +205,9 @@ function AudioPLayerComp() {
   }, [playlist, currentIndex]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
+    dispatch(setPlayer(audioRef.current));
+  }, [dispatch]);
+  useEffect(() => {
     if (audioRef.current) {
       dispatch(setIsLoading(true));
 
@@ -288,7 +291,6 @@ function AudioPLayerComp() {
       sound.addEventListener("timeupdate", handleTimeUpdate);
       sound.addEventListener("ended", handleNext);
 
-      dispatch(setPlayer(sound));
       sound.play();
 
       return () => {
@@ -442,7 +444,7 @@ function AudioPLayerComp() {
                       }`}
                     >
                       <DrawerClose className="text-start">
-                        <p className="text-base truncate fade-in  underline underline-offset-4 w-[70vw] text-red-500">
+                        <p className="text-base truncate fade-in  w-[70vw] text-red-500">
                           {" "}
                           {playlist[currentIndex].artists[0]?.name}
                         </p>
