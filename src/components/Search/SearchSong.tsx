@@ -106,7 +106,7 @@ function SearchSong({
   );
   return (
     <div className="flex fade-in py-2 space-x-2 items-center">
-      <div className="overflow-hidden h-12 w-12 space-y-2">
+      <div className="overflow-hidden h-14 w-14 space-y-2">
         <AspectRatio ratio={1 / 1}>
           <LazyLoadImage
             onClick={handlePlay}
@@ -123,7 +123,7 @@ function SearchSong({
           />
         </AspectRatio>
       </div>
-      <div className="flex space-y-0.5 flex-col pl-1 text-start w-[68dvw]">
+      <div className="flex space-y-0.5 flex-col pl-1 text-start w-[66dvw]">
         <p
           onClick={handlePlay}
           className={`w-[60dvw] ${

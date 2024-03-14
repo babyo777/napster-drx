@@ -34,7 +34,7 @@ function AlbumSearchComp({
       className="flex fade-in py-2 space-x-2 items-center"
     >
       <Link to={`/album/${albumId}`}>
-        <div className="overflow-hidden h-12 w-12 space-y-2">
+        <div className="overflow-hidden h-14 w-14 space-y-2">
           <AspectRatio ratio={1 / 1}>
             <LazyLoadImage
               src={thumbnailUrl}
@@ -52,7 +52,7 @@ function AlbumSearchComp({
         </div>
       </Link>
       <Link to={`/album/${albumId}`}>
-        <div className="flex  flex-col pl-1 text-start w-[70dvw]">
+        <div className="flex  flex-col pl-1 text-start w-[67dvw]">
           <p className={`w-[60dvw] truncate`}>{title}</p>
 
           <p className="-mt-0.5  text-zinc-400 text-xs w-[40dvw]   truncate">
