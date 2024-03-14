@@ -234,7 +234,7 @@ function AlbumPageComp() {
               </div>
             </div>
           </div>
-          <div className="py-3 pb-[8.5rem]">
+          <div className="py-3 pb-[8rem]">
             {data.map((data, i) => (
               <div
                 onClick={handleArtist}
