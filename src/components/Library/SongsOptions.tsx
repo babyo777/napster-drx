@@ -76,7 +76,7 @@ function SongsOptions({
 
         {library && (
           <>
-            <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div>
+            <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
             <DropdownMenuItem
               onClick={handleBeat}
               className="flex items-center justify-between space-x-2"
