@@ -44,7 +44,7 @@ function SongsOptions({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="m-0 p-0">
-        <BiDotsHorizontalRounded className="h-6 w-6 text-zinc-400" />
+        <BiDotsHorizontalRounded className="h-5 w-5 text-zinc-400" />
         {!underline && (
           <div className="h-[.05rem] w-[8vw] bg-zinc-300/10 mt-[1.35rem] -ml-2"></div>
         )}
