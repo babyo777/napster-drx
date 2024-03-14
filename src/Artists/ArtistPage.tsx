@@ -225,7 +225,7 @@ function ArtistPageComp() {
           <div className="flex  px-3 py-2 pt-3 ">
             <h1 className="text-start font-semibold text-xl">Albums</h1>
           </div>
-          <div className="flex overflow-x-scroll -space-x-4  items-center">
+          <div className="flex overflow-x-scroll -space-x-3  items-center">
             {data &&
               data.albums.map((s) => (
                 <ArtistAlbums
@@ -247,7 +247,7 @@ function ArtistPageComp() {
           <div className="flex  px-3 py-2 pt-3 ">
             <h1 className="text-start font-semibold text-xl">Singles</h1>
           </div>
-          <div className="flex overflow-x-scroll -space-x-4  items-center">
+          <div className="flex overflow-x-scroll -space-x-3  items-center">
             {data &&
               data.singles.map((s) => (
                 <ArtistAlbums
