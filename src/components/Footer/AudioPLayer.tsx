@@ -519,7 +519,7 @@ function AudioPLayerComp() {
                     className="h-6 w-6"
                   />
                   {playlist.length > 1 ? (
-                    <Link to={`/${PlaylistOrAlbum}/${playingPlaylistUrl}`}>
+                    <Link to={`/suggested/`}>
                       <DrawerClose>
                         <IoIosList className="h-6 w-6" />
                       </DrawerClose>
