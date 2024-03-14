@@ -109,7 +109,7 @@ function Songs({
         </p>
         {link ? (
           <Link to={`/artist/${artistId}`} className="w-[40vw]">
-            <p className="-mt-0.5 h-[1rem]  text-xs underline text-zinc-400 w-[40dvw]  truncate">
+            <p className="-mt-0.5 h-[1rem]  text-xs  text-zinc-400 w-[40dvw]  truncate">
               {artist}
             </p>
           </Link>
