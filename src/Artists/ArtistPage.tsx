@@ -109,6 +109,7 @@ function ArtistPageComp() {
     ["playlist", id],
     getPlaylist,
     {
+      enabled: false,
       retry: 5,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
