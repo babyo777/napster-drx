@@ -5,7 +5,7 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { FaBackward } from "react-icons/fa";
+import { FaBackward, FaRegStar } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { FaForward } from "react-icons/fa";
 import { TbMessage } from "react-icons/tb";
@@ -25,7 +25,6 @@ import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { FaRegHeart } from "react-icons/fa6";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import {
   DATABASE_ID,
@@ -35,11 +34,11 @@ import {
   MOST_PLAYED,
   db,
 } from "@/appwrite/appwriteConfig";
-import { FaHeart } from "react-icons/fa";
 import { useQuery } from "react-query";
 import { Query } from "appwrite";
 import { useSwipeable } from "react-swipeable";
 import { IoIosList } from "react-icons/io";
+import { GoStarFill } from "react-icons/go";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
@@ -358,7 +357,7 @@ function AudioPLayerComp() {
   return (
     <>
       <audio hidden ref={audioRef} src={""}></audio>
-      {!isStandalone ? (
+      {isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>
@@ -425,12 +424,12 @@ function AudioPLayerComp() {
                     </h1>
 
                     {liked ? (
-                      <FaHeart
+                      <GoStarFill
                         onClick={RemoveLike}
-                        className="h-7 w-7 fade-in fill-red-500"
+                        className="h-7 w-7 fade-in "
                       />
                     ) : (
-                      <FaRegHeart
+                      <FaRegStar
                         className="h-7 w-7 fade-in"
                         onClick={handleLink}
                       />
