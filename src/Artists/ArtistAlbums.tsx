@@ -10,7 +10,7 @@ const ArtistAlbums: React.FC<albums> = ({
 }) => {
   return (
     <Link to={`/album/${albumId}?id=${artistId}`}>
-      <div className="flex items-center justify-center mt-0.5  px-4">
+      <div className="flex items-center justify-center mt-0.5  px-3">
         <div>
           <div className=" h-36 w-36">
             <LazyLoadImage
