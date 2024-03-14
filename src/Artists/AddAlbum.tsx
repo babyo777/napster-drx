@@ -177,7 +177,13 @@ const AddAlbum: React.FC<{
               disabled={isSubmit || error}
               className=" py-5 w-full rounded-xl"
             >
-              {isSubmit ? <Loader size="20" /> : clone ? "Save" : "Add"}
+              {isSubmit ? (
+                <Loader size="20" loading={true} />
+              ) : clone ? (
+                "Save"
+              ) : (
+                "Add"
+              )}
             </Button>
           </form>
         </Form>
