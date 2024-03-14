@@ -82,13 +82,7 @@ function Check() {
       );
       const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
       if (data.index !== 0) {
-        const newD = [
-          ...list.data.slice(0, data.index),
-          r.data[0],
-          ...list.data.slice(data.index),
-        ];
-
-        dispatch(setPlaylist(newD));
+        dispatch(setPlaylist(list.data));
       } else {
         if (r.data[0].youtubeId == data.curentsongid) {
           const n = list.data.slice(1);
@@ -109,13 +103,7 @@ function Check() {
       const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
 
       if (data.index !== 0) {
-        const newD = [
-          ...list.data.slice(0, data?.index),
-          r.data[0],
-          ...list.data.slice(data.index),
-        ];
-
-        dispatch(setPlaylist(newD));
+        dispatch(setPlaylist(list.data));
       } else {
         if (r.data[0].youtubeId == data.curentsongid) {
           const n = list.data.slice(1);
@@ -175,13 +163,7 @@ function Check() {
     }));
     if (data) {
       if (data.index !== 0) {
-        const newD = [
-          ...modified.slice(0, data.index),
-          s.data[0],
-          ...modified.slice(data.index),
-        ];
-
-        dispatch(setPlaylist(newD));
+        dispatch(setPlaylist(modified));
       } else {
         if (s.data[0].youtubeId == data.curentsongid) {
           const n = modified.slice(1);
