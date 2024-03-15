@@ -168,7 +168,7 @@ function ArtistPageComp() {
         </div>
       )}
       {data && (
-        <div className="flex w-full h-[23rem]  relative ">
+        <div className="flex w-full h-[23rem] justify-center items-center relative ">
           <GoBack />
 
           <div className=" absolute top-4 z-10 right-3">
@@ -191,18 +191,20 @@ function ArtistPageComp() {
             )}
             <Share />
           </div>
-          <LazyLoadImage
-            effect="blur"
-            width="100%"
-            height="100%"
-            src={
-              data.thumbnails[0]?.url.replace("w540-h225", "w1080-h1080") ||
-              "/favicon.jpeg"
-            }
-            alt="Image"
-            loading="lazy"
-            className="object-cover opacity-80 h-[100%] w-[100%]"
-          />
+          <div className="h-[40vw] w-[40vw]">
+            <LazyLoadImage
+              effect="blur"
+              width="100%"
+              height="100%"
+              src={
+                data.thumbnails[0]?.url.replace("w540-h225", "w1080-h1080") ||
+                "/favicon.jpeg"
+              }
+              alt="Image"
+              loading="lazy"
+              className="object-cover rounded-full opacity-80 h-[100%] w-[100%]"
+            />
+          </div>
 
           <div className=" absolute flex bottom-2 px-4  left-0 items-center justify-between right-0">
             <h1 className="text-center  font-semibold py-2 text-3xl capitalize">
