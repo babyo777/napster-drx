@@ -52,6 +52,25 @@ function SongsOptions({
     dispatch(setPlaylist(newPlaylist));
     console.log(playlist.length);
   }, [music, dispatch, playlist, currentIndex]);
+
+  const handleAdd = useCallback(
+    (playlistId: string, show?: boolean) => {
+      if (localStorage.getItem("uid")) {
+        db.createDocument(DATABASE_ID, ADD_TO_LIBRARY, ID.unique(), {
+          for: localStorage.getItem("uid"),
+          youtubeId: music.youtubeId,
+          artists: [music.artists[0].id, music.artists[0].name],
+          title: music.title,
+          thumbnailUrl: music.thumbnailUrl,
+          playlistId: playlistId,
+        }).then(() => {
+          if (show) alert("Successfully Added");
+        });
+      }
+    },
+    [music]
+  );
+
   const handleLibrary = useCallback(async () => {
     if (localStorage.getItem("uid")) {
       db.createDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, ID.unique(), {
@@ -60,9 +79,12 @@ function SongsOptions({
         link: "custom" + uuidv4(),
         image: music.thumbnailUrl,
         for: localStorage.getItem("uid"),
-      }).then(() => alert("Added to new Library"));
+      }).then((d) => {
+        handleAdd(d.$id);
+        alert("Added to new Library");
+      });
     }
-  }, [music]);
+  }, [music, handleAdd]);
   const loadSavedPlaylist = async () => {
     const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
       Query.orderDesc("$createdAt"),
@@ -88,21 +110,6 @@ function SongsOptions({
     await refetch();
   }, [refetch]);
 
-  const handleAdd = useCallback(
-    (playlistId: string) => {
-      if (localStorage.getItem("uid")) {
-        db.createDocument(DATABASE_ID, ADD_TO_LIBRARY, ID.unique(), {
-          for: localStorage.getItem("uid"),
-          youtubeId: music.youtubeId,
-          artists: [music.artists[0].id, music.artists[0].name],
-          title: music.title,
-          thumbnailUrl: music.thumbnailUrl,
-          playlistId: playlistId,
-        }).then(() => alert("Successfully Added"));
-      }
-    },
-    [music]
-  );
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="m-0 p-0">
@@ -142,7 +149,7 @@ function SongsOptions({
                       <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
                     )}
                     <DropdownMenuItem
-                      onClick={() => handleAdd(d.$id || "null")}
+                      onClick={() => handleAdd(d.$id || "null", true)}
                     >
                       <p className="truncate w-[9rem]">{d.creator}</p>
                     </DropdownMenuItem>

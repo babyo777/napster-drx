@@ -102,8 +102,23 @@ function LibraryComp() {
   };
 
   const getPlaylistDetail = async () => {
-    const list = await axios.get(`${getPlaylistDetails}${id}`);
-    return list.data as SearchPlaylist[];
+    if (id && id.startsWith("custom")) {
+      const list = await db.getDocument(
+        DATABASE_ID,
+        PLAYLIST_COLLECTION_ID,
+        id.replace("custom", "")
+      );
+      const t = [
+        {
+          title: list.creator,
+        },
+      ];
+
+      return t as unknown as SearchPlaylist[];
+    } else {
+      const list = await axios.get(`${getPlaylistDetails}${id}`);
+      return list.data as SearchPlaylist[];
+    }
   };
 
   const getPlaylistThumbnail = async () => {
