@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 import { SearchPlaylist, savedPlaylist } from "@/Interface";
 import axios from "axios";
 import SkeletonP from "./SkeletonP";
-import { getPlaylistDetails } from "@/API/api";
+import { SearchPlaylistApi } from "@/API/api";
 function SavedLibraryCard({
   author,
   link,
@@ -22,7 +22,7 @@ function SavedLibraryCard({
   f: string;
 }) {
   const getPlaylistDetail = async () => {
-    const list = await axios.get(`${getPlaylistDetails}${link}`);
+    const list = await axios.get(`${SearchPlaylistApi}${link}`);
     return list.data as SearchPlaylist[];
   };
 
