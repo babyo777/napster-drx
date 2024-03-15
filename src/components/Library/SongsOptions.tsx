@@ -135,7 +135,7 @@ function SongsOptions({
                   <Loader loading={true} />
                 </div>
               )}
-              {data && data.length > 0 ? (
+              {data && !isLoading && data.length > 0 ? (
                 data.map((d, i) => (
                   <div key={d.$id}>
                     {i !== 0 && (
