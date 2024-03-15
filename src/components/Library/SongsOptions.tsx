@@ -88,8 +88,8 @@ function SongsOptions({
   const loadSavedPlaylist = async () => {
     const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
       Query.orderDesc("$createdAt"),
-      Query.equal("for", [localStorage.getItem("uid") || "default"]),
       Query.startsWith("link", "custom"),
+      Query.equal("for", [localStorage.getItem("uid") || "default"]),
       Query.limit(999),
     ]);
     const p = r.documents as unknown as savedPlaylist[];
