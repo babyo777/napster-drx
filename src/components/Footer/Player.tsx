@@ -52,7 +52,7 @@ export function Player() {
 
   return (
     <>
-      <div className="flex items-center fade-in py-2 backdrop-blur-md space-x-5 bg-zinc-800/70 w-[94vw] rounded-2xl shadow-md z-10 -mb-3">
+      <div className="flex items-center fade-in py-2 backdrop-blur-md space-x-5 bg-zinc-800/70  rounded-2xl shadow-md z-10 -mb-3">
         {isPlaylist && isPlaylist.length > 0 ? (
           <AudioPLayer />
         ) : (
@@ -96,14 +96,14 @@ export function Player() {
         ) : (
           <>
             {isPlaylist && isPlaylist.length > 0 && (
-              <div className="flex fade-in space-x-3  pr-1">
+              <div className="flex fade-in space-x-3 border pr-3">
                 {isPlaying ? (
                   <FaPause className="h-7 w-7" onClick={handlePlay} />
                 ) : (
                   <IoPlay className="h-7 w-7" onClick={handlePlay} />
                 )}
                 <TbPlayerTrackNextFilled
-                  className={`h-7 w-7 ${
+                  className={`h-7 w-7  ${
                     isPlaylist && isPlaylist.length > 0
                       ? "text-zinc-200"
                       : "text-zinc-400"
