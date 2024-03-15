@@ -77,51 +77,57 @@ function Check() {
   });
 
   const getPlaylist = async () => {
-    if (data) {
-      if (data.playlisturl.startsWith("custom")) {
-        const r = await db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [
-          Query.orderDesc("$createdAt"),
-          Query.equal("for", [localStorage.getItem("uid") || ""]),
-          Query.equal("playlistId", [data.playlisturl.replace("custom", "")]),
-          Query.limit(999),
-        ]);
-        const modified = r.documents.map((doc) => ({
-          for: doc.for,
-          youtubeId: doc.youtubeId,
-          artists: [
-            {
-              id: doc.artists[0],
-              name: doc.artists[1],
-            },
-          ],
-          title: doc.title,
-          thumbnailUrl: doc.thumbnailUrl,
-        }));
+    if (data && data.playlisturl.startsWith("custom")) {
+      const r = await db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [
+        Query.orderDesc("$createdAt"),
+        Query.equal("for", [localStorage.getItem("uid") || ""]),
+        Query.equal("playlistId", [data.playlisturl.replace("custom", "")]),
+        Query.limit(999),
+      ]);
+      const modified = r.documents.map((doc) => ({
+        for: doc.for,
+        youtubeId: doc.youtubeId,
+        artists: [
+          {
+            id: doc.artists[0],
+            name: doc.artists[1],
+          },
+        ],
+        title: doc.title,
+        thumbnailUrl: doc.thumbnailUrl,
+      }));
 
-        return modified as unknown as playlistSongs[];
+      const s = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
+      if (data?.index !== 0) {
+        dispatch(setPlaylist(modified));
       } else {
-        const list = await axios.get(
-          `${GetPlaylistHundredSongsApi}${data?.playlisturl}`
-        );
-
-        const r = await axios.get(
-          `${SuggestionSearchApi}${data?.curentsongid}`
-        );
-        if (data.index !== 0) {
-          dispatch(setPlaylist(list.data));
+        if (s.data[0].youtubeId == data.curentsongid) {
+          const n = modified.slice(1);
+          dispatch(setPlaylist([s.data[0], ...n]));
         } else {
-          if (r.data[0].youtubeId == data.curentsongid) {
-            const n = list.data.slice(1);
-            dispatch(setPlaylist([r.data[0], ...n]));
-          } else {
-            dispatch(setPlaylist([r.data[0], ...list.data]));
-          }
+          dispatch(setPlaylist([s.data[0], ...modified]));
         }
-
-        return list.data as playlistSongs[];
       }
+
+      return modified as playlistSongs[];
     } else {
-      return [];
+      const list = await axios.get(
+        `${GetPlaylistHundredSongsApi}${data?.playlisturl}`
+      );
+
+      const r = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
+      if (data?.index !== 0) {
+        dispatch(setPlaylist(list.data));
+      } else {
+        if (r.data[0].youtubeId == data.curentsongid) {
+          const n = list.data.slice(1);
+          dispatch(setPlaylist([r.data[0], ...n]));
+        } else {
+          dispatch(setPlaylist([r.data[0], ...list.data]));
+        }
+      }
+
+      return list.data as playlistSongs[];
     }
   };
   const getAlbum = async () => {
