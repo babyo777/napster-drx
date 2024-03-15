@@ -132,6 +132,7 @@ function Songs({
       <SongsOptions
         key={audio + cover + title}
         id={p}
+        like={query == "likedSongsDetails" && true}
         music={{
           $id: delId,
           youtubeId: audio,

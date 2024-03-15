@@ -49,6 +49,7 @@ function LikedSongComp() {
       Query.limit(999),
     ]);
     const modified = r.documents.map((doc) => ({
+      $id: doc.$id,
       for: doc.for,
       youtubeId: doc.youtubeId,
       artists: [

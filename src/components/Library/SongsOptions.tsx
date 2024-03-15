@@ -22,6 +22,7 @@ import {
   ADD_TO_LIBRARY,
   DATABASE_ID,
   ID,
+  LIKE_SONG,
   PLAYLIST_COLLECTION_ID,
   db,
 } from "@/appwrite/appwriteConfig";
@@ -33,8 +34,10 @@ function SongsOptions({
   library,
   underline,
   music,
+  like,
   id,
 }: {
+  like?: boolean;
   id?: string;
   music: playlistSongs;
   library?: boolean;
@@ -115,9 +118,14 @@ function SongsOptions({
   }, [refetch]);
 
   const handleDelete = useCallback(async () => {
-    await db.deleteDocument(DATABASE_ID, ADD_TO_LIBRARY, music.$id || "");
-    q.fetchQuery<playlistSongs[]>(["playlist", id]);
-  }, [q, music, id]);
+    if (like) {
+      await db.deleteDocument(DATABASE_ID, LIKE_SONG, music.$id || "");
+      q.fetchQuery<playlistSongs[]>(["likedSongsDetails", id]);
+    } else {
+      await db.deleteDocument(DATABASE_ID, ADD_TO_LIBRARY, music.$id || "");
+      q.fetchQuery<playlistSongs[]>(["playlist", id]);
+    }
+  }, [q, music, id, like]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="m-0 p-0">
