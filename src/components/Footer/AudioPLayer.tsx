@@ -203,9 +203,7 @@ function AudioPLayerComp() {
     });
   }, [playlist, currentIndex]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  useEffect(() => {
-    dispatch(setPlayer(audioRef.current));
-  }, [dispatch]);
+
   useEffect(() => {
     if (audioRef.current) {
       dispatch(setIsLoading(true));
@@ -291,6 +289,7 @@ function AudioPLayerComp() {
       sound.addEventListener("ended", handleNext);
 
       sound.play();
+      dispatch(setPlayer(sound));
 
       return () => {
         sound.load();
