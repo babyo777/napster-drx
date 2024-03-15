@@ -142,6 +142,7 @@ function SavedLibraryComp() {
               <SavedLibraryCard
                 key={saved.link + id}
                 id={saved.$id || ""}
+                data={saved}
                 author={saved.creator}
                 link={saved.link}
                 f={saved.for}

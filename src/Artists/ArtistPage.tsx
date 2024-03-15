@@ -202,7 +202,7 @@ function ArtistPageComp() {
               }
               alt="Image"
               loading="lazy"
-              className="object-cover rounded-full opacity-80 h-[100%] w-[100%]"
+              className="object-cover rounded-full h-[100%] w-[100%]"
             />
           </div>
 

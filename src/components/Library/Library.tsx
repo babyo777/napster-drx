@@ -33,6 +33,7 @@ import GoBack from "../Goback";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import {
+  ADD_TO_LIBRARY,
   DATABASE_ID,
   PLAYLIST_COLLECTION_ID,
   db,
@@ -73,8 +74,31 @@ function LibraryComp() {
   );
 
   const getPlaylist = async () => {
-    const list = await axios.get(`${GetPlaylistHundredSongsApi}${id}`);
-    return list.data as playlistSongs[];
+    if (id && id.startsWith("custom")) {
+      const r = await db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [
+        Query.orderDesc("$createdAt"),
+        Query.equal("for", [localStorage.getItem("uid") || ""]),
+        Query.equal("playlistId", [id.replace("custom", "")]),
+        Query.limit(999),
+      ]);
+      const modified = r.documents.map((doc) => ({
+        for: doc.for,
+        youtubeId: doc.youtubeId,
+        artists: [
+          {
+            id: doc.artists[0],
+            name: doc.artists[1],
+          },
+        ],
+        title: doc.title,
+        thumbnailUrl: doc.thumbnailUrl,
+      }));
+
+      return modified as unknown as playlistSongs[];
+    } else {
+      const list = await axios.get(`${GetPlaylistHundredSongsApi}${id}`);
+      return list.data as playlistSongs[];
+    }
   };
 
   const getPlaylistDetail = async () => {
@@ -239,7 +263,7 @@ function LibraryComp() {
                 }
                 alt="Image"
                 loading="lazy"
-                className="object-cover rounded-xl  opacity-80 h-[100%] w-[100%]"
+                className="object-cover rounded-xl h-[100%] w-[100%]"
               />
             </div>
 
@@ -273,7 +297,7 @@ function LibraryComp() {
             {data.map((data, i) => (
               <Songs
                 p={id || ""}
-                where="library"
+                where={(id?.startsWith("custom") && "liked") || ""}
                 artistId={data.artists[0]?.id}
                 audio={data.youtubeId}
                 key={data.youtubeId + i}

@@ -208,7 +208,7 @@ function AlbumPageComp() {
                 src={data[0]?.thumbnailUrl.replace("w120-h120", "w1080-h1080")}
                 alt="Image"
                 loading="lazy"
-                className="object-cover opacity-80  rounded-xl h-[100%] w-[100%]"
+                className="object-cover   rounded-xl h-[100%] w-[100%]"
               />
             </div>
             <div className=" absolute bottom-3 px-4 left-0  right-0">

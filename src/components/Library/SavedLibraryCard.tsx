@@ -4,7 +4,7 @@ import EditInfo from "./EditInfo";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useQuery } from "react-query";
-import { SearchPlaylist } from "@/Interface";
+import { SearchPlaylist, savedPlaylist } from "@/Interface";
 import axios from "axios";
 import SkeletonP from "./SkeletonP";
 import { getPlaylistDetails } from "@/API/api";
@@ -13,7 +13,9 @@ function SavedLibraryCard({
   link,
   f,
   id,
+  data,
 }: {
+  data: savedPlaylist;
   id: string;
   author?: string;
   link?: string;
@@ -38,9 +40,9 @@ function SavedLibraryCard({
 
   return (
     <div className="flex space-x-2.5 items-center justify-between">
-      {isLoading && <SkeletonP />}
-      {p && (
+      {p ? (
         <>
+          {isLoading && <SkeletonP />}
           <Link
             to={`/library/${link}`}
             className="flex space-x-2.5 items-center justify-between"
@@ -51,7 +53,7 @@ function SavedLibraryCard({
                   height="100%"
                   width="100%"
                   effect="blur"
-                  src={p[0]?.thumbnailUrl || "/favicon.webp"}
+                  src={p[0]?.thumbnailUrl || "/favicon.jpeg"}
                   alt="Image"
                   className="rounded-lg object-cover w-[100%] h-[100%]"
                 />
@@ -67,6 +69,39 @@ function SavedLibraryCard({
             </div>
           </Link>
           <EditInfo id={id} f={f} />
+        </>
+      ) : (
+        <>
+          {data && (
+            <>
+              <Link
+                to={`/library/${"custom" + data.$id}?cover=${data.image}`}
+                className="flex space-x-2.5 items-center justify-between"
+              >
+                <div className="overflow-hidden h-14  w-14 space-y-2">
+                  <AspectRatio ratio={1 / 1}>
+                    <LazyLoadImage
+                      height="100%"
+                      width="100%"
+                      effect="blur"
+                      src={data.image || "/favicon.jpeg"}
+                      alt="Image"
+                      className="rounded-lg object-cover w-[100%] h-[100%]"
+                    />
+                  </AspectRatio>
+                </div>
+                <div className="flex flex-col   text-start">
+                  <p className="w-[59vw]  text-lg   fade-in truncate">
+                    {data.creator || "NapsterDrx."}
+                  </p>
+                  <p className="-mt-0.5  text-xs w-[50vw] truncate">
+                    {data.name || "Unknown"}
+                  </p>
+                </div>
+              </Link>
+              <EditInfo id={data.$id || ""} f={f} />
+            </>
+          )}
         </>
       )}
     </div>

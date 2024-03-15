@@ -2,18 +2,32 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { IoAddSharp } from "react-icons/io5";
-import { RiPlayListAddLine } from "react-icons/ri";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { PiQueue } from "react-icons/pi";
 import { useCallback } from "react";
-import { playlistSongs } from "@/Interface";
+import { playlistSongs, savedPlaylist } from "@/Interface";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaylist } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { IoAddSharp } from "react-icons/io5";
+import { v4 as uuidv4 } from "uuid";
+import {
+  ADD_TO_LIBRARY,
+  DATABASE_ID,
+  ID,
+  PLAYLIST_COLLECTION_ID,
+  db,
+} from "@/appwrite/appwriteConfig";
+import { Query } from "appwrite";
+import { useQuery } from "react-query";
+import Loader from "../Loaders/Loader";
 
 function SongsOptions({
   library,
@@ -38,9 +52,57 @@ function SongsOptions({
     dispatch(setPlaylist(newPlaylist));
     console.log(playlist.length);
   }, [music, dispatch, playlist, currentIndex]);
-  const handleBeat = useCallback(() => {
-    alert("soon...");
-  }, []);
+  const handleLibrary = useCallback(async () => {
+    if (localStorage.getItem("uid")) {
+      db.createDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, ID.unique(), {
+        name: music.title,
+        creator: music.artists[0].name || "unknown",
+        link: "custom" + uuidv4(),
+        image: music.thumbnailUrl,
+        for: localStorage.getItem("uid"),
+      }).then(() => alert("Added to new Library"));
+    }
+  }, [music]);
+  const loadSavedPlaylist = async () => {
+    const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
+      Query.orderDesc("$createdAt"),
+      Query.equal("for", [localStorage.getItem("uid") || "default"]),
+      Query.startsWith("link", "custom"),
+      Query.limit(999),
+    ]);
+    const p = r.documents as unknown as savedPlaylist[];
+    return p;
+  };
+  const { data, isLoading, refetch } = useQuery(
+    "savedPlaylistToAdd",
+    loadSavedPlaylist,
+    {
+      refetchOnWindowFocus: false,
+      enabled: false,
+      staleTime: Infinity,
+      keepPreviousData: true,
+    }
+  );
+
+  const handlePlaylist = useCallback(async () => {
+    await refetch();
+  }, [refetch]);
+
+  const handleAdd = useCallback(
+    (playlistId: string) => {
+      if (localStorage.getItem("uid")) {
+        db.createDocument(DATABASE_ID, ADD_TO_LIBRARY, ID.unique(), {
+          for: localStorage.getItem("uid"),
+          youtubeId: music.youtubeId,
+          artists: [music.artists[0].id, music.artists[0].name],
+          title: music.title,
+          thumbnailUrl: music.thumbnailUrl,
+          playlistId: playlistId,
+        }).then(() => alert("Successfully Added"));
+      }
+    },
+    [music]
+  );
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="m-0 p-0">
@@ -51,20 +113,48 @@ function SongsOptions({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-zinc-400/10 border-none rounded-lg backdrop-blur-2xl mx-4 -mt-5">
         <DropdownMenuItem
-          onClick={handleBeat}
+          onClick={handleLibrary}
           className="flex items-center justify-between space-x-2"
         >
           <p className="text-base">Add to library</p>
           <IoAddSharp className="h-5 w-5" />
         </DropdownMenuItem>
+
         <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
-        <DropdownMenuItem
-          onClick={handleBeat}
-          className="flex items-center justify-between space-x-2"
-        >
-          <p className="text-base">Add to a Playlist...</p>
-          <RiPlayListAddLine className="h-[1.1rem] w-[1.1rem]" />
-        </DropdownMenuItem>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger
+            onClick={handlePlaylist}
+            className="flex items-center justify-between space-x-2"
+          >
+            <p className="text-base">Add to a Playlist...</p>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent className="bg-zinc-400/10 border-none rounded-lg backdrop-blur-2xl  mr-2">
+              {isLoading && (
+                <div className="py-5 flex justify-center items-center">
+                  <Loader loading={true} />
+                </div>
+              )}
+              {data && data.length > 0 ? (
+                data.map((d, i) => (
+                  <div key={d.$id}>
+                    {i !== 0 && (
+                      <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
+                    )}
+                    <DropdownMenuItem
+                      onClick={() => handleAdd(d.$id || "null")}
+                    >
+                      <p className="truncate w-[9rem]">{d.creator}</p>
+                    </DropdownMenuItem>
+                  </div>
+                ))
+              ) : (
+                <DropdownMenuItem>no playlist found</DropdownMenuItem>
+              )}
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
+
         <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
         <DropdownMenuItem
           onClick={handleQueue}
@@ -78,8 +168,8 @@ function SongsOptions({
           <>
             <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
             <DropdownMenuItem
-              onClick={handleBeat}
-              className="flex items-center justify-between space-x-2"
+              disabled
+              className="flex items-center -mb-0.5 -mt-0.5 justify-between space-x-2"
             >
               <p className="text-base">Remove</p>
               <IoIosRemoveCircleOutline className="h-5 w-5" />

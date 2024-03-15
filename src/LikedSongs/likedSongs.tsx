@@ -159,7 +159,7 @@ function LikedSongComp() {
                 src="/liked.webp"
                 alt="Image"
                 loading="lazy"
-                className="object-cover rounded-xl opacity-80 h-[100%] w-[100%]"
+                className="object-cover rounded-xl h-[100%] w-[100%]"
               />
             </div>
             <div className=" absolute bottom-3 px-4 left-0  right-0">
