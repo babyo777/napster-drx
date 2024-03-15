@@ -77,7 +77,7 @@ export function Player() {
             {isLoading ? (
               <Loader loading={true} />
             ) : (
-              <div className="flex fade-in space-x-3 pr-1">
+              <div className="flex fade-in space-x-3 pr-3">
                 <IoPlay className="h-7 w-7" />
 
                 <TbPlayerTrackNextFilled
@@ -92,7 +92,9 @@ export function Player() {
           </>
         )}
         {isLoading ? (
-          <Loader loading={true} />
+          <div className="pr-11">
+            <Loader loading={true} />
+          </div>
         ) : (
           <>
             {isPlaylist && isPlaylist.length > 0 && (
