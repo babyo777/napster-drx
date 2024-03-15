@@ -40,6 +40,7 @@ import {
 } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
 import Share from "@/HandleShare/Share";
+import { MdOutlineEdit } from "react-icons/md";
 function LibraryComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -82,6 +83,7 @@ function LibraryComp() {
         Query.limit(999),
       ]);
       const modified = r.documents.map((doc) => ({
+        $id: doc.$id,
         for: doc.for,
         youtubeId: doc.youtubeId,
         artists: [
@@ -255,6 +257,11 @@ function LibraryComp() {
                   className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
                 />
               </div>
+              {id?.startsWith("custom") && (
+                <div className="">
+                  <MdOutlineEdit className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+                </div>
+              )}
               {isSaved && isSaved.length == 0 && (
                 <div className="">
                   <AddLibrary clone={true} id={id} />
@@ -323,6 +330,7 @@ function LibraryComp() {
                 audio={data.youtubeId}
                 key={data.youtubeId + i}
                 id={i}
+                delId={data.$id}
                 title={data.title}
                 artist={data.artists[0]?.name}
                 cover={data.thumbnailUrl}

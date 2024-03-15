@@ -1,4 +1,5 @@
 interface playlistSongs {
+  $id?: string;
   youtubeId: string;
   title: string;
   artists: artists[];
@@ -95,6 +96,7 @@ interface lastPlayed {
 interface likedSongs {
   type?: "album" | "playlist" | "music" | "artist";
   for: string;
+  $id: string;
   youtubeId: string;
   artists: artists[];
   title: string;

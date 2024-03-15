@@ -22,6 +22,7 @@ import SongsOptions from "./SongsOptions";
 function Songs({
   title,
   artist,
+  delId,
   cover,
   id,
   audio,
@@ -33,6 +34,7 @@ function Songs({
   link = true,
   album,
 }: {
+  delId?: string;
   album?: boolean;
   where: string;
   liked?: boolean;
@@ -131,6 +133,7 @@ function Songs({
         key={audio + cover + title}
         id={p}
         music={{
+          $id: delId,
           youtubeId: audio,
           title: title,
           thumbnailUrl: cover,

@@ -26,7 +26,7 @@ import {
   db,
 } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import Loader from "../Loaders/Loader";
 
 function SongsOptions({
@@ -41,6 +41,7 @@ function SongsOptions({
   underline?: boolean;
 }) {
   const dispatch = useDispatch();
+  const q = useQueryClient();
   const playlist = useSelector(
     (state: RootState) => state.musicReducer.playlist
   );
@@ -113,6 +114,10 @@ function SongsOptions({
     await refetch();
   }, [refetch]);
 
+  const handleDelete = useCallback(async () => {
+    await db.deleteDocument(DATABASE_ID, ADD_TO_LIBRARY, music.$id || "");
+    q.fetchQuery<playlistSongs[]>(["playlist", id]);
+  }, [q, music, id]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="m-0 p-0">
@@ -182,7 +187,7 @@ function SongsOptions({
           <>
             <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
             <DropdownMenuItem
-              disabled
+              onClick={handleDelete}
               className="flex items-center -mb-0.5 -mt-0.5 justify-between space-x-2"
             >
               <p className="text-base">Remove</p>

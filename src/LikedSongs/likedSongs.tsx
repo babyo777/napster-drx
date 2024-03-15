@@ -193,6 +193,7 @@ function LikedSongComp() {
               <Songs
                 p={id || ""}
                 liked={true}
+                delId={data.$id}
                 query="likedSongsDetails"
                 artistId={data.artists[0].id}
                 audio={data.youtubeId}
