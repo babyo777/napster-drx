@@ -44,7 +44,11 @@ function SavedLibraryCard({
         <>
           {isLoading && <SkeletonP />}
           <Link
-            to={`/library/${link}`}
+            to={`/library/${
+              data.link.startsWith("custom")
+                ? "custom" + data.$id + "?" + "cover" + "=" + data.image
+                : link
+            }`}
             className="flex space-x-2.5 items-center justify-between"
           >
             <div className="overflow-hidden h-14  w-14 space-y-2">
@@ -53,7 +57,7 @@ function SavedLibraryCard({
                   height="100%"
                   width="100%"
                   effect="blur"
-                  src={p[0]?.thumbnailUrl || "/favicon.jpeg"}
+                  src={p[0]?.thumbnailUrl || data.image}
                   alt="Image"
                   className="rounded-lg object-cover w-[100%] h-[100%]"
                 />
@@ -61,10 +65,10 @@ function SavedLibraryCard({
             </div>
             <div className="flex flex-col   text-start">
               <p className="w-[59vw]  text-lg   fade-in truncate">
-                {author || "NapsterDrx."}
+                {author || data.creator || "NapsterDrx."}
               </p>
               <p className="-mt-0.5  text-xs w-[50vw] truncate">
-                {p[0].title || "Unknown"}
+                {p[0]?.title || data.name}
               </p>
             </div>
           </Link>
