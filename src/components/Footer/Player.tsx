@@ -92,13 +92,13 @@ export function Player() {
           </>
         )}
         {isLoading ? (
-          <div className="pr-11">
+          <div className="pr-12">
             <Loader loading={true} />
           </div>
         ) : (
           <>
             {isPlaylist && isPlaylist.length > 0 && (
-              <div className="flex fade-in space-x-3 border pr-3">
+              <div className="flex fade-in space-x-3  pr-3">
                 {isPlaying ? (
                   <FaPause className="h-7 w-7" onClick={handlePlay} />
                 ) : (
