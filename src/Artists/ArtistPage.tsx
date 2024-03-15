@@ -215,10 +215,10 @@ function ArtistPageComp() {
                 type="button"
                 onClick={handleShufflePlay}
                 variant={"secondary"}
-                className="px-2.5 py-5 flex justify-center items-center   text-white shadow-none bg-red-600 backdrop-blur-lg
+                className="px-2.5 flex justify-center items-center   text-white shadow-none bg-red-600 backdrop-blur-lg
                   rounded-full "
               >
-                <IoPlay className="h-5 w-5" />
+                <IoPlay className="h-4 w-4" />
               </Button>
             </div>
           </div>
