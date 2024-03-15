@@ -134,7 +134,7 @@ function LikedSongComp() {
       )}
       {pDetails && (
         <>
-          <div className="flex w-full h-[25rem] justify-center bg-zinc-900 pt-[11.5vw] relative ">
+          <div className="flex w-full h-[25rem] justify-center pt-[11.5vw] relative ">
             <GoBack />
             <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
               <div className="">
@@ -159,7 +159,7 @@ function LikedSongComp() {
                 src="/liked.webp"
                 alt="Image"
                 loading="lazy"
-                className="object-cover shadow-2xl shadow-zinc-800 rounded-xl opacity-80 h-[100%] w-[100%]"
+                className="object-cover rounded-xl opacity-80 h-[100%] w-[100%]"
               />
             </div>
             <div className=" absolute bottom-3 px-4 left-0  right-0">

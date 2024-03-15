@@ -170,7 +170,7 @@ function AlbumPageComp() {
       )}
       {data && (
         <>
-          <div className="flex w-full h-[25rem] justify-center bg-zinc-900 pt-[11.5vw] relative ">
+          <div className="flex w-full h-[25rem] justify-center pt-[11.5vw] relative ">
             <GoBack />
             <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
               <div className="">
@@ -208,7 +208,7 @@ function AlbumPageComp() {
                 src={data[0]?.thumbnailUrl.replace("w120-h120", "w1080-h1080")}
                 alt="Image"
                 loading="lazy"
-                className="object-cover opacity-80 shadow-2xl shadow-zinc-800 rounded-xl h-[100%] w-[100%]"
+                className="object-cover opacity-80  rounded-xl h-[100%] w-[100%]"
               />
             </div>
             <div className=" absolute bottom-3 px-4 left-0  right-0">

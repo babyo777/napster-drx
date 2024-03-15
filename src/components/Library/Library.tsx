@@ -198,7 +198,7 @@ function LibraryComp() {
       )}
       {data && (
         <>
-          <div className="flex w-full h-[25rem] pt-[11.5vw] bg-zinc-900 justify-center  relative ">
+          <div className="flex w-full h-[25rem] pt-[11.5vw] justify-center  relative ">
             <GoBack />
 
             <div className="absolute top-4 z-10 right-3  flex-col space-y-0.5">
@@ -239,7 +239,7 @@ function LibraryComp() {
                 }
                 alt="Image"
                 loading="lazy"
-                className="object-cover rounded-xl shadow-2xl shadow-zinc-800 opacity-80 h-[100%] w-[100%]"
+                className="object-cover rounded-xl  opacity-80 h-[100%] w-[100%]"
               />
             </div>
 
