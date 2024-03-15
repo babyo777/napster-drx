@@ -133,5 +133,5 @@ input[type="range"]::-ms-thumb {
   scrollbar-width: none;
 }
 *::-webkit-scrollbar {
-  display: none;
+  scrollbar-width: none !important;
 }
