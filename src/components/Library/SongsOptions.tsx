@@ -142,7 +142,7 @@ function SongsOptions({
                   <Loader loading={true} />
                 </div>
               )}
-              {data && !isLoading && data.length > 0 ? (
+              {data && data.length > 0 ? (
                 data.map((d, i) => (
                   <div key={d.$id}>
                     {i !== 0 && (
@@ -156,7 +156,11 @@ function SongsOptions({
                   </div>
                 ))
               ) : (
-                <DropdownMenuItem>no playlist found</DropdownMenuItem>
+                <>
+                  {!isLoading && (
+                    <DropdownMenuItem>no playlist found</DropdownMenuItem>
+                  )}
+                </>
               )}
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
