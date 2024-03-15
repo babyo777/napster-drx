@@ -377,7 +377,7 @@ function AudioPLayerComp() {
                 />
               </div>
               <div className="flex flex-col text-start">
-                <p className=" text-sm truncate w-[50vw] ">
+                <p className=" text-sm truncate font-semibold w-[53vw] ">
                   {playlist[currentIndex].title}
                 </p>
                 <p className=" text-xs w-[30vw] truncate">
@@ -443,7 +443,7 @@ function AudioPLayerComp() {
                       }`}
                     >
                       <DrawerClose className="text-start">
-                        <p className="text-base truncate fade-in font-semibold w-[71vw] text-red-500">
+                        <p className="text-base truncate fade-in  w-[70vw] text-red-500">
                           {" "}
                           {playlist[currentIndex].artists[0]?.name}
                         </p>
