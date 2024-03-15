@@ -198,10 +198,10 @@ function LibraryComp() {
       )}
       {data && (
         <>
-          <div className="flex w-full h-[25rem]   relative ">
+          <div className="flex w-full h-[25rem] pt-[11.5vw] bg-zinc-900 justify-center  relative ">
             <GoBack />
 
-            <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
+            <div className="absolute top-4 z-10 right-3  flex-col space-y-0.5">
               <div className="">
                 <IoReload
                   onClick={() => (
@@ -222,29 +222,30 @@ function LibraryComp() {
               )}
               <Share />
             </div>
-
-            <LazyLoadImage
-              effect="blur"
-              width="100%"
-              height="100%"
-              src={
-                cover
-                  ? cover
-                  : (playlistThumbnail &&
-                      playlistThumbnail[0]?.thumbnailUrl.replace(
-                        "w120-h120",
-                        "w1080-h1080"
-                      )) ||
-                    "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
-              }
-              alt="Image"
-              loading="lazy"
-              className="object-cover opacity-80 h-[100%] w-[100%]"
-            />
+            <div className="h-[60vw] w-[60vw]">
+              <LazyLoadImage
+                effect="blur"
+                width="100%"
+                height="100%"
+                src={
+                  cover
+                    ? cover
+                    : (playlistThumbnail &&
+                        playlistThumbnail[0]?.thumbnailUrl.replace(
+                          "w120-h120",
+                          "w1080-h1080"
+                        )) ||
+                      "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
+                }
+                alt="Image"
+                loading="lazy"
+                className="object-cover rounded-xl shadow-2xl shadow-zinc-800 opacity-80 h-[100%] w-[100%]"
+              />
+            </div>
 
             <div className=" absolute bottom-3  px-4 left-0  right-0">
-              <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
-                {(pDetails && pDetails[0]?.title) || ""}
+              <h1 className="text-center  font-semibold py-2 truncate text-2xl capitalize">
+                {(pDetails && pDetails[0]?.title) || "Mixes"}
               </h1>
               <div className="flex space-x-4 py-1 px-2 justify-center  items-center w-full">
                 <Button

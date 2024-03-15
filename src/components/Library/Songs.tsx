@@ -31,7 +31,9 @@ function Songs({
   liked,
   where,
   link = true,
+  album,
 }: {
+  album?: boolean;
   where: string;
   liked?: boolean;
   link?: boolean;
@@ -84,32 +86,37 @@ function Songs({
 
   return (
     <div id={audio} className="flex fade-in py-2 space-x-2 items-center">
-      <div className="overflow-hidden h-12 w-12 space-y-2">
-        <AspectRatio ratio={1 / 1}>
-          <LazyLoadImage
-            onClick={handlePlay}
-            src={cover}
-            width="100%"
-            height="100%"
-            effect="blur"
-            alt="Image"
-            loading="lazy"
-            className="rounded-md object-cover h-[100%] w-[100%]"
-          />
-        </AspectRatio>
-      </div>
+      {!album ? (
+        <div className="overflow-hidden h-12 w-12 space-y-2">
+          <AspectRatio ratio={1 / 1}>
+            <LazyLoadImage
+              onClick={handlePlay}
+              src={cover}
+              width="100%"
+              height="100%"
+              effect="blur"
+              alt="Image"
+              loading="lazy"
+              className="rounded-md object-cover h-[100%] w-[100%]"
+            />
+          </AspectRatio>
+        </div>
+      ) : (
+        <p className="flex  text-xl font-semibold w-[7vw]">{id + 1}</p>
+      )}
+
       <div className="flex  flex-col pl-1 space-y-0.5 text-start w-[70dvw] ">
         <p
           onClick={handlePlay}
           className={`w-[60dvw]   ${
             playlist[currentIndex]?.youtubeId == audio && "text-red-500"
-          }  truncate`}
+          }  truncate capitalize`}
         >
           {title.replace("______________________________________", "untitled")}
         </p>
         {link ? (
           <Link to={`/artist/${artistId}`} className="w-[40vw]">
-            <p className="-mt-0.5 h-[1rem]  text-xs  text-zinc-400 w-[40dvw]  truncate">
+            <p className="-mt-0.5 h-[1rem] capitalize text-xs  text-zinc-400 w-[40dvw]  truncate">
               {artist}
             </p>
           </Link>
