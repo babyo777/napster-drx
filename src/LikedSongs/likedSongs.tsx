@@ -134,7 +134,7 @@ function LikedSongComp() {
       )}
       {pDetails && (
         <>
-          <div className="flex w-full h-[25rem] justify-center pt-[12vw] relative ">
+          <div className="flex w-screen h-[25rem] justify-center pt-[12vw] relative ">
             <GoBack />
             <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
               <div className="">
