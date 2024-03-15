@@ -129,6 +129,7 @@ function Songs({
       </div>
       <SongsOptions
         key={audio + cover + title}
+        id={p}
         music={{
           youtubeId: audio,
           title: title,

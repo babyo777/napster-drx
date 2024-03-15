@@ -33,7 +33,9 @@ function SongsOptions({
   library,
   underline,
   music,
+  id,
 }: {
+  id?: string;
   music: playlistSongs;
   library?: boolean;
   underline?: boolean;
@@ -88,6 +90,7 @@ function SongsOptions({
   const loadSavedPlaylist = async () => {
     const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
       Query.orderDesc("$createdAt"),
+      Query.notEqual("$id", [id?.replace("custom", "") || ""]),
       Query.startsWith("link", "custom"),
       Query.equal("for", [localStorage.getItem("uid") || "default"]),
       Query.limit(999),
