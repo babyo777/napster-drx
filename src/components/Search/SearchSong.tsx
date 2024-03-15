@@ -147,7 +147,9 @@ function SearchSong({
           youtubeId: id,
           title: title,
           thumbnailUrl: cover,
-          artists: artist,
+          artists: [
+            { id: artistId, name: artist[0]?.name || artistName || "" },
+          ],
         }}
       />
     </div>
