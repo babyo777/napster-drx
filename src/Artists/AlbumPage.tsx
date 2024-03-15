@@ -220,7 +220,7 @@ function AlbumPageComp() {
                   onClick={handlePlay}
                   type="button"
                   variant={"secondary"}
-                  className="text-lg py-6 text-black shadow-none bg-white rounded-lg px-[13dvw]"
+                  className="text-lg py-6 shadow-none bg-zinc-800 rounded-lg px-[13dvw]"
                 >
                   <FaPlay className="mr-2" />
                   Play
@@ -229,7 +229,7 @@ function AlbumPageComp() {
                   type="button"
                   onClick={handleShufflePlay}
                   variant={"secondary"}
-                  className="text-lg py-6 text-black shadow-none bg-white rounded-lg px-[12dvw]"
+                  className="text-lg py-6 shadow-none bg-zinc-800 rounded-lg px-[12dvw]"
                 >
                   <RxShuffle className="mr-2" />
                   Shuffle
