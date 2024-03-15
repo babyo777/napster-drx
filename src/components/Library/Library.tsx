@@ -136,6 +136,9 @@ function LibraryComp() {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     staleTime: 60 * 60000,
+    onSuccess(data) {
+      data.length == 0 && refetch();
+    },
   });
 
   const {

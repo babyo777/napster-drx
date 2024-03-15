@@ -70,7 +70,7 @@ function AlbumPageComp() {
     }
   );
 
-  const getPlaylist = async () => {
+  const getAlbumSONGS = async () => {
     const list = await axios.get(`${GetAlbumSongs}${id}`);
     return list.data as AlbumSongs[];
   };
@@ -80,10 +80,13 @@ function AlbumPageComp() {
   );
   const { data, isLoading, isError, refetch, isRefetching } = useQuery<
     AlbumSongs[]
-  >(["album", id], getPlaylist, {
+  >(["album", id], getAlbumSONGS, {
     retry: 5,
     refetchOnWindowFocus: false,
     staleTime: 60 * 600000,
+    onSuccess(data) {
+      data.length == 0 && refetch();
+    },
   });
 
   const artistSearch = async () => {
@@ -208,7 +211,7 @@ function AlbumPageComp() {
                 src={data[0]?.thumbnailUrl.replace("w120-h120", "w1080-h1080")}
                 alt="Image"
                 loading="lazy"
-                className="object-cover   rounded-xl h-[100%] w-[100%]"
+                className="object-cover rounded-xl h-[100%] w-[100%]"
               />
             </div>
             <div className=" absolute bottom-3 px-4 left-0  right-0">
