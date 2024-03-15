@@ -92,7 +92,7 @@ export function Player() {
           </>
         )}
         {isLoading ? (
-          <div className="pr-12">
+          <div className="pr-[13vw]">
             <Loader loading={true} />
           </div>
         ) : (
