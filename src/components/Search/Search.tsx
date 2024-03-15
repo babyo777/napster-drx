@@ -179,7 +179,10 @@ function SearchComp() {
                   Recently Searched
                 </h3>
                 <div className="flex fade-in pb-[8.5rem] justify-center flex-col -space-y-1  ">
-                  {RecentSearch.map((r, i) => (
+                  {RecentSearch.filter(
+                    (r, i, s) =>
+                      i === s.findIndex((t) => t.youtubeId == r.youtubeId)
+                  ).map((r, i) => (
                     <RecentSearchesComp r={r} key={r.youtubeId + i} />
                   ))}
                 </div>
