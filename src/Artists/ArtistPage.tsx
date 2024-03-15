@@ -168,7 +168,7 @@ function ArtistPageComp() {
         </div>
       )}
       {data && (
-        <div className="flex w-full h-[23rem] justify-center items-center relative ">
+        <div className="flex w-full h-[23rem] justify-center pt-[19vw] relative ">
           <GoBack />
 
           <div className=" absolute top-4 z-10 right-3">
@@ -191,7 +191,7 @@ function ArtistPageComp() {
             )}
             <Share />
           </div>
-          <div className="h-[40vw] w-[40vw]">
+          <div className="h-[50vw] w-[50vw]">
             <LazyLoadImage
               effect="blur"
               width="100%"
