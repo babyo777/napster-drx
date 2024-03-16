@@ -42,6 +42,7 @@ import {
 } from "react-query";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { SearchPlaylist } from "@/Interface";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const FormSchema = z.object({
   Playlist: z.string().min(3, {
