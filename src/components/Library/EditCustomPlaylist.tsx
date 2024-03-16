@@ -110,6 +110,7 @@ export function EditCustomPlaylist({ id }: { id: string }) {
                 type="submit"
                 className=" rounded-xl"
                 variant={"secondary"}
+                disabled={isSubmit}
               >
                 {isSubmit ? (
                   <Loader size="20" loading={true} />
