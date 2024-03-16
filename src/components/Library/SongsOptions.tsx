@@ -192,7 +192,7 @@ function SongsOptions({
                     <DropdownMenuItem
                       onClick={() => handleAdd(d.$id || "null", true)}
                     >
-                      <p className="truncate w-[30vw]">{d.creator}</p>
+                      <p className="truncate w-[50vw]">{d.creator}</p>
                     </DropdownMenuItem>
                   </div>
                 ))
