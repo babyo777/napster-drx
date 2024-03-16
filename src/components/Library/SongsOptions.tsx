@@ -118,12 +118,15 @@ function SongsOptions({
   }, [refetch]);
 
   const handleDelete = useCallback(async () => {
-    if (like) {
-      await db.deleteDocument(DATABASE_ID, LIKE_SONG, music.$id || "");
-      q.fetchQuery<playlistSongs[]>(["likedSongsDetails", id]);
-    } else {
-      await db.deleteDocument(DATABASE_ID, ADD_TO_LIBRARY, music.$id || "");
-      q.fetchQuery<playlistSongs[]>(["playlist", id]);
+    const ok = confirm("Are you sure you want to delete");
+    if (ok) {
+      if (like) {
+        await db.deleteDocument(DATABASE_ID, LIKE_SONG, music.$id || "");
+        q.fetchQuery<playlistSongs[]>(["likedSongsDetails", id]);
+      } else {
+        await db.deleteDocument(DATABASE_ID, ADD_TO_LIBRARY, music.$id || "");
+        q.fetchQuery<playlistSongs[]>(["playlist", id]);
+      }
     }
   }, [q, music, id, like]);
   return (
