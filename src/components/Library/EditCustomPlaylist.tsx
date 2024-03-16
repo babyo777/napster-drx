@@ -117,8 +117,6 @@ export function EditCustomPlaylist({
               await db.updateDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, id, {
                 image: image,
               });
-              console.log(image.split("/files/")[1].split("/")[0]);
-
               storage.deleteFile(
                 STORAGE,
                 thumbnailUrl.split("/files/")[1].split("/")[0]
