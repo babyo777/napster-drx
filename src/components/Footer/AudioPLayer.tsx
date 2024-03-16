@@ -290,7 +290,6 @@ function AudioPLayerComp() {
       dispatch(setPlayer(sound));
 
       return () => {
-        sound.load();
         sound.pause();
         // document.removeEventListener(
         //   "visibilitychange",
