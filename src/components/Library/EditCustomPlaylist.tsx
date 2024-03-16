@@ -57,6 +57,8 @@ export function EditCustomPlaylist({ id }: { id: string }) {
     db.updateDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, id, {
       name: data.creator,
       creator: data.Playlist,
+      image:
+        "https://i.pinimg.com/564x/ba/a8/c8/baa8c8385d0ac653d4d409c8682d8d46.jpg",
     }).then(() => (form.reset(), setIsSubmit(false), close.current?.click()));
   }
 
