@@ -1,6 +1,7 @@
 interface playlistSongs {
   $id?: string;
   youtubeId: string;
+  for?: string;
   title: string;
   artists: artists[];
   thumbnailUrl: string;

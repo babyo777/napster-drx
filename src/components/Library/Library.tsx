@@ -323,7 +323,12 @@ function LibraryComp() {
             {data.map((data, i) => (
               <Songs
                 p={id || ""}
-                where={(id?.startsWith("custom") && "liked") || ""}
+                where={
+                  (id?.startsWith("custom") &&
+                    data.for == localStorage.getItem("uid") &&
+                    "liked") ||
+                  ""
+                }
                 artistId={data.artists[0]?.id}
                 audio={data.youtubeId}
                 key={data.youtubeId + i}
