@@ -156,8 +156,9 @@ export function EditCustomPlaylist({
             <input
               required
               type="file"
+              accept="image/*"
+              className="hidden"
               id="file"
-              hidden
               onChange={handleCover}
             />
             <label htmlFor="file">
