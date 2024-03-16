@@ -40,7 +40,7 @@ function Songs({
   album,
   reload,
 }: {
-  reload: <TPageData>(
+  reload?: <TPageData>(
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
   ) => Promise<QueryObserverResult<playlistSongs[], unknown>>;
   delId?: string;
