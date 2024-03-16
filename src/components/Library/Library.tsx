@@ -330,6 +330,7 @@ function LibraryComp() {
               <Songs
                 reload={refetch}
                 p={id || ""}
+                forId={data.for}
                 where={"library"}
                 artistId={data.artists[0]?.id}
                 audio={data.youtubeId}
