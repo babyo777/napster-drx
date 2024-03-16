@@ -43,7 +43,7 @@ function SongsOptions({
   id,
   reload,
 }: {
-  reload: <TPageData>(
+  reload?: <TPageData>(
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
   ) => Promise<QueryObserverResult<playlistSongs[], unknown>>;
   like?: boolean;
@@ -127,7 +127,7 @@ function SongsOptions({
 
   const handleDelete = useCallback(async () => {
     const ok = confirm("Are you sure you want to delete");
-    if (ok) {
+    if (ok && reload) {
       if (like) {
         await db.deleteDocument(DATABASE_ID, LIKE_SONG, music.$id || "");
         reload();
