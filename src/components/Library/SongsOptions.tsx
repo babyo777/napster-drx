@@ -121,7 +121,6 @@ function SongsOptions({
       keepPreviousData: true,
     }
   );
-  console.log(uid, music.for);
 
   const handlePlaylist = useCallback(async () => {
     await refetch();
