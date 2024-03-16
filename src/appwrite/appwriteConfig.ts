@@ -21,6 +21,7 @@ export const UPDATES = "65da232e478bcf5bbbad";
 export const SPONSORS = "65e08a335e4df7351d5a";
 export const LAST_PLAYED = "65e75b144ddb0ceccd5f";
 export const ADD_TO_LIBRARY = "65f4607deb80cb8d855a";
+export const BUCKET = "65f4fab3186d4eb687f6";
 
 export const db = new Databases(client);
 
