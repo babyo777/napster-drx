@@ -89,7 +89,6 @@ export function EditCustomPlaylist({
     const info = {
       ...(data.creator && { name: data.creator }),
       creator: data.Playlist,
-      image: data.image,
     };
 
     db.updateDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, id, {
