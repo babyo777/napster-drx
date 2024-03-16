@@ -310,7 +310,7 @@ function LibraryComp() {
                 width="100%"
                 height="100%"
                 src={
-                  cover ||
+                  (!id?.startsWith("custom") && cover) ||
                   (playlistThumbnail &&
                     playlistThumbnail[0]?.thumbnailUrl.replace(
                       "w120-h120",
