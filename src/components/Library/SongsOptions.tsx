@@ -199,7 +199,13 @@ function SongsOptions({
               ) : (
                 <>
                   {!isLoading && (
-                    <DropdownMenuItem>no playlist found</DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={handleLibrary}
+                      className="flex items-center justify-between space-x-2"
+                    >
+                      <p className="text-base">Create and add</p>
+                      <IoAddSharp className="h-5 w-5" />
+                    </DropdownMenuItem>
                   )}
                 </>
               )}
