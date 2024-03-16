@@ -101,8 +101,8 @@ export function ListenNowComp() {
   return (
     <>
       {data && data !== "url not provided" && (
-        <div className=" fixed fade-in w-full px-4">
-          <Alert className=" fade-in bg-red-500 top-4 ">
+        <div className=" fixed fade-in w-full px-4 z-10">
+          <Alert className=" fade-in bg-red-500 top-4 border-none">
             <AlertTitle>Playback Server is Down !</AlertTitle>
             <AlertDescription>
               <span className="flex">
@@ -116,8 +116,8 @@ export function ListenNowComp() {
         </div>
       )}
       {isError && (
-        <div className=" fixed fade-in  w-full px-4">
-          <Alert className=" fade-in bg-red-500 top-4 ">
+        <div className=" fixed fade-in  w-full px-4 z-10 ">
+          <Alert className=" fade-in bg-red-500 top-4 border-none">
             <AlertTitle>Playback Server is Down !</AlertTitle>
             <AlertDescription>
               <p className="flex">
