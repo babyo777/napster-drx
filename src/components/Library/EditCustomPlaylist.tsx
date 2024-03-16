@@ -34,12 +34,15 @@ import Loader from "../Loaders/Loader";
 import { useQueryClient } from "react-query";
 
 const FormSchema = z.object({
-  Playlist: z.string().min(2, {
+  Playlist: z.string().min(3, {
     message: "Playlist name must be at least 3 characters.",
   }),
-  creator: z.string().min(2, {
-    message: "name must be at least 2 characters.",
-  }),
+  creator: z
+    .string()
+    .refine((data) => !data || data.length > 3, {
+      message: "Name must be at least 3 characters.",
+    })
+    .optional(),
 });
 
 export function EditCustomPlaylist({ id }: { id: string }) {
@@ -56,11 +59,15 @@ export function EditCustomPlaylist({ id }: { id: string }) {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsSubmit(true);
-    db.updateDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, id, {
-      name: data.creator,
+    const info = {
+      ...(data.creator && { name: data.creator }),
       creator: data.Playlist,
       image:
         "https://i.pinimg.com/564x/ba/a8/c8/baa8c8385d0ac653d4d409c8682d8d46.jpg",
+    };
+
+    db.updateDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, id, {
+      ...info,
     }).then(
       () => (
         form.reset(),
@@ -129,12 +136,13 @@ export function EditCustomPlaylist({ id }: { id: string }) {
               </Button>
               <DialogClose className="flex w-full">
                 <Button
+                  asChild
                   ref={close}
                   type="button"
                   variant={"secondary"}
                   className="w-full  rounded-xl"
                 >
-                  Close
+                  <p>Close</p>
                 </Button>
               </DialogClose>
             </DialogFooter>
