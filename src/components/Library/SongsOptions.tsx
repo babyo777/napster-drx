@@ -52,6 +52,7 @@ function SongsOptions({
   library?: boolean;
   underline?: boolean;
 }) {
+  const uid = useSelector((state: RootState) => state.musicReducer.uid);
   const dispatch = useDispatch();
   const playlist = useSelector(
     (state: RootState) => state.musicReducer.playlist
@@ -120,6 +121,7 @@ function SongsOptions({
       keepPreviousData: true,
     }
   );
+  console.log(uid, music.for);
 
   const handlePlaylist = useCallback(async () => {
     await refetch();
@@ -138,7 +140,6 @@ function SongsOptions({
     }
   }, [music, like, reload]);
 
-  const uid = useSelector((state: RootState) => state.musicReducer.uid);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="m-0 p-0">
@@ -204,7 +205,7 @@ function SongsOptions({
           <PiQueue className="h-5 w-5" />
         </DropdownMenuItem>
 
-        {library && uid && music.for == uid && (
+        {library && uid && uid == music.for && (
           <>
             <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
             <DropdownMenuItem

@@ -39,7 +39,9 @@ function Songs({
   link = true,
   album,
   reload,
+  forId,
 }: {
+  forId?: string;
   reload?: <TPageData>(
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
   ) => Promise<QueryObserverResult<playlistSongs[], unknown>>;
@@ -98,8 +100,6 @@ function Songs({
     if (!isPlaying) dispatch(play(true));
   }, [dispatch, id, q, p, isPlaying, artistId, query, liked, where, playlist]);
 
-  const uid = useSelector((state: RootState) => state.musicReducer.uid);
-
   return (
     <div id={audio} className="flex fade-in py-2 space-x-2 items-center">
       {!album ? (
@@ -149,7 +149,7 @@ function Songs({
         reload={reload}
         like={query == "likedSongsDetails" && true}
         music={{
-          for: uid || "",
+          for: forId,
           $id: delId,
           youtubeId: audio,
           title: title,

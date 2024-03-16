@@ -194,6 +194,7 @@ function LikedSongComp() {
               <Songs
                 p={id || ""}
                 liked={true}
+                forId={data.for}
                 delId={data.$id}
                 query="likedSongsDetails"
                 artistId={data.artists[0].id}
