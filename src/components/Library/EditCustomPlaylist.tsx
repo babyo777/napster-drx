@@ -66,7 +66,7 @@ export function EditCustomPlaylist({ id }: { id: string }) {
         form.reset(),
         setIsSubmit(false),
         close.current?.click(),
-        q.fetchQuery(["playlistDetails", id])
+        q.fetchQuery(["playlistDetails", "custom" + id])
       )
     );
   }
