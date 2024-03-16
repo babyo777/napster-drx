@@ -44,7 +44,8 @@ import { EditCustomPlaylist } from "./EditCustomPlaylist";
 function LibraryComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
-
+  const search = new URLSearchParams(location.search);
+  const cover = search.get("cover");
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
@@ -309,6 +310,7 @@ function LibraryComp() {
                 width="100%"
                 height="100%"
                 src={
+                  cover ||
                   (playlistThumbnail &&
                     playlistThumbnail[0]?.thumbnailUrl.replace(
                       "w120-h120",

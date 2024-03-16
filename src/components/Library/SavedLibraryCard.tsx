@@ -45,7 +45,9 @@ function SavedLibraryCard({
           {isLoading && <SkeletonP />}
           <Link
             to={`/library/${
-              data.link.startsWith("custom") ? "custom" + data.$id : link
+              data.link.startsWith("custom")
+                ? "custom" + data.$id + "?" + "cover=" + data.image
+                : link
             }`}
             className="flex space-x-2.5 items-center justify-between"
           >
