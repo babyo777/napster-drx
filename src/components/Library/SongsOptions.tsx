@@ -69,7 +69,19 @@ function SongsOptions({
   }, [music, dispatch, playlist, currentIndex]);
 
   const handleAdd = useCallback(
-    (playlistId: string, show?: boolean) => {
+    async (playlistId: string, show?: boolean) => {
+      const r = await db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [
+        Query.orderDesc("$createdAt"),
+        Query.equal("for", [localStorage.getItem("uid") || "default"]),
+        Query.equal("youtubeId", [music.youtubeId]),
+        Query.equal("playlistId", [playlistId]),
+        Query.limit(999),
+      ]);
+      console.log(r.documents);
+
+      if (r.total > 0) {
+        return;
+      }
       if (localStorage.getItem("uid")) {
         db.createDocument(DATABASE_ID, ADD_TO_LIBRARY, ID.unique(), {
           for: localStorage.getItem("uid"),
