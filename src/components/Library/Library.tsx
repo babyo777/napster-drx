@@ -266,7 +266,7 @@ function LibraryComp() {
                   creator={(pDetails && pDetails[0].name) || ""}
                 />
               )}
-              {isSaved && isSaved.length == 0 && (
+              {isSaved && isSaved.length == 0 && !id?.startsWith("custom") && (
                 <div className="">
                   <AddLibrary clone={true} id={id} />
                 </div>
