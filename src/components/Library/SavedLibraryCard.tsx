@@ -57,7 +57,11 @@ function SavedLibraryCard({
                   height="100%"
                   width="100%"
                   effect="blur"
-                  src={p[0]?.thumbnailUrl || data.image}
+                  src={
+                    p[0]?.thumbnailUrl ||
+                    data.image ||
+                    "https://i.pinimg.com/564x/e0/ad/78/e0ad78737e2dc7c31b4190aafaa870bf.jpg"
+                  }
                   alt="Image"
                   className="rounded-lg object-cover w-[100%] h-[100%]"
                 />
