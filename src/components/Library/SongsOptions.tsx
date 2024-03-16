@@ -177,7 +177,7 @@ function SongsOptions({
             <p className="text-base">Add to a Playlist...</p>
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
-            <DropdownMenuSubContent className="bg-zinc-400/10 w-[10vw] border-none rounded-lg backdrop-blur-2xl  mr-2">
+            <DropdownMenuSubContent className="bg-zinc-400/10 w-[40vw] border-none rounded-lg backdrop-blur-2xl  mr-2">
               {isLoading && (
                 <div className="py-5 flex justify-center items-center">
                   <Loader loading={true} />
@@ -192,7 +192,7 @@ function SongsOptions({
                     <DropdownMenuItem
                       onClick={() => handleAdd(d.$id || "null", true)}
                     >
-                      <p className="truncate w-[50vw]">{d.creator}</p>
+                      <p className="truncate w-[37vw]">{d.creator}</p>
                     </DropdownMenuItem>
                   </div>
                 ))
