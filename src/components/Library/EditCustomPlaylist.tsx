@@ -45,15 +45,23 @@ const FormSchema = z.object({
     .optional(),
 });
 
-export function EditCustomPlaylist({ id }: { id: string }) {
+export function EditCustomPlaylist({
+  id,
+  name,
+  creator,
+}: {
+  id: string;
+  name: string;
+  creator: string;
+}) {
   const q = useQueryClient();
   const close = useRef<HTMLButtonElement>(null);
   const [isSubmit, setIsSubmit] = useState<boolean>();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      Playlist: "",
-      creator: "",
+      Playlist: name,
+      creator: creator,
     },
   });
 

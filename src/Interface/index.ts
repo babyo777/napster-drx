@@ -34,6 +34,7 @@ interface recentSearch {
 }
 
 interface SearchPlaylist {
+  name?: string;
   fromSearch?: boolean;
   playlistId: string;
   title: string;

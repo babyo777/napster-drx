@@ -114,6 +114,7 @@ function LibraryComp() {
       const t = [
         {
           title: list.creator,
+          name: list.name,
         },
       ];
 
@@ -259,7 +260,11 @@ function LibraryComp() {
                 />
               </div>
               {id?.startsWith("custom") && (
-                <EditCustomPlaylist id={id.replace("custom", "")} />
+                <EditCustomPlaylist
+                  id={id.replace("custom", "")}
+                  name={(pDetails && pDetails[0]?.title) || ""}
+                  creator={(pDetails && pDetails[0].name) || ""}
+                />
               )}
               {isSaved && isSaved.length == 0 && (
                 <div className="">
