@@ -31,6 +31,7 @@ import {
 } from "@/appwrite/appwriteConfig";
 import { useRef, useState } from "react";
 import Loader from "../Loaders/Loader";
+import { useQueryClient } from "react-query";
 
 const FormSchema = z.object({
   Playlist: z.string().min(2, {
@@ -42,6 +43,7 @@ const FormSchema = z.object({
 });
 
 export function EditCustomPlaylist({ id }: { id: string }) {
+  const q = useQueryClient();
   const close = useRef<HTMLButtonElement>(null);
   const [isSubmit, setIsSubmit] = useState<boolean>();
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -59,7 +61,14 @@ export function EditCustomPlaylist({ id }: { id: string }) {
       creator: data.Playlist,
       image:
         "https://i.pinimg.com/564x/ba/a8/c8/baa8c8385d0ac653d4d409c8682d8d46.jpg",
-    }).then(() => (form.reset(), setIsSubmit(false), close.current?.click()));
+    }).then(
+      () => (
+        form.reset(),
+        setIsSubmit(false),
+        close.current?.click(),
+        q.fetchQuery(["playlistDetails", id])
+      )
+    );
   }
 
   return (
