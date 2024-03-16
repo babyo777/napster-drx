@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import Songs from "@/components/Library/Songs";
 import { RxShuffle } from "react-icons/rx";
 import { RiFocus3Line } from "react-icons/ri";
+import Share from "@/HandleShare/Share";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 function LikedSongComp() {
@@ -149,6 +150,7 @@ function LikedSongComp() {
                   <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
                 </div>
               )}
+              <Share />
             </div>
             <div className="h-[60vw] w-[60vw]">
               <LazyLoadImage
