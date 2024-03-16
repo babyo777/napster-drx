@@ -45,12 +45,12 @@ import { SearchPlaylist } from "@/Interface";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 const FormSchema = z.object({
-  Playlist: z.string().min(3, {
+  Playlist: z.string().min(2, {
     message: "Playlist name must be at least 3 characters.",
   }),
   creator: z
     .string()
-    .refine((data) => !data || data.length > 3, {
+    .refine((data) => !data || data.length > 1, {
       message: "Name must be at least 3 characters.",
     })
     .optional(),
