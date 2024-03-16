@@ -329,7 +329,7 @@ function LibraryComp() {
                 audio={data.youtubeId}
                 key={data.youtubeId + i}
                 id={i}
-                query={(id?.startsWith("custom") && "likedSongsDetails") || ""}
+                query={(id?.startsWith("custom") && "custom") || ""}
                 delId={data.$id}
                 title={data.title}
                 artist={data.artists[0]?.name}
