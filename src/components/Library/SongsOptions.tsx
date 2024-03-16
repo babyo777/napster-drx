@@ -129,6 +129,8 @@ function SongsOptions({
       }
     }
   }, [q, music, id, like]);
+
+  const uid = useSelector((state: RootState) => state.musicReducer.uid);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="m-0 p-0">
@@ -194,7 +196,7 @@ function SongsOptions({
           <PiQueue className="h-5 w-5" />
         </DropdownMenuItem>
 
-        {library && (
+        {library && uid && music.for == uid && (
           <>
             <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
             <DropdownMenuItem

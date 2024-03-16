@@ -49,6 +49,7 @@ function LibraryComp() {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
+  const uid = useSelector((state: RootState) => state.musicReducer.uid);
   const playingPlaylistUrl = useSelector(
     (state: RootState) => state.musicReducer.playingPlaylistUrl
   );
@@ -59,7 +60,7 @@ function LibraryComp() {
 
   const loadSavedPlaylist = async () => {
     const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
-      Query.equal("for", [localStorage.getItem("uid") || "default", "default"]),
+      Query.equal("for", [uid || ""]),
       Query.equal("link", [id || "none"]),
     ]);
     const p = r.documents as unknown as savedPlaylist[];
@@ -78,7 +79,7 @@ function LibraryComp() {
     if (id && id.startsWith("custom")) {
       const r = await db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [
         Query.orderDesc("$createdAt"),
-        Query.equal("for", [localStorage.getItem("uid") || ""]),
+        Query.equal("for", [uid || ""]),
         Query.equal("playlistId", [id.replace("custom", "")]),
         Query.limit(999),
       ]);
@@ -328,7 +329,7 @@ function LibraryComp() {
                 audio={data.youtubeId}
                 key={data.youtubeId + i}
                 id={i}
-                query={id?.startsWith("custom") && "likedSongsDetails"}
+                query={(id?.startsWith("custom") && "likedSongsDetails") || ""}
                 delId={data.$id}
                 title={data.title}
                 artist={data.artists[0]?.name}

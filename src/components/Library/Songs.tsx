@@ -86,6 +86,8 @@ function Songs({
     if (!isPlaying) dispatch(play(true));
   }, [dispatch, id, q, p, isPlaying, artistId, query, liked, where, playlist]);
 
+  const uid = useSelector((state: RootState) => state.musicReducer.uid);
+
   return (
     <div id={audio} className="flex fade-in py-2 space-x-2 items-center">
       {!album ? (
@@ -134,6 +136,7 @@ function Songs({
         id={p}
         like={query == "likedSongsDetails" && true}
         music={{
+          for: uid || "",
           $id: delId,
           youtubeId: audio,
           title: title,
