@@ -204,6 +204,7 @@ function LikedSongComp() {
                 title={data.title}
                 artist={data.artists[0].name}
                 cover={data.thumbnailUrl}
+                reload={pRefetch}
               />
             ))}
           </div>

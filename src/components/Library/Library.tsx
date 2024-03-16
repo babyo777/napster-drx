@@ -328,6 +328,7 @@ function LibraryComp() {
           <div className="py-3 -mt-3 pb-[8.5rem]">
             {data.map((data, i) => (
               <Songs
+                reload={refetch}
                 p={id || ""}
                 where={"library"}
                 artistId={data.artists[0]?.id}

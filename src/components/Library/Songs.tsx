@@ -15,7 +15,12 @@ import {
   setPlaylist,
 } from "@/Store/Player";
 import { playlistSongs } from "@/Interface";
-import { useQueryClient } from "react-query";
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+  useQueryClient,
+} from "react-query";
 import { Link } from "react-router-dom";
 import SongsOptions from "./SongsOptions";
 
@@ -33,7 +38,11 @@ function Songs({
   where,
   link = true,
   album,
+  reload,
 }: {
+  reload: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
+  ) => Promise<QueryObserverResult<playlistSongs[], unknown>>;
   delId?: string;
   album?: boolean;
   where: string;
@@ -137,6 +146,7 @@ function Songs({
       <SongsOptions
         key={audio + cover + title}
         id={p}
+        reload={reload}
         like={query == "likedSongsDetails" && true}
         music={{
           for: uid || "",

@@ -27,7 +27,12 @@ import {
   db,
 } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
-import { useQuery } from "react-query";
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+  useQuery,
+} from "react-query";
 import Loader from "../Loaders/Loader";
 
 function SongsOptions({
@@ -36,7 +41,11 @@ function SongsOptions({
   music,
   like,
   id,
+  reload,
 }: {
+  reload: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
+  ) => Promise<QueryObserverResult<playlistSongs[], unknown>>;
   like?: boolean;
   id?: string;
   music: playlistSongs;
@@ -121,11 +130,13 @@ function SongsOptions({
     if (ok) {
       if (like) {
         await db.deleteDocument(DATABASE_ID, LIKE_SONG, music.$id || "");
+        reload();
       } else {
         await db.deleteDocument(DATABASE_ID, ADD_TO_LIBRARY, music.$id || "");
+        reload();
       }
     }
-  }, [music, like]);
+  }, [music, like, reload]);
 
   const uid = useSelector((state: RootState) => state.musicReducer.uid);
   return (
