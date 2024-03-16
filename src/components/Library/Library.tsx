@@ -276,7 +276,7 @@ function LibraryComp() {
                   <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
                 </div>
               )}
-              {id?.startsWith("custom") && <Share />}
+              {!id?.startsWith("custom") && <Share />}
             </div>
             <div className="h-[60vw] w-[60vw]">
               <LazyLoadImage
