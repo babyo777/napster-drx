@@ -30,7 +30,6 @@ import {
   ID,
   LAST_PLAYED,
   LIKE_SONG,
-  MOST_PLAYED,
   db,
 } from "@/appwrite/appwriteConfig";
 import { useQuery } from "react-query";
@@ -194,14 +193,14 @@ function AudioPLayerComp() {
     }
   }, [playlist, currentIndex, PlaylistOrAlbum, uid, playingPlaylistUrl]);
 
-  const playingInsights = useCallback(() => {
-    db.createDocument(DATABASE_ID, MOST_PLAYED, ID.unique(), {
-      user: localStorage.getItem("uid"),
-      sname: playlist[currentIndex].title,
-      sid: playlist[currentIndex].youtubeId,
-      sartist: playlist[currentIndex].artists[0].name,
-    });
-  }, [playlist, currentIndex]);
+  // const playingInsights = useCallback(() => {
+  //   db.createDocument(DATABASE_ID, MOST_PLAYED, ID.unique(), {
+  //     user: localStorage.getItem("uid"),
+  //     sname: playlist[currentIndex].title,
+  //     sid: playlist[currentIndex].youtubeId,
+  //     sartist: playlist[currentIndex].artists[0].name,
+  //   });
+  // }, [playlist, currentIndex]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -235,7 +234,6 @@ function AudioPLayerComp() {
         }
         setDuration(sound.duration);
         dispatch(play(true));
-        playingInsights();
         saveLastPlayed();
       };
 
@@ -320,7 +318,6 @@ function AudioPLayerComp() {
     refetch,
     isLooped,
     saveLastPlayed,
-    playingInsights,
   ]);
 
   const handleLoop = useCallback(async () => {
