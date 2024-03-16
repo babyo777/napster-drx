@@ -27,7 +27,7 @@ import {
   db,
 } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
 
 function SongsOptions({
@@ -44,7 +44,6 @@ function SongsOptions({
   underline?: boolean;
 }) {
   const dispatch = useDispatch();
-  const q = useQueryClient();
   const playlist = useSelector(
     (state: RootState) => state.musicReducer.playlist
   );
@@ -122,13 +121,11 @@ function SongsOptions({
     if (ok) {
       if (like) {
         await db.deleteDocument(DATABASE_ID, LIKE_SONG, music.$id || "");
-        q.fetchQuery<playlistSongs[]>(["likedSongsDetails", id]);
       } else {
         await db.deleteDocument(DATABASE_ID, ADD_TO_LIBRARY, music.$id || "");
-        q.fetchQuery<playlistSongs[]>(["playlist", id]);
       }
     }
-  }, [q, music, id, like]);
+  }, [music, like]);
 
   const uid = useSelector((state: RootState) => state.musicReducer.uid);
   return (
