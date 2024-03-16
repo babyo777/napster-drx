@@ -163,7 +163,7 @@ function LikedSongComp() {
                 className="object-cover rounded-xl h-[100%] w-[100%]"
               />
             </div>
-            <div className=" absolute bottom-3 px-4 left-0  right-0">
+            <div className=" absolute bottom-[3vw] px-4 left-0  right-0">
               <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
                 Liked Songs
               </h1>

@@ -324,7 +324,7 @@ function LibraryComp() {
               />
             </div>
 
-            <div className=" absolute bottom-3  px-4 left-0  right-0">
+            <div className=" absolute bottom-[3vw]  px-4 left-0  right-0">
               <h1 className="text-center  font-semibold py-2 truncate text-2xl capitalize">
                 {(pDetails && pDetails[0]?.title) || "Mixes"}
               </h1>
