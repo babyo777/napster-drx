@@ -108,26 +108,30 @@ export function EditCustomPlaylist({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const cover = e.target.files?.[0];
 
-      if (cover) {
-        setIsLoading(true);
-        if (cover && reload) {
-          storage.createFile(STORAGE, ID.unique(), cover).then(async (c) => {
-            const image = `https://cloud.appwrite.io/v1/storage/buckets/${c.bucketId}/files/${c.$id}/view?project=65c15bc8bfb586129eb4`;
+      try {
+        if (cover) {
+          setIsLoading(true);
+          if (cover && reload) {
+            storage.createFile(STORAGE, ID.unique(), cover).then(async (c) => {
+              const image = `https://cloud.appwrite.io/v1/storage/buckets/${c.bucketId}/files/${c.$id}/view?project=65c15bc8bfb586129eb4`;
 
-            setImage(image);
-            await db.updateDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, id, {
-              image: image,
+              setImage(image);
+              await db.updateDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, id, {
+                image: image,
+              });
+              console.log(image.split("/files/")[1].split("/")[0]);
+
+              storage.deleteFile(
+                STORAGE,
+                thumbnailUrl.split("/files/")[1].split("/")[0]
+              );
+              setIsLoading(false);
+              reload();
             });
-            console.log(image.split("/files/")[1].split("/")[0]);
-
-            storage.deleteFile(
-              STORAGE,
-              thumbnailUrl.split("/files/")[1].split("/")[0]
-            );
-            setIsLoading(false);
-            reload();
-          });
+          }
         }
+      } catch (error) {
+        alert((error as Error).message);
       }
     },
     [id, reload, thumbnailUrl]
