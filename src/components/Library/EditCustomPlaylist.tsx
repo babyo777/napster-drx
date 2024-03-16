@@ -106,9 +106,8 @@ export function EditCustomPlaylist({
 
   const handleCover = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const cover = e.target.files?.[0];
-
       try {
+        const cover = e.target.files?.[0];
         if (cover) {
           setIsLoading(true);
           if (cover && reload) {
