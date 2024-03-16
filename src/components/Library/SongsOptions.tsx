@@ -203,7 +203,7 @@ function SongsOptions({
                       onClick={handleLibrary}
                       className="flex items-center justify-between space-x-2"
                     >
-                      <p className="text-base">Create and add</p>
+                      <p className="text-base">Create new and add</p>
                       <IoAddSharp className="h-5 w-5" />
                     </DropdownMenuItem>
                   )}
