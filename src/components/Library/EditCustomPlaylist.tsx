@@ -153,7 +153,6 @@ export function EditCustomPlaylist({
             className="w-full space-y-4"
           >
             <input
-              required
               type="file"
               accept="image/*"
               className="hidden"
