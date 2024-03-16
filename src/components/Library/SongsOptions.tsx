@@ -70,7 +70,7 @@ function SongsOptions({
           thumbnailUrl: music.thumbnailUrl,
           playlistId: playlistId,
         }).then(() => {
-          if (show) alert("Successfully Added");
+          if (show) return;
         });
       }
     },
