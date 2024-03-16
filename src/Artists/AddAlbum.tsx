@@ -160,9 +160,10 @@ const AddAlbum: React.FC<{
                 <FormItem>
                   <FormControl>
                     <Input
+                      readOnly
                       disabled
                       className=" py-5"
-                      placeholder="Enter your name"
+                      placeholder={name}
                       {...field}
                     ></Input>
                   </FormControl>

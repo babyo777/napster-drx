@@ -44,8 +44,7 @@ import { EditCustomPlaylist } from "./EditCustomPlaylist";
 function LibraryComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const search = new URLSearchParams(location.search);
-  const cover = search.get("cover");
+
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
@@ -126,8 +125,25 @@ function LibraryComp() {
   };
 
   const getPlaylistThumbnail = async () => {
-    const list = await axios.get(`${SearchPlaylistApi}${id}`);
-    return list.data as SearchPlaylist[];
+    if (id && id.startsWith("custom")) {
+      const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
+        Query.orderDesc("$createdAt"),
+        Query.equal("$id", [id.replace("custom", "")]),
+        Query.equal("for", [localStorage.getItem("uid") || "default"]),
+        Query.limit(999),
+      ]);
+
+      const p = [
+        {
+          thumbnailUrl: r.documents[0].image,
+        },
+      ];
+
+      return p as SearchPlaylist[];
+    } else {
+      const list = await axios.get(`${SearchPlaylistApi}${id}`);
+      return list.data as SearchPlaylist[];
+    }
   };
 
   const isPlaying = useSelector(
@@ -261,6 +277,15 @@ function LibraryComp() {
               </div>
               {id?.startsWith("custom") && (
                 <EditCustomPlaylist
+                  reload={playlistThumbnailRefetch}
+                  thumbnailUrl={
+                    (playlistThumbnail &&
+                      playlistThumbnail[0]?.thumbnailUrl.replace(
+                        "w120-h120",
+                        "w1080-h1080"
+                      )) ||
+                    "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
+                  }
                   id={id.replace("custom", "")}
                   name={(pDetails && pDetails[0]?.title) || ""}
                   creator={(pDetails && pDetails[0].name) || ""}
@@ -284,14 +309,12 @@ function LibraryComp() {
                 width="100%"
                 height="100%"
                 src={
-                  cover
-                    ? cover
-                    : (playlistThumbnail &&
-                        playlistThumbnail[0]?.thumbnailUrl.replace(
-                          "w120-h120",
-                          "w1080-h1080"
-                        )) ||
-                      "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
+                  (playlistThumbnail &&
+                    playlistThumbnail[0]?.thumbnailUrl.replace(
+                      "w120-h120",
+                      "w1080-h1080"
+                    )) ||
+                  "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
                 }
                 alt="Image"
                 loading="lazy"
