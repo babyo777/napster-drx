@@ -62,7 +62,7 @@ function Songs({
 
   const handlePlay = useCallback(async () => {
     const data = q.getQueryData<playlistSongs[]>([
-      query !== "custom" || "playlist",
+      (query !== "custom" && query) || "playlist",
       p,
     ]);
     if (data && data.length > 0) {
