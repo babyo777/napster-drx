@@ -235,6 +235,7 @@ function AudioPLayerComp() {
         }
         setDuration(sound.duration);
         dispatch(play(true));
+        playingInsights();
         saveLastPlayed();
       };
 
@@ -265,9 +266,6 @@ function AudioPLayerComp() {
       };
 
       const handleTimeUpdate = () => {
-        if (Math.floor(sound.currentTime) === 30) {
-          playingInsights();
-        }
         setProgress(sound.currentTime);
       };
 
