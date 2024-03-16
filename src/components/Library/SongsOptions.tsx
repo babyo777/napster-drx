@@ -165,7 +165,7 @@ function SongsOptions({
             <p className="text-base">Add to a Playlist...</p>
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
-            <DropdownMenuSubContent className="bg-zinc-400/10 border-none rounded-lg backdrop-blur-2xl  mr-2">
+            <DropdownMenuSubContent className="bg-zinc-400/10 w-[10vw] border-none rounded-lg backdrop-blur-2xl  mr-2">
               {isLoading && (
                 <div className="py-5 flex justify-center items-center">
                   <Loader loading={true} />
@@ -175,12 +175,12 @@ function SongsOptions({
                 data.map((d, i) => (
                   <div key={d.$id}>
                     {i !== 0 && (
-                      <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
+                      <div className="h-[.05rem]  bg-zinc-300/10 "></div>
                     )}
                     <DropdownMenuItem
                       onClick={() => handleAdd(d.$id || "null", true)}
                     >
-                      <p className="truncate w-[9rem]">{d.creator}</p>
+                      <p className="truncate w-[20vw]">{d.creator}</p>
                     </DropdownMenuItem>
                   </div>
                 ))

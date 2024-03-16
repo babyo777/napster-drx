@@ -129,6 +129,9 @@ input[type="range"]::-ms-thumb {
   box-shadow: -405px 0 0 400px white;
 }
 
-body:-webkit-scrollbar {
+* {
+  scrollbar-width: none;
+}
+*:-webkit-scrollbar {
   display: none;
 }
