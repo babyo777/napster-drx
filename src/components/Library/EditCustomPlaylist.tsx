@@ -54,7 +54,6 @@ const FormSchema = z.object({
       message: "Name must be at least 3 characters.",
     })
     .optional(),
-  image: z.string(),
 });
 
 export function EditCustomPlaylist({
