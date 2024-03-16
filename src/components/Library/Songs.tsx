@@ -145,7 +145,7 @@ function Songs({
             },
           ],
         }}
-        library={where == "liked" && true}
+        library={query == "likedSongsDetails" && true}
       />
     </div>
   );
