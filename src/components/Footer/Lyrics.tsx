@@ -94,7 +94,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
             <Options id={playingPlaylistUrl} music={playlist[currentIndex]} />
           </div>
         </div>
-        <div className="flex relative overflow-scroll pb-4 pt-[8vh] flex-col px-5 space-y-3">
+        <div className="flex relative overflow-scroll pb-3 pt-[7vh] flex-col px-5 space-y-3">
           {isLoading ? (
             <div className="flex h-[77dvh] justify-center items-center">
               <Loader loading={true} />
