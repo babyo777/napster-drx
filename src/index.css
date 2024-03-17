@@ -135,3 +135,13 @@ input[type="range"]::-ms-thumb {
 *:-webkit-scrollbar {
   display: none;
 }
+
+*::-webkit-scrollbar-thumb {
+  width: 0;
+  display: none;
+}
+
+*::-webkit-scrollbar-track {
+  width: 0;
+  display: none;
+}
