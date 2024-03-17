@@ -1,5 +1,10 @@
 import { BsChatSquareQuote } from "react-icons/bs";
-import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+} from "../ui/drawer";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
@@ -68,11 +73,13 @@ function Lyrics() {
                 <p className="text-xl fade-in">
                   {playlist[currentIndex].title}
                 </p>
-                <Link to={`/artist/${playlist[currentIndex].artists[0].id}`}>
-                  <p className="text-sm fade-in text-red-500">
-                    {playlist[currentIndex].artists[0].name}
-                  </p>
-                </Link>
+                <DrawerClose className="p-0 m-0">
+                  <Link to={`/artist/${playlist[currentIndex].artists[0].id}`}>
+                    <p className="text-sm fade-in text-red-500">
+                      {playlist[currentIndex].artists[0].name}
+                    </p>
+                  </Link>
+                </DrawerClose>
               </div>
             </div>
             <div>
