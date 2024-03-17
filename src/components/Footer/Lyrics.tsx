@@ -80,14 +80,14 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
 
               <Link
                 className="text-start -mt-1"
-                to={`/artist/${playlist[currentIndex].artists[0].id}`}
+                to={`/artist/${playlist[currentIndex].artists[0]?.id}`}
               >
                 <DrawerClose
                   onClick={() => closeRef.current?.click()}
                   className="p-0 m-0"
                 >
                   <p className="text-sm fade-in text-start truncate w-[47vw]  text-red-500">
-                    {playlist[currentIndex].artists[0].name}
+                    {playlist[currentIndex].artists[0]?.name}
                   </p>
                 </DrawerClose>
               </Link>
