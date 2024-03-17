@@ -24,14 +24,7 @@ import { Query } from "appwrite";
 import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
 
-function Options({
-  music,
-
-  id,
-}: {
-  id?: string;
-  music: playlistSongs;
-}) {
+function Options({ music, id }: { id?: string; music: playlistSongs }) {
   const handleAdd = useCallback(
     async (playlistId: string, show?: boolean) => {
       const r = await db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [

@@ -36,9 +36,9 @@ import { useQuery } from "react-query";
 import { Query } from "appwrite";
 import { useSwipeable } from "react-swipeable";
 import { IoIosList } from "react-icons/io";
-import { BsChatSquareQuote } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 import Options from "./Options";
+import Lyrics from "./Lyrics";
 function AudioPLayerComp() {
   const [next, setNext] = useState<boolean>();
   const [prev, setPrev] = useState<boolean>();
@@ -536,10 +536,7 @@ function AudioPLayerComp() {
                     onClick={handleLoop}
                   />
 
-                  <BsChatSquareQuote
-                    onClick={() => alert("lyrics soon..")}
-                    className="h-6 w-6"
-                  />
+                  <Lyrics />
                   {playlist.length > 1 ? (
                     <Link to={`/suggested/`}>
                       <DrawerClose>
