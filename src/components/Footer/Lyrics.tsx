@@ -9,7 +9,7 @@ import { GetLyrics } from "@/API/api";
 import { useQuery } from "react-query";
 import { lyrics } from "@/Interface";
 import Loader from "../Loaders/Loader";
-
+import "react-lazy-load-image-component/src/effects/blur.css";
 function Lyrics() {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
@@ -47,7 +47,7 @@ function Lyrics() {
         <BsChatSquareQuote className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
-        <div className="flex fade-in flex-col px-5 space-y-3">
+        <div className="flex  flex-col px-5 space-y-3">
           <div className="  pt-[2vh] flex justify-between items-center ">
             <div className="flex space-x-3">
               <div className=" h-14 w-14 overflow-hidden rounded-lg">
@@ -64,8 +64,10 @@ function Lyrics() {
                 />
               </div>
               <div className="flex flex-col justify-center">
-                <p className="text-xl">{playlist[currentIndex].title}</p>
-                <p className="text-sm">
+                <p className="text-xl fade-in">
+                  {playlist[currentIndex].title}
+                </p>
+                <p className="text-sm fade-in">
                   {playlist[currentIndex].artists[0].name}
                 </p>
               </div>
@@ -85,7 +87,7 @@ function Lyrics() {
                   {lyrics.lyrics.split("\n\n").map((verse, index) => (
                     <div key={index} className="text-2xl">
                       {verse.split("\n").map((line, index) => (
-                        <p className="mb-1" key={index}>
+                        <p fade-in className="mb-1" key={index}>
                           {line}
                         </p>
                       ))}
@@ -94,7 +96,7 @@ function Lyrics() {
                 </div>
               ) : (
                 <div className="flex h-[77dvh] justify-center items-center">
-                  <p className="text-2xl">Lyrics not Found</p>
+                  <p className="text-2xl fade-in">Lyrics not Found</p>
                 </div>
               )}
             </>
