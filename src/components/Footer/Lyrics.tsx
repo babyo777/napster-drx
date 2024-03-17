@@ -15,7 +15,7 @@ import { lyrics } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-import { RefObject, useCallback } from "react";
+import { RefObject, useCallback, useEffect } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const currentIndex = useSelector(
@@ -49,6 +49,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       retry: 5,
     }
   );
+  useEffect(() => {
+    refetch();
+  }, [currentIndex, refetch]);
   return (
     <Drawer>
       <DrawerTrigger onClick={() => refetch()}>
