@@ -31,7 +31,7 @@ const router = createBrowserRouter([
             href="https://www.instagram.com/babyo7_/"
             className="underline underline-offset-4 text-red-500"
           >
-            Get help!
+            need help?
           </a>
         </p>
       </div>
