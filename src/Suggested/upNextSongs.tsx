@@ -108,7 +108,9 @@ function UpNextSongs({
   return (
     <div
       id={audio}
-      className="flex bg-[#09090b] fade-in py-2 space-x-2 items-center"
+      className={`flex bg-[#09090b] fade-in py-2 space-x-2 items-center ${
+        !current && audio == playlist[currentIndex].youtubeId && "hidden"
+      }`}
     >
       {!album ? (
         <div className="overflow-hidden h-12 w-12 space-y-2">

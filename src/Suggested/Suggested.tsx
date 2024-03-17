@@ -81,7 +81,11 @@ function Suggested() {
 
             <Droppable droppableId="ROOT" type="group">
               {(p) => (
-                <div {...p.droppableProps} ref={p.innerRef}>
+                <div
+                  {...p.droppableProps}
+                  className="pb-[1vh]"
+                  ref={p.innerRef}
+                >
                   {data.map((data, i) => (
                     <Draggable
                       draggableId={data.$id || data.youtubeId}
