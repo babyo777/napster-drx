@@ -538,9 +538,10 @@ function AudioPLayerComp() {
                   />
 
                   <Lyrics closeRef={closeRef} />
+                  <DrawerClose ref={closeRef}></DrawerClose>
                   {playlist.length > 1 ? (
                     <Link to={`/suggested/`}>
-                      <DrawerClose ref={closeRef}>
+                      <DrawerClose>
                         <IoIosList className="h-6 w-6" />
                       </DrawerClose>
                     </Link>
