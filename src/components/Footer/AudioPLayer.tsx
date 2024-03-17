@@ -223,7 +223,6 @@ function AudioPLayerComp() {
       if (isLooped) {
         sound.loop = true;
       }
-      setDuration(sound.duration);
       dispatch(play(true));
       saveLastPlayed();
     };
