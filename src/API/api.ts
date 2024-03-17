@@ -31,7 +31,10 @@ const SearchAlbum = `${mainApi}/al/`;
 
 const GetAlbumSongs = `${mainApi}/gas/`;
 
+const GetLyrics = `${mainApi}/lyrics/`;
+
 export {
+  GetLyrics,
   streamApi,
   getArtistsDetailsByName,
   isPlaylist,
