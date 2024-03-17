@@ -47,7 +47,7 @@ function Lyrics() {
         <BsChatSquareQuote className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
-        <div className="flex fade-in flex-col px-5 space-y-4">
+        <div className="flex fade-in flex-col px-5 space-y-3">
           <div className="  pt-[2vh] flex justify-between items-center ">
             <div className="flex space-x-3">
               <div className=" h-14 w-14 overflow-hidden rounded-lg">
@@ -81,7 +81,7 @@ function Lyrics() {
           ) : (
             <>
               {lyrics ? (
-                <div className=" overflow-scroll h-[83vh]">
+                <div className=" overflow-scroll h-[86vh]">
                   {lyrics.lyrics.split("\n\n").map((verse, index) => (
                     <div key={index} className="text-2xl">
                       {verse.split("\n").map((line, index) => (
