@@ -2,8 +2,11 @@ import { RootState } from "@/Store/Store";
 import GoBack from "@/components/Goback";
 import UpNextSongs from "./upNextSongs";
 import { useSelector } from "react-redux";
-
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import { setPlaylist } from "@/Store/Player";
 function Suggested() {
+  const dispatch = useDispatch();
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
@@ -16,6 +19,28 @@ function Suggested() {
   );
 
   const data = useSelector((state: RootState) => state.musicReducer.playlist);
+  //@ts-expect-error:record
+  const handleDragDrop = (result) => {
+    const { source, destination, type } = result;
+    if (!destination) return;
+
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    )
+      return;
+
+    if (type === "group") {
+      const reOrder = [...data];
+      const storeSourceIndex = source.index;
+      const storeDestinatonIndex = destination.index;
+
+      const [removedStore] = reOrder.splice(storeSourceIndex, 1);
+      reOrder.splice(storeDestinatonIndex, 0, removedStore);
+
+      return dispatch(setPlaylist(reOrder));
+    }
+  };
   return (
     <div className=" flex flex-col items-center">
       <>
@@ -51,22 +76,46 @@ function Suggested() {
               cover={playlist[currentIndex].thumbnailUrl}
             />
           )}
-          <p className=" font-semibold text-xl mb-1">Up next</p>
-          {data.map((data, i) => (
-            <UpNextSongs
-              current={false}
-              p={"suggested"}
-              where="suggested"
-              artistId={data.artists[0]?.id}
-              audio={data.youtubeId}
-              key={data.youtubeId + i}
-              id={i}
-              album={PlaylistOrAlbum == "album" && true}
-              title={data.title}
-              artist={data.artists[0]?.name}
-              cover={data.thumbnailUrl}
-            />
-          ))}
+          <DragDropContext onDragEnd={handleDragDrop}>
+            <p className=" font-semibold text-xl mb-1">Up next</p>
+
+            <Droppable droppableId="ROOT" type="group">
+              {(p) => (
+                <div {...p.droppableProps} ref={p.innerRef}>
+                  {data.map((data, i) => (
+                    <Draggable
+                      draggableId={data.$id || data.youtubeId}
+                      key={data.$id}
+                      index={i}
+                    >
+                      {(p) => (
+                        <div
+                          {...p.dragHandleProps}
+                          {...p.draggableProps}
+                          ref={p.innerRef}
+                        >
+                          <UpNextSongs
+                            current={false}
+                            p={"suggested"}
+                            where="suggested"
+                            artistId={data.artists[0]?.id}
+                            audio={data.youtubeId}
+                            key={data.youtubeId + i}
+                            id={i}
+                            album={PlaylistOrAlbum == "album" && true}
+                            title={data.title}
+                            artist={data.artists[0]?.name}
+                            cover={data.thumbnailUrl}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {p.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </div>
       </>
     </div>
