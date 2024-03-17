@@ -136,12 +136,3 @@ input[type="range"]::-ms-thumb {
   display: none;
 }
 
-*::-webkit-scrollbar-thumb {
-  width: 0;
-  display: none;
-}
-
-*::-webkit-scrollbar-track {
-  width: 0;
-  display: none;
-}
