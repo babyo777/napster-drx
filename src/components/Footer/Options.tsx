@@ -120,8 +120,8 @@ function Options({ music, id }: { id?: string; music: playlistSongs }) {
           <DropdownMenuPortal>
             <DropdownMenuSubContent className="bg-zinc-400/10 w-fit border-none rounded-lg backdrop-blur-2xl  mr-2">
               {isLoading && (
-                <div className="py-5 flex justify-center items-center">
-                  <Loader loading={true} />
+                <div className="py-3 flex justify-center items-center">
+                  <Loader loading={true} size="17" />
                 </div>
               )}
               {data && data.length > 0 ? (
