@@ -53,7 +53,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   }, [currentIndex, refetch]);
   return (
     <Drawer>
-      <DrawerTrigger onClick={() => refetch()}>
+      <DrawerTrigger>
         <TbMicrophone2 className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
