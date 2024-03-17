@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     element: <Check />,
     errorElement: (
       <div className="flex h-screen justify-center items-center">
-        Something went wrong
+        Something went wrong restart app to fix
       </div>
     ),
     children: [
