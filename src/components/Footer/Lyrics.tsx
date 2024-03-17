@@ -72,7 +72,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                 />
               </div>
               <div className="flex flex-col justify-center">
-                <p className="text-xl truncate w-[60vw] fade-in">
+                <p className="text-xl truncate w-[57vw] fade-in">
                   {playlist[currentIndex].title}
                 </p>
 
@@ -84,7 +84,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                     onClick={() => closeRef.current?.click()}
                     className="p-0 m-0"
                   >
-                    <p className="text-sm fade-in text-start truncate w-[50vw]  text-red-500">
+                    <p className="text-sm fade-in text-start truncate w-[47vw]  text-red-500">
                       {playlist[currentIndex].artists[0].name}
                     </p>
                   </DrawerClose>
@@ -104,9 +104,13 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
               {lyrics ? (
                 <div className=" overflow-scroll h-[84vh]">
                   {lyrics.lyrics.split("\n\n").map((verse, index) => (
-                    <div key={index} className="text-2xl">
+                    <div key={index} className="text-3xl">
                       {verse.split("\n").map((line, index) => (
-                        <p fade-in className="mb-1" key={index}>
+                        <p
+                          fade-in
+                          className="mb-1 font-semibold text-zinc-300"
+                          key={index}
+                        >
                           {line}
                         </p>
                       ))}
