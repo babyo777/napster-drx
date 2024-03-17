@@ -74,7 +74,10 @@ function Lyrics() {
                   {playlist[currentIndex].title}
                 </p>
                 <DrawerClose className="p-0 m-0">
-                  <Link to={`/artist/${playlist[currentIndex].artists[0].id}`}>
+                  <Link
+                    className="text-start"
+                    to={`/artist/${playlist[currentIndex].artists[0].id}`}
+                  >
                     <p className="text-sm fade-in text-red-500">
                       {playlist[currentIndex].artists[0].name}
                     </p>
