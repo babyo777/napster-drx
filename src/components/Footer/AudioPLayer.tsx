@@ -11,7 +11,7 @@ import { FaForward } from "react-icons/fa";
 import { TfiLoop } from "react-icons/tfi";
 import { FaPause } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   play,
   setCurrentIndex,
@@ -336,6 +336,7 @@ function AudioPLayerComp() {
     },
     [music]
   );
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   const formatDuration = useCallback((seconds: number | "--:--") => {
     if (seconds == "--:--") return seconds;
@@ -536,10 +537,10 @@ function AudioPLayerComp() {
                     onClick={handleLoop}
                   />
 
-                  <Lyrics />
+                  <Lyrics closeRef={closeRef} />
                   {playlist.length > 1 ? (
                     <Link to={`/suggested/`}>
-                      <DrawerClose>
+                      <DrawerClose ref={closeRef}>
                         <IoIosList className="h-6 w-6" />
                       </DrawerClose>
                     </Link>
