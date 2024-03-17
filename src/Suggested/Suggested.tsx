@@ -1,10 +1,6 @@
 import { RootState } from "@/Store/Store";
 import GoBack from "@/components/Goback";
-import Songs from "@/components/Library/Songs";
-import { useCallback } from "react";
-import { RiFocus3Line } from "react-icons/ri";
-// import { Button } from "@/components/ui/button";
-// import { FaPlay } from "react-icons/fa6";
+import UpNextSongs from "./upNextSongs";
 import { useSelector } from "react-redux";
 
 function Suggested() {
@@ -12,13 +8,13 @@ function Suggested() {
     (state: RootState) => state.musicReducer.currentIndex
   );
 
+  const PlaylistOrAlbum = useSelector(
+    (state: RootState) => state.musicReducer.PlaylistOrAlbum
+  );
   const playlist = useSelector(
     (state: RootState) => state.musicReducer.playlist
   );
-  const handleFocus = useCallback(() => {
-    const toFocus = document.getElementById(playlist[currentIndex].youtubeId);
-    toFocus?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [currentIndex, playlist]);
+
   const data = useSelector((state: RootState) => state.musicReducer.playlist);
   return (
     <div className=" flex flex-col items-center">
@@ -26,49 +22,51 @@ function Suggested() {
         <div className="flex w-full z-10 fixed h-[3rem]  ">
           <GoBack />
           <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
-            <div className="" onClick={handleFocus}>
-              <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+            <div className="">
+              <p className="h-8 w-8 fade-in mb-2 text-zinc-100  backdrop-blur-md bg-black/30 rounded-full p-1.5">
+                Edit
+              </p>
             </div>
           </div>
 
           <div className=" absolute bottom-5  px-4 left-0  right-0">
             <h1 className="text-center  font-semibold py-2 text-2xl capitalize"></h1>
-            <div className="flex space-x-4 py-1 px-2 justify-center  items-center w-full">
-              {/* <Button
-              onClick={handlePlay}
-              type="button"
-              variant={"secondary"}
-              className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-14"
-            >
-              <FaPlay className="mr-2" />
-              Play
-            </Button> */}
-              {/* <Button
-              type="button"
-              onClick={handleShare}
-              variant={"secondary"}
-              className="text-base py-5 text-zinc-100 shadow-none bg-white/20 backdrop-blur-md rounded-lg px-14"
-            >
-              <FaShare className="mr-2" />
-              Share
-            </Button> */}
-            </div>
+            <div className="flex space-x-4 py-1 px-2 justify-center  items-center w-full"></div>
           </div>
         </div>
         <div className="py-3 pt-14 pb-[8.5rem]">
-          {data.map((data, i) => (
-            <Songs
+          <p className=" font-semibold text-xl mb-1">Now Playing</p>
+          {playlist[currentIndex] && (
+            <UpNextSongs
               p={"suggested"}
               where="suggested"
-              artistId={data.artists[0]?.id}
-              audio={data.youtubeId}
-              key={data.youtubeId + i}
-              id={i}
-              title={data.title}
-              artist={data.artists[0]?.name}
-              cover={data.thumbnailUrl}
+              artistId={playlist[currentIndex].artists[0]?.id}
+              audio={playlist[currentIndex].youtubeId}
+              key={playlist[currentIndex].youtubeId + currentIndex}
+              id={currentIndex}
+              album={PlaylistOrAlbum == "album" && true}
+              title={playlist[currentIndex].title}
+              artist={playlist[currentIndex].artists[0]?.name}
+              cover={playlist[currentIndex].thumbnailUrl}
             />
-          ))}
+          )}
+          <p className=" font-semibold text-xl mb-1">Up next</p>
+          {data
+            .filter((p) => p.youtubeId !== playlist[currentIndex].youtubeId)
+            .map((data, i) => (
+              <UpNextSongs
+                p={"suggested"}
+                where="suggested"
+                artistId={data.artists[0]?.id}
+                audio={data.youtubeId}
+                key={data.youtubeId + i}
+                id={i}
+                album={PlaylistOrAlbum == "album" && true}
+                title={data.title}
+                artist={data.artists[0]?.name}
+                cover={data.thumbnailUrl}
+              />
+            ))}
         </div>
       </>
     </div>
