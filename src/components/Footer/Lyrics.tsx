@@ -102,7 +102,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
           ) : (
             <>
               {lyrics ? (
-                <div className=" overflow-scroll h-[84vh]">
+                <div className=" overflow-scroll h-[87vh] pb-4">
                   {lyrics.lyrics.split("\n\n").map((verse, index) => (
                     <div key={index} className="text-3xl">
                       {verse.split("\n").map((line, index) => (
