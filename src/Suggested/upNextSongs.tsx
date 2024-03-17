@@ -19,6 +19,8 @@ import { Link } from "react-router-dom";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { PiTextAlignJustify } from "react-icons/pi";
 import { waveform } from "ldrs";
+import { FaPause } from "react-icons/fa";
+import { IoPlay } from "react-icons/io5";
 
 waveform.register();
 
@@ -65,6 +67,17 @@ function UpNextSongs({
   const playlist = useSelector(
     (state: RootState) => state.musicReducer.playlist
   );
+  const music = useSelector((state: RootState) => state.musicReducer.music);
+
+  const handlePlayer = useCallback(() => {
+    if (isPlaying) {
+      music?.pause();
+      dispatch(play(false));
+    } else {
+      music?.play();
+      dispatch(play(true));
+    }
+  }, [isPlaying, music, dispatch]);
 
   const handlePlay = useCallback(async () => {
     const data = q.getQueryData<playlistSongs[]>([
@@ -139,7 +152,19 @@ function UpNextSongs({
       </div>
       <div>
         {current ? (
-          <l-waveform size="20" stroke="2" speed="1" color="white"></l-waveform>
+          <>
+            {isPlaying ? (
+              <FaPause
+                className={` h-5 w-5 transition-all duration-300`}
+                onClick={handlePlayer}
+              />
+            ) : (
+              <IoPlay
+                className={` h-6 w-6 transition-all duration-300 `}
+                onClick={handlePlayer}
+              />
+            )}
+          </>
         ) : (
           <PiTextAlignJustify className="h-6 w-6" />
         )}
