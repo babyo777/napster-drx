@@ -71,7 +71,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                 />
               </div>
               <div className="flex flex-col justify-center">
-                <p className="text-xl border border-white truncate w-[60vw] fade-in">
+                <p className="text-xl truncate w-[60vw] fade-in">
                   {playlist[currentIndex].title}
                 </p>
 
