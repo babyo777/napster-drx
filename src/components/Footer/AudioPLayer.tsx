@@ -42,6 +42,7 @@ import Options from "./Options";
 function AudioPLayerComp() {
   const [next, setNext] = useState<boolean>();
   const [prev, setPrev] = useState<boolean>();
+  const [playEffect, setPlayEffect] = useState<boolean>();
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
   const music = useSelector((state: RootState) => state.musicReducer.music);
@@ -134,6 +135,10 @@ function AudioPLayerComp() {
   }, [isLiked]);
 
   const handlePlay = useCallback(() => {
+    setPlayEffect(true);
+    const t = setTimeout(() => {
+      setPlayEffect(false);
+    }, 200);
     if (isPlaying) {
       music?.pause();
       dispatch(play(false));
@@ -141,6 +146,7 @@ function AudioPLayerComp() {
       music?.play();
       dispatch(play(true));
     }
+    return () => clearTimeout(t);
   }, [isPlaying, music, dispatch]);
 
   const handleNext = useCallback(() => {
@@ -346,7 +352,7 @@ function AudioPLayerComp() {
   return (
     <>
       <audio hidden ref={audioRef} src={""}></audio>
-      {!isStandalone ? (
+      {isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>
@@ -491,13 +497,23 @@ function AudioPLayerComp() {
                     <Loader size="37" loading={true} />
                   </div>
                 ) : (
-                  <>
+                  <div className="h-12 w-12">
                     {isPlaying ? (
-                      <FaPause className="h-12 w-12" onClick={handlePlay} />
+                      <FaPause
+                        className={` ml-1 transition-all duration-300 ${
+                          playEffect ? "h-11 w-11" : "h-12 w-12"
+                        }`}
+                        onClick={handlePlay}
+                      />
                     ) : (
-                      <IoPlay className="h-12 w-12" onClick={handlePlay} />
+                      <IoPlay
+                        className={`ml-1 transition-all duration-300 ${
+                          playEffect ? "h-11 w-11" : "h-12 w-12"
+                        }`}
+                        onClick={handlePlay}
+                      />
                     )}
-                  </>
+                  </div>
                 )}
                 <div
                   className={`${
