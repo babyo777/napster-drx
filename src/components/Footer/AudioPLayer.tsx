@@ -166,14 +166,6 @@ function AudioPLayerComp() {
     onSwipedRight: handlePrev,
   });
 
-  // useEffect(() => {
-  //   const audioContext = new (window.AudioContext ||
-  //     // @ts-expect-error:ignore
-  //     window.webkitAudioContext)();
-  //   const source = audioContext.createBufferSource();
-  //   source.start(0);
-  // }, []);
-
   const saveLastPlayed = useCallback(() => {
     if (uid) {
       db.createDocument(DATABASE_ID, LAST_PLAYED, uid, {
@@ -270,15 +262,6 @@ function AudioPLayerComp() {
         setProgress(sound.currentTime);
       };
 
-      // const handleVisibilityChange = () => {
-      //   if (document.visibilityState === "hidden" && sound.paused) {
-      //     sound.play().catch((error) => {
-      //       console.error("Error playing audio:", error);
-      //     });
-      //   }
-      // };
-
-      // document.addEventListener("visibilitychange", handleVisibilityChange);
       sound.setAttribute("playsinline", "true");
       sound.addEventListener("play", handlePlay);
       sound.addEventListener("pause", handlePause);
@@ -293,10 +276,7 @@ function AudioPLayerComp() {
       return () => {
         sound.load();
         sound.pause();
-        // document.removeEventListener(
-        //   "visibilitychange",
-        //   handleVisibilityChange
-        // );
+
         sound.removeEventListener("play", handlePlay);
         sound.removeEventListener("pause", handlePause);
         sound.removeEventListener("loadedmetadata", handleLoad);
