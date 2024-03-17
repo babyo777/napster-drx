@@ -57,7 +57,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         <TbMicrophone2 className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
-        <div className=" absolute pt-[3vh] w-full px-5 pb-[2vh] backdrop-blur-lg bg-black/30 z-10 flex justify-between items-center ">
+        <div className=" absolute pt-[3vh] w-full px-5 pb-[2vh] backdrop-blur-lg bg-transparent z-10 flex justify-between items-center ">
           <div className="flex space-x-3">
             <div className=" h-16 w-16 overflow-hidden rounded-lg">
               <LazyLoadImage
