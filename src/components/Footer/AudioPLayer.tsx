@@ -538,7 +538,10 @@ function AudioPLayerComp() {
                   />
 
                   <Lyrics closeRef={closeRef} />
-                  <DrawerClose ref={closeRef}></DrawerClose>
+                  <DrawerClose
+                    ref={closeRef}
+                    className="w-0 h-0 p-0 m-0 hidden"
+                  ></DrawerClose>
                   {playlist.length > 1 ? (
                     <Link to={`/suggested/`}>
                       <DrawerClose>
