@@ -544,7 +544,7 @@ function AudioPLayerComp() {
                   {playlist.length > 1 ? (
                     <Link to={`/suggested/`}>
                       <DrawerClose>
-                        <IoIosList className="h-6 w-6" />
+                        <IoIosList className="h-6 w-6 text-white" />
                       </DrawerClose>
                     </Link>
                   ) : (
