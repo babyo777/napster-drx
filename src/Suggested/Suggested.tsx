@@ -22,8 +22,8 @@ function Suggested() {
         <div className="flex w-full z-10 fixed h-[3rem]  ">
           <GoBack />
           <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
-            <div className="">
-              <p className="fade-in mb-2 text-zinc-100  backdrop-blur-md bg-black/30 rounded-full p-1.5 w-fit">
+            <div className="w-fit">
+              <p className="fade-in mb-2 text-zinc-100  backdrop-blur-md bg-black/30 rounded-xl p-1.5 w-fit">
                 Edit
               </p>
             </div>
