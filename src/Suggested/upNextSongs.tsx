@@ -106,7 +106,10 @@ function UpNextSongs({
   }, [dispatch, id, q, p, isPlaying, artistId, query, liked, where, playlist]);
 
   return (
-    <div id={audio} className="flex fade-in py-2 space-x-2 items-center">
+    <div
+      id={audio}
+      className="flex bg-[#09090b] fade-in py-2 space-x-2 items-center"
+    >
       {!album ? (
         <div className="overflow-hidden h-12 w-12 space-y-2">
           <AspectRatio ratio={1 / 1}>
