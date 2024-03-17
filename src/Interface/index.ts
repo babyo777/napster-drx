@@ -33,6 +33,14 @@ interface recentSearch {
   user: string;
 }
 
+interface lyrics {
+  songwriters: string;
+  title: string;
+  artist: string;
+  sources: string[];
+  lyrics: string;
+}
+
 interface SearchPlaylist {
   name?: string;
   fromSearch?: boolean;
@@ -122,6 +130,7 @@ interface favArtist {
 }
 export type {
   favArtist,
+  lyrics,
   playlistSongs,
   SearchPlaylist,
   artists,
