@@ -128,6 +128,14 @@ function AudioPLayerComp() {
     if (metaTag) {
       metaTag.setAttribute("content", color ? color : "#09090b");
     }
+
+    const themeColorMetaTag = document.querySelector(
+      'meta[name="theme-color"]'
+    );
+
+    if (themeColorMetaTag) {
+      themeColorMetaTag.setAttribute("content", color ? color : "#09090b");
+    }
     setColor(color as unknown as string);
   }, [playlist, currentIndex]);
 
