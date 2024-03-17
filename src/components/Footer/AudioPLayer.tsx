@@ -36,10 +36,12 @@ import { useQuery } from "react-query";
 import { Query } from "appwrite";
 import { useSwipeable } from "react-swipeable";
 import { IoIosList } from "react-icons/io";
-import { GoStarFill } from "react-icons/go";
 import { BsChatSquareQuote } from "react-icons/bs";
+import { AiFillStar } from "react-icons/ai";
 import Options from "./Options";
 function AudioPLayerComp() {
+  const [next, setNext] = useState<boolean>();
+  const [prev, setPrev] = useState<boolean>();
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
   const music = useSelector((state: RootState) => state.musicReducer.music);
@@ -142,6 +144,10 @@ function AudioPLayerComp() {
   }, [isPlaying, music, dispatch]);
 
   const handleNext = useCallback(() => {
+    setNext(true);
+    const t = setTimeout(() => {
+      setNext(false);
+    }, 100);
     if (!isStandalone) {
       dispatch(setIsIphone(true));
     }
@@ -150,15 +156,21 @@ function AudioPLayerComp() {
     if (playlist.length > 1) {
       dispatch(setCurrentIndex((currentIndex + 1) % playlist.length));
     }
+    return () => clearTimeout(t);
   }, [dispatch, currentIndex, playlist.length, isLooped, isStandalone]);
 
   const handlePrev = useCallback(() => {
+    setPrev(true);
+    const t = setTimeout(() => {
+      setPrev(false);
+    }, 100);
     if (isLooped) return;
     if (playlist.length > 1) {
       dispatch(
         setCurrentIndex((currentIndex - 1 + playlist.length) % playlist.length)
       );
     }
+    return () => clearTimeout(t);
   }, [dispatch, currentIndex, playlist.length, isLooped]);
 
   const swipeHandler = useSwipeable({
@@ -401,7 +413,7 @@ function AudioPLayerComp() {
                     </h1>
                     <div className=" bg-zinc-900 p-1.5 rounded-full">
                       {liked ? (
-                        <GoStarFill
+                        <AiFillStar
                           onClick={RemoveLike}
                           className="h-6 w-6 fade-in "
                         />
@@ -460,12 +472,20 @@ function AudioPLayerComp() {
                 </div>
               </div>
               <div className="flex absolute bottom-[16vh] w-full space-x-16 justify-center  items-center">
-                <FaBackward
-                  className={`h-8 w-10 ${
-                    playlist.length > 1 ? "text-zinc-100" : "text-zinc-500"
-                  } `}
-                  onClick={handlePrev}
-                />
+                <div
+                  className={`${
+                    prev && "bg-zinc-900 rounded-full"
+                  } transition-all duration-300 h-8 w-10`}
+                >
+                  <FaBackward
+                    className={`${
+                      prev ? "h-6 w-8" : "h-8 w-10"
+                    } transition-all duration-300 ${
+                      playlist.length > 1 ? "text-zinc-100" : "text-zinc-500"
+                    } `}
+                    onClick={handlePrev}
+                  />
+                </div>
                 {isLoading ? (
                   <div className="h-12 w-12 flex justify-center items-center">
                     <Loader size="37" loading={true} />
@@ -479,13 +499,20 @@ function AudioPLayerComp() {
                     )}
                   </>
                 )}
-
-                <FaForward
-                  className={`h-8 w-9 ${
-                    playlist.length > 1 ? "text-zinc-100" : "text-zinc-500"
-                  } `}
-                  onClick={handleNext}
-                />
+                <div
+                  className={`${
+                    next && "bg-zinc-900 rounded-full"
+                  } transition-all duration-300 h-8 w-9 `}
+                >
+                  <FaForward
+                    className={` ${
+                      next ? "h-6 w-7" : "h-8 w-9"
+                    } transition-all duration-300 ${
+                      playlist.length > 1 ? "text-zinc-100" : "text-zinc-500"
+                    } `}
+                    onClick={handleNext}
+                  />
+                </div>
               </div>
               <div className=" justify-center absolute bottom-[5vh] w-full px-8 text-zinc-400 items-center">
                 <div className="flex items-center justify-between w-full">
