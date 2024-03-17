@@ -398,7 +398,7 @@ function AudioPLayerComp() {
 
           <DrawerContent
             style={{
-              backgroundColor: color || "#09090b",
+              backgroundColor: color ? color : "#09090b",
               transition: "background-color 0.7s ease-in-out",
             }}
             className={` h-[100dvh]  rounded-none transition-all duration-300`}
@@ -532,7 +532,7 @@ function AudioPLayerComp() {
                 <div className="flex items-center justify-between w-full">
                   <TfiLoop
                     className={`h-6 w-6 ${
-                      music && music.loop ? "text-white" : "text-zinc-300"
+                      music && music.loop ? "text-white" : "text-zinc-400"
                     }`}
                     onClick={handleLoop}
                   />
