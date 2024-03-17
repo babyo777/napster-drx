@@ -16,7 +16,8 @@ import { lyrics } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-function Lyrics() {
+import { RefObject } from "react";
+function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
@@ -73,16 +74,20 @@ function Lyrics() {
                 <p className="text-xl fade-in">
                   {playlist[currentIndex].title}
                 </p>
-                <DrawerClose className="p-0 m-0">
-                  <Link
-                    className="text-start"
-                    to={`/artist/${playlist[currentIndex].artists[0].id}`}
+
+                <Link
+                  className="text-start"
+                  to={`/artist/${playlist[currentIndex].artists[0].id}`}
+                >
+                  <DrawerClose
+                    onClick={() => closeRef.current?.click()}
+                    className="p-0 m-0"
                   >
                     <p className="text-sm fade-in text-red-500">
                       {playlist[currentIndex].artists[0].name}
                     </p>
-                  </Link>
-                </DrawerClose>
+                  </DrawerClose>
+                </Link>
               </div>
             </div>
             <div>
