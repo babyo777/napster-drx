@@ -1,7 +1,6 @@
-import { lineSpinner } from "ldrs";
+import { tailspin } from "ldrs";
 
-lineSpinner.register();
-
+tailspin.register();
 function Loader({
   size,
   color,
@@ -15,13 +14,14 @@ function Loader({
 }) {
   return (
     <div className="flex flex-col space-y-2 justify-center items-center text-xs font-normal">
-      <l-line-spinner
+      <l-tailspin
         size={size || "30"}
-        stroke={stroke || "1.7"}
+        stroke={stroke || "3"}
         speed="1"
         color={color || "gray"}
-      ></l-line-spinner>
-      {!loading && <p>Loading...</p>}
+      ></l-tailspin>
+
+      {!loading && <p></p>}
     </div>
   );
 }
