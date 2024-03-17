@@ -38,6 +38,7 @@ import { useSwipeable } from "react-swipeable";
 import { IoIosList } from "react-icons/io";
 import { GoStarFill } from "react-icons/go";
 import { BsChatSquareQuote } from "react-icons/bs";
+import Options from "./Options";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
@@ -373,7 +374,7 @@ function AudioPLayerComp() {
                 />
               </div>
               <div className="flex flex-col text-start">
-                <p className=" text-sm truncate w-[50vw] ">
+                <p className=" text-sm truncate  w-[50vw] ">
                   {playlist[currentIndex].title}
                 </p>
                 <p className=" text-xs w-[30vw] truncate">
@@ -413,23 +414,28 @@ function AudioPLayerComp() {
                   </div>
                 </div>
                 <div className=" absolute bottom-[35.5vh] w-full text-start px-2 ">
-                  <div className="flex items-center space-x-3">
-                    <h1 className="text-3xl truncate   w-[75vw] font-semibold">
+                  <div className="flex items-center  w-fit space-x-3">
+                    <h1 className="text-3xl truncate   w-[63vw] font-semibold">
                       {" "}
                       {playlist[currentIndex].title}
                     </h1>
-
-                    {liked ? (
-                      <GoStarFill
-                        onClick={RemoveLike}
-                        className="h-7 w-7 fade-in "
-                      />
-                    ) : (
-                      <FaRegStar
-                        className="h-7 w-7 fade-in"
-                        onClick={handleLink}
-                      />
-                    )}
+                    <div className=" bg-zinc-900 p-1.5 rounded-full">
+                      {liked ? (
+                        <GoStarFill
+                          onClick={RemoveLike}
+                          className="h-6 w-6 fade-in "
+                        />
+                      ) : (
+                        <FaRegStar
+                          className="h-6 w-6 fade-in"
+                          onClick={handleLink}
+                        />
+                      )}
+                    </div>
+                    <Options
+                      id={playingPlaylistUrl}
+                      music={playlist[currentIndex]}
+                    />
                   </div>
 
                   {playlist[currentIndex].artists[0]?.name ? (
