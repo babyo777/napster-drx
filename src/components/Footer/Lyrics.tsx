@@ -81,7 +81,7 @@ function Lyrics() {
           ) : (
             <>
               {lyrics ? (
-                <div className=" overflow-scroll h-[86vh]">
+                <div className=" overflow-scroll h-[83vh]">
                   {lyrics.lyrics.split("\n\n").map((verse, index) => (
                     <div key={index} className="text-2xl">
                       {verse.split("\n").map((line, index) => (
