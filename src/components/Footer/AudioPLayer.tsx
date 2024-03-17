@@ -532,14 +532,14 @@ function AudioPLayerComp() {
                 <div className="flex items-center justify-between w-full">
                   <TfiLoop
                     className={`h-6 w-6 ${
-                      music && music.loop ? "text-zinc-400" : "text-zinc-700"
+                      music && music.loop ? "text-white" : "text-zinc-black"
                     }`}
                     onClick={handleLoop}
                   />
 
                   <BsChatSquareQuote
                     onClick={() => alert("lyrics soon..")}
-                    className="h-6 w-6"
+                    className="h-6 w-6 text-white"
                   />
                   {playlist.length > 1 ? (
                     <Link to={`/suggested/`}>
@@ -548,7 +548,7 @@ function AudioPLayerComp() {
                       </DrawerClose>
                     </Link>
                   ) : (
-                    <IoIosList className="h-6 w-6 text-zinc-700" />
+                    <IoIosList className="h-6 w-6 text-white" />
                   )}
                 </div>
               </div>
