@@ -177,7 +177,7 @@ function SongsOptions({
             <p className="text-base">Add to a Playlist...</p>
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
-            <DropdownMenuSubContent className="bg-zinc-400/10 w-[37vw] border-none rounded-lg backdrop-blur-2xl  mr-2">
+            <DropdownMenuSubContent className="bg-transparent w-[37vw] border-none rounded-lg backdrop-blur-2xl  mr-2">
               {isLoading && (
                 <div className="py-3 flex justify-center items-center">
                   <Loader loading={true} size="17" />
