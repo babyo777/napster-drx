@@ -10,6 +10,7 @@ import { useQuery } from "react-query";
 import { lyrics } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { Link } from "react-router-dom";
 function Lyrics() {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
@@ -67,9 +68,11 @@ function Lyrics() {
                 <p className="text-xl fade-in">
                   {playlist[currentIndex].title}
                 </p>
-                <p className="text-sm fade-in">
-                  {playlist[currentIndex].artists[0].name}
-                </p>
+                <Link to={`/artist/${playlist[currentIndex].artists[0].id}`}>
+                  <p className="text-sm fade-in text-red-500">
+                    {playlist[currentIndex].artists[0].name}
+                  </p>
+                </Link>
               </div>
             </div>
             <div>
