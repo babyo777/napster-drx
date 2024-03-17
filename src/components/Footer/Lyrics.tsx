@@ -16,7 +16,8 @@ import { lyrics } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-import { RefObject, useCallback } from "react";
+import { RefObject, useCallback, useEffect } from "react";
+import { TbMicrophone2 } from "react-icons/tb";
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
@@ -49,10 +50,13 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       retry: 5,
     }
   );
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
   return (
     <Drawer>
-      <DrawerTrigger onClick={() => refetch()}>
-        <BsChatSquareQuote className="h-6 w-6" />
+      <DrawerTrigger>
+        <TbMicrophone2 className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
         <div className=" absolute pt-[3vh] w-full px-5 pb-[2vh] backdrop-blur-lg bg-black/30 z-10 flex justify-between items-center ">
