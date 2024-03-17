@@ -16,7 +16,7 @@ function Loader({
     <div className="flex flex-col space-y-2 justify-center items-center text-xs font-normal">
       <l-tailspin
         size={size || "30"}
-        stroke={stroke || "3"}
+        stroke={stroke || "4"}
         speed="1"
         color={color || "gray"}
       ></l-tailspin>
