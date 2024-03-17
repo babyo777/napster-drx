@@ -223,7 +223,7 @@ function AudioPLayerComp() {
   useEffect(() => {
     if (audioRef.current) {
       dispatch(setIsLoading(true));
-
+      getColor();
       const sound: HTMLAudioElement | null = audioRef.current;
       sound.src = `${streamApi}${playlist[currentIndex]?.youtubeId}`;
       const handlePlay = () => {
@@ -257,7 +257,6 @@ function AudioPLayerComp() {
       };
 
       const handleLoad = () => {
-        getColor();
         navigator.mediaSession.metadata = new MediaMetadata({
           title: playlist[currentIndex].title,
           artist: playlist[currentIndex].artists[0]?.name,
