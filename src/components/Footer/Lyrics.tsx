@@ -55,46 +55,46 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         <BsChatSquareQuote className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
-        <div className="flex  flex-col px-5 space-y-3">
-          <div className="  pt-[2vh] flex justify-between items-center ">
-            <div className="flex space-x-3">
-              <div className=" h-14 w-14 overflow-hidden rounded-lg">
-                <LazyLoadImage
-                  height="100%"
-                  width="100%"
-                  src={
-                    playlist[currentIndex].thumbnailUrl ||
-                    "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg"
-                  }
-                  alt="Image"
-                  effect="blur"
-                  className="object-cover transition-all duration-300 rounded-lg w-[100%] h-[100%] "
-                />
-              </div>
-              <div className="flex flex-col justify-center">
-                <p className="text-xl truncate w-[57vw] fade-in">
-                  {playlist[currentIndex].title}
-                </p>
-
-                <Link
-                  className="text-start"
-                  to={`/artist/${playlist[currentIndex].artists[0].id}`}
-                >
-                  <DrawerClose
-                    onClick={() => closeRef.current?.click()}
-                    className="p-0 m-0"
-                  >
-                    <p className="text-sm fade-in text-start truncate w-[47vw]  text-red-500">
-                      {playlist[currentIndex].artists[0].name}
-                    </p>
-                  </DrawerClose>
-                </Link>
-              </div>
+        <div className=" absolute pt-[2vh] w-full px-5 pb-2 backdrop-blur-lg bg-black/50 z-10 flex justify-between items-center ">
+          <div className="flex space-x-3">
+            <div className=" h-14 w-14 overflow-hidden rounded-lg">
+              <LazyLoadImage
+                height="100%"
+                width="100%"
+                src={
+                  playlist[currentIndex].thumbnailUrl ||
+                  "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg"
+                }
+                alt="Image"
+                effect="blur"
+                className="object-cover transition-all duration-300 rounded-lg w-[100%] h-[100%] "
+              />
             </div>
-            <div>
-              <Options id={playingPlaylistUrl} music={playlist[currentIndex]} />
+            <div className="flex flex-col justify-center">
+              <p className="text-xl truncate w-[57vw] fade-in">
+                {playlist[currentIndex].title}
+              </p>
+
+              <Link
+                className="text-start -mt-1"
+                to={`/artist/${playlist[currentIndex].artists[0].id}`}
+              >
+                <DrawerClose
+                  onClick={() => closeRef.current?.click()}
+                  className="p-0 m-0"
+                >
+                  <p className="text-sm fade-in text-start truncate w-[47vw]  text-red-500">
+                    {playlist[currentIndex].artists[0].name}
+                  </p>
+                </DrawerClose>
+              </Link>
             </div>
           </div>
+          <div>
+            <Options id={playingPlaylistUrl} music={playlist[currentIndex]} />
+          </div>
+        </div>
+        <div className="flex relative overflow-scroll pb-4 pt-[8vh] flex-col px-5 space-y-3">
           {isLoading ? (
             <div className="flex h-[77dvh] justify-center items-center">
               <Loader loading={true} />
@@ -102,7 +102,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
           ) : (
             <>
               {lyrics ? (
-                <div className=" overflow-scroll h-[87vh] pb-4">
+                <div className=" pb-4">
                   {lyrics.lyrics.split("\n\n").map((verse, index) => (
                     <div key={index} className="text-3xl">
                       {verse.split("\n").map((line, index) => (
