@@ -465,7 +465,7 @@ function AudioPLayerComp() {
                       </DrawerClose>
                     </Link>
                   ) : (
-                    <p className="text-base truncate fade-in  w-64 text-red-500">
+                    <p className="text-base truncate fade-in  w-64 text-red-600">
                       {" "}
                       Unknown
                     </p>
