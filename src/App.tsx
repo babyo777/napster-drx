@@ -27,12 +27,6 @@ function AppComp() {
         console.log(error);
       }
     }
-    const themeColorMetaTag = document.querySelector(
-      'meta[name="theme-color"]'
-    );
-    if (themeColorMetaTag) {
-      themeColorMetaTag.setAttribute("content", "#fffff");
-    }
   }, [token]);
 
   const handleTester = async () => {
