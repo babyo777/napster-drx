@@ -16,7 +16,7 @@ import { lyrics } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-import { RefObject } from "react";
+import { RefObject, useCallback } from "react";
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
@@ -27,13 +27,13 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const playingPlaylistUrl = useSelector(
     (state: RootState) => state.musicReducer.playingPlaylistUrl
   );
-  const getLyrics = async () => {
+  const getLyrics = useCallback(async () => {
     const lyrics = await axios.get(
       `${GetLyrics}?t=${playlist[currentIndex].title}&a=${playlist[currentIndex].artists[0].name}`
     );
 
     return lyrics.data as lyrics;
-  };
+  }, [playlist, currentIndex]);
   const {
     data: lyrics,
     refetch,
