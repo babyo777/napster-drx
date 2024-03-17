@@ -413,7 +413,7 @@ function AudioPLayerComp() {
                 </div>
                 <div className=" absolute bottom-[35.5vh] w-full text-start px-2 ">
                   <div className="flex items-center  w-fit space-x-3">
-                    <h1 className="text-3xl truncate   w-[63vw] font-semibold">
+                    <h1 className="text-3xl truncate transition-all duration-300  w-[63vw] font-semibold">
                       {" "}
                       {playlist[currentIndex].title}
                     </h1>
@@ -469,10 +469,10 @@ function AudioPLayerComp() {
                   className="w-full h-2 bg-zinc-300/75 overflow-hidden rounded-lg appearance-none cursor-pointer"
                 />
                 <div className="flex text-sm justify-between py-2 px-1">
-                  <span className="text-zinc-400 font-semibold">
+                  <span className="text-zinc-400 transition-all duration-300 font-semibold">
                     {formatDuration(progress as "--:--")}
                   </span>
-                  <span className="text-zinc-400 font-semibold">
+                  <span className="text-zinc-400 transition-all duration-300 font-semibold">
                     {formatDuration(duration as "--:--")}
                   </span>
                 </div>
