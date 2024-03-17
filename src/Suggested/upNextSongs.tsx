@@ -18,11 +18,8 @@ import { useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { PiTextAlignJustify } from "react-icons/pi";
-import { waveform } from "ldrs";
 import { FaPause } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
-
-waveform.register();
 
 function UpNextSongs({
   title,
