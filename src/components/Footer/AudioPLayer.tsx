@@ -118,10 +118,15 @@ function AudioPLayerComp() {
   const [color, setColor] = useState<string>();
 
   const getColor = useCallback(async () => {
-    const color = await average(playlist[currentIndex].thumbnailUrl, {
+    const color: string = await average(playlist[currentIndex].thumbnailUrl, {
       format: "hex",
     });
-
+    const metaTag = document.querySelector(
+      'meta[name="apple-mobile-web-app-status-bar-style"]'
+    );
+    if (metaTag) {
+      metaTag.setAttribute("content", color ? color : "#09090b");
+    }
     setColor(color as unknown as string);
   }, [playlist, currentIndex]);
 
