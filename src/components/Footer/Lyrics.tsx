@@ -42,10 +42,11 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     ["lyrics", playlist[currentIndex].youtubeId],
     getLyrics,
     {
+      enabled: false,
       refetchOnWindowFocus: false,
       staleTime: 60 * 6000,
       refetchOnMount: false,
-      retry: 11,
+      retry: 5,
     }
   );
   return (
