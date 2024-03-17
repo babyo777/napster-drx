@@ -83,7 +83,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                     onClick={() => closeRef.current?.click()}
                     className="p-0 m-0"
                   >
-                    <p className="text-sm fade-in truncate w-[50vw]  text-red-500">
+                    <p className="text-sm fade-in text-start truncate w-[50vw]  text-red-500">
                       {playlist[currentIndex].artists[0].name}
                     </p>
                   </DrawerClose>
