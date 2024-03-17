@@ -55,7 +55,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         <BsChatSquareQuote className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
-        <div className=" absolute pt-[2vh] w-full px-5 pb-2 backdrop-blur-lg bg-black/30 z-10 flex justify-between items-center ">
+        <div className=" absolute pt-[2vh] w-full px-5 pb-2 backdrop-blur-lg bg-[#09090b] z-10 flex justify-between items-center ">
           <div className="flex space-x-3">
             <div className=" h-14 w-14 overflow-hidden rounded-lg">
               <LazyLoadImage
