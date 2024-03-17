@@ -147,7 +147,7 @@ function AudioPLayerComp() {
     setNext(true);
     const t = setTimeout(() => {
       setNext(false);
-    }, 100);
+    }, 200);
     if (!isStandalone) {
       dispatch(setIsIphone(true));
     }
@@ -163,7 +163,7 @@ function AudioPLayerComp() {
     setPrev(true);
     const t = setTimeout(() => {
       setPrev(false);
-    }, 100);
+    }, 200);
     if (isLooped) return;
     if (playlist.length > 1) {
       dispatch(
