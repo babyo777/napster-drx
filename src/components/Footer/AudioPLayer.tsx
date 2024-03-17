@@ -250,9 +250,7 @@ function AudioPLayerComp() {
       const handleError = () => {
         setDuration("--:--");
         setProgress("--:--");
-        dispatch(setIsLoading(false));
-        sound.pause();
-        dispatch(play(false));
+        dispatch(setIsLoading(true));
       };
 
       const handleSeek = (seek: MediaSessionActionDetails) => {
