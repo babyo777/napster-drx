@@ -118,6 +118,7 @@ function AudioPLayerComp() {
   const [color, setColor] = useState<string>();
 
   const getColor = useCallback(async () => {
+    //@ts-expect-error:error
     const color: string = await average(playlist[currentIndex].thumbnailUrl, {
       format: "hex",
     });
