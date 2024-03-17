@@ -51,22 +51,20 @@ function Suggested() {
             />
           )}
           <p className=" font-semibold text-xl mb-1">Up next</p>
-          {data
-            .filter((p) => p.youtubeId !== playlist[currentIndex].youtubeId)
-            .map((data, i) => (
-              <UpNextSongs
-                p={"suggested"}
-                where="suggested"
-                artistId={data.artists[0]?.id}
-                audio={data.youtubeId}
-                key={data.youtubeId + i}
-                id={i}
-                album={PlaylistOrAlbum == "album" && true}
-                title={data.title}
-                artist={data.artists[0]?.name}
-                cover={data.thumbnailUrl}
-              />
-            ))}
+          {data.map((data, i) => (
+            <UpNextSongs
+              p={"suggested"}
+              where="suggested"
+              artistId={data.artists[0]?.id}
+              audio={data.youtubeId}
+              key={data.youtubeId + i}
+              id={i}
+              album={PlaylistOrAlbum == "album" && true}
+              title={data.title}
+              artist={data.artists[0]?.name}
+              cover={data.thumbnailUrl}
+            />
+          ))}
         </div>
       </>
     </div>
