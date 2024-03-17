@@ -532,7 +532,7 @@ function AudioPLayerComp() {
                 <div className="flex items-center justify-between w-full">
                   <TfiLoop
                     className={`h-6 w-6 ${
-                      music && music.loop ? "text-white" : "text-zinc-500"
+                      music && music.loop ? "text-white" : "text-zinc-300"
                     }`}
                     onClick={handleLoop}
                   />
