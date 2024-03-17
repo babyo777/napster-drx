@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     errorElement: (
       <div className="flex text-center px-7 h-screen justify-center items-center">
         <p>
-          Something went wrong restart app to fix or <br /> {""}
+          Something went wrong restart app to fix <br /> {""}
           <a
             target="_blank"
             href="https://www.instagram.com/babyo7_/"
