@@ -38,6 +38,7 @@ import { useSwipeable } from "react-swipeable";
 import { IoIosList } from "react-icons/io";
 import { GoStarFill } from "react-icons/go";
 import { BsChatSquareQuote } from "react-icons/bs";
+import { average } from "color.js";
 function AudioPLayerComp() {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
@@ -113,6 +114,16 @@ function AudioPLayerComp() {
         SetLiked(false);
       });
   }, [currentIndex, playlist, currentArtistId, refetch]);
+
+  const [color, setColor] = useState<string>();
+
+  const getColor = useCallback(async () => {
+    const color = await average(playlist[currentIndex].thumbnailUrl, {
+      format: "hex",
+    });
+
+    setColor(color as unknown as string);
+  }, [playlist, currentIndex]);
 
   const RemoveLike = useCallback(async () => {
     SetLiked(false);
@@ -240,6 +251,7 @@ function AudioPLayerComp() {
       };
 
       const handleLoad = () => {
+        getColor();
         navigator.mediaSession.metadata = new MediaMetadata({
           title: playlist[currentIndex].title,
           artist: playlist[currentIndex].artists[0]?.name,
@@ -316,6 +328,7 @@ function AudioPLayerComp() {
     currentIndex,
     playlist,
     handleNext,
+    getColor,
     refetch,
     isLooped,
     saveLastPlayed,
@@ -383,7 +396,13 @@ function AudioPLayerComp() {
             </div>
           </DrawerTrigger>
 
-          <DrawerContent className=" h-[100dvh]  rounded-none bg-[#09090b] ">
+          <DrawerContent
+            style={{
+              backgroundColor: color || "#09090b",
+              transition: "background-color 0.7s ease-in-out",
+            }}
+            className={` h-[100dvh]  rounded-none transition-all duration-300`}
+          >
             <div className="flex flex-col justify-start pt-7  h-full">
               <DrawerHeader>
                 <div
@@ -465,10 +484,18 @@ function AudioPLayerComp() {
                   className="w-full h-2 bg-zinc-300/75 overflow-hidden rounded-lg appearance-none cursor-pointer"
                 />
                 <div className="flex text-sm justify-between py-2 px-1">
-                  <span className="text-zinc-400 font-semibold">
+                  <span
+                    className={`${
+                      color == "#ffffff" ? "text-black" : "text-white"
+                    } font-semibold`}
+                  >
                     {formatDuration(progress as "--:--")}
                   </span>
-                  <span className="text-zinc-400 font-semibold">
+                  <span
+                    className={`${
+                      color == "#ffffff" ? "text-black" : "text-white"
+                    } font-semibold`}
+                  >
                     {formatDuration(duration as "--:--")}
                   </span>
                 </div>
@@ -476,7 +503,7 @@ function AudioPLayerComp() {
               <div className="flex absolute bottom-[16vh] w-full space-x-16 justify-center  items-center">
                 <FaBackward
                   className={`h-8 w-10 ${
-                    playlist.length > 1 ? "text-zinc-100" : "text-zinc-500"
+                    playlist.length > 1 ? "text-zinc-100" : "text-black"
                   } `}
                   onClick={handlePrev}
                 />
