@@ -1,4 +1,3 @@
-import { BsChatSquareQuote } from "react-icons/bs";
 import {
   Drawer,
   DrawerClose,
@@ -16,7 +15,7 @@ import { lyrics } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-import { RefObject, useCallback, useEffect } from "react";
+import { RefObject, useCallback } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const currentIndex = useSelector(
@@ -50,12 +49,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       retry: 5,
     }
   );
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
   return (
     <Drawer>
-      <DrawerTrigger>
+      <DrawerTrigger onClick={() => refetch()}>
         <TbMicrophone2 className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
