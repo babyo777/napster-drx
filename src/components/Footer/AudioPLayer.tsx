@@ -352,7 +352,7 @@ function AudioPLayerComp() {
   return (
     <>
       <audio hidden ref={audioRef} src={""}></audio>
-      {!isStandalone ? (
+      {isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>
@@ -368,7 +368,7 @@ function AudioPLayerComp() {
                   }
                   alt="Image"
                   effect="blur"
-                  className="object-cover rounded-xl w-[100%] h-[100%] "
+                  className="object-cover transition-all duration-300 rounded-xl w-[100%] h-[100%] "
                 />
               </div>
               <div className="flex flex-col text-start">
