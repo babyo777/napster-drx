@@ -46,6 +46,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       refetchOnWindowFocus: false,
       staleTime: 60 * 6000,
       refetchOnMount: false,
+      retry: 11,
     }
   );
   return (
