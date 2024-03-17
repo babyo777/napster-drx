@@ -100,7 +100,7 @@ function Options({ music, id }: { id?: string; music: playlistSongs }) {
       <DropdownMenuTrigger className="m-0 p-1.5 flex  justify-center items-center bg-zinc-900 rounded-full">
         <BiDotsHorizontalRounded className="h-6 w-6 text-white" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-zinc-400/10  border-none rounded-lg backdrop-blur-2xl mx-4  ">
+      <DropdownMenuContent className="bg-transparent  border-none rounded-lg backdrop-blur-2xl mx-4  ">
         <DropdownMenuItem
           onClick={handleLibrary}
           className="flex items-center justify-between space-x-2"

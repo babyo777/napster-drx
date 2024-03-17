@@ -159,7 +159,7 @@ function SongsOptions({
           <div className="h-[.05rem] w-[8vw] bg-zinc-300/10 mt-[1.1rem] -ml-2"></div>
         )}
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-zinc-400/10 border-none rounded-lg backdrop-blur-2xl mx-4 -mt-4">
+      <DropdownMenuContent className="bg-transparent border-none rounded-lg backdrop-blur-2xl mx-4 -mt-4">
         <DropdownMenuItem
           onClick={handleLibrary}
           className="flex items-center justify-between space-x-2"
