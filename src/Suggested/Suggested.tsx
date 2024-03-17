@@ -38,6 +38,7 @@ function Suggested() {
           <p className=" font-semibold text-xl mb-1">Now Playing</p>
           {playlist[currentIndex] && (
             <UpNextSongs
+              current={true}
               p={"suggested"}
               where="suggested"
               artistId={playlist[currentIndex].artists[0]?.id}
@@ -53,6 +54,7 @@ function Suggested() {
           <p className=" font-semibold text-xl mb-1">Up next</p>
           {data.map((data, i) => (
             <UpNextSongs
+              current={false}
               p={"suggested"}
               where="suggested"
               artistId={data.artists[0]?.id}

@@ -18,6 +18,9 @@ import { useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { PiTextAlignJustify } from "react-icons/pi";
+import { waveform } from "ldrs";
+
+waveform.register();
 
 function UpNextSongs({
   title,
@@ -33,6 +36,7 @@ function UpNextSongs({
   where,
   link = true,
   album,
+  current,
 }: {
   forId?: string;
 
@@ -48,6 +52,7 @@ function UpNextSongs({
   title: string;
   artist: string;
   cover: string;
+  current: boolean;
 }) {
   const dispatch = useDispatch();
   const q = useQueryClient();
@@ -133,7 +138,11 @@ function UpNextSongs({
         )}
       </div>
       <div>
-        <PiTextAlignJustify className="h-6 w-6" />
+        {current ? (
+          <l-waveform size="20" stroke="2" speed="1" color="white"></l-waveform>
+        ) : (
+          <PiTextAlignJustify className="h-6 w-6" />
+        )}
       </div>
     </div>
   );
