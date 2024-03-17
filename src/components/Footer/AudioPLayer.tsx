@@ -500,14 +500,14 @@ function AudioPLayerComp() {
                   <div className="h-12 w-12">
                     {isPlaying ? (
                       <FaPause
-                        className={` ml-1 transition-all duration-300 ${
+                        className={` transition-all duration-300 ${
                           playEffect ? "h-11 w-11" : "h-12 w-12"
                         }`}
                         onClick={handlePlay}
                       />
                     ) : (
                       <IoPlay
-                        className={`ml-1 transition-all duration-300 ${
+                        className={` transition-all duration-300 ${
                           playEffect ? "h-11 w-11" : "h-12 w-12"
                         }`}
                         onClick={handlePlay}
