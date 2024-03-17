@@ -443,14 +443,14 @@ function AudioPLayerComp() {
                       }`}
                     >
                       <DrawerClose className="text-start">
-                        <p className="text-base truncate fade-in  w-[70vw] text-red-500">
+                        <p className="text-base truncate transition-all duration-300 fade-in  w-[70vw] text-red-500">
                           {" "}
                           {playlist[currentIndex].artists[0]?.name}
                         </p>
                       </DrawerClose>
                     </Link>
                   ) : (
-                    <p className="text-base truncate fade-in  w-64 text-red-500">
+                    <p className="text-base truncate transition-all duration-300 fade-in  w-64 text-red-500">
                       {" "}
                       Unknown
                     </p>
