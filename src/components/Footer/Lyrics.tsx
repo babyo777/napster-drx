@@ -11,12 +11,12 @@ import Options from "./Options";
 import axios from "axios";
 import { GetLyrics } from "@/API/api";
 import { useQuery } from "react-query";
-import { lyrics } from "@/Interface";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-import { RefObject, useCallback, useEffect } from "react";
+import { RefObject, useCallback, useEffect, useRef } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
+
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
@@ -27,18 +27,44 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const playingPlaylistUrl = useSelector(
     (state: RootState) => state.musicReducer.playingPlaylistUrl
   );
+  const progress = useSelector(
+    (state: RootState) => state.musicReducer.progress
+  );
+
   const getLyrics = useCallback(async () => {
     const lyrics = await axios.get(
-      `${GetLyrics}?t=${playlist[currentIndex].title}&a=${playlist[currentIndex].artists[0].name}`
+      `${GetLyrics}${playlist[currentIndex].title
+        .replace(/\(.*\)/g, "")
+        .replace(/@/g, "")
+        .replace(/-\s*/g, "")
+        .replace(/\[.*?\]/g, "")
+        .trim()} by ${playlist[currentIndex].artists[0].name}`
     );
+    const lines = lyrics.data.lyrics.split("\n");
+    const parsedLyrics = lines
+      .map((line: string) => {
+        const matches = line.match(/\[(\d+):(\d+\.\d+)\](.*)/);
+        if (matches) {
+          const minutes = parseInt(matches[1]);
+          const seconds = parseFloat(matches[2]);
+          const lyrics = matches[3].trim();
+          const time = minutes * 60 + seconds;
+          return { time, lyrics };
+        }
+        return null;
+      })
+      .filter((line: string) => line !== null);
 
-    return lyrics.data as lyrics;
+    console.log(parsedLyrics);
+
+    return parsedLyrics as [{ time: number | string; lyrics: string }];
   }, [playlist, currentIndex]);
+
   const {
     data: lyrics,
     refetch,
     isLoading,
-  } = useQuery<lyrics>(
+  } = useQuery<[{ time: number | string; lyrics: string }]>(
     ["lyrics", playlist[currentIndex].youtubeId],
     getLyrics,
     {
@@ -48,9 +74,36 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       refetchOnMount: false,
     }
   );
+
+  const lyricsRef = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (lyricsRef.current) {
+      const lines = Array.from(
+        lyricsRef.current.children
+      ) as HTMLParagraphElement[];
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const time = parseFloat(line.dataset.time || "0");
+        const nextTime = parseFloat(lines[i + 1]?.dataset.time || "Infinity");
+
+        if (
+          (time as number | "--:--") <= progress &&
+          (nextTime as number | "--:--") > progress
+        ) {
+          line.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+          break;
+        }
+      }
+    }
+  }, [progress]);
+
   useEffect(() => {
     refetch();
   }, [currentIndex, refetch]);
+
   return (
     <Drawer>
       <DrawerTrigger onClick={() => refetch()}>
@@ -104,19 +157,27 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
           ) : (
             <>
               {lyrics ? (
-                <div className=" pb-4">
-                  {lyrics.lyrics.split("\n\n").map((verse, index) => (
-                    <div key={index} className="text-3xl">
-                      {verse.split("\n").map((line, index) => (
-                        <p
-                          fade-in
-                          className="mb-1 font-semibold text-zinc-300"
-                          key={index}
-                        >
-                          {line}
-                        </p>
-                      ))}
-                    </div>
+                <div
+                  ref={lyricsRef}
+                  className=" transition-all duration-300 fade-in pb-4"
+                >
+                  {lyrics.map((line, index) => (
+                    <p
+                      key={index}
+                      data-time={line.time}
+                      className={`
+                      text-3xl
+                         transition-all duration-300
+                         ${
+                           line.time <= progress &&
+                           (lyrics[index + 1]?.time || 0) > progress
+                             ? "text-white"
+                             : "text-zinc-500 opacity-30"
+                         }
+                      `}
+                    >
+                      {line.lyrics}
+                    </p>
                   ))}
                 </div>
               ) : (
