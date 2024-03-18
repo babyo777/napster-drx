@@ -76,7 +76,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const lyricsRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    if (lyricsRef.current && !scroll) {
+    if (lyricsRef.current) {
       const lines = Array.from(
         lyricsRef.current.children
       ) as HTMLParagraphElement[];
@@ -93,7 +93,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
             behavior: "smooth",
             block: "center",
           });
-          break;
         }
       }
     }
