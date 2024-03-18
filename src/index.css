@@ -132,7 +132,7 @@ input[type="range"]::-ms-thumb {
 * {
   scrollbar-width: none;
 }
-*:-webkit-scrollbar {
+*::-webkit-scrollbar {
   display: none;
 }
 
