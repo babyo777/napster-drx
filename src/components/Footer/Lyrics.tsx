@@ -55,8 +55,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       })
       .filter((line: string) => line !== null);
 
-    console.log(parsedLyrics);
-
     return parsedLyrics as [{ time: number | string; lyrics: string }];
   }, [playlist, currentIndex]);
 
