@@ -169,7 +169,8 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                          transition-all font-bold duration-500
                          ${
                            line.time <= progress &&
-                           (lyrics[index + 1]?.time || 0) > progress
+                           (index === lyrics.length - 1 ||
+                             (lyrics[index + 1]?.time || 0) > progress)
                              ? "text-zinc-200"
                              : "text-zinc-300 opacity-5"
                          }
