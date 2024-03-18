@@ -93,6 +93,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
             behavior: "smooth",
             block: "center",
           });
+          break;
         }
       }
     }
