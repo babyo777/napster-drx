@@ -38,7 +38,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         .replace(/@/g, "")
         .replace(/-\s*/g, "")
         .replace(/\[.*?\]/g, "")
-        .trim()}  ${playlist[currentIndex].artists[0].name}`
+        .trim()} ${playlist[currentIndex].artists[0].name}`
     );
     const lines = lyrics.data.lyrics.split("\n");
     const parsedLyrics = lines
