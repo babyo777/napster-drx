@@ -34,10 +34,7 @@ interface recentSearch {
 }
 
 interface lyrics {
-  songwriters: string;
   title: string;
-  artist: string;
-  sources: string[];
   lyrics: string;
 }
 
