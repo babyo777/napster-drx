@@ -165,7 +165,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                       data-time={line.time}
                       className={`
                       text-3xl
-                         transition-all duration-300
+                         transition-all font-bold duration-300
                          ${
                            line.time <= progress &&
                            (lyrics[index + 1]?.time || 0) > progress
