@@ -94,7 +94,7 @@ const MusicPlayer = createSlice({
     setCurrentArtistId: (state, action: PayloadAction<string>) => {
       state.currentArtistId = action.payload;
     },
-    setProgress: (state, action: PayloadAction<number | "--:--">) => {
+    setProgressLyrics: (state, action: PayloadAction<number>) => {
       state.progress = action.payload;
     },
     setDuration: (state, action: PayloadAction<number | "--:--">) => {
@@ -149,7 +149,7 @@ export const {
   setIsLoading,
   isLoop,
   SetCurrentSongId,
-  setProgress,
+  setProgressLyrics,
   setIsIphone,
   setCurrentArtistId,
   setDuration,
