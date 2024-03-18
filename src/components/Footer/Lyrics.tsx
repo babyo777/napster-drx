@@ -99,7 +99,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     }
     const t = setTimeout(() => {
       setScroll(false);
-    }, 300);
+    }, 3000);
     return () => clearTimeout(t);
   }, [scroll, progress]);
 
