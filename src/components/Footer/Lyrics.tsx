@@ -14,7 +14,7 @@ import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { RefObject, useCallback, useEffect, useRef } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
 
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
@@ -74,7 +74,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   );
 
   const lyricsRef = useRef<HTMLParagraphElement>(null);
-  const [scroll, setScroll] = useState<boolean>();
+
   useEffect(() => {
     if (lyricsRef.current && !scroll) {
       const lines = Array.from(
@@ -97,15 +97,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         }
       }
     }
-    const t = setTimeout(() => {
-      setScroll(false);
-    }, 3000);
-    return () => clearTimeout(t);
-  }, [scroll, progress]);
+  }, [progress]);
 
-  const handleScroll = () => {
-    setScroll(true);
-  };
+  const handleScroll = () => {};
   useEffect(() => {
     refetch();
   }, [currentIndex, refetch]);
