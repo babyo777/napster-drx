@@ -99,7 +99,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     }
   }, [progress]);
 
-  const handleScroll = () => {};
   useEffect(() => {
     refetch();
   }, [currentIndex, refetch]);
@@ -158,7 +157,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
             <>
               {lyrics ? (
                 <div
-                  onScroll={handleScroll}
                   ref={lyricsRef}
                   className=" transition-all duration-300 fade-in pb-4"
                 >
