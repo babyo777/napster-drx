@@ -14,7 +14,7 @@ import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-import { RefObject, useCallback, useEffect, useRef } from "react";
+import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
 
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
@@ -74,8 +74,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   );
 
   const lyricsRef = useRef<HTMLParagraphElement>(null);
+  const [scroll, setScroll] = useState<boolean>();
   useEffect(() => {
-    if (lyricsRef.current) {
+    if (lyricsRef.current && !scroll) {
       const lines = Array.from(
         lyricsRef.current.children
       ) as HTMLParagraphElement[];
@@ -96,8 +97,15 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         }
       }
     }
-  }, [progress]);
+    const t = setTimeout(() => {
+      setScroll(false);
+    }, 300);
+    return () => clearTimeout(t);
+  }, [scroll, progress]);
 
+  const handleScroll = () => {
+    setScroll(true);
+  };
   useEffect(() => {
     refetch();
   }, [currentIndex, refetch]);
@@ -156,6 +164,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
             <>
               {lyrics ? (
                 <div
+                  onScroll={handleScroll}
                   ref={lyricsRef}
                   className=" transition-all duration-300 fade-in pb-4"
                 >
@@ -165,12 +174,12 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                       data-time={line.time}
                       className={`
                       text-3xl
-                         transition-all font-bold duration-300
+                         transition-all font-bold duration-500
                          ${
                            line.time <= progress &&
                            (lyrics[index + 1]?.time || 0) > progress
-                             ? "text-white"
-                             : "text-zinc-500 opacity-30"
+                             ? "text-zinc-200"
+                             : "text-zinc-300 opacity-5"
                          }
                       `}
                     >
