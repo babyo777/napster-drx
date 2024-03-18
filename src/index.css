@@ -136,3 +136,6 @@ input[type="range"]::-ms-thumb {
   display: none;
 }
 
+* {
+  scroll-behavior: smooth;
+}
