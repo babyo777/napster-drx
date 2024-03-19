@@ -31,12 +31,15 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const progress = useSelector(
     (state: RootState) => state.musicReducer.progress
   );
-  const [color, setColor] = useState<string>();
+  const [color, setColor] = useState<string | null>();
   const getColor = useCallback(async () => {
     const color = await average(playlist[currentIndex].thumbnailUrl, {
       amount: 1,
       format: "hex",
     });
+    if (color === "#000000") {
+      return setColor(null);
+    }
     setColor(color as string);
   }, [playlist, currentIndex]);
   const getLyrics = useCallback(async () => {
@@ -172,7 +175,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                 >
                   {lyrics.map((line, index) => (
                     <p
-                      style={{ color: color }}
+                      style={{ color: color && color }}
                       key={index}
                       data-time={line.time}
                       className={`
