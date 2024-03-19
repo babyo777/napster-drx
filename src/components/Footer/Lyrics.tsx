@@ -23,7 +23,7 @@ import {
   useState,
 } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
-import { average } from "color.js";
+import { prominent } from "color.js";
 
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const currentIndex = useSelector(
@@ -41,14 +41,15 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const music = useSelector((state: RootState) => state.musicReducer.music);
   const [color, setColor] = useState<string | null>();
   const getColor = useCallback(async () => {
-    const color = await average(playlist[currentIndex].thumbnailUrl, {
-      amount: 1,
+    const color = await prominent(playlist[currentIndex].thumbnailUrl, {
+      amount: 8,
       format: "hex",
-      sample: 10,
     });
     if (color === "#000000") {
       return setColor(null);
     }
+
+    console.log(color);
 
     setColor(color as string);
   }, [playlist, currentIndex]);
@@ -273,7 +274,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                           (index === lyrics.length - 1 ||
                             (lyrics[index + 1]?.time || 0) > progress)
                             ? color
-                              ? color
+                              ? color[7]
                               : "white"
                             : "#718096",
                       }}
