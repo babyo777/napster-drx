@@ -45,42 +45,15 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const getLyrics = useCallback(async () => {
     getColor();
     const lyrics = await axios.get(
-      `${GetLyrics}${playlist[currentIndex].title
+      `${playlist[currentIndex].artists[0].name} ${GetLyrics}${playlist[
+        currentIndex
+      ].title
         .replace(/\(.*\)/g, "")
         .replace(/@/g, "")
         .replace(/-\s*/g, "")
         .replace(/\[.*?\]/g, "")
         .replace(/\./g, "")
-        .trim()} ${playlist[currentIndex].artists[0].name}`
-    );
-    const lines = lyrics.data.lyrics.split("\n");
-    const parsedLyrics = lines
-      .map((line: string) => {
-        const matches = line.match(/\[(\d+):(\d+\.\d+)\](.*)/);
-        if (matches) {
-          const minutes = parseInt(matches[1]);
-          const seconds = parseFloat(matches[2]);
-          const lyrics = matches[3].trim();
-          const time = minutes * 60 + seconds;
-          return { time, lyrics };
-        }
-        return null;
-      })
-      .filter((line: string) => line !== null);
-
-    return parsedLyrics as [{ time: number | string; lyrics: string }];
-  }, [playlist, currentIndex, getColor]);
-
-  const getLyricsBy = useCallback(async () => {
-    getColor();
-    const lyrics = await axios.get(
-      `${GetLyrics}${playlist[currentIndex].title
-        .replace(/\(.*\)/g, "")
-        .replace(/@/g, "")
-        .replace(/-\s*/g, "")
-        .replace(/\[.*?\]/g, "")
-        .replace(/\./g, "")
-        .trim()} by ${playlist[currentIndex].artists[0].name}`
+        .trim()} `
     );
     const lines = lyrics.data.lyrics.split("\n");
     const parsedLyrics = lines
@@ -108,7 +81,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     ["lyrics", playlist[currentIndex].youtubeId],
     getLyrics,
     {
-      onError: getLyricsBy,
       enabled: false,
       refetchOnWindowFocus: false,
       staleTime: 60 * 6000,
