@@ -82,7 +82,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const getLyrics = useCallback(async () => {
     console.log(
       `${playlist[currentIndex].artists[0].name.replace(
-        /[^\w\s]/gi,
+        /[^\w\s&]/gi,
         ""
       )} ${playlist[currentIndex].title
         .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
@@ -112,7 +112,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         .replace(/\./g, "")
         .trim()
         .replace(/\s+/g, " ")} ${playlist[currentIndex].artists[0].name.replace(
-        /[^\w\s]/gi,
+        /[^\w\s&]/gi,
         ""
       )} ${formatDuration(music?.duration || 0)}`
     );
