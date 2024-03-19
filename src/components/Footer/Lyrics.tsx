@@ -247,7 +247,10 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                             : "#718096",
                       }}
                     >
-                      {line.lyrics}
+                      {line.lyrics.replace(
+                        "Read Full Lyrics at iLyricsHub: https://www.ilyricshub.com/apna-bana-le-bhediya/",
+                        ""
+                      )}
                     </p>
                   ))}
                 </div>
