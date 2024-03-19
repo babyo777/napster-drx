@@ -136,15 +136,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     const handleTouchEnd = () => setScroll(true);
 
     if (lyrics) {
-      lyrics.addEventListener("touchstart", handleTouchStart, {
-        passive: true,
-      });
-      lyrics.addEventListener("touchmove", handleTouchStart, {
-        passive: true,
-      });
-      lyrics.addEventListener("touchend", handleTouchEnd, {
-        passive: true,
-      });
+      lyrics.addEventListener("mouseenter", handleTouchStart);
+      lyrics.addEventListener("mousemove", handleTouchStart);
+      lyrics.addEventListener("mouseleave", handleTouchEnd);
       if (scroll) {
         const lines = Array.from(lyrics.children) as HTMLParagraphElement[];
         for (let i = 0; i < lines.length; i++) {
@@ -165,9 +159,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         }
       }
       return () => {
-        lyrics.removeEventListener("touchstart", handleTouchStart);
-        lyrics.removeEventListener("touchend", handleTouchEnd);
-        lyrics.removeEventListener("touchmove", handleTouchEnd);
+        lyrics.removeEventListener("mouseenter", handleTouchStart);
+        lyrics.removeEventListener("mousemove", handleTouchEnd);
+        lyrics.removeEventListener("mouseleave", handleTouchEnd);
       };
     }
   }, [progress, scroll]);
