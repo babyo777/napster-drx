@@ -40,7 +40,7 @@ export function AppScreenshots() {
         <CarouselItem className="rounded-xl">
           <AspectRatio ratio={9 / 16} className="bg-muted rounded-xl">
             <video
-              src="https://cdn.discordapp.com/attachments/1214956044988452894/1214956045420732436/video_2024-03-06_20-42-19.mp4?ex=65fafefe&is=65e889fe&hm=5d1849bda967b992a082a67e64aec5504914e4606940fc695c37ef773d44c065&"
+              src="https://cdn.discordapp.com/attachments/1213096773342601246/1213096773829001256/RPReplay_Final1709229551.mov?ex=6606b069&is=65f43b69&hm=1219a70ed8b3ec93c93424c756696ee7a54f92caa48d7044591621c177680d5a&"
               muted
               autoPlay
               controls
