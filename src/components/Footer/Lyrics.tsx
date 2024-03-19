@@ -164,27 +164,11 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       setScroll(false);
     };
 
-    const handleEnd = () => {
-      setScroll(true);
-    };
-
-    const handleMove = () => {
-      setScroll(false);
-
-      const scrollTimer = setTimeout(() => {
-        setScroll(true);
-      }, 1000);
-      return () => clearTimeout(scrollTimer);
-    };
-
     if (currentRef) {
       currentRef.addEventListener("touchstart", handleStart);
-      currentRef.addEventListener("touchend", handleEnd);
-      currentRef.addEventListener("touchmove", handleMove);
+
       return () => {
         currentRef.removeEventListener("touchstart", handleStart);
-        currentRef.removeEventListener("touchend", handleEnd);
-        currentRef.removeEventListener("touchmove", handleMove);
       };
     }
   }, []);
