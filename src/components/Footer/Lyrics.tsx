@@ -58,7 +58,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         .replace(/\[.*?\]/g, "")
         .replace(/\./g, "")
         .replace(/'\s*/g, "")
-        .trim()} `
+        .trim()} audio`
     );
 
     const lines = lyrics.data.lyrics.split("\n");
