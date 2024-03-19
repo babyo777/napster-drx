@@ -43,15 +43,15 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
 
   const getColor = useCallback(async () => {
     const c = await prominent(playlist[currentIndex].thumbnailUrl, {
-      amount: 3,
+      amount: 8,
       format: "hex",
     });
 
-    if (c[0] === "#000000" || containsDarkColor(c[0] as string)) {
+    if (c[7] === "#000000" || containsDarkColor(c[7] as string)) {
       return setColor(null);
     }
 
-    setColor(c[0] as string);
+    setColor(c[7] as string);
   }, [playlist, currentIndex]);
 
   function containsDarkColor(color: string) {
