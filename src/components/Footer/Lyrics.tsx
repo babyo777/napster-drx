@@ -130,8 +130,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const lyricsRef = useRef<HTMLDivElement>(null);
   const [scroll, setScroll] = useState<boolean>(true);
   useEffect(() => {
-    console.log(scroll);
-
     if (lyricsRef.current && scroll) {
       const lines = Array.from(
         lyricsRef.current.children
@@ -160,16 +158,15 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     getColor();
   }, [currentIndex, refetch, getColor]);
 
-  const handleStart = useCallback(() => {
-    setScroll(false);
-  }, []);
-  const handleEnd = useCallback(() => {
-    setScroll(true);
-  }, []);
-
   useEffect(() => {
     const currentRef = lyricsRef.current;
 
+    const handleStart = () => {
+      setScroll(false);
+    };
+    const handleEnd = () => {
+      setScroll(true);
+    };
     if (currentRef) {
       currentRef.addEventListener("touchstart", handleStart);
       currentRef.addEventListener("touchend", handleEnd);
@@ -178,7 +175,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         currentRef.removeEventListener("touchend", handleEnd);
       };
     }
-  }, [handleStart, handleEnd]);
+  }, []);
 
   const handleClick: MouseEventHandler<HTMLParagraphElement> = useCallback(
     (t) => {
