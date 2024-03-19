@@ -96,9 +96,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   }, []);
   const getLyrics = useCallback(async () => {
     // console.log(
-    //   `${playlist[currentIndex].artists[0].name.replace(/\./g, "")} ${playlist[
-    //     currentIndex
-    //   ].title
+    //   `${GetLyrics}${playlist[currentIndex].title
     //     .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
     //     .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")
     //     .replace("ñ", "n")
@@ -109,7 +107,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     //     .replace(/\[.*?\]/g, "")
     //     .replace(/\./g, "")
     //     .trim()
-    //     .replace(/\s+/g, " ")} ${formatDuration(music?.duration || 0)}`
+    //     .replace(/\s+/g, " ")} ${playlist[currentIndex].artists[0].name
+    //     .replace(/\./g, "")
+    //     .replace("/", "")} ${formatDuration(music?.duration || 0)}`
     // );
 
     const lyrics = await axios.get(
@@ -124,10 +124,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         .replace(/\[.*?\]/g, "")
         .replace(/\./g, "")
         .trim()
-        .replace(/\s+/g, " ")} ${playlist[currentIndex].artists[0].name.replace(
-        /\./g,
-        ""
-      )} ${formatDuration(music?.duration || 0)}`
+        .replace(/\s+/g, " ")} ${playlist[currentIndex].artists[0].name
+        .replace(/\./g, "")
+        .replace("/", "")} ${formatDuration(music?.duration || 0)}`
     );
 
     const lines = lyrics.data.lyrics.split("\n");
@@ -160,6 +159,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       refetchOnWindowFocus: false,
       staleTime: 60 * 6000,
       refetchOnMount: false,
+      retry: 5,
     }
   );
 
