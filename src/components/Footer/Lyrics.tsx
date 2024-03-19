@@ -58,7 +58,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     };
 
     if (
-      !isDarkColor(colors[10] as string) ||
+      !isDarkColor(colors[12] as string) ||
       colors[12] === "#000000" ||
       colors[12] === "#808080"
     ) {
