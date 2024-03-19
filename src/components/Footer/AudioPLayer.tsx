@@ -478,7 +478,7 @@ function AudioPLayerComp() {
                 />
                 <div className="flex text-sm justify-between py-2 px-1">
                   <span className="text-zinc-400 transition-all duration-300 font-semibold">
-                    {formatDuration((progress as "--:--") || "--:--")}
+                    {formatDuration((progress as "--:--") || 0)}
                   </span>
                   <span className="text-zinc-400 transition-all duration-300 font-semibold">
                     {formatDuration((duration as "--:--") || "--:--")}
