@@ -53,23 +53,27 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     return `${formattedMinutes}:${formattedSeconds}`;
   }, []);
   const getLyrics = useCallback(async () => {
-    // console.log(
-    //   `${playlist[currentIndex].artists[0].name} ${playlist[currentIndex].title
-    //     .replace(/[^\w\s]/gi, "")
-    //     .replace(/\(.*\)/g, "")
-    //     .replace(/@/g, "")
-    //     .replace(/-\s*/g, "")
-    //     .replace(/\[.*?\]/g, "")
-    //     .replace(/\./g, "")
-    //     .replace(/'\s*/g, "")
-    //     .trim()
-    //     .replace(/\s+/g, " ")} ${formatDuration(music?.duration || 0)}`
-    // );
+    console.log(
+      `${playlist[currentIndex].artists[0].name} ${playlist[currentIndex].title
+        .replace(/\([^()]*\)/g, "")
+        .replace(/\[[^\]]*\]/g, "")
+        .replace(/[^\w\s]/gi, "")
+        .replace(/\(.*\)/g, "")
+        .replace(/@/g, "")
+        .replace(/-\s*/g, "")
+        .replace(/\[.*?\]/g, "")
+        .replace(/\./g, "")
+        .replace(/'\s*/g, "")
+        .trim()
+        .replace(/\s+/g, " ")} ${formatDuration(music?.duration || 0)}`
+    );
 
     const lyrics = await axios.get(
       ` ${GetLyrics}${playlist[currentIndex].artists[0].name} ${playlist[
         currentIndex
       ].title
+        .replace(/\([^()]*\)/g, "")
+        .replace(/\[[^\]]*\]/g, "")
         .replace(/[^\w\s]/gi, "")
         .replace(/\(.*\)/g, "")
         .replace(/@/g, "")
