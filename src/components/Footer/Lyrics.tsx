@@ -128,29 +128,33 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
 
   const lyricsRef = useRef<HTMLDivElement>(null);
 
+  const [scroll, setScroll] = useState<boolean>(true);
   useEffect(() => {
-    if (lyricsRef.current) {
-      const lines = Array.from(
-        lyricsRef.current.children
-      ) as HTMLParagraphElement[];
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
-        const time = parseFloat(line.dataset.time || "0");
-        const nextTime = parseFloat(lines[i + 1]?.dataset.time || "Infinity");
+    const lyrics = lyricsRef.current;
+    if (lyrics) {
+      lyrics.addEventListener("touchstart", () => setScroll(false));
+      lyrics.addEventListener("touchend", () => setScroll(true));
+      if (scroll) {
+        const lines = Array.from(lyrics.children) as HTMLParagraphElement[];
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          const time = parseFloat(line.dataset.time || "0");
+          const nextTime = parseFloat(lines[i + 1]?.dataset.time || "Infinity");
 
-        if (
-          (time as number | "--:--") <= progress &&
-          (nextTime as number | "--:--") > progress
-        ) {
-          line.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-          break;
+          if (
+            (time as number | "--:--") <= progress &&
+            (nextTime as number | "--:--") > progress
+          ) {
+            line.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+            break;
+          }
         }
       }
     }
-  }, [progress]);
+  }, [progress, scroll]);
 
   useEffect(() => {
     refetch();
