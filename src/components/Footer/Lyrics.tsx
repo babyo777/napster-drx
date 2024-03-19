@@ -257,7 +257,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                             (index === lyrics.length - 1 ||
                               (lyrics[index + 1]?.time || 0) > progress) &&
                             "4rem") ||
-                          "3rem",
+                          "2rem",
 
                         transitionProperty: "all",
                         transitionDuration: "800ms",
