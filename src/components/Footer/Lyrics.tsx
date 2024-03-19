@@ -217,7 +217,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
               {lyrics ? (
                 <div
                   ref={lyricsRef}
-                  className=" transition-all duration-300 fade-in pb-4"
+                  className=" transition-all break-words duration-300 fade-in pb-4"
                 >
                   {lyrics.map((line, index) => (
                     <p
@@ -247,10 +247,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                             : "#718096",
                       }}
                     >
-                      {line.lyrics.replace(
-                        "Read Full Lyrics at iLyricsHub: https://www.ilyricshub.com/apna-bana-le-bhediya/",
-                        ""
-                      )}
+                      {line.lyrics}
                     </p>
                   ))}
                 </div>
