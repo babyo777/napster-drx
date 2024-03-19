@@ -127,9 +127,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   );
 
   const lyricsRef = useRef<HTMLDivElement>(null);
-  const [scroll, setScroll] = useState<boolean>(true);
+
   useEffect(() => {
-    if (lyricsRef.current && scroll) {
+    if (lyricsRef.current) {
       const lines = Array.from(
         lyricsRef.current.children
       ) as HTMLParagraphElement[];
@@ -150,35 +150,12 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         }
       }
     }
-  }, [progress, scroll]);
+  }, [progress]);
 
   useEffect(() => {
     refetch();
     getColor();
   }, [currentIndex, refetch, getColor]);
-
-  const scrollRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const currentRef = scrollRef.current;
-
-    const handleStart = () => {
-      setScroll(false);
-    };
-
-    const handleEnd = () => {
-      setScroll(true);
-    };
-
-    if (currentRef) {
-      currentRef.addEventListener("touchstart", handleStart);
-      currentRef.addEventListener("touchend", handleEnd);
-
-      return () => {
-        currentRef.removeEventListener("touchstart", handleStart);
-        currentRef.removeEventListener("touchend", handleEnd);
-      };
-    }
-  }, []);
 
   const handleClick: MouseEventHandler<HTMLParagraphElement> = useCallback(
     (t) => {
@@ -193,10 +170,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       <DrawerTrigger>
         <TbMicrophone2 className="h-6 w-6" />
       </DrawerTrigger>
-      <DrawerContent
-        ref={scrollRef}
-        className="h-[100dvh] rounded-none bg-[#09090b]"
-      >
+      <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
         <div className=" absolute pt-[3vh] w-full px-5 pb-[2vh] backdrop-blur-lg bg-transparent z-10 flex justify-between items-center ">
           <div className="flex space-x-3">
             <div className=" h-16 w-16 overflow-hidden rounded-lg">
