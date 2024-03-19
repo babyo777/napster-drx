@@ -179,7 +179,8 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
 
   useEffect(() => {
     refetch();
-  }, [currentIndex, refetch]);
+    getColor();
+  }, [currentIndex, refetch, getColor]);
 
   const handleClick: MouseEventHandler<HTMLParagraphElement> = useCallback(
     (t) => {
