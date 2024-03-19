@@ -136,32 +136,33 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     const handleTouchEnd = () => setScroll(true);
 
     if (lyrics) {
-      lyrics.addEventListener("mouseenter", handleTouchStart);
-      lyrics.addEventListener("mousemove", handleTouchStart);
-      lyrics.addEventListener("mouseleave", handleTouchEnd);
-      if (scroll) {
-        const lines = Array.from(lyrics.children) as HTMLParagraphElement[];
-        for (let i = 0; i < lines.length; i++) {
-          const line = lines[i];
-          const time = parseFloat(line.dataset.time || "0");
-          const nextTime = parseFloat(lines[i + 1]?.dataset.time || "Infinity");
+      lyrics.addEventListener("touchstart", handleTouchStart);
+      lyrics.addEventListener("touchmove", handleTouchStart);
+      lyrics.addEventListener("touchend", handleTouchEnd);
 
-          if (
-            (time as number | "--:--") <= progress &&
-            (nextTime as number | "--:--") > progress
-          ) {
-            line.scrollIntoView({
-              behavior: "smooth",
-              block: "center",
-            });
-            break;
-          }
+      const lines = Array.from(lyrics.children) as HTMLParagraphElement[];
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const time = parseFloat(line.dataset.time || "0");
+        const nextTime = parseFloat(lines[i + 1]?.dataset.time || "Infinity");
+
+        if (
+          (time as number | "--:--") <= progress &&
+          (nextTime as number | "--:--") > progress &&
+          scroll
+        ) {
+          line.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+          break;
         }
       }
+
       return () => {
-        lyrics.removeEventListener("mouseenter", handleTouchStart);
-        lyrics.removeEventListener("mousemove", handleTouchEnd);
-        lyrics.removeEventListener("mouseleave", handleTouchEnd);
+        lyrics.removeEventListener("touchstart", handleTouchStart);
+        lyrics.removeEventListener("touchend", handleTouchEnd);
+        lyrics.removeEventListener("touchmove", handleTouchEnd);
       };
     }
   }, [progress, scroll]);
