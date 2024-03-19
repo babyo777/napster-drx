@@ -37,7 +37,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       amount: 1,
       format: "hex",
     });
-    setColor(color);
+    setColor(color as string);
   }, [playlist, currentIndex]);
   const getLyrics = useCallback(async () => {
     getColor();
@@ -66,7 +66,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       .filter((line: string) => line !== null);
 
     return parsedLyrics as [{ time: number | string; lyrics: string }];
-  }, [playlist, currentIndex]);
+  }, [playlist, currentIndex, getColor]);
 
   const {
     data: lyrics,
