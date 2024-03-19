@@ -217,7 +217,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                            (index === lyrics.length - 1 ||
                              (lyrics[index + 1]?.time || 0) > progress)
                              ? "text-zinc-100"
-                             : "text-zinc-300 opacity-15"
+                             : "text-zinc-300 opacity-10"
                          }
                       `}
                     >
