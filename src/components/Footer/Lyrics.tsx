@@ -43,7 +43,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
 
   const getColor = useCallback(async () => {
     const colors = await prominent(playlist[currentIndex].thumbnailUrl, {
-      amount: 11,
+      amount: 20,
       format: "hex",
     });
 
@@ -59,12 +59,12 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
 
     if (
       !isDarkColor(colors[10] as string) ||
-      colors[7] === "#000000" ||
-      colors[7] === "#808080"
+      colors[12] === "#000000" ||
+      colors[12] === "#808080"
     ) {
       lightColor = "#FFFFFF";
     } else {
-      lightColor = colors[7];
+      lightColor = colors[12];
     }
 
     setColor(lightColor as string);
