@@ -62,25 +62,13 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   }, []);
   const getLyrics = useCallback(async () => {
     getColor();
-    // console.log(
-    //   `${playlist[currentIndex].artists[0].name} ${playlist[currentIndex].title
-    //     .replace(/\([^()]*\)/g, "")
-    //     .replace(/\[[^\]]*\]/g, "")
-    //     .replace(/[^\w\s]/gi, "")
-    //     .replace(/\(.*\)/g, "")
-    //     .replace(/@/g, "")
-    //     .replace(/-\s*/g, "")
-    //     .replace(/\[.*?\]/g, "")
-    //     .replace(/\./g, "")
-    //     .replace(/'\s*/g, "")
-    //     .trim()
-    //     .replace(/\s+/g, " ")} ${formatDuration(music?.duration || 0)}`
-    // );
-
-    const lyrics = await axios.get(
-      ` ${GetLyrics}${playlist[currentIndex].title
-        .replace(/\([^()]*\)/g, "")
-        .replace(/\[[^\]]*\]/g, "")
+    console.log(
+      `${playlist[currentIndex].artists[0].name.replace(
+        /[^\w\s]/gi,
+        ""
+      )} ${playlist[currentIndex].title
+        .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
+        .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")
         .replace(/[^\w\s]/gi, "")
         .replace(/\(.*\)/g, "")
         .replace(/@/g, "")
@@ -89,10 +77,25 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         .replace(/\./g, "")
         .replace(/'\s*/g, "")
         .trim()
-        .replace(/\s+/g, " ")} ${playlist[currentIndex].artists[0].name.replace(
+        .replace(/\s+/g, " ")} ${formatDuration(music?.duration || 0)}`
+    );
+
+    const lyrics = await axios.get(
+      `${GetLyrics}${playlist[currentIndex].artists[0].name.replace(
         /[^\w\s]/gi,
         ""
-      )} ${formatDuration(music?.duration || 0)}`
+      )} ${playlist[currentIndex].title
+        .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
+        .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")
+        .replace(/[^\w\s]/gi, "")
+        .replace(/\(.*\)/g, "")
+        .replace(/@/g, "")
+        .replace(/-\s*/g, "")
+        .replace(/\[.*?\]/g, "")
+        .replace(/\./g, "")
+        .replace(/'\s*/g, "")
+        .trim()
+        .replace(/\s+/g, " ")} ${formatDuration(music?.duration || 0)}`
     );
 
     const lines = lyrics.data.lyrics.split("\n");
@@ -130,33 +133,19 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
 
   const lyricsRef = useRef<HTMLDivElement>(null);
 
-  const [scroll, setScroll] = useState<boolean>(true);
   useEffect(() => {
-    const lyrics = lyricsRef.current;
-    const handleTouchStart = () => setScroll(false);
-    const handleTouchEnd = () => setScroll(true);
-
-    if (lyrics) {
-      lyrics.addEventListener("touchstart", handleTouchStart, {
-        passive: true,
-      });
-      lyrics.addEventListener("touchmove", handleTouchStart, {
-        passive: true,
-      });
-      lyrics.addEventListener("touchend", handleTouchEnd, {
-        passive: true,
-      });
-
-      const lines = Array.from(lyrics.children) as HTMLParagraphElement[];
+    if (lyricsRef.current) {
+      const lines = Array.from(
+        lyricsRef.current.children
+      ) as HTMLParagraphElement[];
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         const time = parseFloat(line.dataset.time || "0");
-        const nextTime = parseFloat(lines[i + 1]?.dataset.time || "Infinity");
+        const nextTime = parseFloat(lines[i + 1]?.dataset.time || "0");
 
         if (
           (time as number | "--:--") <= progress &&
-          (nextTime as number | "--:--") > progress &&
-          scroll
+          (nextTime as number | "--:--") > progress
         ) {
           line.scrollIntoView({
             behavior: "smooth",
@@ -164,14 +153,8 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
           });
         }
       }
-
-      return () => {
-        lyrics.removeEventListener("touchstart", handleTouchStart);
-        lyrics.removeEventListener("touchend", handleTouchEnd);
-        lyrics.removeEventListener("touchmove", handleTouchEnd);
-      };
     }
-  }, [progress, scroll]);
+  }, [progress]);
 
   useEffect(() => {
     refetch();
@@ -266,7 +249,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                           (index === lyrics.length - 1 ||
                             (lyrics[index + 1]?.time || 0) > progress)
                             ? color
-                              ? color[7]
+                              ? color[0]
                               : "#e4e4e7"
                             : "#71717a",
                       }}
