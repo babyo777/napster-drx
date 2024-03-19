@@ -39,6 +39,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     (state: RootState) => state.musicReducer.progress
   );
   const music = useSelector((state: RootState) => state.musicReducer.music);
+  const duration = useSelector(
+    (state: RootState) => state.musicReducer.duration
+  );
   const [color, setColor] = useState<string | null>();
 
   const getColor = useCallback(async () => {
@@ -123,7 +126,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         .trim()
         .replace(/\s+/g, " ")} ${playlist[currentIndex].artists[0].name
         .replace(/\./g, "")
-        .replace("/", "")} ${formatDuration(music?.duration || 0)}`
+        .replace("/", "")} ${formatDuration(duration || music?.duration || 0)}`
     );
 
     const lines = lyrics.data.lyrics.split("\n");
@@ -142,7 +145,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       .filter((line: string) => line !== null);
 
     return parsedLyrics as [{ time: number | string; lyrics: string }];
-  }, [playlist, currentIndex, music, formatDuration]);
+  }, [playlist, currentIndex, formatDuration, duration, music]);
 
   const {
     data: lyrics,
