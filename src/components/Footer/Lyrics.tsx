@@ -49,8 +49,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       return setColor(null);
     }
 
-    console.log(color);
-
     setColor(color as string);
   }, [playlist, currentIndex]);
   const formatDuration = useCallback((seconds: number | "--:--") => {
@@ -268,7 +266,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                             ? color
                               ? 1
                               : 1
-                            : 0.1,
+                            : 0.05,
                         color:
                           line.time <= progress &&
                           (index === lyrics.length - 1 ||
@@ -276,7 +274,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                             ? color
                               ? color[7]
                               : "white"
-                            : "#718096",
+                            : "white",
                       }}
                     >
                       {line.lyrics}
