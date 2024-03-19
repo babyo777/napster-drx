@@ -14,7 +14,14 @@ import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import {
+  MouseEventHandler,
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { TbMicrophone2 } from "react-icons/tb";
 import { average } from "color.js";
 
@@ -167,8 +174,8 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     }
   }, []);
 
-  const handleClick = useCallback(
-    (t: React.ChangeEvent<HTMLParagraphElement>) => {
+  const handleClick: MouseEventHandler<HTMLParagraphElement> = useCallback(
+    (t) => {
       if (music) {
         music.currentTime = parseFloat(t.currentTarget.dataset.time || "0");
       }
@@ -234,7 +241,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                 >
                   {lyrics.map((line, index) => (
                     <p
-                      onClick={(e) => handleClick(e)}
+                      onClick={handleClick}
                       key={index}
                       data-time={line.time}
                       style={{
