@@ -14,8 +14,9 @@ import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-import { RefObject, useCallback, useEffect, useRef } from "react";
+import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
+import { average } from "color.js";
 
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const currentIndex = useSelector(
@@ -30,8 +31,16 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const progress = useSelector(
     (state: RootState) => state.musicReducer.progress
   );
-
+  const [color, setColor] = useState<string>();
+  const getColor = useCallback(async () => {
+    const color = await average(playlist[currentIndex].thumbnailUrl, {
+      amount: 1,
+      format: "hex",
+    });
+    setColor(color);
+  }, [playlist, currentIndex]);
   const getLyrics = useCallback(async () => {
+    getColor();
     const lyrics = await axios.get(
       `${GetLyrics}${playlist[currentIndex].title
         .replace(/\(.*\)/g, "")
@@ -163,11 +172,12 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                 >
                   {lyrics.map((line, index) => (
                     <p
+                      style={{ color: color }}
                       key={index}
                       data-time={line.time}
                       className={`
                       text-3xl
-                      mt-5
+                      mt-
                          transition-all font-bold duration-500
                          ${
                            line.time <= progress &&
