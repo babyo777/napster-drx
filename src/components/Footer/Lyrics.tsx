@@ -49,8 +49,8 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       return setColor(null);
     }
 
-    setColor(color as string);
-  }, [playlist, currentIndex, color]);
+    setColor(c as string);
+  }, [playlist, currentIndex]);
   const formatDuration = useCallback((seconds: number | "--:--") => {
     if (seconds == "--:--") return seconds;
     const minutes = Math.floor(seconds / 60);
