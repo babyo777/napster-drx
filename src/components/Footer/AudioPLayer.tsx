@@ -151,7 +151,6 @@ function AudioPLayerComp() {
   }, [isPlaying, music, dispatch]);
 
   const handleNext = useCallback(() => {
-    handlePlay();
     setNext(true);
     const t = setTimeout(() => {
       setNext(false);
@@ -165,17 +164,9 @@ function AudioPLayerComp() {
       dispatch(setCurrentIndex((currentIndex + 1) % playlist.length));
     }
     return () => clearTimeout(t);
-  }, [
-    dispatch,
-    currentIndex,
-    playlist.length,
-    isLooped,
-    isStandalone,
-    handlePlay,
-  ]);
+  }, [dispatch, currentIndex, playlist.length, isLooped, isStandalone]);
 
   const handlePrev = useCallback(() => {
-    handlePlay;
     setPrev(true);
     const t = setTimeout(() => {
       setPrev(false);
@@ -187,7 +178,7 @@ function AudioPLayerComp() {
       );
     }
     return () => clearTimeout(t);
-  }, [dispatch, currentIndex, playlist.length, isLooped, handlePlay]);
+  }, [dispatch, currentIndex, playlist.length, isLooped]);
 
   const swipeHandler = useSwipeable({
     onSwipedLeft: handleNext,
@@ -231,13 +222,14 @@ function AudioPLayerComp() {
       sound.src = `${streamApi}${playlist[currentIndex]?.youtubeId}`;
 
       dispatch(setPlayer(sound));
+      sound.play();
     }
   }, [dispatch, currentIndex, playlist]);
 
   useEffect(() => {
     if (music) {
       const sound = music;
-      sound.play();
+
       const handlePlay = () => {
         if (isLooped) {
           sound.loop = true;
