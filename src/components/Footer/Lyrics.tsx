@@ -207,20 +207,22 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                     <p
                       key={index}
                       data-time={line.time}
-                      className={`
-                      text-3xl
-                      mt-4
-                         transition-all font-bold duration-500
-                         ${
-                           line.time <= progress &&
-                           (index === lyrics.length - 1 ||
-                             (lyrics[index + 1]?.time || 0) > progress)
-                             ? color
-                               ? `text-[${color}]`
-                               : "text-zinc-200"
-                             : "text-zinc-300 opacity-5"
-                         }
-                      `}
+                      style={{
+                        fontSize: "1.875rem",
+                        marginTop: "1rem",
+                        transitionProperty: "all",
+                        transitionDuration: "500ms",
+                        fontWeight: "bold",
+                        opacity:
+                          line.time <= progress &&
+                          (index === lyrics.length - 1 ||
+                            (lyrics[index + 1]?.time || 0) > progress)
+                            ? color
+                              ? 1
+                              : 0.5
+                            : 0.1,
+                        color: color ? color : "#718096",
+                      }}
                     >
                       {line.lyrics}
                     </p>
