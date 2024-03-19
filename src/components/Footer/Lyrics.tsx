@@ -59,23 +59,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         .trim()} `
     );
 
-    if (
-      !lyrics.data.title.includes(
-        `${playlist[currentIndex].title
-          .replace(/[^\w\s]/gi, "")
-          .replace(/\(.*\)/g, "")
-          .replace(/@/g, "")
-          .replace(/-\s*/g, "")
-          .replace(/\[.*?\]/g, "")
-          .replace(/\./g, "")
-          .replace(/'\s*/g, "")
-          .trim()} `
-      )
-    )
-      return [{ time: 0, lyrics: "Lyrics Not Found" }] as [
-        { time: number | string; lyrics: string }
-      ];
-
     const lines = lyrics.data.lyrics.split("\n");
     const parsedLyrics = lines
       .map((line: string) => {
