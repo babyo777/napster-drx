@@ -43,7 +43,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
 
   const getColor = useCallback(async () => {
     const c = await prominent(playlist[currentIndex].thumbnailUrl, {
-      amount: 8,
+      amount: 1,
       format: "hex",
     });
 
