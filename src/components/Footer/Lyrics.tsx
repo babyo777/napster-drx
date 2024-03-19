@@ -175,7 +175,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                 >
                   {lyrics.map((line, index) => (
                     <p
-                      style={{ color: color && color }}
+                      style={{ color: color ? color : "" }}
                       key={index}
                       data-time={line.time}
                       className={`
