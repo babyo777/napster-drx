@@ -82,7 +82,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     return `${formattedMinutes}:${formattedSeconds}`;
   }, []);
   const getLyrics = useCallback(async () => {
-    getColor();
     console.log(
       `${playlist[currentIndex].artists[0].name.replace(
         /[^\w\s]/gi,
@@ -136,7 +135,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       .filter((line: string) => line !== null);
 
     return parsedLyrics as [{ time: number | string; lyrics: string }];
-  }, [playlist, currentIndex, music, formatDuration, getColor]);
+  }, [playlist, currentIndex, music, formatDuration]);
 
   const {
     data: lyrics,
@@ -192,7 +191,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   );
   return (
     <Drawer>
-      <DrawerTrigger onClick={() => refetch()}>
+      <DrawerTrigger onClick={() => (refetch(), getColor())}>
         <TbMicrophone2 className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
