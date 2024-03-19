@@ -42,7 +42,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     if (color === "#000000") {
       return setColor(null);
     }
-    console.log(color);
+
     setColor(color as string);
   }, [playlist, currentIndex]);
   const formatDuration = useCallback((seconds: number | "--:--") => {
@@ -166,6 +166,15 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       return () => currentRef.removeEventListener("scroll", handleScroll);
     }
   }, []);
+
+  const handleClick = useCallback(
+    (t: React.ChangeEvent<HTMLParagraphElement>) => {
+      if (music) {
+        music.currentTime = parseFloat(t.currentTarget.dataset.time || "0");
+      }
+    },
+    [music]
+  );
   return (
     <Drawer>
       <DrawerTrigger>
@@ -225,6 +234,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                 >
                   {lyrics.map((line, index) => (
                     <p
+                      onClick={(e) => handleClick(e)}
                       key={index}
                       data-time={line.time}
                       style={{
