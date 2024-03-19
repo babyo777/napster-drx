@@ -60,11 +60,10 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     const b = parseInt(color.substring(5, 7), 16);
 
     if (r === 0 && g === 0 && b === 0) {
-      return false;
+      return true;
     }
-    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 
-    if (luminance <= 0.5 || (r < 50 && g < 50 && b < 50)) {
+    if (r === g && g === b) {
       return true;
     }
 
