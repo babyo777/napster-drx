@@ -152,16 +152,15 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
 
   const handleScroll = () => {
     setScroll(false);
+    const t = setTimeout(() => {
+      setScroll(true);
+    }, 1111);
+    return () => clearTimeout(t);
   };
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-    const t = setTimeout(() => {
-      setScroll(true);
-    }, 2000);
-    return () => {
-      clearTimeout(t);
-      window.removeEventListener("scroll", handleScroll);
-    };
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   return (
     <Drawer>
