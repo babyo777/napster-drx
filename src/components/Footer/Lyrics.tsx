@@ -136,6 +136,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
 
     if (lyrics) {
       lyrics.addEventListener("touchstart", handleTouchStart);
+      lyrics.addEventListener("touchmove", handleTouchStart);
       lyrics.addEventListener("touchend", handleTouchEnd);
       if (scroll) {
         const lines = Array.from(lyrics.children) as HTMLParagraphElement[];
@@ -159,6 +160,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       return () => {
         lyrics.removeEventListener("touchstart", handleTouchStart);
         lyrics.removeEventListener("touchend", handleTouchEnd);
+        lyrics.removeEventListener("touchmove", handleTouchEnd);
       };
     }
   }, [progress, scroll]);
