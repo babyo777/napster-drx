@@ -78,7 +78,12 @@ function Check() {
 
   const getPlaylist = async () => {
     if (data && data.playlisturl.startsWith("custom")) {
-      const r = await db.getDocument(DATABASE_ID, ADD_TO_LIBRARY, uid || "");
+      const r = await db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [
+        Query.orderDesc("$createdAt"),
+        Query.equal("for", [localStorage.getItem("uid") || ""]),
+        Query.equal("playlistId", [data.playlisturl.replace("custom", "")]),
+        Query.limit(999),
+      ]);
       const modified = r.documents.map((doc) => ({
         for: doc.for,
         youtubeId: doc.youtubeId,
