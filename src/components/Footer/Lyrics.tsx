@@ -161,16 +161,16 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   useEffect(() => {
     const currentRef = lyricsRef.current;
 
-    const handleScroll = () => {
-      setScroll((prev) => !prev);
+    const handleMove = () => {
+      setScroll(false);
+      setTimeout(() => {
+        setScroll(true);
+      }, 1000);
     };
-
     if (currentRef) {
-      currentRef.addEventListener("touchstart", handleScroll);
-      currentRef.addEventListener("touchend", handleScroll);
+      currentRef.addEventListener("touchmove", handleMove);
       return () => {
-        currentRef.removeEventListener("touchstart", handleScroll);
-        currentRef.removeEventListener("touchend", handleScroll);
+        currentRef.removeEventListener("touchmove", handleMove);
       };
     }
   }, []);
