@@ -137,9 +137,15 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     const handleTouchEnd = () => setScroll(true);
 
     if (lyrics) {
-      lyrics.addEventListener("touchstart", handleTouchStart);
-      lyrics.addEventListener("touchmove", handleTouchStart);
-      lyrics.addEventListener("touchend", handleTouchEnd);
+      lyrics.addEventListener("touchstart", handleTouchStart, {
+        passive: true,
+      });
+      lyrics.addEventListener("touchmove", handleTouchStart, {
+        passive: true,
+      });
+      lyrics.addEventListener("touchend", handleTouchEnd, {
+        passive: true,
+      });
 
       const lines = Array.from(lyrics.children) as HTMLParagraphElement[];
       for (let i = 0; i < lines.length; i++) {
