@@ -271,7 +271,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                           (index === lyrics.length - 1 ||
                             (lyrics[index + 1]?.time || 0) > progress)
                             ? color
-                              ? color[0]
+                              ? color
                               : "#f4f4f5"
                             : "#71717a",
                       }}
