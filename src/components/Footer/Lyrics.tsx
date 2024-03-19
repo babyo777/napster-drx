@@ -37,6 +37,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     const color = await average(playlist[currentIndex].thumbnailUrl, {
       amount: 1,
       format: "hex",
+      sample: 10,
     });
     if (color === "#000000") {
       return setColor(null);
