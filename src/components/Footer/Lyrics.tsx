@@ -151,12 +151,12 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   }, [currentIndex, refetch, getColor]);
 
   const handleScroll = () => {
-    setScroll(true);
+    setScroll(false);
   };
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     const t = setTimeout(() => {
-      setScroll(false);
+      setScroll(true);
     }, 2000);
     return () => {
       clearTimeout(t);
