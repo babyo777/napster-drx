@@ -42,32 +42,47 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const [color, setColor] = useState<string | null>();
 
   const getColor = useCallback(async () => {
-    const c = await prominent(playlist[currentIndex].thumbnailUrl, {
+    const colors = await prominent(playlist[currentIndex].thumbnailUrl, {
       amount: 11,
       format: "hex",
     });
 
-    if (c[10] === "#000000" || containsDarkColor(c[10] as string)) {
-      return setColor(null);
+    let lightColor = null;
+
+    const isDarkColor = (color: string) => {
+      const rgb = hexToRgb(color);
+
+      const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+
+      return luminance < 0.5;
+    };
+
+    for (let i = 0; i < colors.length; i++) {
+      if (
+        !isDarkColor(colors[i] as string) ||
+        colors[i] === "#000000" ||
+        colors[i] === "#808080"
+      ) {
+        lightColor = "#FFFFFF";
+        break;
+      } else {
+        lightColor = colors[i];
+      }
     }
 
-    setColor(c[10] as string);
+    setColor(lightColor as string);
   }, [playlist, currentIndex]);
 
-  function containsDarkColor(color: string) {
-    const r = parseInt(color.substring(1, 3), 16);
-    const g = parseInt(color.substring(3, 5), 16);
-    const b = parseInt(color.substring(5, 7), 16);
+  function hexToRgb(hex: string) {
+    hex = hex.replace(/^#/, "");
 
-    if (r === 0 && g === 0 && b === 0) {
-      return true;
-    }
+    const bigint = parseInt(hex, 16);
 
-    if (r === g && g === b) {
-      return true;
-    }
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
 
-    return false;
+    return { r, g, b };
   }
 
   const formatDuration = useCallback((seconds: number | "--:--") => {
