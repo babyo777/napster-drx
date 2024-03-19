@@ -40,17 +40,38 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   );
   const music = useSelector((state: RootState) => state.musicReducer.music);
   const [color, setColor] = useState<string | null>();
+
   const getColor = useCallback(async () => {
     const c = await prominent(playlist[currentIndex].thumbnailUrl, {
       amount: 8,
       format: "hex",
     });
-    if (c === "#000000") {
+
+    if (c[0] === "#000000" || containsDarkColor(c[0] as string)) {
       return setColor(null);
     }
 
-    setColor(c as string);
+    setColor(c[0] as string);
   }, [playlist, currentIndex]);
+
+  function containsDarkColor(color: string) {
+    const r = parseInt(color.substring(1, 3), 16);
+    const g = parseInt(color.substring(3, 5), 16);
+    const b = parseInt(color.substring(5, 7), 16);
+
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+    if (luminance <= 0.5) {
+      return true;
+    }
+
+    if (r < 50 || g < 50 || b < 50) {
+      return true;
+    }
+
+    return false;
+  }
+
   const formatDuration = useCallback((seconds: number | "--:--") => {
     if (seconds == "--:--") return seconds;
     const minutes = Math.floor(seconds / 60);
