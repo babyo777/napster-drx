@@ -258,6 +258,7 @@ function AudioPLayerComp() {
         navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
         navigator.mediaSession.setActionHandler("seekto", handleSeek);
         dispatch(play(true));
+        setProgress(sound.currentTime);
         saveLastPlayed();
       };
 
@@ -285,7 +286,7 @@ function AudioPLayerComp() {
       const handleLoad = () => {
         dispatch(setIsLoading(false));
         setDuration(sound.duration);
-        setProgress(sound.currentTime);
+
         refetch();
       };
 
@@ -365,7 +366,7 @@ function AudioPLayerComp() {
   return (
     <>
       <audio src="" hidden ref={audioRef}></audio>
-      {!isStandalone ? (
+      {isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>
