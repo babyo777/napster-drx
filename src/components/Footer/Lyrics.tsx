@@ -44,17 +44,21 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   }, [playlist, currentIndex]);
   const getLyrics = useCallback(async () => {
     getColor();
+
     const lyrics = await axios.get(
       ` ${GetLyrics}${playlist[currentIndex].artists[0].name} ${playlist[
         currentIndex
       ].title
+        .replace(/[^\w\s]/gi, "")
         .replace(/\(.*\)/g, "")
         .replace(/@/g, "")
         .replace(/-\s*/g, "")
         .replace(/\[.*?\]/g, "")
         .replace(/\./g, "")
+        .replace(/'\s*/g, "")
         .trim()} `
     );
+
     const lines = lyrics.data.lyrics.split("\n");
     const parsedLyrics = lines
       .map((line: string) => {
