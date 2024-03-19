@@ -169,7 +169,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         ) {
           line.scrollIntoView({
             behavior: "smooth",
-            block: "center",
+            block: "start",
           });
         }
       }
@@ -195,7 +195,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         <TbMicrophone2 className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
-        <div className=" absolute pt-[3vh] w-full px-5 pb-[2vh] backdrop-blur-lg bg-transparent z-10 flex justify-between items-center ">
+        <div className="   w-full px-5 pb-[2vh] backdrop-blur-lg bg-transparent z-10 flex justify-between items-center ">
           <div className="flex space-x-3">
             <div className=" h-16 w-16 overflow-hidden rounded-lg">
               <LazyLoadImage
@@ -234,7 +234,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
             <Options id={playingPlaylistUrl} music={playlist[currentIndex]} />
           </div>
         </div>
-        <div className="flex relative overflow-scroll pb-3 pt-[10vh] flex-col px-5 space-y-3">
+        <div className="flex relative overflow-scroll pb-3 flex-col px-5 space-y-3">
           {isLoading ? (
             <div className="flex h-[77dvh] justify-center items-center">
               <Loader loading={true} />
@@ -244,7 +244,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
               {lyrics ? (
                 <div
                   ref={lyricsRef}
-                  className=" transition-all break-words duration-300 fade-in pb-4"
+                  className=" transition-all pt-[10vh] break-words duration-300 fade-in pb-4"
                 >
                   {lyrics.map((line, index) => (
                     <p
@@ -253,7 +253,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                       data-time={line.time}
                       style={{
                         fontSize: "1.875rem",
-                        marginTop: "1rem",
+                        marginTop: "2rem",
                         transitionProperty: "all",
                         transitionDuration: "500ms",
                         fontWeight: "bold",
