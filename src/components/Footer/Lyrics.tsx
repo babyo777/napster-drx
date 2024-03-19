@@ -41,16 +41,16 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const music = useSelector((state: RootState) => state.musicReducer.music);
   const [color, setColor] = useState<string | null>();
   const getColor = useCallback(async () => {
-    const color = await prominent(playlist[currentIndex].thumbnailUrl, {
+    const c = await prominent(playlist[currentIndex].thumbnailUrl, {
       amount: 8,
       format: "hex",
     });
-    if (color === "#000000") {
+    if (c === "#000000") {
       return setColor(null);
     }
-
+    c == color && setColor(null);
     setColor(color as string);
-  }, [playlist, currentIndex]);
+  }, [playlist, currentIndex, color]);
   const formatDuration = useCallback((seconds: number | "--:--") => {
     if (seconds == "--:--") return seconds;
     const minutes = Math.floor(seconds / 60);
