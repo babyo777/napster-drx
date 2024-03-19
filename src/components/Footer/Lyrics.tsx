@@ -91,13 +91,13 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
         .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")
         .replace("ñ", "n")
-        .replace(/[^\w\s]/gi, "")
+        .replace(/[^\w\s']/gi, "")
         .replace(/\(.*\)/g, "")
         .replace(/@/g, "")
         .replace(/-\s*/g, "")
         .replace(/\[.*?\]/g, "")
         .replace(/\./g, "")
-        .replace(/'\s*/g, "")
+
         .trim()
         .replace(/\s+/g, " ")} ${formatDuration(music?.duration || 0)}`
     );
@@ -110,13 +110,12 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
         .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")
         .replace("ñ", "n")
-        .replace(/[^\w\s]/gi, "")
+        .replace(/[^\w\s']/gi, "")
         .replace(/\(.*\)/g, "")
         .replace(/@/g, "")
         .replace(/-\s*/g, "")
         .replace(/\[.*?\]/g, "")
         .replace(/\./g, "")
-        .replace(/'\s*/g, "")
         .trim()
         .replace(/\s+/g, " ")} ${formatDuration(music?.duration || 0)}`
     );
