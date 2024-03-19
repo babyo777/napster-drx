@@ -48,7 +48,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     if (c === "#000000") {
       return setColor(null);
     }
-    c == color && setColor(null);
     setColor(color as string);
   }, [playlist, currentIndex, color]);
   const formatDuration = useCallback((seconds: number | "--:--") => {
