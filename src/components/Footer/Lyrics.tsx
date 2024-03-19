@@ -54,7 +54,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   }, []);
   const getLyrics = useCallback(async () => {
     console.log(
-      `${playlist[currentIndex].artists[0].name}  ${playlist[currentIndex].title
+      `${playlist[currentIndex].artists[0].name} ${playlist[currentIndex].title
         .replace(/[^\w\s]/gi, "")
         .replace(/\(.*\)/g, "")
         .replace(/@/g, "")
@@ -62,7 +62,8 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         .replace(/\[.*?\]/g, "")
         .replace(/\./g, "")
         .replace(/'\s*/g, "")
-        .trim()} ${formatDuration(music?.duration || 0)}`
+        .trim()
+        .replace(/\s+/g, " ")} ${formatDuration(music?.duration || 0)}`
     );
 
     const lyrics = await axios.get(
@@ -76,7 +77,8 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         .replace(/\[.*?\]/g, "")
         .replace(/\./g, "")
         .replace(/'\s*/g, "")
-        .trim()} ${formatDuration(music?.duration || 0)}`
+        .trim()
+        .replace(/\s+/g, " ")} ${formatDuration(music?.duration || 0)}`
     );
 
     const lines = lyrics.data.lyrics.split("\n");
