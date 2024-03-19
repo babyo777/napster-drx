@@ -61,6 +61,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     return `${formattedMinutes}:${formattedSeconds}`;
   }, []);
   const getLyrics = useCallback(async () => {
+    getColor();
     // console.log(
     //   `${playlist[currentIndex].artists[0].name} ${playlist[currentIndex].title
     //     .replace(/\([^()]*\)/g, "")
@@ -109,7 +110,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       .filter((line: string) => line !== null);
 
     return parsedLyrics as [{ time: number | string; lyrics: string }];
-  }, [playlist, currentIndex, music, formatDuration]);
+  }, [playlist, currentIndex, music, formatDuration, getColor]);
 
   const {
     data: lyrics,
@@ -167,8 +168,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
 
   useEffect(() => {
     refetch();
-    getColor();
-  }, [currentIndex, refetch, getColor]);
+  }, [currentIndex, refetch]);
 
   const handleClick: MouseEventHandler<HTMLParagraphElement> = useCallback(
     (t) => {
