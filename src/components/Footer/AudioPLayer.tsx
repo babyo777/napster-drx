@@ -223,6 +223,10 @@ function AudioPLayerComp() {
 
       dispatch(setPlayer(sound));
       sound.play();
+      return () => {
+        sound.load();
+        sound.pause();
+      };
     }
   }, [dispatch, currentIndex, playlist]);
 
