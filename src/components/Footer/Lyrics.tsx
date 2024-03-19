@@ -131,9 +131,12 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const [scroll, setScroll] = useState<boolean>(true);
   useEffect(() => {
     const lyrics = lyricsRef.current;
+    const handleTouchStart = () => setScroll(false);
+    const handleTouchEnd = () => setScroll(true);
+
     if (lyrics) {
-      lyrics.addEventListener("touchstart", () => setScroll(false));
-      lyrics.addEventListener("touchend", () => setScroll(true));
+      lyrics.addEventListener("touchstart", handleTouchStart);
+      lyrics.addEventListener("touchend", handleTouchEnd);
       if (scroll) {
         const lines = Array.from(lyrics.children) as HTMLParagraphElement[];
         for (let i = 0; i < lines.length; i++) {
@@ -154,8 +157,8 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         }
       }
       return () => {
-        lyrics.removeEventListener("touchstart", () => setScroll(false));
-        lyrics.removeEventListener("touchend", () => setScroll(true));
+        lyrics.removeEventListener("touchstart", handleTouchStart);
+        lyrics.removeEventListener("touchend", handleTouchEnd);
       };
     }
   }, [progress, scroll]);
