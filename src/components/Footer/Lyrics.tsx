@@ -31,6 +31,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const progress = useSelector(
     (state: RootState) => state.musicReducer.progress
   );
+  const music = useSelector((state: RootState) => state.musicReducer.music);
   const [color, setColor] = useState<string | null>();
   const getColor = useCallback(async () => {
     const color = await prominent(playlist[currentIndex].thumbnailUrl, {
@@ -42,10 +43,29 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     }
     setColor(color as string);
   }, [playlist, currentIndex]);
+  const formatDuration = useCallback((seconds: number | "--:--") => {
+    if (seconds == "--:--") return seconds;
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+
+    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedSeconds = String(remainingSeconds).padStart(2, "0");
+    return `${formattedMinutes}:${formattedSeconds}`;
+  }, []);
   const getLyrics = useCallback(async () => {
     getColor();
 
-    console.log();
+    console.log(
+      `${playlist[currentIndex].title
+        .replace(/[^\w\s]/gi, "")
+        .replace(/\(.*\)/g, "")
+        .replace(/@/g, "")
+        .replace(/-\s*/g, "")
+        .replace(/\[.*?\]/g, "")
+        .replace(/\./g, "")
+        .replace(/'\s*/g, "")
+        .trim()} ${formatDuration(music?.duration || 0)}`
+    );
 
     const lyrics = await axios.get(
       ` ${GetLyrics}
@@ -57,7 +77,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
           .replace(/\[.*?\]/g, "")
           .replace(/\./g, "")
           .replace(/'\s*/g, "")
-          .trim()}`
+          .trim()} ${formatDuration(music?.duration || 0)}`
     );
 
     const lines = lyrics.data.lyrics.split("\n");
@@ -76,7 +96,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       .filter((line: string) => line !== null);
 
     return parsedLyrics as [{ time: number | string; lyrics: string }];
-  }, [playlist, currentIndex, getColor]);
+  }, [playlist, currentIndex, getColor, music, formatDuration]);
 
   const {
     data: lyrics,
