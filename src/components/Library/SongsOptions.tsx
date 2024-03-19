@@ -61,7 +61,6 @@ function SongsOptions({
     (state: RootState) => state.musicReducer.currentIndex
   );
   const handleQueue = useCallback(() => {
-    console.log(playlist.length);
     const newPlaylist = [...playlist];
     newPlaylist.splice(currentIndex + 1, 0, music);
     dispatch(setPlaylist(newPlaylist));

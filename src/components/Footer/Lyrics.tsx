@@ -54,7 +54,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   }, []);
   const getLyrics = useCallback(async () => {
     const lyrics = await axios.get(
-      ` ${GetLyrics}
+      ` ${GetLyrics} ${playlist[currentIndex].artists[0].name} 
         ${playlist[currentIndex].title
           .replace(/[^\w\s]/gi, "")
           .replace(/\(.*\)/g, "")
@@ -100,9 +100,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   );
 
   const lyricsRef = useRef<HTMLParagraphElement>(null);
-
+  const [scroll, setScroll] = useState<boolean>();
   useEffect(() => {
-    if (lyricsRef.current) {
+    if (lyricsRef.current && !scroll) {
       const lines = Array.from(
         lyricsRef.current.children
       ) as HTMLParagraphElement[];
@@ -123,13 +123,26 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         }
       }
     }
-  }, [progress]);
+  }, [progress, scroll]);
 
   useEffect(() => {
     refetch();
     getColor();
   }, [currentIndex, refetch, getColor]);
 
+  const handleScroll = () => {
+    setScroll(true);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    const t = setTimeout(() => {
+      setScroll(false);
+    }, 2000);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <Drawer>
       <DrawerTrigger>

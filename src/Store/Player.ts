@@ -104,8 +104,9 @@ const MusicPlayer = createSlice({
       state.search = action.payload;
     },
     setPlayer: (state, action: PayloadAction<HTMLAudioElement | null>) => {
-      //@ts-expect-error:fix
-      state.music = action.payload;
+      if (state.music == null)
+        //@ts-expect-error:fix
+        state.music = action.payload;
     },
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;

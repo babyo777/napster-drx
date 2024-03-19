@@ -220,6 +220,15 @@ function AudioPLayerComp() {
 
       const sound: HTMLAudioElement | null = audioRef.current;
       sound.src = `${streamApi}${playlist[currentIndex]?.youtubeId}`;
+
+      dispatch(setPlayer(sound));
+      sound.play();
+    }
+  }, [dispatch, currentIndex, playlist]);
+
+  useEffect(() => {
+    if (music) {
+      const sound = music;
       const handlePlay = () => {
         if (isLooped) {
           sound.loop = true;
@@ -289,8 +298,6 @@ function AudioPLayerComp() {
       sound.addEventListener("ended", handleNext);
 
       sound.play();
-      dispatch(setPlayer(sound));
-
       return () => {
         sound.load();
         sound.pause();
@@ -310,16 +317,16 @@ function AudioPLayerComp() {
       };
     }
   }, [
-    dispatch,
-    handlePrev,
     currentIndex,
     playlist,
+    dispatch,
     handleNext,
-    refetch,
+    handlePrev,
     isLooped,
+    music,
+    refetch,
     saveLastPlayed,
   ]);
-
   const handleLoop = useCallback(async () => {
     if (music) {
       if (music.loop) {
@@ -471,10 +478,10 @@ function AudioPLayerComp() {
                 />
                 <div className="flex text-sm justify-between py-2 px-1">
                   <span className="text-zinc-400 transition-all duration-300 font-semibold">
-                    {formatDuration(progress as "--:--")}
+                    {formatDuration((progress as "--:--") || "--:--")}
                   </span>
                   <span className="text-zinc-400 transition-all duration-300 font-semibold">
-                    {formatDuration(duration as "--:--")}
+                    {formatDuration((duration as "--:--") || "--:--")}
                   </span>
                 </div>
               </div>
