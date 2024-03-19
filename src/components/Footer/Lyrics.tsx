@@ -120,7 +120,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     }
   );
 
-  const lyricsRef = useRef<HTMLParagraphElement>(null);
+  const lyricsRef = useRef<HTMLDivElement>(null);
   const [scroll, setScroll] = useState<boolean>(true);
   useEffect(() => {
     if (lyricsRef.current && scroll) {
@@ -159,9 +159,12 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     return () => clearTimeout(t);
   };
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    const currentRef = lyricsRef.current;
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    if (currentRef) {
+      currentRef.addEventListener("scroll", handleScroll);
+      return () => currentRef.removeEventListener("scroll", handleScroll);
+    }
   }, []);
   return (
     <Drawer>
