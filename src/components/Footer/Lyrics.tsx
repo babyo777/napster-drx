@@ -45,7 +45,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const getLyrics = useCallback(async () => {
     getColor();
     const lyrics = await axios.get(
-      `${playlist[currentIndex].artists[0].name} ${GetLyrics}${playlist[
+      ` ${GetLyrics}${playlist[currentIndex].artists[0].name} ${playlist[
         currentIndex
       ].title
         .replace(/\(.*\)/g, "")
@@ -68,7 +68,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         }
         return null;
       })
-      .filter((line: string) => line !== null);
+      .filter((line: string) => line !== null || parseInt(line) === Number);
 
     return parsedLyrics as [{ time: number | string; lyrics: string }];
   }, [playlist, currentIndex, getColor]);
