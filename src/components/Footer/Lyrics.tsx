@@ -205,7 +205,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                 >
                   {lyrics.map((line, index) => (
                     <p
-                      style={{ color: color ? color : "" }}
                       key={index}
                       data-time={line.time}
                       className={`
@@ -216,8 +215,10 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                            line.time <= progress &&
                            (index === lyrics.length - 1 ||
                              (lyrics[index + 1]?.time || 0) > progress)
-                             ? "text-zinc-100"
-                             : "text-zinc-300 opacity-15"
+                             ? color
+                               ? `text-[${color}]`
+                               : "text-zinc-200"
+                             : "text-zinc-300 opacity-5"
                          }
                       `}
                     >
