@@ -57,17 +57,14 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       return luminance < 0.5;
     };
 
-    for (let i = 0; i < colors.length; i++) {
-      if (
-        !isDarkColor(colors[i] as string) ||
-        colors[i] === "#000000" ||
-        colors[i] === "#808080"
-      ) {
-        lightColor = "#FFFFFF";
-        break;
-      } else {
-        lightColor = colors[i];
-      }
+    if (
+      !isDarkColor(colors[10] as string) ||
+      colors[7] === "#000000" ||
+      colors[7] === "#808080"
+    ) {
+      lightColor = "#FFFFFF";
+    } else {
+      lightColor = colors[7];
     }
 
     setColor(lightColor as string);
