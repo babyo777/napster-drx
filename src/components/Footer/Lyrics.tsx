@@ -154,8 +154,8 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         }
       }
       return () => {
-        lyrics.removeEventListener("touchstart", () => null);
-        lyrics.removeEventListener("touchend", () => null);
+        lyrics.removeEventListener("touchstart", () => setScroll(false));
+        lyrics.removeEventListener("touchend", () => setScroll(true));
       };
     }
   }, [progress, scroll]);
