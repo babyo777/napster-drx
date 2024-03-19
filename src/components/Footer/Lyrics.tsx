@@ -68,7 +68,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         }
         return null;
       })
-      .filter((line: string) => line !== null || parseInt(line) === Number);
+      .filter((line: string) => line !== null);
 
     return parsedLyrics as [{ time: number | string; lyrics: string }];
   }, [playlist, currentIndex, getColor]);
