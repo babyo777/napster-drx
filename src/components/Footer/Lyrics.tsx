@@ -90,6 +90,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       )} ${playlist[currentIndex].title
         .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
         .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")
+        .replace("ñ", "n")
         .replace(/[^\w\s]/gi, "")
         .replace(/\(.*\)/g, "")
         .replace(/@/g, "")
@@ -108,6 +109,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       )} ${playlist[currentIndex].title
         .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
         .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")
+        .replace("ñ", "n")
         .replace(/[^\w\s]/gi, "")
         .replace(/\(.*\)/g, "")
         .replace(/@/g, "")
