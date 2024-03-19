@@ -16,7 +16,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
-import { average } from "color.js";
+import { prominent } from "color.js";
 
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const currentIndex = useSelector(
@@ -33,9 +33,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   );
   const [color, setColor] = useState<string | null>();
   const getColor = useCallback(async () => {
-    const color = await average(playlist[currentIndex].thumbnailUrl, {
+    const color = await prominent(playlist[currentIndex].thumbnailUrl, {
       amount: 1,
-      format: "hex",
+      format: "rgb",
     });
     if (color === "#000000") {
       return setColor(null);
