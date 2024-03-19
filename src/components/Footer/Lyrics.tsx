@@ -194,7 +194,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         <TbMicrophone2 className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
-        <div className="   w-full px-5 pb-[2vh] backdrop-blur-lg bg-transparent z-10 flex justify-between items-center ">
+        <div className="   w-full px-5  backdrop-blur-lg bg-transparent z-10 flex justify-between items-center ">
           <div className="flex space-x-3">
             <div className=" h-16 w-16 overflow-hidden rounded-lg">
               <LazyLoadImage
@@ -243,7 +243,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
               {lyrics ? (
                 <div
                   ref={lyricsRef}
-                  className=" transition-all pt-[10vh] break-words duration-300 fade-in pb-4"
+                  className=" transition-all  h-[77dvh] pt-[10vh] break-words duration-300 fade-in "
                 >
                   {lyrics.map((line, index) => (
                     <p
