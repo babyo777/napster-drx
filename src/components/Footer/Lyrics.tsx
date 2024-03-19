@@ -54,7 +54,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   }, []);
   const getLyrics = useCallback(async () => {
     const lyrics = await axios.get(
-      ` ${GetLyrics}
+      ` ${GetLyrics}${playlist[currentIndex].artists[0].name} 
         ${playlist[currentIndex].title
           .replace(/[^\w\s]/gi, "")
           .replace(/\(.*\)/g, "")
