@@ -120,7 +120,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   );
 
   const lyricsRef = useRef<HTMLParagraphElement>(null);
-  const [scroll, setScroll] = useState<boolean>();
+  const [scroll, setScroll] = useState<boolean>(true);
   useEffect(() => {
     if (lyricsRef.current && scroll) {
       const lines = Array.from(
