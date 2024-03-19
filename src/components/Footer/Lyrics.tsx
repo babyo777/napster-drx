@@ -45,10 +45,12 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const getLyrics = useCallback(async () => {
     getColor();
 
+    console.log();
+
     const lyrics = await axios.get(
-      ` ${GetLyrics}${playlist[currentIndex].artists[0].name} ${playlist[
-        currentIndex
-      ].title
+      ` ${GetLyrics}${playlist[currentIndex].artists[0].name
+        .replace(/[^\w\s]/gi, "")
+        .trim()} ${playlist[currentIndex].title
         .replace(/[^\w\s]/gi, "")
         .replace(/\(.*\)/g, "")
         .replace(/@/g, "")
