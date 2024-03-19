@@ -222,13 +222,13 @@ function AudioPLayerComp() {
       sound.src = `${streamApi}${playlist[currentIndex]?.youtubeId}`;
 
       dispatch(setPlayer(sound));
-      sound.play();
     }
   }, [dispatch, currentIndex, playlist]);
 
   useEffect(() => {
     if (music) {
       const sound = music;
+      sound.play();
       const handlePlay = () => {
         if (isLooped) {
           sound.loop = true;
