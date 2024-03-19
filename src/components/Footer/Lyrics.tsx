@@ -266,14 +266,14 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                             ? color
                               ? 1
                               : 1
-                            : 0.07,
+                            : 0.1,
                         color:
                           line.time <= progress &&
                           (index === lyrics.length - 1 ||
                             (lyrics[index + 1]?.time || 0) > progress)
                             ? color
                               ? color[0]
-                              : "#d4d4d8"
+                              : "#e4e4e7"
                             : "#71717a",
                       }}
                     >
