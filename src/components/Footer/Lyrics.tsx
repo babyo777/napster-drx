@@ -183,7 +183,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                         fontSize: "1.875rem",
                         marginTop: "1rem",
                         transitionProperty: "all",
-                        transitionDuration: "500ms",
+                        transitionDuration: "700ms",
                         fontWeight: "bold",
                         opacity:
                           line.time <= progress &&
