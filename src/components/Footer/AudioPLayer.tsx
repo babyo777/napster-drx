@@ -15,6 +15,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   play,
   setCurrentIndex,
+  setDurationLyrics,
   setIsIphone,
   setIsLoading,
   setPlayer,
@@ -286,7 +287,7 @@ function AudioPLayerComp() {
       const handleLoad = () => {
         dispatch(setIsLoading(false));
         setDuration(sound.duration);
-
+        dispatch(setDurationLyrics(sound.currentTime));
         refetch();
       };
 
