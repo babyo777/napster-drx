@@ -367,7 +367,7 @@ function AudioPLayerComp() {
   return (
     <>
       <audio src="" hidden ref={audioRef}></audio>
-      {!isStandalone ? (
+      {isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>

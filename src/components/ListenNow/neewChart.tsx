@@ -17,7 +17,7 @@ const Charts: React.FC<{ data: homePagePlaylist[] }> = ({ data }) => {
           <div className="flex   flex-col px-4 pt-1 pb-2 ">
             <h1 className="text-start font-semibold text-xl">Top Charts</h1>
           </div>
-          <div className="flex  space-x-3 px-4 overflow-x-auto  pb-2 no-scrollbar ">
+          <div className="flex  space-x-3.5 px-4 overflow-x-auto  pb-2 no-scrollbar ">
             {data.slice(3).map((p) => (
               <Link to={`/library/${p.url}?cover=${p.image}`} key={p.url}>
                 <div className="flex fade-in items-center mt-1  relative  ">
