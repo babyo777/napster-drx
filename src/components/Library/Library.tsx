@@ -264,7 +264,7 @@ function LibraryComp() {
       )}
       {data && (
         <>
-          <div className="flex w-screen h-[25rem] pt-[12vw] justify-center  relative ">
+          <div className="flex w-screen h-[25rem] pt-[5vh] justify-center  relative ">
             <GoBack />
 
             <div className="absolute top-4 z-10 right-3  flex-col space-y-0.5">
@@ -324,7 +324,7 @@ function LibraryComp() {
               />
             </div>
 
-            <div className=" absolute bottom-[3vw]  px-4 left-0  right-0">
+            <div className=" absolute bottom-[1.5vh]  px-4 left-0  right-0">
               <h1 className="text-center  font-semibold py-2 truncate text-2xl capitalize">
                 {(pDetails && pDetails[0]?.title) || "Mixes"}
               </h1>
@@ -350,7 +350,7 @@ function LibraryComp() {
               </div>
             </div>
           </div>
-          <div className="py-3 -mt-3 pb-[8.5rem]">
+          <div className="py-3 -mt-[2vh] pb-[8.5rem]">
             {data.map((data, i) => (
               <Songs
                 reload={refetch}

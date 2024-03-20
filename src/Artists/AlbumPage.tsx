@@ -173,7 +173,7 @@ function AlbumPageComp() {
       )}
       {data && (
         <>
-          <div className="flex w-screen h-[25rem] justify-center pt-[12vw] relative ">
+          <div className="flex w-screen h-[25rem] justify-center pt-[5vh] relative ">
             <GoBack />
             <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
               <div className="">
@@ -214,7 +214,7 @@ function AlbumPageComp() {
                 className="object-cover rounded-xl h-[100%] w-[100%]"
               />
             </div>
-            <div className=" absolute bottom-[3vw] px-4 left-0  right-0">
+            <div className=" absolute bottom-[1.5vh] px-4 left-0  right-0">
               <h1 className="text-center truncate pb-2   font-semibold py-2 text-2xl capitalize">
                 {data[0]?.album}
               </h1>
@@ -240,7 +240,7 @@ function AlbumPageComp() {
               </div>
             </div>
           </div>
-          <div className="py-3 -mt-3 pb-[8.5rem]">
+          <div className="py-3 -mt-[2vh] pb-[8.5rem]">
             {data.map((data, i) => (
               <div
                 onClick={handleArtist}
