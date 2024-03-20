@@ -23,6 +23,8 @@ import {
 import { Query } from "appwrite";
 import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
+import { LiaDownloadSolid } from "react-icons/lia";
+import { streamApi } from "@/API/api";
 
 function Options({ music, id }: { id?: string; music: playlistSongs }) {
   const handleAdd = useCallback(
@@ -95,6 +97,15 @@ function Options({ music, id }: { id?: string; music: playlistSongs }) {
     await refetch();
   }, [refetch]);
 
+  const handleDownload = useCallback(() => {
+    const link = document.createElement("a");
+    link.style.display = "none";
+    link.href = `${streamApi}${music.youtubeId}&file=${music.title}`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, [music.youtubeId, music.title]);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="m-0 p-1.5 flex  justify-center items-center bg-zinc-900 rounded-full">
@@ -153,6 +164,13 @@ function Options({ music, id }: { id?: string; music: playlistSongs }) {
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
         </DropdownMenuSub>
+        <DropdownMenuItem
+          onClick={handleDownload}
+          className="flex items-center justify-between space-x-2"
+        >
+          <p className="text-base">Download</p>
+          <LiaDownloadSolid className="h-5 w-5" />
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

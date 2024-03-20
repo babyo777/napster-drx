@@ -34,6 +34,8 @@ import {
   useQuery,
 } from "react-query";
 import Loader from "../Loaders/Loader";
+import { LiaDownloadSolid } from "react-icons/lia";
+import { streamApi } from "@/API/api";
 
 function SongsOptions({
   library,
@@ -137,6 +139,14 @@ function SongsOptions({
     await refetch();
   }, [refetch]);
 
+  const handleDownload = useCallback(() => {
+    const link = document.createElement("a");
+    link.style.display = "none";
+    link.href = `${streamApi}${music.youtubeId}&file=${music.title}`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, [music.youtubeId, music.title]);
   const handleDelete = useCallback(async () => {
     const ok = confirm("Are you sure you want to delete");
     if (ok && reload) {
@@ -219,6 +229,15 @@ function SongsOptions({
         >
           <p className="text-base">Add to queue</p>
           <PiQueue className="h-5 w-5" />
+        </DropdownMenuItem>
+
+        <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
+        <DropdownMenuItem
+          onClick={handleDownload}
+          className="flex items-center justify-between space-x-2"
+        >
+          <p className="text-base">Download</p>
+          <LiaDownloadSolid className="h-5 w-5" />
         </DropdownMenuItem>
 
         {library && uid && uid == music.for && (
