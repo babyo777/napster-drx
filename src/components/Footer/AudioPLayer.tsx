@@ -335,14 +335,14 @@ function AudioPLayerComp() {
     saveLastPlayed,
   ]);
   const handleLoop = useCallback(async () => {
-    if (music) {
+    if (music && isPlaying) {
       if (music.loop) {
         music.loop = false;
       } else {
         music.loop = true;
       }
     }
-  }, [music]);
+  }, [music, isPlaying]);
 
   const handleSeek = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
