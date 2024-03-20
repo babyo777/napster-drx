@@ -214,6 +214,7 @@ function AudioPLayerComp() {
   //     sartist: playlist[currentIndex].artists[0].name,
   //   });
   // }, [playlist, currentIndex]);
+
   const audioRef = useRef<HTMLAudioElement>(null);
   useEffect(() => {
     if (audioRef.current) {
@@ -287,7 +288,7 @@ function AudioPLayerComp() {
         navigator.mediaSession.setActionHandler("seekto", handleSeek);
         dispatch(setIsLoading(false));
         setDuration(sound.duration);
-        dispatch(setDurationLyrics(sound.currentTime));
+        dispatch(setDurationLyrics(sound.duration));
         refetch();
       };
 
