@@ -165,6 +165,7 @@ function Options({ music, id }: { id?: string; music: playlistSongs }) {
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
         </DropdownMenuSub>
+        <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
         <DropdownMenuItem
           onClick={handleDownload}
           className="flex items-center justify-between space-x-2"
