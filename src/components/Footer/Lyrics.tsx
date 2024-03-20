@@ -95,39 +95,24 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     return `${formattedMinutes}:${formattedSeconds}`;
   }, []);
   const getLyrics = useCallback(async () => {
-    // console.log(
-    //   `${GetLyrics}${playlist[currentIndex].title
-    //     .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
-    //     .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")
-    //     .replace("ñ", "n")
-    //     .replace(/[^\w\s']/gi, "")
-    //     .replace(/\(.*\)/g, "")
-    //     .replace(/@/g, "")
-    //     .replace(/-\s*/g, "")
-    //     .replace(/\[.*?\]/g, "")
-    //     .replace(/\./g, "")
-    //     .trim()
-    //     .replace(/\s+/g, " ")} ${playlist[currentIndex].artists[0].name
-    //     .replace(/\./g, "")
-    //     .replace("/", "")} ${formatDuration(music?.duration || 0)}`
-    // );
+    const query = `${playlist[currentIndex].title
+      .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
+      .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")
+      .replace("ñ", "n")
+      .replace(/[^\w\s']/gi, "")
+      .replace(/\(.*\)/g, "")
+      .replace(/@/g, "")
+      .replace(/-\s*/g, "")
+      .replace(/\[.*?\]/g, "")
+      .replace(/\./g, "")
+      .trim()
+      .replace(/\s+/g, " ")} ${playlist[currentIndex].artists[0].name
+      .replace(/\./g, "")
+      .replace("/", "")} ${formatDuration(duration || music?.duration || 0)}`;
 
-    const lyrics = await axios.get(
-      `${GetLyrics}${playlist[currentIndex].title
-        .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
-        .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")
-        .replace("ñ", "n")
-        .replace(/[^\w\s']/gi, "")
-        .replace(/\(.*\)/g, "")
-        .replace(/@/g, "")
-        .replace(/-\s*/g, "")
-        .replace(/\[.*?\]/g, "")
-        .replace(/\./g, "")
-        .trim()
-        .replace(/\s+/g, " ")} ${playlist[currentIndex].artists[0].name
-        .replace(/\./g, "")
-        .replace("/", "")} ${formatDuration(duration || music?.duration || 0)}`
-    );
+    // console.log(query.replace(/  +/g, " "));
+
+    const lyrics = await axios.get(`${GetLyrics}${query.replace(/  +/g, " ")}`);
 
     const lines = lyrics.data.lyrics.split("\n");
     const parsedLyrics = lines
