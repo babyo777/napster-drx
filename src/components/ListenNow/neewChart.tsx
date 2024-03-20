@@ -21,7 +21,7 @@ const Charts: React.FC<{ data: homePagePlaylist[] }> = ({ data }) => {
             {data.slice(3).map((p) => (
               <Link to={`/library/${p.url}?cover=${p.image}`} key={p.url}>
                 <div className="flex fade-in items-center mt-1  relative  ">
-                  <div className=" h-40 w-40">
+                  <div className=" h-36 w-36">
                     <LazyLoadImage
                       width="100%"
                       height="100%"
