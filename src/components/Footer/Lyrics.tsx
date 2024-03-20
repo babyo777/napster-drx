@@ -241,7 +241,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
               {lyrics ? (
                 <div
                   ref={lyricsRef}
-                  className=" transition-all z-10  h-[88dvh]  break-words duration-300 fade-in "
+                  className=" transition-all z-10 pb-3  h-[88dvh]  break-words duration-300 fade-in "
                 >
                   {lyrics.map((line, index) => (
                     <p
