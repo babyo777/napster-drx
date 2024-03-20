@@ -305,11 +305,7 @@ function AudioPLayerComp() {
       sound.addEventListener("timeupdate", handleTimeUpdate);
       sound.addEventListener("ended", handleNext);
 
-      sound.play();
       return () => {
-        sound.load();
-        sound.pause();
-
         sound.removeEventListener("play", handlePlay);
         sound.removeEventListener("pause", handlePause);
         sound.removeEventListener("loadedmetadata", handleLoad);
