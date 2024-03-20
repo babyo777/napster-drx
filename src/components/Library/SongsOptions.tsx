@@ -142,6 +142,7 @@ function SongsOptions({
   const handleDownload = useCallback(() => {
     const link = document.createElement("a");
     link.style.display = "none";
+    link.target = "_blank";
     link.href = `${streamApi}${music.youtubeId}&file=${music.title}`;
     document.body.appendChild(link);
     link.click();
