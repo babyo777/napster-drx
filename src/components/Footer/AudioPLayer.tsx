@@ -63,9 +63,7 @@ function AudioPLayerComp() {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
-  const playlist = useSelector(
-    (state: RootState) => state.musicReducer.playlist
-  );
+  const playlist = useSelector((state: RootState) => state.musicReducer.queue);
   const currentArtistId = useSelector(
     (state: RootState) => state.musicReducer.currentArtistId
   );

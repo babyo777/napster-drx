@@ -8,9 +8,10 @@ interface Player {
   isPlaying: boolean;
   currentIndex: number;
   isIphone: boolean;
-  queue: playlistSongs | null;
+  queue: playlistSongs[];
   music: HTMLAudioElement | null;
   search: string;
+  currentPlaying: playlistSongs | null;
   currentSongId: string;
   currentToggle: string;
   PlaylistOrAlbum: string;
@@ -39,9 +40,10 @@ const initialState: Player = {
   currentToggle: "Playlists",
   playlistUrl: "",
   isLoading: false,
-  queue: null,
+  queue: [],
   playlist: [],
   isPlaying: false,
+  currentPlaying: null,
   currentIndex: 0,
   music: null,
   currentSongId: "",
@@ -70,7 +72,10 @@ const MusicPlayer = createSlice({
     SetPlaylistOrAlbum: (state, action: PayloadAction<string>) => {
       state.PlaylistOrAlbum = action.payload;
     },
-    SetQueue: (state, action: PayloadAction<playlistSongs>) => {
+    SetCurrentPlaying: (state, action: PayloadAction<playlistSongs>) => {
+      state.currentPlaying = action.payload;
+    },
+    SetQueue: (state, action: PayloadAction<playlistSongs[]>) => {
       state.queue = action.payload;
     },
     SetCurrentSongId: (state, action: PayloadAction<string>) => {
@@ -115,9 +120,13 @@ const MusicPlayer = createSlice({
       state.playlistUrl = action.payload;
     },
     setPlaylist: (state, action: PayloadAction<playlistSongs[]>) => {
+      if (state.queue?.length == 0) {
+        state.queue = JSON.parse(JSON.stringify(action.payload));
+      }
       state.playlist = action.payload;
     },
     setCurrentIndex: (state, action: PayloadAction<number>) => {
+      state.queue = state.playlist;
       state.currentIndex = action.payload;
     },
     setSavedPlaylist: (state, action: PayloadAction<savedPlaylist[]>) => {
@@ -142,6 +151,7 @@ export const {
   setPlaylist,
   setCurrentIndex,
   SetQueue,
+  SetCurrentPlaying,
   setPlayer,
   setSearch,
   setPlaylistUrl,
