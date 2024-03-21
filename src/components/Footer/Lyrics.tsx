@@ -39,6 +39,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     (state: RootState) => state.musicReducer.progress
   );
   const music = useSelector((state: RootState) => state.musicReducer.music);
+  const duration = useSelector(
+    (state: RootState) => state.musicReducer.duration
+  );
 
   const [color, setColor] = useState<string | null>();
 
@@ -84,7 +87,16 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     return { r, g, b };
   }
 
-  const [lines, SetLines] = useState<string[]>([]);
+  const formatDuration = useCallback((seconds: number | "--:--") => {
+    if (seconds == "--:--") return seconds;
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+
+    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedSeconds = String(remainingSeconds).padStart(2, "0");
+    return `${formattedMinutes}:${formattedSeconds}`;
+  }, []);
+
   const getLyrics = useCallback(async () => {
     const query = `${playlist[currentIndex].title
       .replace("(sped up nightcore)", "sped up")
@@ -95,9 +107,13 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
 
     console.log(query.replace(/  +/g, " "));
 
-    const lyrics = await axios.get(`${GetLyrics}${query.replace(/  +/g, " ")}`);
+    const lyrics = await axios.get(
+      `${GetLyrics}${query.replace(/  +/g, " ")}?d=${formatDuration(
+        music?.duration || duration
+      )}`
+    );
 
-    SetLines(lyrics.data.lyrics.split("\n"));
+    const lines = lyrics.data.lyrics.split("\n");
 
     const parsedLyrics = lines
       .map((line: string) => {
@@ -111,10 +127,10 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         }
         return null;
       })
-      .filter((line) => line !== null);
+      .filter((line: string) => line !== null);
 
     return parsedLyrics as [{ time: number | string; lyrics: string }];
-  }, [playlist, currentIndex, lines]);
+  }, [playlist, currentIndex, music, formatDuration, duration]);
 
   const {
     data: lyrics,
@@ -124,7 +140,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     ["lyrics", playlist[currentIndex].youtubeId],
     getLyrics,
     {
-      enabled: false,
       refetchOnWindowFocus: false,
       staleTime: 60 * 6000,
       refetchOnMount: false,
@@ -158,9 +173,11 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   }, [progress]);
 
   useEffect(() => {
-    refetch();
-    getColor();
-  }, [currentIndex, refetch, getColor]);
+    if (duration) {
+      refetch();
+      getColor();
+    }
+  }, [refetch, getColor, duration]);
 
   const handleClick: MouseEventHandler<HTMLParagraphElement> = useCallback(
     (t) => {
@@ -172,7 +189,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   );
   return (
     <Drawer>
-      <DrawerTrigger onClick={() => (refetch(), getColor())}>
+      <DrawerTrigger>
         <TbMicrophone2 className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
