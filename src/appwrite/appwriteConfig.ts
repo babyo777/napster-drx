@@ -24,6 +24,7 @@ export const ADD_TO_LIBRARY = "65f4607deb80cb8d855a";
 export const BUCKET = "65f4fab3186d4eb687f6";
 export const STORAGE = "65f4fab3186d4eb687f6";
 export const storage = new Storage(client);
+export const LYRICS = "65fb85530b93d2da4a16";
 
 export const db = new Databases(client);
 

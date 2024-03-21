@@ -18,8 +18,6 @@ import {
   setDurationLyrics,
   setIsIphone,
   setIsLoading,
-  setPlayer,
-  setProgressLyrics,
 } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { streamApi } from "@/API/api";
@@ -41,13 +39,17 @@ import { IoIosList } from "react-icons/io";
 import { AiFillStar } from "react-icons/ai";
 import Options from "./Options";
 import Lyrics from "./Lyrics";
-function AudioPLayerComp() {
+function AudioPLayerComp({
+  music,
+}: {
+  music: React.RefObject<HTMLAudioElement>;
+}) {
   const [next, setNext] = useState<boolean>();
   const [prev, setPrev] = useState<boolean>();
   const [playEffect, setPlayEffect] = useState<boolean>();
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<number | "--:--">();
-  const music = useSelector((state: RootState) => state.musicReducer.music);
+
   const [progress, setProgress] = useState<number | "--:--">();
   const [liked, SetLiked] = useState<boolean>();
   const PlaylistOrAlbum = useSelector(
@@ -137,18 +139,20 @@ function AudioPLayerComp() {
   }, [isLiked]);
 
   const handlePlay = useCallback(() => {
-    setPlayEffect(true);
-    const t = setTimeout(() => {
-      setPlayEffect(false);
-    }, 200);
-    if (isPlaying) {
-      music?.pause();
-      dispatch(play(false));
-    } else {
-      music?.play();
-      dispatch(play(true));
+    if (music.current) {
+      setPlayEffect(true);
+      const t = setTimeout(() => {
+        setPlayEffect(false);
+      }, 200);
+      if (isPlaying) {
+        music.current.pause();
+        dispatch(play(false));
+      } else {
+        music.current.play();
+        dispatch(play(true));
+      }
+      return () => clearTimeout(t);
     }
-    return () => clearTimeout(t);
   }, [isPlaying, music, dispatch]);
 
   const handleNext = useCallback(() => {
@@ -215,26 +219,24 @@ function AudioPLayerComp() {
   //   });
   // }, [playlist, currentIndex]);
 
-  const audioRef = useRef<HTMLAudioElement>(null);
   useEffect(() => {
-    if (audioRef.current) {
+    if (music.current) {
       dispatch(setIsLoading(true));
 
-      const sound: HTMLAudioElement | null = audioRef.current;
+      const sound: HTMLAudioElement | null = music.current;
       sound.src = `${streamApi}${playlist[currentIndex]?.youtubeId}`;
 
-      dispatch(setPlayer(sound));
       sound.play();
       return () => {
         sound.load();
         sound.pause();
       };
     }
-  }, [dispatch, currentIndex, playlist]);
+  }, [dispatch, currentIndex, playlist, music]);
 
   useEffect(() => {
-    if (music) {
-      const sound = music;
+    if (music.current) {
+      const sound = music.current;
 
       const handlePlay = () => {
         if (isLooped) {
@@ -294,7 +296,6 @@ function AudioPLayerComp() {
 
       const handleTimeUpdate = () => {
         setProgress(sound.currentTime);
-        dispatch(setProgressLyrics(sound.currentTime));
       };
 
       sound.setAttribute("playsinline", "true");
@@ -332,19 +333,19 @@ function AudioPLayerComp() {
     saveLastPlayed,
   ]);
   const handleLoop = useCallback(async () => {
-    if (music && isPlaying) {
-      if (music.loop) {
-        music.loop = false;
+    if (music.current && isPlaying) {
+      if (music.current.loop) {
+        music.current.loop = false;
       } else {
-        music.loop = true;
+        music.current.loop = true;
       }
     }
   }, [music, isPlaying]);
 
   const handleSeek = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (music) {
-        music.currentTime = parseInt(e.target.value) ?? 0;
+      if (music.current) {
+        music.current.currentTime = parseInt(e.target.value) ?? 0;
       }
     },
     [music]
@@ -363,8 +364,7 @@ function AudioPLayerComp() {
 
   return (
     <>
-      <audio src="" hidden ref={audioRef}></audio>
-      {!isStandalone ? (
+      {isStandalone ? (
         <p className="w-[68dvw]  px-4">app not installed</p>
       ) : (
         <Drawer>
@@ -416,7 +416,7 @@ function AudioPLayerComp() {
                       alt="Image"
                       visibleByDefault
                       className={`object-fit shadow-lg transition-all duration-500 rounded-2xl ${
-                        music && !music.paused
+                        music.current && !music.current.paused
                           ? "w-[90vw] h-[44dvh]"
                           : "w-[70vw] h-[33dvh]"
                       }`}
@@ -546,12 +546,14 @@ function AudioPLayerComp() {
                 <div className="flex items-center justify-between w-full">
                   <TfiLoop
                     className={`h-6 w-6 ${
-                      music && music.loop ? "text-zinc-400" : "text-zinc-700"
+                      music.current && music.current.loop
+                        ? "text-zinc-400"
+                        : "text-zinc-700"
                     }`}
                     onClick={handleLoop}
                   />
+                  {music && <Lyrics closeRef={closeRef} music={music} />}
 
-                  <Lyrics closeRef={closeRef} />
                   <DrawerClose
                     ref={closeRef}
                     className="w-0 h-0 p-0 m-0 hidden"

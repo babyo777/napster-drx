@@ -14,7 +14,7 @@ import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-import {
+import React, {
   MouseEventHandler,
   RefObject,
   useCallback,
@@ -24,8 +24,15 @@ import {
 } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
 import { prominent } from "color.js";
+import { DATABASE_ID, LYRICS, db } from "@/appwrite/appwriteConfig";
 
-function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
+function Lyrics({
+  closeRef,
+  music,
+}: {
+  closeRef: RefObject<HTMLButtonElement>;
+  music: React.RefObject<HTMLAudioElement>;
+}) {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
@@ -38,7 +45,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const progress = useSelector(
     (state: RootState) => state.musicReducer.progress
   );
-  const music = useSelector((state: RootState) => state.musicReducer.music);
+
   const duration = useSelector(
     (state: RootState) => state.musicReducer.duration
   );
@@ -108,9 +115,11 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       .trim()
       .replace(/\s+/g, " ")} ${playlist[currentIndex].artists[0].name
       .replace(/\./g, "")
-      .replace("/", "")} ${formatDuration(duration || music?.duration || 0)}`;
+      .replace("/", "")} ${formatDuration(
+      duration || (music.current && music.current.duration) || 0
+    )}`;
 
-    // console.log(query.replace(/  +/g, " "));
+    console.log(query.replace(/  +/g, " "));
 
     const lyrics = await axios.get(`${GetLyrics}${query.replace(/  +/g, " ")}`);
 
@@ -174,14 +183,23 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   }, [progress]);
 
   useEffect(() => {
+    if (duration !== "--:--" && duration !== 0 && lyrics) {
+      db.createDocument(DATABASE_ID, LYRICS, playlist[currentIndex].youtubeId, {
+        title: playlist[currentIndex].title,
+        youtubeid: playlist[currentIndex].youtubeId,
+        lyrics: lyrics,
+      });
+    }
     refetch();
     getColor();
-  }, [currentIndex, refetch, getColor]);
+  }, [currentIndex, refetch, getColor, playlist, duration, lyrics]);
 
   const handleClick: MouseEventHandler<HTMLParagraphElement> = useCallback(
     (t) => {
-      if (music) {
-        music.currentTime = parseFloat(t.currentTarget.dataset.time || "0");
+      if (music.current) {
+        music.current.currentTime = parseFloat(
+          t.currentTarget.dataset.time || "0"
+        );
       }
     },
     [music]
