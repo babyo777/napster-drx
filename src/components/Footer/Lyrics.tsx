@@ -23,7 +23,7 @@ import {
   useState,
 } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
-import { prominent } from "color.js";
+// import { prominent } from "color.js";
 
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const currentIndex = useSelector(
@@ -46,46 +46,46 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const [color, setColor] = useState<string | null>();
 
   const getColor = useCallback(async () => {
-    const colors = await prominent(playlist[currentIndex].thumbnailUrl, {
-      amount: 20,
-      format: "hex",
-    });
+    // const colors = await prominent(playlist[currentIndex].thumbnailUrl, {
+    //   amount: 20,
+    //   format: "hex",
+    // });
 
-    let lightColor = null;
+    // let lightColor = null;
 
-    const isDarkColor = (color: string) => {
-      const rgb = hexToRgb(color);
+    // const isDarkColor = (color: string) => {
+    //   const rgb = hexToRgb(color);
 
-      const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+    //   const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
 
-      return luminance < 0.5;
-    };
+    //   return luminance < 0.5;
+    // };
 
-    if (
-      !isDarkColor(colors[12] as string) ||
-      colors[12] === "#000000" ||
-      colors[12] === "#808080" ||
-      colors[12] === "#001400"
-    ) {
-      lightColor = "#FFFFFF";
-    } else {
-      lightColor = colors[12];
-    }
+    // if (
+    //   !isDarkColor(colors[12] as string) ||
+    //   colors[12] === "#000000" ||
+    //   colors[12] === "#808080" ||
+    //   colors[12] === "#001400"
+    // ) {
+    //   lightColor = "#FFFFFF";
+    // } else {
+    //   lightColor = colors[12];
+    // }
 
-    setColor(lightColor as string);
-  }, [playlist, currentIndex]);
+    setColor("#f4f4f5" as string);
+  }, []);
 
-  function hexToRgb(hex: string) {
-    hex = hex.replace(/^#/, "");
+  // function hexToRgb(hex: string) {
+  //   hex = hex.replace(/^#/, "");
 
-    const bigint = parseInt(hex, 16);
+  //   const bigint = parseInt(hex, 16);
 
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
+  //   const r = (bigint >> 16) & 255;
+  //   const g = (bigint >> 8) & 255;
+  //   const b = bigint & 255;
 
-    return { r, g, b };
-  }
+  //   return { r, g, b };
+  // }
 
   const formatDuration = useCallback((seconds: number | "--:--") => {
     if (seconds == "--:--") return seconds;
