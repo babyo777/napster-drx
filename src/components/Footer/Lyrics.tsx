@@ -24,8 +24,6 @@ import {
 } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
 import { prominent } from "color.js";
-import { DATABASE_ID, LYRICS, db } from "@/appwrite/appwriteConfig";
-import { Query } from "appwrite";
 
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const currentIndex = useSelector(
@@ -86,15 +84,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     return { r, g, b };
   }
 
-  const formatDuration = useCallback((seconds: number | "--:--") => {
-    if (seconds == "--:--") return seconds;
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = Math.floor(seconds % 60);
-
-    const formattedMinutes = String(minutes).padStart(2, "0");
-    const formattedSeconds = String(remainingSeconds).padStart(2, "0");
-    return `${formattedMinutes}:${formattedSeconds}`;
-  }, []);
   const [lines, SetLines] = useState<string[]>([]);
   const getLyrics = useCallback(async () => {
     const query = `${playlist[currentIndex].title
@@ -110,25 +99,13 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       .trim()
       .replace(/\s+/g, " ")} ${playlist[currentIndex].artists[0].name
       .replace(/\./g, "")
-      .replace("/", "")} ${formatDuration(music?.duration || 0)}`;
+      .replace("/", "")} `;
 
-    // console.log(query.replace(/  +/g, " "));
-    console.log(
-      playlist[currentIndex].title + playlist[currentIndex].youtubeId
-    );
+    console.log(query.replace(/  +/g, " "));
 
-    const dbLyrics = await db.listDocuments(DATABASE_ID, LYRICS, [
-      Query.equal("youtubeid", [playlist[currentIndex].youtubeId]),
-    ]);
+    const lyrics = await axios.get(`${GetLyrics}${query.replace(/  +/g, " ")}`);
 
-    if (dbLyrics.documents.length > 0) {
-      SetLines(dbLyrics.documents[0].lyrics.split("\n"));
-    } else {
-      const lyrics = await axios.get(
-        `${GetLyrics}${query.replace(/  +/g, " ")}`
-      );
-      SetLines(lyrics.data.lyrics.split("\n"));
-    }
+    SetLines(lyrics.data.lyrics.split("\n"));
 
     const parsedLyrics = lines
       .map((line: string) => {
@@ -145,7 +122,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       .filter((line) => line !== null);
 
     return parsedLyrics as [{ time: number | string; lyrics: string }];
-  }, [playlist, currentIndex, formatDuration, music, lines]);
+  }, [playlist, currentIndex, lines]);
 
   const {
     data: lyrics,
