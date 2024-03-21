@@ -50,40 +50,16 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       format: "hex",
     });
 
-    let lightColor = null;
-
-    const isDarkColor = (color: string) => {
-      const rgb = hexToRgb(color);
-
-      const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
-
-      return luminance < 0.5;
-    };
-
     if (
-      !isDarkColor(colors[12] as string) ||
       colors[12] === "#000000" ||
+      colors[12] === "#001400" ||
       colors[12] === "#808080"
     ) {
-      lightColor = "#FFFFFF";
+      setColor("#ffff" as string);
     } else {
-      lightColor = colors[12];
+      setColor(colors[12] as string);
     }
-
-    setColor(lightColor as string);
   }, [playlist, currentIndex]);
-
-  function hexToRgb(hex: string) {
-    hex = hex.replace(/^#/, "");
-
-    const bigint = parseInt(hex, 16);
-
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-
-    return { r, g, b };
-  }
 
   const formatDuration = useCallback((seconds: number | "--:--") => {
     if (seconds == "--:--") return seconds;
@@ -112,6 +88,10 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       .replace("/", "")} ${formatDuration(music?.duration || 0)}`;
 
     // console.log(query.replace(/  +/g, " "));
+    console.log(
+      playlist[currentIndex].title + playlist[currentIndex].youtubeId
+    );
+
     const dbLyrics = await db.listDocuments(DATABASE_ID, LYRICS, [
       Query.equal("youtubeid", [playlist[currentIndex].youtubeId]),
     ]);
