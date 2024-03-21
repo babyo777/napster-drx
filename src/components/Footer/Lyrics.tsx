@@ -87,19 +87,11 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const [lines, SetLines] = useState<string[]>([]);
   const getLyrics = useCallback(async () => {
     const query = `${playlist[currentIndex].title
+      .replace("(sped up nightcore)", "sped up")
       .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
-      .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")
-      .replace("ñ", "n")
-      .replace(/[^\w\s']/gi, "")
-      .replace(/\(.*\)/g, "")
-      .replace(/@/g, "")
-      .replace(/-\s*/g, "")
-      .replace(/\[.*?\]/g, "")
-      .replace(/\./g, "")
-      .trim()
-      .replace(/\s+/g, " ")} ${playlist[currentIndex].artists[0].name
-      .replace(/\./g, "")
-      .replace("/", "")} `;
+      .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")} ${
+      playlist[currentIndex].artists[0].name
+    } `;
 
     console.log(query.replace(/  +/g, " "));
 
