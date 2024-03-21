@@ -152,7 +152,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     {
       enabled: false,
       refetchOnWindowFocus: false,
-      staleTime: 5 * 6000,
+      staleTime: 60 * 6000,
       refetchOnMount: false,
       retry: 5,
     }
@@ -198,7 +198,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   );
   return (
     <Drawer>
-      <DrawerTrigger>
+      <DrawerTrigger onClick={() => (refetch(), getColor())}>
         <TbMicrophone2 className="h-6 w-6" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none bg-[#09090b]">
