@@ -4,7 +4,7 @@ import AudioPLayer from "./AudioPLayer";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { FaPause } from "react-icons/fa6";
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 import { play, setCurrentIndex, setIsIphone } from "@/Store/Player";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -15,7 +15,7 @@ export function Player() {
   const isLoading = useSelector(
     (state: RootState) => state.musicReducer.isLoading
   );
-  const music = useRef<HTMLAudioElement>(null);
+  const music = useSelector((state: RootState) => state.musicReducer.music);
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
@@ -31,14 +31,12 @@ export function Player() {
     (state: RootState) => state.musicReducer.isIphone
   );
   const handlePlay = useCallback(() => {
-    if (music.current) {
-      if (isPlaying) {
-        music.current.pause();
-        dispatch(play(false));
-      } else {
-        music.current.play();
-        dispatch(play(true));
-      }
+    if (isPlaying) {
+      music?.pause();
+      dispatch(play(false));
+    } else {
+      music?.play();
+      dispatch(play(true));
     }
   }, [dispatch, isPlaying, music]);
 
@@ -54,10 +52,9 @@ export function Player() {
 
   return (
     <>
-      <audio src="" hidden ref={music}></audio>
       <div className="flex items-center w-[95vw] ml-0.5 fade-in py-2 backdrop-blur-md space-x-5 bg-zinc-800/70  rounded-2xl shadow-md z-10 -mb-3">
         {isPlaylist && isPlaylist.length > 0 ? (
-          <AudioPLayer music={music} />
+          <AudioPLayer />
         ) : (
           <>
             <div className="items-center fade-in flex space-x-2 w-[68dvw]  border-white   px-2.5">
