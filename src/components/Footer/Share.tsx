@@ -178,7 +178,10 @@ function ShareLyrics({
                   </div>
                 </div>
               ) : (
-                <div onClick={handleCount}>
+                <div
+                  onClick={handleCount}
+                  className="flex flex-col justify-center"
+                >
                   {lyrics && lyrics[count].lyrics.length > 0 && (
                     <div className="break-words bg-black/25 text-2xl px-4 py-2  max-w-[77vw] text-left">
                       <p>{lyrics[count].lyrics}</p>
