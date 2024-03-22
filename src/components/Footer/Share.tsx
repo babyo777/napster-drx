@@ -78,6 +78,16 @@ function ShareLyrics({
     }
   }, []);
 
+  const [count, setCount] = useState<number>(0);
+  const handleCount = useCallback(() => {
+    if (lyrics) {
+      lyrics[count + 1].lyrics.length == 0 &&
+        setCount((prev) => (prev + 2) % lyrics.length);
+
+      setCount((prev) => (prev + 1) % lyrics.length);
+    }
+  }, [lyrics, count]);
+
   const [blur, setBlur] = useState<boolean>(false);
   const [ShareSong, setShareSong] = useState<boolean>(true);
 
@@ -167,10 +177,10 @@ function ShareLyrics({
                   </div>
                 </div>
               ) : (
-                <>
-                  {lyrics && (
+                <div onClick={handleCount}>
+                  {lyrics && lyrics[count].lyrics.length > 0 && (
                     <div className="break-words bg-black/25 text-2xl px-4 py-2  max-w-[77vw] text-left">
-                      <p>{lyrics[0].lyrics}</p>
+                      <p>{lyrics[count].lyrics}</p>
                     </div>
                   )}
                   <div className=" flex  space-x-2 items-center bg-black/30 py-3 px-3">
@@ -198,7 +208,7 @@ function ShareLyrics({
                       </p>
                     </div>
                   </div>
-                </>
+                </div>
               )}
             </div>
           </AspectRatio>
