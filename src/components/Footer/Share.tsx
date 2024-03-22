@@ -3,7 +3,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { Blurhash } from "react-blurhash";
 import { toBlob } from "html-to-image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { encode } from "blurhash";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
@@ -12,6 +12,7 @@ import { LiaExchangeAltSolid } from "react-icons/lia";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { GetImage } from "@/API/api";
+import Loader from "../Loaders/Loader";
 
 function ShareLyrics({
   lyrics,
@@ -56,26 +57,32 @@ function ShareLyrics({
   );
 
   const [round, setRound] = useState<boolean>(true);
-  const shareLyrics = useCallback(() => {
+  const shareLyrics = useCallback(async () => {
     setRound(false);
 
     const lyrics = document.getElementById("lyrics");
     if (lyrics == null) return;
 
     try {
+      await toBlob(lyrics, {
+        cacheBust: true,
+      });
       toBlob(lyrics, {
         cacheBust: true,
       }).then(async (blob) => {
         if (!blob) return;
+        setRound(true);
 
         const file = new File([blob], "share.png", { type: "image/png" });
 
         const shareFile = [file];
+
         await navigator.share({
           files: shareFile,
         });
       });
     } catch (error) {
+      setRound(true);
       console.error(error);
     }
   }, []);
@@ -90,21 +97,14 @@ function ShareLyrics({
   const [blur, setBlur] = useState<boolean>(false);
   const [ShareSong, setShareSong] = useState<boolean>(true);
 
-  useEffect(() => {
-    const lyrics = document.getElementById("lyrics");
-    if (lyrics) {
-      toBlob(lyrics, {
-        cacheBust: true,
-      });
-    }
-  }, [currentIndex]);
-
   const encodeImageToBlurhash = useCallback(
     async (imageUrl: string) => {
+      setRound(false);
       const image = await loadImage(imageUrl);
       const imageData = getImageData(image as unknown as HTMLImageElement);
       if (imageData) {
         setBlur((prev) => !prev);
+        setRound(true);
         return setBlurHash(
           encode(imageData.data, imageData.width, imageData.height, 4, 4)
         );
@@ -122,8 +122,13 @@ function ShareLyrics({
       <DrawerTrigger className="m-0 p-1.5 flex  justify-center items-center bg-zinc-900 rounded-full">
         <IoShareOutline className="h-6 w-6 text-white" />
       </DrawerTrigger>
-      <DrawerContent className="h-[100dvh] rounded-none px-[4.5vw]  bg-[#09090b]">
-        <div className="flex pt-[5vh] flex-col space-y-3 justify-center items-center py-[1vh] ">
+      <DrawerContent className="  h-[100dvh] rounded-none px-[4.5vw]  bg-[#09090b]">
+        {!round && (
+          <div className=" absolute z-10 bg-black/50 w-[91vw] h-[100dvh] flex justify-center items-center">
+            <Loader color="white" />
+          </div>
+        )}
+        <div className=" relative flex pt-[5vh] flex-col space-y-3 justify-center items-center py-[1vh] ">
           <AspectRatio
             id="lyrics"
             ratio={9 / 16}
@@ -237,6 +242,7 @@ function ShareLyrics({
           <div className="flex space-x-[3vw] text-xs">
             <div
               onClick={shareLyrics}
+              id="share"
               className="  flex items-center px-4 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
             >
               <IoShareOutline className=" h-6 w-6" />
