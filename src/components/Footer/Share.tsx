@@ -59,7 +59,7 @@ function ShareLyrics({
     if (!lyrics) return;
 
     try {
-      const blob = await LyricsImage.toBlob(lyrics);
+      const blob = await LyricsImage.toPng(lyrics);
       if (!blob) return;
 
       const file = new File([blob], "demo.png", { type: "image/png" });
