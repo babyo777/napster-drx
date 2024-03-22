@@ -8,7 +8,6 @@ import { encode } from "blurhash";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { GetImage } from "@/API/api";
-import { MdOutlineBlurCircular } from "react-icons/md";
 import { TbMicrophone2 } from "react-icons/tb";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 
@@ -164,7 +163,7 @@ function ShareLyrics({
           <div className="flex space-x-[1vw] text-sm">
             <div
               onClick={shareLyrics}
-              className=" flex items-center px-4 py-2 bg-zinc-800 text-zinc-300 rounded-xl space-x-1.5"
+              className=" flex items-center px-4 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
             >
               <IoShareOutline className=" h-6 w-6" />
               <p>Share</p>
@@ -175,12 +174,12 @@ function ShareLyrics({
                   `${GetImage}${playlist[currentIndex].thumbnailUrl}`
                 )
               }
-              className=" flex items-center px-2.5 py-2 bg-zinc-800 text-zinc-300 rounded-xl space-x-1.5"
+              className=" flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
             >
               <LiaExchangeAltSolid className=" h-6 w-6" />
               <p>Change BG</p>
             </div>
-            <div className=" flex items-center px-2.5 py-2 bg-zinc-800 text-zinc-300 rounded-xl space-x-1.5">
+            <div className=" flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5">
               <TbMicrophone2 className=" h-6 w-6" />
               <p>Show Lyrics</p>
             </div>
