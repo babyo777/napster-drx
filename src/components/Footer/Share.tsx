@@ -66,13 +66,9 @@ function ShareLyrics({
 
       const file = new File([blob], "share.png", { type: "image/png" });
 
-      if (navigator.share) {
-        await navigator.share({
-          files: [file],
-        });
-      } else {
-        console.error("Sharing not supported on this platform");
-      }
+      await navigator.share({
+        files: [file],
+      });
     } catch (error) {
       console.error(error);
     }
