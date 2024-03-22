@@ -3,7 +3,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { Blurhash } from "react-blurhash";
 import { toBlob } from "html-to-image";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { encode } from "blurhash";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
@@ -76,6 +76,29 @@ function ShareLyrics({
     }
   }, []);
 
+  const [image, setImage] = useState<string>();
+
+  const getImageDataURL = useCallback(async (url: string) => {
+    return fetch(url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        if (blob) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setImage(reader.result as string);
+          };
+
+          reader.readAsDataURL(blob);
+        }
+      });
+  }, []);
+
+  useEffect(() => {
+    getImageDataURL(
+      playlist[currentIndex].thumbnailUrl.replace("w120-h120", "w1080-h1080")
+    );
+  }, [playlist, currentIndex, getImageDataURL]);
+
   const [count, setCount] = useState<number>(0);
   const handleCount = useCallback(() => {
     if (lyrics) {
@@ -135,10 +158,12 @@ function ShareLyrics({
                 loading="lazy"
                 crossOrigin="anonymous"
                 src={
+                  image ||
                   playlist[currentIndex].thumbnailUrl.replace(
                     "w120-h120",
                     "w1080-h1080"
-                  ) || "./favicon.jpeg"
+                  ) ||
+                  "./favicon.jpeg"
                 }
                 width="100%"
                 effect="blur"
@@ -155,10 +180,12 @@ function ShareLyrics({
                     <LazyLoadImage
                       crossOrigin="anonymous"
                       src={
+                        image ||
                         playlist[currentIndex].thumbnailUrl.replace(
                           "w120-h120",
                           "w1080-h1080"
-                        ) || "/favicon.jpeg"
+                        ) ||
+                        "/favicon.jpeg"
                       }
                       width="100%"
                       effect="blur"
@@ -197,10 +224,12 @@ function ShareLyrics({
                         <LazyLoadImage
                           crossOrigin="anonymous"
                           src={
+                            image ||
                             playlist[currentIndex].thumbnailUrl.replace(
                               "w120-h120",
                               "w1080-h1080"
-                            ) || "/favicon.jpeg"
+                            ) ||
+                            "/favicon.jpeg"
                           }
                           width="100%"
                           effect="blur"
