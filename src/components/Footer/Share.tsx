@@ -110,13 +110,11 @@ function ShareLyrics({
                 punch={1}
               />
             ) : (
-              <LazyLoadImage
+              <img
                 src={playlist[currentIndex].thumbnailUrl || "./favicon.jpeg"}
                 width="100%"
                 height="100%"
-                effect="blur"
                 alt="Image"
-                loading="lazy"
                 className="rounded-md blur-[1.5px] object-cover h-[100%] w-[100%]"
               />
             )}
@@ -130,13 +128,12 @@ function ShareLyrics({
               <div className=" flex  space-x-2 items-center bg-black/30 py-3 px-3">
                 <div className="overflow-hidden flex h-[3.3rem] w-[3.3rem]">
                   <AspectRatio ratio={1 / 1}>
-                    <LazyLoadImage
+                    <img
                       src={
                         playlist[currentIndex].thumbnailUrl || "/favicon.jpeg"
                       }
                       width="100%"
                       height="100%"
-                      effect="blur"
                       alt="Image"
                       loading="lazy"
                       className="rounded-lg object-cover h-[100%] w-[100%]"
