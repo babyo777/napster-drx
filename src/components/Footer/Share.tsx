@@ -11,6 +11,7 @@ import { TbMicrophone2 } from "react-icons/tb";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { GetImage } from "@/API/api";
 
 function ShareLyrics({
   lyrics,
@@ -234,10 +235,10 @@ function ShareLyrics({
             <div
               onClick={() =>
                 encodeImageToBlurhash(
-                  playlist[currentIndex].thumbnailUrl.replace(
+                  `${GetImage}${playlist[currentIndex].thumbnailUrl.replace(
                     "w120-h120",
                     "w1080-h1080"
-                  )
+                  )}`
                 )
               }
               className=" flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
