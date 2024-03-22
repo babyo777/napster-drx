@@ -56,6 +56,7 @@ function ShareLyrics({
   const [round, setRound] = useState<boolean>(true);
   const shareLyrics = useCallback(async () => {
     setRound(false);
+    if (!round) return;
     const lyrics = document.getElementById("lyrics");
     if (!lyrics) return;
 
@@ -71,10 +72,12 @@ function ShareLyrics({
       await navigator.share({
         files: [file],
       });
+      setRound(true);
     } catch (error) {
+      setRound(true);
       console.error(error);
     }
-  }, []);
+  }, [round]);
 
   const [count, setCount] = useState<number>(0);
   const handleCount = useCallback(() => {
