@@ -54,25 +54,22 @@ function ShareLyrics({
     "L56bv5}iVBV|-LrnN$WB0rIT$_pK"
   );
 
-  const shareLyrics = useCallback(() => {
+  const shareLyrics = useCallback(async () => {
     const lyrics = lyricsRef.current;
-    if (lyrics) {
-      LyricsImage.toBlob(lyrics).then((blob) => {
-        if (blob) {
-          const reader = new FileReader();
-          reader.readAsDataURL(blob);
-          reader.onload = () => {
-            if (navigator.share) {
-              navigator.share({
-                files: [new File([blob], "demo.png", { type: "image/png" })],
-              });
-            }
-          };
-        }
-      });
+    if (!lyrics) return;
+
+    try {
+      const blob = await LyricsImage.toBlob(lyrics);
+      if (!blob) return;
+
+      const file = new File([blob], "demo.png", { type: "image/png" });
+      if (navigator.share) {
+        await navigator.share({ files: [file] });
+      }
+    } catch (error) {
+      console.error("Error sharing lyrics:", error);
     }
   }, []);
-
   useEffect(() => {
     const encodeImageToBlurhash = async (imageUrl: string) => {
       console.log(imageUrl);
