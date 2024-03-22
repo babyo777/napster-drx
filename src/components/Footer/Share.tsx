@@ -61,13 +61,19 @@ function ShareLyrics({
       const blob = await LyricsImage.toBlob(lyrics, {
         cacheBust: true,
       });
+      const bloB = await LyricsImage.toBlob(lyrics, {
+        cacheBust: true,
+      });
+      const bloX = await LyricsImage.toBlob(lyrics, {
+        cacheBust: true,
+      });
+      bloB && bloX;
       if (!blob) return;
 
       const file = new File([blob], "share.png", { type: "image/png" });
 
       if (navigator.share) {
         await navigator.share({
-          title: playlist[currentIndex].title,
           files: [file],
         });
       } else {
@@ -76,7 +82,7 @@ function ShareLyrics({
     } catch (error) {
       console.error(error);
     }
-  }, [currentIndex, playlist]);
+  }, []);
 
   const [blur, setBlur] = useState<boolean>(false);
 
