@@ -62,7 +62,9 @@ function ShareLyrics({
     if (lyrics == null) return;
 
     try {
-      toBlob(lyrics).then(async (blob) => {
+      toBlob(lyrics, {
+        cacheBust: true,
+      }).then(async (blob) => {
         if (!blob) return;
 
         const file = new File([blob], "share.png", { type: "image/png" });
