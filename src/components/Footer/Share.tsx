@@ -142,6 +142,7 @@ function ShareLyrics({
                 }
                 width="100%"
                 effect="blur"
+                visibleByDefault
                 height="100%"
                 alt="Image"
                 className="rounded-md blur-[1.5px] object-cover h-[100%] w-[100%]"
@@ -164,6 +165,7 @@ function ShareLyrics({
                       height="100%"
                       alt="Image"
                       loading="lazy"
+                      visibleByDefault
                       className="rounded-xl object-cover h-[100%] w-[100%]"
                     />
                   </div>
@@ -204,6 +206,7 @@ function ShareLyrics({
                           effect="blur"
                           height="100%"
                           alt="Image"
+                          visibleByDefault
                           loading="lazy"
                           className="rounded-lg object-cover h-[100%] w-[100%]"
                         />
