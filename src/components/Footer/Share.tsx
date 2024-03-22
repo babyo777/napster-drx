@@ -127,7 +127,7 @@ function ShareLyrics({
           <AspectRatio
             id="lyrics"
             ratio={9 / 16}
-            className={`relative flex items-center justify-center overflow-hidden ${
+            className={`relative shadow-none flex items-center justify-center overflow-hidden ${
               round ? "rounded-2xl" : ""
             }`}
           >
