@@ -260,6 +260,12 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                       key={index}
                       data-time={line.time}
                       style={{
+                        filter:
+                          (line.time <= progress &&
+                            (index === lyrics.length - 1 ||
+                              (lyrics[index + 1]?.time || 0) > progress) &&
+                            "none") ||
+                          "blur(1.3px)",
                         fontSize: "1.875rem",
                         marginBottom:
                           (line.time <= progress &&
