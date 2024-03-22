@@ -159,7 +159,7 @@ function ShareLyrics({
           </AspectRatio>
         </div>
         <div className=" flex justify-center items-center pt-[1vh]">
-          <div className="flex space-x-[1vw] text-xs">
+          <div className="flex space-x-[3vw] text-xs">
             <div
               onClick={shareLyrics}
               className=" flex items-center px-4 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
