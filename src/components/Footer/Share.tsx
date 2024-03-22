@@ -250,7 +250,7 @@ function ShareLyrics({
                 className=" fade-in flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
               >
                 <TbMicrophone2 className=" h-6 w-6" />
-                <p>Show {ShareSong ? "Lyrics" : "Song"}</p>
+                <p>Show {ShareSong ? "Lyrics" : "Music"}</p>
               </div>
             )}
           </div>
