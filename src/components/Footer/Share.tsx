@@ -59,10 +59,6 @@ function ShareLyrics({
     if (!lyrics) return;
 
     try {
-      const blobT = await LyricsImage.toBlob(lyrics);
-      const blobS = await LyricsImage.toBlob(lyrics);
-      console.log(blobT, blobS);
-
       const blob = await LyricsImage.toBlob(lyrics);
       if (!blob) return;
 
@@ -71,14 +67,11 @@ function ShareLyrics({
         await navigator.share({ files: [file] });
       }
     } catch (error) {
-      //@ts-expect-error:error
-      alert("Error sharing lyrics:", error.message);
+      alert("Error sharing lyrics:");
     }
   }, []);
   useEffect(() => {
     const encodeImageToBlurhash = async (imageUrl: string) => {
-      console.log(imageUrl);
-
       const image = await loadImage(imageUrl);
       const imageData = getImageData(image as unknown as HTMLImageElement);
       if (imageData) {

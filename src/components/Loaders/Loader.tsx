@@ -6,14 +6,18 @@ function Loader({
   color,
   stroke,
   loading,
+  className,
 }: {
+  className?: string;
   size?: string;
   loading?: boolean;
   color?: string;
   stroke?: string;
 }) {
   return (
-    <div className="flex flex-col space-y-2 justify-center items-center text-xs font-normal">
+    <div
+      className={`flex flex-col space-y-2 justify-center items-center text-xs font-normal ${className}`}
+    >
       <l-tailspin
         size={size || "30"}
         stroke={stroke || "4"}
