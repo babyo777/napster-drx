@@ -182,7 +182,7 @@ function ShareLyrics({
                       alt="Image"
                       loading="lazy"
                       visibleByDefault
-                      className="object-cover h-[100%] w-[100%]"
+                      className="rounded-xl object-cover h-[100%] w-[100%]"
                     />
                   </div>
                   <div className=" break-words ">
