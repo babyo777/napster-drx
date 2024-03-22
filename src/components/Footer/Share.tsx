@@ -67,6 +67,9 @@ function ShareLyrics({
       await toBlob(lyrics, {
         cacheBust: true,
       });
+      await toBlob(lyrics, {
+        cacheBust: true,
+      });
       toBlob(lyrics, {
         cacheBust: true,
       }).then(async (blob) => {
@@ -132,7 +135,7 @@ function ShareLyrics({
           <AspectRatio
             id="lyrics"
             ratio={9 / 16}
-            className={`relative shadow-none flex items-center justify-center overflow-hidden ${
+            className={`relative shadow-none p-0  m-0 flex items-center justify-center overflow-hidden ${
               round ? "rounded-2xl" : ""
             }`}
           >
