@@ -215,7 +215,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
               />
             </div>
             <div className="flex flex-col justify-center">
-              <p className="text-xl truncate w-[50vw] fade-in">
+              <p className="text-xl truncate w-[45vw] fade-in">
                 {playlist[currentIndex].title}
               </p>
 
@@ -227,7 +227,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                   onClick={() => closeRef.current?.click()}
                   className="p-0 m-0"
                 >
-                  <p className="text-sm fade-in text-start truncate w-[40vw]  text-red-500">
+                  <p className="text-sm fade-in text-start truncate w-[37vw]  text-red-500">
                     {playlist[currentIndex].artists[0]?.name}
                   </p>
                 </DrawerClose>

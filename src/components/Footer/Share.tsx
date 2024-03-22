@@ -163,7 +163,7 @@ function ShareLyrics({
           <div className="flex space-x-[3vw] text-xs">
             <div
               onClick={shareLyrics}
-              className=" flex items-center px-4 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
+              className="  flex items-center px-4 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
             >
               <IoShareOutline className=" h-6 w-6" />
               <p>Share</p>
@@ -179,10 +179,12 @@ function ShareLyrics({
               <LiaExchangeAltSolid className=" h-6 w-6" />
               <p>Change BG</p>
             </div>
-            <div className=" flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5">
-              <TbMicrophone2 className=" h-6 w-6" />
-              <p>Show Lyrics</p>
-            </div>
+            {lyrics && (
+              <div className=" fade-in flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5">
+                <TbMicrophone2 className=" h-6 w-6" />
+                <p>Show Lyrics</p>
+              </div>
+            )}
           </div>
         </div>
       </DrawerContent>
