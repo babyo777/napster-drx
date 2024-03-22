@@ -170,7 +170,7 @@ function ShareLyrics({
                     />
                   </div>
                   <div className=" break-words ">
-                    <p className="text-lg  leading-[1.4rem] font-bold mt-0.5 break-words max-w-[59vw]">
+                    <p className="text-lg  leading-[1.5rem] font-bold mt-0.5 break-words max-w-[59vw]">
                       {playlist[currentIndex]?.title}
                     </p>
                     <p className=" mt-0.5 text-base font-semibold break-words max-w-[55vw]">
