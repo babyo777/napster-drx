@@ -264,7 +264,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                             (index === lyrics.length - 1 ||
                               (lyrics[index + 1]?.time || 0) > progress) &&
                             "none") ||
-                          "blur(1.5px)",
+                          "blur(1.3px)",
                         fontSize: "1.875rem",
                         marginBottom:
                           (line.time <= progress &&
