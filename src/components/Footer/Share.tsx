@@ -64,7 +64,6 @@ function ShareLyrics({
         cacheBust: true,
       });
 
-      setRound(true);
       if (!blob) return;
 
       const file = new File([blob], "share.png", { type: "image/png" });
@@ -73,7 +72,6 @@ function ShareLyrics({
         files: [file],
       });
     } catch (error) {
-      setRound(true);
       console.error(error);
     }
   }, []);
