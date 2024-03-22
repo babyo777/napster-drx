@@ -33,7 +33,10 @@ const GetAlbumSongs = `${mainApi}/gas/`;
 
 const GetLyrics = `${mainApi}/lrc/`;
 
+const GetImage = `${mainApi}/image/?img=`;
+
 export {
+  GetImage,
   GetLyrics,
   streamApi,
   getArtistsDetailsByName,
