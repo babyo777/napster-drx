@@ -225,7 +225,10 @@ function ShareLyrics({
             <div
               onClick={() =>
                 encodeImageToBlurhash(
-                  `${GetImage}${playlist[currentIndex].thumbnailUrl}`
+                  `${GetImage}${playlist[currentIndex].thumbnailUrl.replace(
+                    "w120-h120",
+                    "w1080-h1080"
+                  )}`
                 )
               }
               className=" flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
