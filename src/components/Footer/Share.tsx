@@ -105,10 +105,13 @@ function ShareLyrics({
               resolutionY={32}
               punch={1}
             />
+
             <div className=" absolute text-zinc-100  overflow-hidden rounded-2xl font-semibold backdrop-blur-lg">
-              <div className="break-words bg-black/25 text-2xl px-4 py-2 max-w-[67vw] text-left">
-                <p>{lyrics && lyrics[0].lyrics}</p>
-              </div>
+              {lyrics && (
+                <div className="break-words bg-black/25 text-2xl px-4 py-2  max-w-[77vw] text-left">
+                  <p>{lyrics[0].lyrics}</p>
+                </div>
+              )}
 
               <div className=" flex  space-x-2 items-center bg-black/30 py-3 px-3">
                 <div className="overflow-hidden flex h-[3.3rem] w-[3.3rem]">
@@ -126,11 +129,11 @@ function ShareLyrics({
                     />
                   </AspectRatio>
                 </div>
-                <div className=" font-normal">
-                  <p className="text-xl font-semibold  break-words  max-w-[37vw]">
+                <div className=" font-normal   break-words max-w-[60vw]">
+                  <p className="text-xl font-semibold  break-words truncate  max-w-[60vw]">
                     {playlist[currentIndex]?.title}
                   </p>
-                  <p className="-mt-0.5 text-sm break-words max-w-[37vw]">
+                  <p className="-mt-0.5 text-sm break-words max-w-[60vw]">
                     {playlist[currentIndex]?.artists[0].name}
                   </p>
                 </div>
