@@ -11,6 +11,7 @@ import { GetImage } from "@/API/api";
 import { TbMicrophone2 } from "react-icons/tb";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 function ShareLyrics({
   lyrics,
@@ -145,6 +146,7 @@ function ShareLyrics({
                   )}` || "./favicon.jpeg"
                 }
                 width="100%"
+                effect="blur"
                 height="100%"
                 alt="Image"
                 className="rounded-md blur-[1.5px] object-cover h-[100%] w-[100%]"
@@ -162,6 +164,7 @@ function ShareLyrics({
                         "/favicon.jpeg"
                       }
                       width="100%"
+                      effect="blur"
                       height="100%"
                       alt="Image"
                       loading="lazy"
@@ -204,6 +207,7 @@ function ShareLyrics({
                             )}` || "/favicon.jpeg"
                           }
                           width="100%"
+                          effect="blur"
                           height="100%"
                           alt="Image"
                           loading="lazy"
