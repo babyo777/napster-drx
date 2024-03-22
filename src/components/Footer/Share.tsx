@@ -175,7 +175,7 @@ function ShareLyrics({
                       {playlist[currentIndex]?.title}
                     </p>
                     <p className=" -mt-1 text-base font-semibold break-words max-w-[55vw]">
-                      {playlist[currentIndex]?.artists[0].name}
+                      {playlist[currentIndex]?.artists[0]?.name}
                     </p>
                     <p className=" text-sm mt-1 text-zinc-300/80 font-semibold break-words max-w-[55vw]">
                       NapsterDrx
@@ -219,7 +219,7 @@ function ShareLyrics({
                         {playlist[currentIndex]?.title}
                       </p>
                       <p className="-mt-0.5 text-sm break-words max-w-[55vw]">
-                        {playlist[currentIndex]?.artists[0].name}
+                        {playlist[currentIndex]?.artists[0]?.name}
                       </p>
                     </div>
                   </div>
