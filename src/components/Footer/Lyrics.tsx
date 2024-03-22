@@ -102,8 +102,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const getLyrics = useCallback(async () => {
     const query = `${playlist[currentIndex].title
       .replace("(sped up nightcore)", "sped up")
-      .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
-      .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")
       .replace("/", "")} ${playlist[currentIndex].artists[0].name.replace(
       "/",
       ""
