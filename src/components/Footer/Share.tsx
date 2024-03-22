@@ -137,6 +137,7 @@ function ShareLyrics({
               <LazyLoadImage
                 loading="lazy"
                 visibleByDefault
+                crossOrigin="anonymous"
                 src={
                   `${GetImage}${playlist[currentIndex].thumbnailUrl.replace(
                     "w120-h120",
@@ -155,6 +156,7 @@ function ShareLyrics({
                 <div className=" flex flex-col text-left  space-y-2  bg-black/30  py-3 px-3 pt-4">
                   <div className="overflow-hidden flex h-[15.5rem] w-[15.5rem]">
                     <LazyLoadImage
+                      crossOrigin="anonymous"
                       src={
                         `${GetImage}${playlist[
                           currentIndex
@@ -196,6 +198,7 @@ function ShareLyrics({
                     <div className="overflow-hidden flex h-[3.3rem] w-[3.3rem]">
                       <AspectRatio ratio={1 / 1}>
                         <LazyLoadImage
+                          crossOrigin="anonymous"
                           src={
                             `${GetImage}${playlist[
                               currentIndex
