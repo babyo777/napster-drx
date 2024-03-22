@@ -283,7 +283,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                             ? color
                               ? 1
                               : 1
-                            : 0.3,
+                            : 0.7,
                         color:
                           line.time <= progress &&
                           (index === lyrics.length - 1 ||
