@@ -159,7 +159,7 @@ function ShareLyrics({
                 visibleByDefault
                 height="100%"
                 alt="Image"
-                className="rounded-md blur-[1.5px] object-cover h-[100%] w-[100%]"
+                className="blur-[1.3px] shadow-none object-cover h-[100%] w-[100%]"
               />
             )}
             <div className=" absolute text-zinc-100  overflow-hidden rounded-2xl font-semibold backdrop-blur-lg">
@@ -179,7 +179,7 @@ function ShareLyrics({
                       alt="Image"
                       loading="lazy"
                       visibleByDefault
-                      className="rounded-xl object-cover h-[100%] w-[100%]"
+                      className="object-cover h-[100%] w-[100%]"
                     />
                   </div>
                   <div className=" break-words ">
