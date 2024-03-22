@@ -68,7 +68,7 @@ function Settings() {
         </p>
 
         <DrawerFooter className=" items-center">
-          <span className="text-xs text-zinc-300">Version - 1.1.7 beta</span>
+          <span className="text-xs text-zinc-300">Version - 1.1.8 beta</span>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
