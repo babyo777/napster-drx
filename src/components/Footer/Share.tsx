@@ -64,7 +64,7 @@ function ShareLyrics({
 
     try {
       toBlob(lyrics, {
-        cacheBust: true,
+        cacheBust: false,
       }).then(async (blob) => {
         if (!blob) return;
 
