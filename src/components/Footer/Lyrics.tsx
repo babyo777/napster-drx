@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import Options from "./Options";
 import axios from "axios";
-import { GetLyrics } from "@/API/api";
+import { GetImage, GetLyrics } from "@/API/api";
 import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -24,6 +24,7 @@ import {
   useState,
 } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
+import ShareLyrics from "./Share";
 // import { prominent } from "color.js";
 
 function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
@@ -203,7 +204,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                 height="100%"
                 width="100%"
                 src={
-                  playlist[currentIndex].thumbnailUrl ||
+                  `${GetImage}${playlist[currentIndex].thumbnailUrl}` ||
                   "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg"
                 }
                 alt="Image"
@@ -212,7 +213,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
               />
             </div>
             <div className="flex flex-col justify-center">
-              <p className="text-xl truncate w-[57vw] fade-in">
+              <p className="text-xl truncate w-[50vw] fade-in">
                 {playlist[currentIndex].title}
               </p>
 
@@ -224,7 +225,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                   onClick={() => closeRef.current?.click()}
                   className="p-0 m-0"
                 >
-                  <p className="text-sm fade-in text-start truncate w-[47vw]  text-red-500">
+                  <p className="text-sm fade-in text-start truncate w-[40vw]  text-red-500">
                     {playlist[currentIndex].artists[0]?.name}
                   </p>
                 </DrawerClose>
@@ -232,7 +233,10 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
             </div>
           </div>
           <div>
-            <Options id={playingPlaylistUrl} music={playlist[currentIndex]} />
+            <div className="flex items-center space-x-2">
+              <ShareLyrics lyrics={lyrics && lyrics} />
+              <Options id={playingPlaylistUrl} music={playlist[currentIndex]} />
+            </div>
           </div>
         </div>
         <div className="flex relative overflow-scroll pb-3 flex-col px-5 space-y-3">
