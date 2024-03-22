@@ -113,7 +113,12 @@ function ShareLyrics({
               />
             ) : (
               <img
-                src={playlist[currentIndex].thumbnailUrl || "./favicon.jpeg"}
+                src={
+                  playlist[currentIndex].thumbnailUrl.replace(
+                    "w120-h120",
+                    "w3840-h2160"
+                  ) || "./favicon.jpeg"
+                }
                 width="100%"
                 height="100%"
                 alt="Image"
