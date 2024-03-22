@@ -75,6 +75,7 @@ function ShareLyrics({
   }, []);
 
   const [blur, setBlur] = useState<boolean>(false);
+  const [ShareSong, setShareSong] = useState<boolean>(true);
 
   const encodeImageToBlurhash = useCallback(
     async (imageUrl: string) => {
@@ -89,6 +90,10 @@ function ShareLyrics({
     },
     [getImageData, loadImage]
   );
+
+  const handleShareSong = useCallback(() => {
+    setShareSong((prev) => !prev);
+  }, []);
 
   return (
     <Drawer>
@@ -116,7 +121,7 @@ function ShareLyrics({
                 src={
                   playlist[currentIndex].thumbnailUrl.replace(
                     "w120-h120",
-                    "w3840-h2160"
+                    "w1080-h1080"
                   ) || "./favicon.jpeg"
                 }
                 width="100%"
@@ -126,36 +131,71 @@ function ShareLyrics({
               />
             )}
             <div className=" absolute text-zinc-100  overflow-hidden rounded-2xl font-semibold backdrop-blur-lg">
-              {lyrics && (
-                <div className="break-words bg-black/25 text-2xl px-4 py-2  max-w-[77vw] text-left">
-                  <p>{lyrics[0].lyrics}</p>
+              {ShareSong ? (
+                <div className=" flex flex-col text-left  space-y-2  bg-black/30  py-3 px-3 pt-4">
+                  <div className="overflow-hidden flex h-[15.5rem] w-[15.5rem]">
+                    <AspectRatio ratio={4 / 3}>
+                      <img
+                        src={
+                          playlist[currentIndex].thumbnailUrl.replace(
+                            "w120-h120",
+                            "w1080-h1080"
+                          ) || "/favicon.jpeg"
+                        }
+                        width="100%"
+                        height="100%"
+                        alt="Image"
+                        loading="lazy"
+                        className="rounded-xl object-cover h-[100%] w-[100%]"
+                      />
+                    </AspectRatio>
+                  </div>
+                  <div className=" break-words ">
+                    <p className="text-lg font-bold mt-0.5 break-words max-w-[59vw]">
+                      {playlist[currentIndex]?.title}
+                    </p>
+                    <p className=" text-base font-semibold break-words max-w-[55vw]">
+                      {playlist[currentIndex]?.artists[0].name}
+                    </p>
+                    <p className=" text-sm mt-1 text-zinc-300/80 font-semibold break-words max-w-[55vw]">
+                      NapsterDrx
+                    </p>
+                  </div>
                 </div>
+              ) : (
+                <>
+                  {lyrics && (
+                    <div className="break-words bg-black/25 text-2xl px-4 py-2  max-w-[77vw] text-left">
+                      <p>{lyrics[0].lyrics}</p>
+                    </div>
+                  )}
+                  <div className=" flex  space-x-2 items-center bg-black/30 py-3 px-3">
+                    <div className="overflow-hidden flex h-[3.3rem] w-[3.3rem]">
+                      <AspectRatio ratio={1 / 1}>
+                        <img
+                          src={
+                            playlist[currentIndex].thumbnailUrl ||
+                            "/favicon.jpeg"
+                          }
+                          width="100%"
+                          height="100%"
+                          alt="Image"
+                          loading="lazy"
+                          className="rounded-lg object-cover h-[100%] w-[100%]"
+                        />
+                      </AspectRatio>
+                    </div>
+                    <div className=" font-normal   break-words max-w-[55vw]">
+                      <p className="text-xl font-semibold  break-words truncate  max-w-[55vw]">
+                        {playlist[currentIndex]?.title}
+                      </p>
+                      <p className="-mt-0.5 text-sm break-words max-w-[55vw]">
+                        {playlist[currentIndex]?.artists[0].name}
+                      </p>
+                    </div>
+                  </div>
+                </>
               )}
-
-              <div className=" flex  space-x-2 items-center bg-black/30 py-3 px-3">
-                <div className="overflow-hidden flex h-[3.3rem] w-[3.3rem]">
-                  <AspectRatio ratio={1 / 1}>
-                    <img
-                      src={
-                        playlist[currentIndex].thumbnailUrl || "/favicon.jpeg"
-                      }
-                      width="100%"
-                      height="100%"
-                      alt="Image"
-                      loading="lazy"
-                      className="rounded-lg object-cover h-[100%] w-[100%]"
-                    />
-                  </AspectRatio>
-                </div>
-                <div className=" font-normal   break-words max-w-[55vw]">
-                  <p className="text-xl font-semibold  break-words truncate  max-w-[55vw]">
-                    {playlist[currentIndex]?.title}
-                  </p>
-                  <p className="-mt-0.5 text-sm break-words max-w-[55vw]">
-                    {playlist[currentIndex]?.artists[0].name}
-                  </p>
-                </div>
-              </div>
             </div>
           </AspectRatio>
         </div>
@@ -180,7 +220,10 @@ function ShareLyrics({
               <p>Change BG</p>
             </div>
             {lyrics && (
-              <div className=" fade-in flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5">
+              <div
+                onClick={handleShareSong}
+                className=" fade-in flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
+              >
                 <TbMicrophone2 className=" h-6 w-6" />
                 <p>Show Lyrics</p>
               </div>
