@@ -13,6 +13,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { GetImage } from "@/API/api";
 import Loader from "../Loaders/Loader";
+import { Button } from "../ui/button";
 
 function ShareLyrics({
   lyrics,
@@ -244,16 +245,18 @@ function ShareLyrics({
           </AspectRatio>
         </div>
         <div className=" flex justify-center items-center pt-[1vh]">
-          <div className="flex space-x-[3vw] text-xs">
-            <div
+          <div className="flex space-x-[1.5vw] text-xs">
+            <Button
+              variant={"secondary"}
               onClick={shareLyrics}
               id="share"
               className="  flex items-center px-4 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
             >
               <IoShareOutline className=" h-6 w-6" />
               <p>Share</p>
-            </div>
-            <div
+            </Button>
+            <Button
+              variant={"secondary"}
               onClick={() =>
                 encodeImageToBlurhash(
                   `${GetImage}${playlist[currentIndex].thumbnailUrl.replace(
@@ -266,15 +269,16 @@ function ShareLyrics({
             >
               <LiaExchangeAltSolid className=" h-6 w-6" />
               <p>Change BG</p>
-            </div>
+            </Button>
             {lyrics && (
-              <div
+              <Button
+                variant={"secondary"}
                 onClick={handleShareSong}
                 className=" fade-in flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
               >
                 <TbMicrophone2 className=" h-6 w-6" />
                 <p>Show {ShareSong ? "Lyrics" : "Music"}</p>
-              </div>
+              </Button>
             )}
           </div>
         </div>
