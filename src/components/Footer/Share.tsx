@@ -11,7 +11,6 @@ import { TbMicrophone2 } from "react-icons/tb";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import axios from "axios";
 
 function ShareLyrics({
   lyrics,
@@ -56,17 +55,13 @@ function ShareLyrics({
   );
 
   const [round, setRound] = useState<boolean>(true);
-  const shareLyrics = useCallback(async () => {
+  const shareLyrics = useCallback(() => {
     setRound(false);
 
     const lyrics = document.getElementById("lyrics");
     if (lyrics == null) return;
 
     try {
-      await axios.get(playlist[currentIndex].youtubeId, {
-        responseType: "blob",
-      });
-
       toBlob(lyrics).then(async (blob) => {
         if (!blob) return;
 
@@ -79,7 +74,7 @@ function ShareLyrics({
     } catch (error) {
       console.error(error);
     }
-  }, [playlist, currentIndex]);
+  }, []);
 
   const [count, setCount] = useState<number>(0);
   const handleCount = useCallback(() => {
