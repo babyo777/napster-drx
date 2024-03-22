@@ -74,9 +74,7 @@ function ShareLyrics({
           files: [file],
         });
       });
-      setRound(true);
     } catch (error) {
-      setRound(true);
       console.error(error);
     }
   }, []);
