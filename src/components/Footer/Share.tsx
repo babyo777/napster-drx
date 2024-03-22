@@ -5,11 +5,12 @@ import { Blurhash } from "react-blurhash";
 import * as LyricsImage from "html-to-image";
 import { useCallback, useState } from "react";
 import { encode } from "blurhash";
-import { FaInstagram } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { GetImage } from "@/API/api";
 import { MdOutlineBlurCircular } from "react-icons/md";
+import { TbMicrophone2 } from "react-icons/tb";
+import { LiaExchangeAltSolid } from "react-icons/lia";
 
 function ShareLyrics({
   lyrics,
@@ -160,12 +161,12 @@ function ShareLyrics({
           </AspectRatio>
         </div>
         <div className=" flex justify-center items-center pt-[1vh]">
-          <div className="flex space-x-[1vw]">
+          <div className="flex space-x-[1vw] text-sm">
             <div
               onClick={shareLyrics}
               className=" flex items-center px-4 py-2 bg-zinc-800 text-zinc-300 rounded-xl space-x-1.5"
             >
-              <FaInstagram className=" h-6 w-6" />
+              <IoShareOutline className=" h-6 w-6" />
               <p>Share</p>
             </div>
             <div
@@ -176,8 +177,12 @@ function ShareLyrics({
               }
               className=" flex items-center px-2.5 py-2 bg-zinc-800 text-zinc-300 rounded-xl space-x-1.5"
             >
-              <MdOutlineBlurCircular className=" h-6 w-6" />
-              <p>Change</p>
+              <LiaExchangeAltSolid className=" h-6 w-6" />
+              <p>Change BG</p>
+            </div>
+            <div className=" flex items-center px-2.5 py-2 bg-zinc-800 text-zinc-300 rounded-xl space-x-1.5">
+              <TbMicrophone2 className=" h-6 w-6" />
+              <p>Show Lyrics</p>
             </div>
           </div>
         </div>
