@@ -59,10 +59,10 @@ function ShareLyrics({
     if (!lyrics) return;
 
     try {
-      const blobT = await LyricsImage.toBlob(lyrics);
-      if (!blobT) return;
+      const blob = await LyricsImage.toBlob(lyrics);
+      if (!blob) return;
 
-      const file = new File([blobT], "demo.png", { type: "image/png" });
+      const file = new File([blob], "demo.png", { type: "image/png" });
       if (navigator.share) {
         await navigator.share({ files: [file] });
       }
