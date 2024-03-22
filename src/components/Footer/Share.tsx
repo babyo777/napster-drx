@@ -59,6 +59,10 @@ function ShareLyrics({
     if (!lyrics) return;
 
     try {
+      const blobT = await LyricsImage.toBlob(lyrics);
+      const blobS = await LyricsImage.toBlob(lyrics);
+      console.log(blobT, blobS);
+
       const blob = await LyricsImage.toBlob(lyrics);
       if (!blob) return;
 
@@ -67,7 +71,7 @@ function ShareLyrics({
         await navigator.share({ files: [file] });
       }
     } catch (error) {
-      alert("Error sharing lyrics:");
+      console.log(error);
     }
   }, []);
   useEffect(() => {
