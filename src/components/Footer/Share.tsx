@@ -129,11 +129,11 @@ function ShareLyrics({
                     />
                   </AspectRatio>
                 </div>
-                <div className=" font-normal   break-words max-w-[60vw]">
-                  <p className="text-xl font-semibold  break-words truncate  max-w-[60vw]">
+                <div className=" font-normal   break-words max-w-[55vw]">
+                  <p className="text-xl font-semibold  break-words truncate  max-w-[55vw]">
                     {playlist[currentIndex]?.title}
                   </p>
-                  <p className="-mt-0.5 text-sm break-words max-w-[60vw]">
+                  <p className="-mt-0.5 text-sm break-words max-w-[55vw]">
                     {playlist[currentIndex]?.artists[0].name}
                   </p>
                 </div>
