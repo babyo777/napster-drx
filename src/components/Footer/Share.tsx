@@ -77,7 +77,7 @@ function ShareLyrics({
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [currentIndex, playlist]);
 
   const [blur, setBlur] = useState<boolean>(false);
 
