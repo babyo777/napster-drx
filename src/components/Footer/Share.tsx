@@ -3,7 +3,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { Blurhash } from "react-blurhash";
 import { toBlob } from "html-to-image";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { encode } from "blurhash";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
@@ -58,10 +58,11 @@ function ShareLyrics({
   );
 
   const [round, setRound] = useState<boolean>(true);
+  const lyricsRef = useRef<HTMLDivElement>(null);
   const shareLyrics = useCallback(async () => {
     setRound(false);
 
-    const lyrics = document.getElementById("lyrics");
+    const lyrics = lyricsRef.current;
     if (lyrics == null) return;
 
     try {
@@ -135,6 +136,7 @@ function ShareLyrics({
         <div className=" relative flex pt-[5vh] flex-col space-y-3 justify-center items-center py-[1vh] ">
           <AspectRatio
             id="lyrics"
+            ref={lyricsRef}
             ratio={9 / 16}
             className={`relative shadow-none p-0  m-0 flex items-center justify-center overflow-hidden ${
               round ? "rounded-2xl" : ""
