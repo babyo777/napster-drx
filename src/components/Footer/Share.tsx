@@ -79,12 +79,9 @@ function ShareLyrics({
   const [count, setCount] = useState<number>(0);
   const handleCount = useCallback(() => {
     if (lyrics) {
-      lyrics[count + 1].lyrics.length == 0 &&
-        setCount((prev) => (prev + 2) % lyrics.length);
-
       setCount((prev) => (prev + 1) % lyrics.length);
     }
-  }, [lyrics, count]);
+  }, [lyrics]);
 
   const [blur, setBlur] = useState<boolean>(false);
   const [ShareSong, setShareSong] = useState<boolean>(true);
