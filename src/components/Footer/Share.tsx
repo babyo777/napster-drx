@@ -136,7 +136,6 @@ function ShareLyrics({
             ) : (
               <LazyLoadImage
                 loading="lazy"
-                visibleByDefault
                 crossOrigin="anonymous"
                 src={
                   `${GetImage}${playlist[currentIndex].thumbnailUrl.replace(
@@ -168,7 +167,6 @@ function ShareLyrics({
                       height="100%"
                       alt="Image"
                       loading="lazy"
-                      visibleByDefault
                       className="rounded-xl object-cover h-[100%] w-[100%]"
                     />
                   </div>
@@ -212,7 +210,6 @@ function ShareLyrics({
                           height="100%"
                           alt="Image"
                           loading="lazy"
-                          visibleByDefault
                           className="rounded-lg object-cover h-[100%] w-[100%]"
                         />
                       </AspectRatio>
