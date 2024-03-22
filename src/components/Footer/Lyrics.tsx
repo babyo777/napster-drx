@@ -103,9 +103,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     const query = `${playlist[currentIndex].title
       .replace("(sped up nightcore)", "sped up")
       .replace(/\((?![^)]*Acoustic)[^()]*\)/g, "")
-      .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")} ${
-      playlist[currentIndex].artists[0].name
-    } `;
+      .replace(/\[(?![^\]]*Acoustic)[^\]]*\]/g, "")} ${playlist[
+      currentIndex
+    ].artists[0].name.replace("/", "")} `;
 
     console.log(query.replace(/  +/g, " "));
 
