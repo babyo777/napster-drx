@@ -3,7 +3,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { Blurhash } from "react-blurhash";
 import * as LyricsImage from "html-to-image";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { encode } from "blurhash";
 import { FaInstagram } from "react-icons/fa";
 import { useSelector } from "react-redux";
@@ -21,7 +21,6 @@ function ShareLyrics({
     }
   ];
 }) {
-  const lyricsRef = useRef<HTMLDivElement>(null);
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
@@ -55,26 +54,22 @@ function ShareLyrics({
   );
 
   const shareLyrics = useCallback(async () => {
-    const lyrics = lyricsRef.current;
+    const lyrics = document.getElementById("lyrics");
     if (!lyrics) return;
 
     try {
       const blob = await LyricsImage.toBlob(lyrics);
       if (!blob) return;
 
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = async () => {
-        const file = new File([blob], "share.png", { type: "image/png" });
+      const file = new File([blob], "share.png", { type: "image/png" });
 
-        const filesArray = [file];
-
-        if (navigator.share) {
-          await navigator.share({ files: filesArray });
-        }
-      };
+      if (navigator.share) {
+        await navigator.share({ files: [file] });
+      } else {
+        console.error("Sharing not supported on this platform");
+      }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }, []);
 
@@ -102,7 +97,7 @@ function ShareLyrics({
       <DrawerContent className="h-[100dvh] rounded-none px-[4.5vw]  bg-[#09090b]">
         <div className="flex pt-[5vh] flex-col space-y-3 justify-center items-center py-[1vh] ">
           <AspectRatio
-            ref={lyricsRef}
+            id="lyrics"
             ratio={9 / 16}
             className={`relative flex items-center justify-center overflow-hidden rounded-2xl`}
           >
