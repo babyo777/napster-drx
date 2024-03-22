@@ -3,7 +3,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { Blurhash } from "react-blurhash";
 import { toBlob } from "html-to-image";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { encode } from "blurhash";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
@@ -70,8 +70,9 @@ function ShareLyrics({
 
         const file = new File([blob], "share.png", { type: "image/png" });
 
+        const shareFile = [file];
         await navigator.share({
-          files: [file],
+          files: shareFile,
         });
       });
     } catch (error) {
@@ -88,6 +89,15 @@ function ShareLyrics({
 
   const [blur, setBlur] = useState<boolean>(false);
   const [ShareSong, setShareSong] = useState<boolean>(true);
+
+  useEffect(() => {
+    const lyrics = document.getElementById("lyrics");
+    if (lyrics) {
+      toBlob(lyrics, {
+        cacheBust: true,
+      });
+    }
+  }, [currentIndex]);
 
   const encodeImageToBlurhash = useCallback(
     async (imageUrl: string) => {
