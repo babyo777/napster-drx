@@ -58,13 +58,20 @@ function ShareLyrics({
     if (!lyrics) return;
 
     try {
-      const blob = await LyricsImage.toBlob(lyrics);
+      const blob = await LyricsImage.toBlob(lyrics, {
+        cacheBust: true,
+      });
       if (!blob) return;
 
       const file = new File([blob], "share.png", { type: "image/png" });
 
       if (navigator.share) {
-        await navigator.share({ files: [file] });
+        await navigator.share({
+          url: playlist[currentIndex].thumbnailUrl,
+          title: playlist[currentIndex].title,
+          text: playlist[currentIndex].artists[0]?.name || "unknown",
+          files: [file],
+        });
       } else {
         console.error("Sharing not supported on this platform");
       }
