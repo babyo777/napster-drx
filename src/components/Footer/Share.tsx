@@ -10,6 +10,7 @@ import { RootState } from "@/Store/Store";
 import { GetImage } from "@/API/api";
 import { TbMicrophone2 } from "react-icons/tb";
 import { LiaExchangeAltSolid } from "react-icons/lia";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function ShareLyrics({
   lyrics,
@@ -56,7 +57,7 @@ function ShareLyrics({
   const [round, setRound] = useState<boolean>(true);
   const shareLyrics = useCallback(() => {
     setRound(false);
-    if (!round) return;
+
     const lyrics = document.getElementById("lyrics");
     if (lyrics == null) return;
 
@@ -134,7 +135,9 @@ function ShareLyrics({
                 punch={1}
               />
             ) : (
-              <img
+              <LazyLoadImage
+                loading="lazy"
+                visibleByDefault
                 src={
                   `${GetImage}${playlist[currentIndex].thumbnailUrl.replace(
                     "w120-h120",
@@ -151,7 +154,7 @@ function ShareLyrics({
               {ShareSong ? (
                 <div className=" flex flex-col text-left  space-y-2  bg-black/30  py-3 px-3 pt-4">
                   <div className="overflow-hidden flex h-[15.5rem] w-[15.5rem]">
-                    <img
+                    <LazyLoadImage
                       src={
                         `${GetImage}${playlist[
                           currentIndex
@@ -162,6 +165,7 @@ function ShareLyrics({
                       height="100%"
                       alt="Image"
                       loading="lazy"
+                      visibleByDefault
                       className="rounded-xl object-cover h-[100%] w-[100%]"
                     />
                   </div>
@@ -190,7 +194,7 @@ function ShareLyrics({
                   <div className=" flex  space-x-2 items-center bg-black/30 py-3 px-3">
                     <div className="overflow-hidden flex h-[3.3rem] w-[3.3rem]">
                       <AspectRatio ratio={1 / 1}>
-                        <img
+                        <LazyLoadImage
                           src={
                             `${GetImage}${playlist[
                               currentIndex
@@ -203,6 +207,7 @@ function ShareLyrics({
                           height="100%"
                           alt="Image"
                           loading="lazy"
+                          visibleByDefault
                           className="rounded-lg object-cover h-[100%] w-[100%]"
                         />
                       </AspectRatio>
