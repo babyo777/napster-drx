@@ -7,7 +7,6 @@ import { useCallback, useState } from "react";
 import { encode } from "blurhash";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
-import { GetImage } from "@/API/api";
 import { TbMicrophone2 } from "react-icons/tb";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -236,10 +235,10 @@ function ShareLyrics({
             <div
               onClick={() =>
                 encodeImageToBlurhash(
-                  `${GetImage}${playlist[currentIndex].thumbnailUrl.replace(
+                  playlist[currentIndex].thumbnailUrl.replace(
                     "w120-h120",
                     "w1080-h1080"
-                  )}`
+                  )
                 )
               }
               className=" flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
