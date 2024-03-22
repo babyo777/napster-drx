@@ -3,7 +3,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { Blurhash } from "react-blurhash";
 import { toBlob } from "html-to-image";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { encode } from "blurhash";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
@@ -55,19 +55,15 @@ function ShareLyrics({
     "L56bv5}iVBV|-LrnN$WB0rIT$_pK"
   );
 
-  const lyricsRef = useRef(null);
-
   const [round, setRound] = useState<boolean>(true);
   const shareLyrics = useCallback(() => {
     setRound(false);
 
-    const lyrics = lyricsRef.current;
+    const lyrics = document.getElementById("lyrics");
     if (lyrics == null) return;
 
     try {
-      toBlob(lyrics, {
-        cacheBust: true,
-      }).then(async (blob) => {
+      toBlob(lyrics).then(async (blob) => {
         if (!blob) return;
 
         const file = new File([blob], "share.png", { type: "image/png" });
@@ -121,7 +117,6 @@ function ShareLyrics({
         <div className="flex pt-[5vh] flex-col space-y-3 justify-center items-center py-[1vh] ">
           <AspectRatio
             id="lyrics"
-            ref={lyricsRef}
             ratio={9 / 16}
             className={`relative flex items-center justify-center overflow-hidden ${
               round ? "rounded-2xl" : ""
@@ -141,10 +136,10 @@ function ShareLyrics({
                 loading="lazy"
                 crossOrigin="anonymous"
                 src={
-                  `${GetImage}${playlist[currentIndex].thumbnailUrl.replace(
+                  playlist[currentIndex].thumbnailUrl.replace(
                     "w120-h120",
                     "w1080-h1080"
-                  )}` || "./favicon.jpeg"
+                  ) || "./favicon.jpeg"
                 }
                 width="100%"
                 effect="blur"
@@ -160,10 +155,10 @@ function ShareLyrics({
                     <LazyLoadImage
                       crossOrigin="anonymous"
                       src={
-                        `${GetImage}${playlist[
-                          currentIndex
-                        ].thumbnailUrl.replace("w120-h120", "w1080-h1080")}` ||
-                        "/favicon.jpeg"
+                        playlist[currentIndex].thumbnailUrl.replace(
+                          "w120-h120",
+                          "w1080-h1080"
+                        ) || "/favicon.jpeg"
                       }
                       width="100%"
                       effect="blur"
@@ -201,12 +196,10 @@ function ShareLyrics({
                         <LazyLoadImage
                           crossOrigin="anonymous"
                           src={
-                            `${GetImage}${playlist[
-                              currentIndex
-                            ].thumbnailUrl.replace(
+                            playlist[currentIndex].thumbnailUrl.replace(
                               "w120-h120",
                               "w1080-h1080"
-                            )}` || "/favicon.jpeg"
+                            ) || "/favicon.jpeg"
                           }
                           width="100%"
                           effect="blur"
