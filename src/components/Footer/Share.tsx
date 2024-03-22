@@ -53,7 +53,9 @@ function ShareLyrics({
     "L56bv5}iVBV|-LrnN$WB0rIT$_pK"
   );
 
+  const [round, setRound] = useState<boolean>(true);
   const shareLyrics = useCallback(async () => {
+    setRound(false);
     const lyrics = document.getElementById("lyrics");
     if (!lyrics) return;
 
@@ -69,7 +71,9 @@ function ShareLyrics({
       await navigator.share({
         files: [file],
       });
+      setRound(true);
     } catch (error) {
+      setRound(true);
       console.error(error);
     }
   }, []);
@@ -105,7 +109,9 @@ function ShareLyrics({
           <AspectRatio
             id="lyrics"
             ratio={9 / 16}
-            className={`relative flex items-center justify-center overflow-hidden rounded-xl`}
+            className={`relative flex items-center justify-center overflow-hidden ${
+              round ? "rounded-2xl" : ""
+            }`}
           >
             {blur ? (
               <Blurhash
