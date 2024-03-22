@@ -78,7 +78,7 @@ function ShareLyrics({
       setRound(true);
       console.error(error);
     }
-  }, [round]);
+  }, []);
 
   const [count, setCount] = useState<number>(0);
   const handleCount = useCallback(() => {
