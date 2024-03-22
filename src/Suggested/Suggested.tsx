@@ -7,15 +7,9 @@ import { useDispatch } from "react-redux";
 import { setPlaylist } from "@/Store/Player";
 function Suggested() {
   const dispatch = useDispatch();
-  const currentIndex = useSelector(
-    (state: RootState) => state.musicReducer.currentIndex
-  );
 
   const PlaylistOrAlbum = useSelector(
     (state: RootState) => state.musicReducer.PlaylistOrAlbum
-  );
-  const playlist = useSelector(
-    (state: RootState) => state.musicReducer.playlist
   );
 
   const data = useSelector((state: RootState) => state.musicReducer.playlist);
@@ -60,22 +54,6 @@ function Suggested() {
           </div>
         </div>
         <div className="py-3 pt-14 pb-[8.5rem]">
-          <p className=" font-semibold text-xl mb-1">Now Playing</p>
-          {playlist[currentIndex] && (
-            <UpNextSongs
-              current={true}
-              p={"suggested"}
-              where="suggested"
-              artistId={playlist[currentIndex].artists[0]?.id}
-              audio={playlist[currentIndex].youtubeId}
-              key={playlist[currentIndex].youtubeId + currentIndex}
-              id={currentIndex}
-              album={PlaylistOrAlbum == "album" && true}
-              title={playlist[currentIndex].title}
-              artist={playlist[currentIndex].artists[0]?.name}
-              cover={playlist[currentIndex].thumbnailUrl}
-            />
-          )}
           <DragDropContext onDragEnd={handleDragDrop}>
             <p className=" font-semibold text-xl mb-1">Up next</p>
 

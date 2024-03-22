@@ -64,6 +64,7 @@ function UpNextSongs({
   const playlist = useSelector(
     (state: RootState) => state.musicReducer.playlist
   );
+  const queue = useSelector((state: RootState) => state.musicReducer.queue);
   const music = useSelector((state: RootState) => state.musicReducer.music);
 
   const handlePlayer = useCallback(() => {
@@ -130,7 +131,7 @@ function UpNextSongs({
         <p
           onClick={handlePlay}
           className={`w-[60dvw]   ${
-            playlist[currentIndex]?.youtubeId == audio && "text-red-500"
+            queue[currentIndex]?.youtubeId == audio && "text-red-500"
           }  truncate capitalize`}
         >
           {title.replace("______________________________________", "untitled")}

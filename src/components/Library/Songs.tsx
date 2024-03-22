@@ -107,7 +107,7 @@ function Songs({
           <AspectRatio ratio={1 / 1}>
             <LazyLoadImage
               onClick={handlePlay}
-              src={cover || "./favicon.jpeg"}
+              src={cover}
               width="100%"
               height="100%"
               effect="blur"
