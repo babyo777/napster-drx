@@ -68,10 +68,10 @@ function ShareLyrics({
 
       const file = new File([blob], "share.png", { type: "image/png" });
 
+      setRound(true);
       await navigator.share({
         files: [file],
       });
-      setRound(true);
     } catch (error) {
       setRound(true);
       console.error(error);
