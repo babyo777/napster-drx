@@ -170,14 +170,14 @@ function ShareLyrics({
                     />
                   </div>
                   <div className=" break-words ">
-                    <p className="text-lg  font-bold mt-0.5 break-words max-w-[59vw]">
+                    <p className="text-lg  leading-[1.4rem] font-bold mt-0.5 break-words max-w-[59vw]">
                       {playlist[currentIndex]?.title}
                     </p>
-                    <p className=" -mt-1 text-base font-semibold break-words max-w-[55vw]">
+                    <p className=" mt-0.5 text-base font-semibold break-words max-w-[55vw]">
                       {playlist[currentIndex]?.artists[0]?.name}
                     </p>
                     <p className=" text-sm mt-1 text-zinc-300/80 font-semibold break-words max-w-[55vw]">
-                      NapsterDrx
+                      Napster
                     </p>
                   </div>
                 </div>
