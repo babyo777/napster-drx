@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import Options from "./Options";
 import axios from "axios";
-import { GetImage, GetLyrics } from "@/API/api";
+import { GetLyrics } from "@/API/api";
 import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -204,7 +204,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                 height="100%"
                 width="100%"
                 src={
-                  `${GetImage}${playlist[currentIndex].thumbnailUrl}` ||
+                  playlist[currentIndex].thumbnailUrl ||
                   "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg"
                 }
                 alt="Image"

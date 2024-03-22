@@ -23,7 +23,6 @@ import {
 } from "react-query";
 import { Link } from "react-router-dom";
 import SongsOptions from "./SongsOptions";
-import { GetImage } from "@/API/api";
 
 function Songs({
   title,
@@ -108,7 +107,7 @@ function Songs({
           <AspectRatio ratio={1 / 1}>
             <LazyLoadImage
               onClick={handlePlay}
-              src={`${GetImage}${cover}`}
+              src={cover || "./favicon.jpeg"}
               width="100%"
               height="100%"
               effect="blur"

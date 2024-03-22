@@ -3,7 +3,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { Blurhash } from "react-blurhash";
 import * as LyricsImage from "html-to-image";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { encode } from "blurhash";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaInstagram } from "react-icons/fa";
@@ -54,18 +54,6 @@ function ShareLyrics({
     "L56bv5}iVBV|-LrnN$WB0rIT$_pK"
   );
 
-  const encodeImageToBlurhash = async (imageUrl: string) => {
-    console.log(imageUrl);
-
-    const image = await loadImage(imageUrl);
-    const imageData = getImageData(image as unknown as HTMLImageElement);
-    if (imageData) {
-      return setBlurHash(
-        encode(imageData.data, imageData.width, imageData.height, 4, 4)
-      );
-    }
-  };
-
   const shareLyrics = useCallback(() => {
     const lyrics = lyricsRef.current;
     if (lyrics) {
@@ -84,16 +72,25 @@ function ShareLyrics({
       });
     }
   }, []);
+
+  useEffect(() => {
+    const encodeImageToBlurhash = async (imageUrl: string) => {
+      console.log(imageUrl);
+
+      const image = await loadImage(imageUrl);
+      const imageData = getImageData(image as unknown as HTMLImageElement);
+      if (imageData) {
+        return setBlurHash(
+          encode(imageData.data, imageData.width, imageData.height, 4, 4)
+        );
+      }
+    };
+
+    encodeImageToBlurhash(`${GetImage}${playlist[currentIndex].thumbnailUrl}`);
+  }, [getImageData, loadImage, playlist, currentIndex]);
   return (
     <Drawer>
-      <DrawerTrigger
-        onClick={() =>
-          encodeImageToBlurhash(
-            `${GetImage}${playlist[currentIndex].thumbnailUrl}`
-          )
-        }
-        className="m-0 p-1.5 flex  justify-center items-center bg-zinc-900 rounded-full"
-      >
+      <DrawerTrigger className="m-0 p-1.5 flex  justify-center items-center bg-zinc-900 rounded-full">
         <IoShareOutline className="h-6 w-6 text-white" />
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] rounded-none px-[4.5vw]  bg-[#09090b]">
