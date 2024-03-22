@@ -3,13 +3,14 @@ import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { Blurhash } from "react-blurhash";
 import * as LyricsImage from "html-to-image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { encode } from "blurhash";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaInstagram } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { GetImage } from "@/API/api";
+import { MdOutlineBlurCircular } from "react-icons/md";
 
 function ShareLyrics({
   lyrics,
@@ -70,19 +71,23 @@ function ShareLyrics({
       console.log(error);
     }
   }, []);
-  useEffect(() => {
-    const encodeImageToBlurhash = async (imageUrl: string) => {
+
+  const [blur, setBlur] = useState<boolean>(false);
+
+  const encodeImageToBlurhash = useCallback(
+    async (imageUrl: string) => {
       const image = await loadImage(imageUrl);
       const imageData = getImageData(image as unknown as HTMLImageElement);
       if (imageData) {
+        setBlur((prev) => !prev);
         return setBlurHash(
           encode(imageData.data, imageData.width, imageData.height, 4, 4)
         );
       }
-    };
+    },
+    [getImageData, loadImage]
+  );
 
-    encodeImageToBlurhash(`${GetImage}${playlist[currentIndex].thumbnailUrl}`);
-  }, [getImageData, loadImage, playlist, currentIndex]);
   return (
     <Drawer>
       <DrawerTrigger className="m-0 p-1.5 flex  justify-center items-center bg-zinc-900 rounded-full">
@@ -93,17 +98,28 @@ function ShareLyrics({
           <AspectRatio
             ref={lyricsRef}
             ratio={9 / 16}
-            className=" relative flex items-center justify-center overflow-hidden rounded-2xl"
+            className={`relative flex items-center justify-center overflow-hidden rounded-2xl`}
           >
-            <Blurhash
-              hash={blurHash}
-              width={"100%"}
-              height={"100%"}
-              resolutionX={32}
-              resolutionY={32}
-              punch={1}
-            />
-
+            {blur ? (
+              <Blurhash
+                hash={blurHash}
+                width={"100%"}
+                height={"100%"}
+                resolutionX={32}
+                resolutionY={32}
+                punch={1}
+              />
+            ) : (
+              <LazyLoadImage
+                src={playlist[currentIndex].thumbnailUrl || "./favicon.jpeg"}
+                width="100%"
+                height="100%"
+                effect="blur"
+                alt="Image"
+                loading="lazy"
+                className="rounded-md blur-[1.5px] object-cover h-[100%] w-[100%]"
+              />
+            )}
             <div className=" absolute text-zinc-100  overflow-hidden rounded-2xl font-semibold backdrop-blur-lg">
               {lyrics && (
                 <div className="break-words bg-black/25 text-2xl px-4 py-2  max-w-[77vw] text-left">
@@ -140,12 +156,25 @@ function ShareLyrics({
           </AspectRatio>
         </div>
         <div className=" flex justify-center items-center pt-[1vh]">
-          <div
-            onClick={shareLyrics}
-            className=" flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
-          >
-            <FaInstagram className=" h-6 w-6" />
-            <p>Share on instagram</p>
+          <div className="flex space-x-[1vw]">
+            <div
+              onClick={shareLyrics}
+              className=" flex items-center px-4 py-2 bg-zinc-800 text-zinc-300 rounded-xl space-x-1.5"
+            >
+              <FaInstagram className=" h-6 w-6" />
+              <p>Share</p>
+            </div>
+            <div
+              onClick={() =>
+                encodeImageToBlurhash(
+                  `${GetImage}${playlist[currentIndex].thumbnailUrl}`
+                )
+              }
+              className=" flex items-center px-2.5 py-2 bg-zinc-800 text-zinc-300 rounded-xl space-x-1.5"
+            >
+              <MdOutlineBlurCircular className=" h-6 w-6" />
+              <p>Change</p>
+            </div>
           </div>
         </div>
       </DrawerContent>
