@@ -67,7 +67,8 @@ function ShareLyrics({
         await navigator.share({ files: [file] });
       }
     } catch (error) {
-      console.error("Error sharing lyrics:", error);
+      //@ts-expect-error:error
+      alert("Error sharing lyrics:", error.message);
     }
   }, []);
   useEffect(() => {
