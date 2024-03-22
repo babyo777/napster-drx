@@ -64,11 +64,11 @@ function ShareLyrics({
         cacheBust: true,
       });
 
+      setRound(true);
       if (!blob) return;
 
       const file = new File([blob], "share.png", { type: "image/png" });
 
-      setRound(true);
       await navigator.share({
         files: [file],
       });

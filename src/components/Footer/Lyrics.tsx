@@ -189,6 +189,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     (t) => {
       if (music) {
         music.currentTime = parseFloat(t.currentTarget.dataset.time || "0");
+        if (music.paused) {
+          music.play();
+        }
       }
     },
     [music]
