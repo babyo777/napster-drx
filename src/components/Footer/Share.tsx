@@ -2,7 +2,7 @@ import { IoShareOutline } from "react-icons/io5";
 import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { Blurhash } from "react-blurhash";
-import * as LyricsImage from "html-to-image";
+import { toBlob } from "html-to-image";
 import { useCallback, useState } from "react";
 import { encode } from "blurhash";
 import { useSelector } from "react-redux";
@@ -54,23 +54,23 @@ function ShareLyrics({
   );
 
   const [round, setRound] = useState<boolean>(true);
-  const shareLyrics = useCallback(async () => {
+  const shareLyrics = useCallback(() => {
     setRound(false);
     if (!round) return;
     const lyrics = document.getElementById("lyrics");
-    if (!lyrics) return;
+    if (lyrics == null) return;
 
     try {
-      const blob = await LyricsImage.toBlob(lyrics, {
+      toBlob(lyrics, {
         cacheBust: true,
-      });
+      }).then(async (blob) => {
+        if (!blob) return;
 
-      if (!blob) return;
+        const file = new File([blob], "share.png", { type: "image/png" });
 
-      const file = new File([blob], "share.png", { type: "image/png" });
-
-      await navigator.share({
-        files: [file],
+        await navigator.share({
+          files: [file],
+        });
       });
       setRound(true);
     } catch (error) {
@@ -136,10 +136,10 @@ function ShareLyrics({
             ) : (
               <img
                 src={
-                  playlist[currentIndex].thumbnailUrl.replace(
+                  `${GetImage}${playlist[currentIndex].thumbnailUrl.replace(
                     "w120-h120",
                     "w1080-h1080"
-                  ) || "./favicon.jpeg"
+                  )}` || "./favicon.jpeg"
                 }
                 width="100%"
                 height="100%"
@@ -153,10 +153,10 @@ function ShareLyrics({
                   <div className="overflow-hidden flex h-[15.5rem] w-[15.5rem]">
                     <img
                       src={
-                        playlist[currentIndex].thumbnailUrl.replace(
-                          "w120-h120",
-                          "w1080-h1080"
-                        ) || "/favicon.jpeg"
+                        `${GetImage}${playlist[
+                          currentIndex
+                        ].thumbnailUrl.replace("w120-h120", "w1080-h1080")}` ||
+                        "/favicon.jpeg"
                       }
                       width="100%"
                       height="100%"
@@ -166,10 +166,10 @@ function ShareLyrics({
                     />
                   </div>
                   <div className=" break-words ">
-                    <p className="text-lg font-bold mt-0.5 break-words max-w-[59vw]">
+                    <p className="text-lg  font-bold mt-0.5 break-words max-w-[59vw]">
                       {playlist[currentIndex]?.title}
                     </p>
-                    <p className=" text-base font-semibold break-words max-w-[55vw]">
+                    <p className=" -mt-1 text-base font-semibold break-words max-w-[55vw]">
                       {playlist[currentIndex]?.artists[0].name}
                     </p>
                     <p className=" text-sm mt-1 text-zinc-300/80 font-semibold break-words max-w-[55vw]">
@@ -189,8 +189,12 @@ function ShareLyrics({
                       <AspectRatio ratio={1 / 1}>
                         <img
                           src={
-                            playlist[currentIndex].thumbnailUrl ||
-                            "/favicon.jpeg"
+                            `${GetImage}${playlist[
+                              currentIndex
+                            ].thumbnailUrl.replace(
+                              "w120-h120",
+                              "w1080-h1080"
+                            )}` || "/favicon.jpeg"
                           }
                           width="100%"
                           height="100%"
