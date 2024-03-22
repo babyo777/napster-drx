@@ -59,11 +59,6 @@ function ShareLyrics({
     if (!lyrics) return;
 
     try {
-      const blob = await LyricsImage.toBlob(lyrics);
-
-      const blobO = await LyricsImage.toBlob(lyrics);
-      if (blob && blobO) console.log("ok");
-
       const blobT = await LyricsImage.toBlob(lyrics);
       if (!blobT) return;
 
