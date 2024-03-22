@@ -5,7 +5,6 @@ import { Blurhash } from "react-blurhash";
 import * as LyricsImage from "html-to-image";
 import { useCallback, useRef, useState } from "react";
 import { encode } from "blurhash";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaInstagram } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
