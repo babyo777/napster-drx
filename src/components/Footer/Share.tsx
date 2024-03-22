@@ -247,12 +247,12 @@ function ShareLyrics({
           </AspectRatio>
         </div>
         <div className=" flex justify-center items-center pt-[1vh]">
-          <div className="flex space-x-[1.5vw] text-xs">
+          <div className="flex space-x-[3vw] text-xs">
             <Button
               variant={"secondary"}
               onClick={shareLyrics}
               id="share"
-              className="  flex items-center px-4 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
+              className=" text-xs flex items-center px-4 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
             >
               <IoShareOutline className=" h-6 w-6" />
               <p>Share</p>
@@ -267,7 +267,7 @@ function ShareLyrics({
                   )}`
                 )
               }
-              className=" flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
+              className=" text-xs flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
             >
               <LiaExchangeAltSolid className=" h-6 w-6" />
               <p>Change BG</p>
@@ -276,7 +276,7 @@ function ShareLyrics({
               <Button
                 variant={"secondary"}
                 onClick={handleShareSong}
-                className=" fade-in flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
+                className="text-xs fade-in flex items-center px-2.5 py-2 bg-zinc-900 text-zinc-300 rounded-xl space-x-1.5"
               >
                 <TbMicrophone2 className=" h-6 w-6" />
                 <p>Show {ShareSong ? "Lyrics" : "Music"}</p>
