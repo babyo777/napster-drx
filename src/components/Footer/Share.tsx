@@ -118,8 +118,7 @@ function ShareLyrics({
                   <AspectRatio ratio={1 / 1}>
                     <LazyLoadImage
                       src={
-                        `${GetImage}${playlist[currentIndex].thumbnailUrl}` ||
-                        "/favicon.jpeg"
+                        playlist[currentIndex].thumbnailUrl || "/favicon.jpeg"
                       }
                       width="100%"
                       height="100%"
