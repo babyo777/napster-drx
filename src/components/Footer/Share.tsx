@@ -61,13 +61,7 @@ function ShareLyrics({
       const blob = await LyricsImage.toBlob(lyrics, {
         cacheBust: true,
       });
-      const bloB = await LyricsImage.toBlob(lyrics, {
-        cacheBust: true,
-      });
-      const bloX = await LyricsImage.toBlob(lyrics, {
-        cacheBust: true,
-      });
-      bloB && bloX;
+
       if (!blob) return;
 
       const file = new File([blob], "share.png", { type: "image/png" });
