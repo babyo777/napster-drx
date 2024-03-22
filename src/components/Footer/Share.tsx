@@ -62,13 +62,17 @@ function ShareLyrics({
       const blob = await LyricsImage.toBlob(lyrics);
       if (!blob) return;
 
-      const file = new File([blob], "demo.png", { type: "image/png" });
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = async () => {
+        const file = new File([blob], "share.png", { type: "image/png" });
 
-      const filesArray = [file];
+        const filesArray = [file];
 
-      if (navigator.share) {
-        await navigator.share({ files: filesArray });
-      }
+        if (navigator.share) {
+          await navigator.share({ files: filesArray });
+        }
+      };
     } catch (error) {
       console.log(error);
     }
