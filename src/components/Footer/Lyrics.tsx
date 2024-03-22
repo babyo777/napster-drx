@@ -147,7 +147,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       refetchOnWindowFocus: false,
       staleTime: 60 * 6000,
       refetchOnMount: false,
-      retry: 5,
     }
   );
 
@@ -301,7 +300,9 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                 </div>
               ) : (
                 <div className="flex h-[77dvh] justify-center items-center">
-                  <p className="text-2xl fade-in">Lyrics not Found</p>
+                  <p className="text-2xl fade-in break-words">
+                    You'll have to guess the lyrics for this one.
+                  </p>
                 </div>
               )}
             </>
