@@ -68,7 +68,6 @@ function ShareLyrics({
       if (navigator.share) {
         await navigator.share({
           title: playlist[currentIndex].title,
-          text: playlist[currentIndex].artists[0]?.name || "unknown",
           files: [file],
         });
       } else {
