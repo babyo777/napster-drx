@@ -408,7 +408,7 @@ function AudioPLayerComp() {
                       className={`object-fit shadow-lg transition-all duration-500 rounded-2xl ${
                         music && !music.paused
                           ? "w-[90vw] h-[44dvh]"
-                          : "w-[70vw] h-[33dvh]"
+                          : "w-[75vw] h-[35dvh]"
                       }`}
                     />
                   </div>
