@@ -264,7 +264,7 @@ function LibraryComp() {
       )}
       {data && (
         <>
-          <div className="flex w-screen h-[25rem] pt-[5vh] justify-center  relative ">
+          <div className="flex w-screen h-[25rem] pt-[5.3vh] justify-center  relative ">
             <GoBack />
 
             <div className="absolute top-4 z-10 right-3  flex-col space-y-0.5">
