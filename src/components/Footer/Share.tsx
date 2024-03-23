@@ -205,9 +205,8 @@ function ShareLyrics({
                   className="flex flex-col justify-center"
                 >
                   {lyrics && lyrics[count].lyrics.length > 0 && (
-                    <div className="break-words bg-black/25 text-2xl px-4 py-2 min-w-[77vw]  max-w-[77vw] text-left font-bold">
+                    <div className="break-words bg-black/25 text-2xl px-4 py-2 min-w-[77vw]  max-w-[77vw] text-left font-bold space-y-[1vh]">
                       <p>{lyrics[count].lyrics}</p>
-                      <div className="py-1"></div>
                       <p>{lyrics[count + 1].lyrics}</p>
                     </div>
                   )}
