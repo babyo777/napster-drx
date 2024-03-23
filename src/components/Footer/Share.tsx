@@ -151,7 +151,7 @@ function ShareLyrics({
                 punch={1}
               />
             ) : (
-              <LazyLoadImage
+              <img
                 loading="lazy"
                 src={
                   playlist[currentIndex].thumbnailUrl.replace(
@@ -160,8 +160,6 @@ function ShareLyrics({
                   ) || "./favicon.jpeg"
                 }
                 width="100%"
-                effect="blur"
-                visibleByDefault
                 height="100%"
                 alt="Image"
                 className="blur-[1.3px] rounded-none shadow-none object-cover h-[100%] w-[100%]"
