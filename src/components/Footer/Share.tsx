@@ -66,25 +66,24 @@ function ShareLyrics({
     if (lyrics == null) return;
 
     try {
-      //   await toBlob(lyrics, {
-      //     cacheBust: true,
-      //   });
-      //   await toBlob(lyrics, {
-      //     cacheBust: true,
-      //   });
-      toBlob(lyrics, {
+      await toBlob(lyrics, {
         cacheBust: true,
-      }).then(async (blob) => {
-        if (!blob) return;
-        setRound(true);
+      });
+      await toBlob(lyrics, {
+        cacheBust: true,
+      });
+      const blob = await toBlob(lyrics, {
+        cacheBust: true,
+      });
+      if (!blob) return;
+      setRound(true);
 
-        const file = new File([blob], "share.png", { type: "image/png" });
+      const file = new File([blob], "share.png", { type: "image/png" });
 
-        const shareFile = [file];
+      const shareFile = [file];
 
-        await navigator.share({
-          files: shareFile,
-        });
+      await navigator.share({
+        files: shareFile,
       });
     } catch (error) {
       setRound(true);
