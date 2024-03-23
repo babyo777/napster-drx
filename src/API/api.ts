@@ -5,7 +5,13 @@ const STREAM = [
   "https://unconscious-elianora-babyo7.koyeb.app/?url=",
   "https://occasional-clara-babyo777.koyeb.app/?url=",
 ];
+const DOWNLOAD = [
+  "https://exotic-cloe-babyo77.koyeb.app/download?url=",
+  "https://unconscious-elianora-babyo7.koyeb.app/download?url=",
+  "https://occasional-clara-babyo777.koyeb.app/download?url=",
+];
 const streamApi = STREAM[Math.floor(Math.random() * STREAM.length)];
+const downloadApi = DOWNLOAD[Math.floor(Math.random() * STREAM.length)];
 
 const isPlaylist = `${mainApi}/is/p?l=`;
 
@@ -49,6 +55,7 @@ export {
   SearchArtist,
   GetArtistDetails,
   SearchAlbum,
+  downloadApi,
   getPlaylistDetails,
   GetAlbumSongs,
 };

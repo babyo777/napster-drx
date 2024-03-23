@@ -24,7 +24,7 @@ import { Query } from "appwrite";
 import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
 import { LiaDownloadSolid } from "react-icons/lia";
-import { streamApi } from "@/API/api";
+import { downloadApi } from "@/API/api";
 
 function Options({ music, id }: { id?: string; music: playlistSongs }) {
   const handleAdd = useCallback(
@@ -101,7 +101,7 @@ function Options({ music, id }: { id?: string; music: playlistSongs }) {
     const link = document.createElement("a");
     link.style.display = "none";
     link.target = "_blank";
-    link.href = `${streamApi}${music.youtubeId}&file=${music.title}`;
+    link.href = `${downloadApi}${music.youtubeId}&file=${music.title}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
