@@ -110,7 +110,7 @@ function ShareLyrics({
         setBlur((prev) => !prev);
         setRound(true);
         return setBlurHash(
-          encode(imageData.data, imageData.width, imageData.height, 4, 4)
+          encode(imageData.data, imageData.width, imageData.height, 2, 3)
         );
       }
     },
