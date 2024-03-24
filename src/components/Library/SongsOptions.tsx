@@ -15,7 +15,7 @@ import { playlistSongs, savedPlaylist } from "@/Interface";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaylist } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
-import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoAddSharp } from "react-icons/io5";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -164,7 +164,7 @@ function SongsOptions({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="m-0 p-0">
-        <BiDotsHorizontalRounded className="h-6 w-6 text-white" />
+        <HiOutlineDotsHorizontal className="h-6 w-6 text-zinc-400" />
         {!underline && (
           <div className="h-[.05rem] w-[8vw] bg-zinc-300/10 mt-[1.1rem] -ml-2"></div>
         )}

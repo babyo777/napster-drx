@@ -14,9 +14,9 @@ import {
   PLAYLIST_COLLECTION_ID,
   db,
 } from "@/appwrite/appwriteConfig";
-import { IoRemoveCircleOutline } from "react-icons/io5";
 import { useQueryClient } from "react-query";
 import { savedPlaylist } from "@/Interface";
+import { RxCross2 } from "react-icons/rx";
 
 const EditInfo: React.FC<{ id: string; f: string; collection?: string }> = ({
   id,
@@ -42,7 +42,7 @@ const EditInfo: React.FC<{ id: string; f: string; collection?: string }> = ({
   return (
     <Dialog>
       <DialogTrigger className="flex w-full items-center justify-end space-x-2">
-        <IoRemoveCircleOutline className="h-6 w-6 text-zinc-400" />
+        <RxCross2 className="h-6 w-6 text-zinc-500" />
       </DialogTrigger>
       <DialogContent className="items-center rounded-2xl flex flex-col w-[60vw]">
         <DialogHeader>

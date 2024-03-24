@@ -304,7 +304,7 @@ function LibraryComp() {
               )}
               {!id?.startsWith("custom") && <Share />}
             </div>
-            <div className="h-[60vw] w-[60vw]">
+            <div className="h-[28vh] w-[60vw]">
               <LazyLoadImage
                 effect="blur"
                 width="100%"
