@@ -63,7 +63,7 @@ function Suggested() {
       sensors={sensors}
       onDragEnd={handleDRagEND}
     >
-      <div className="flex flex-col items-center">
+      <div className="flex fade-in flex-col items-center">
         <>
           <div className="flex w-full z-10 fixed h-[3rem]  ">
             <GoBack />
