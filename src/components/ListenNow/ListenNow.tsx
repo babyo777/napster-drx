@@ -162,14 +162,15 @@ export function ListenNowComp() {
           </div>
         </>
       )}
+      {suggested && suggested.length > 0 && (
+        <NapsterSuggested data={suggested} />
+      )}
       {chart && artist && suggested && (
         <>
           <div className="pb-[18vh]">
-            <Charts data={chart} />
             <Artist data={artist} />
-            {suggested && suggested.length > 0 && (
-              <NapsterSuggested data={suggested} />
-            )}
+            <Charts data={chart} />
+
             <NewCharts data={chart} />
           </div>
         </>
