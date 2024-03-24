@@ -8,7 +8,7 @@ import { BiLibrary } from "react-icons/bi";
 import React from "react";
 function TabsComp() {
   return (
-    <div className="fixed fade-in w-screen ml-[1vw] right-0 left-0 bottom-0 flex flex-col justify-center items-center">
+    <div className="fixed fade-in w-screen right-0 left-0 bottom-0 flex flex-col justify-center items-center">
       <Player />
       <nav className="py-3 pb-6 pt-5 backdrop-blur-md bg-zinc-950/85 w-full">
         <ul className="flex items-center text-zinc-500 space-x-14 justify-center">

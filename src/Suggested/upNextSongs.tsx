@@ -20,7 +20,8 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { PiTextAlignJustify } from "react-icons/pi";
 import { FaPause } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
-
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 function UpNextSongs({
   title,
   artist,
@@ -35,7 +36,6 @@ function UpNextSongs({
   where,
   link = true,
   album,
-  current,
 }: {
   forId?: string;
 
@@ -51,7 +51,6 @@ function UpNextSongs({
   title: string;
   artist: string;
   cover: string;
-  current: boolean;
 }) {
   const dispatch = useDispatch();
   const q = useQueryClient();
@@ -106,13 +105,35 @@ function UpNextSongs({
     if (!isPlaying) dispatch(play(true));
   }, [dispatch, id, q, p, isPlaying, artistId, query, liked, where, playlist]);
 
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transition,
+    transform,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  };
   return (
-    <div id={audio} className="flex fade-in py-2 space-x-2 items-center">
+    <div
+      id={audio}
+      {...attributes}
+      style={style}
+      className={` ${
+        isDragging ? "bg-zinc-900 rounded-md" : ""
+      } flex fade-in py-2 space-x-2  px-1.5 items-center`}
+    >
       {!album ? (
-        <div className="overflow-hidden h-12 w-12 space-y-2">
+        <div
+          onClick={handlePlay}
+          className="overflow-hidden h-12 w-12 space-y-2"
+        >
           <AspectRatio ratio={1 / 1}>
             <LazyLoadImage
-              onClick={handlePlay}
               src={cover}
               width="100%"
               height="100%"
@@ -127,9 +148,11 @@ function UpNextSongs({
         <p className="flex  text-xl font-semibold w-[7vw]">{id + 1}</p>
       )}
 
-      <div className="flex  flex-col pl-1 space-y-0.5 text-start w-[69dvw] ">
+      <div
+        onClick={handlePlay}
+        className="flex  flex-col pl-1 space-y-0.5 text-start w-[69dvw] "
+      >
         <p
-          onClick={handlePlay}
           className={`w-[60dvw]   ${
             queue[currentIndex]?.youtubeId == audio && "text-red-500"
           }  truncate capitalize`}
@@ -143,13 +166,13 @@ function UpNextSongs({
             </p>
           </Link>
         ) : (
-          <p className="-mt-0.5   text-xs  text-zinc-400 w-[40dvw]  truncate">
+          <p className="-mt-0.5 text-xs  text-zinc-400 w-[40dvw]  truncate">
             {artist}
           </p>
         )}
       </div>
       <div>
-        {current ? (
+        {queue[currentIndex]?.youtubeId == audio ? (
           <>
             {isPlaying ? (
               <FaPause
@@ -164,7 +187,9 @@ function UpNextSongs({
             )}
           </>
         ) : (
-          <PiTextAlignJustify className="h-6 w-6" />
+          <div ref={setNodeRef} {...listeners}>
+            <PiTextAlignJustify className=" touch-none h-6 w-6" />
+          </div>
         )}
       </div>
     </div>
