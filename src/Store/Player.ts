@@ -14,6 +14,7 @@ interface Player {
   currentPlaying: playlistSongs | null;
   currentSongId: string;
   currentToggle: string;
+  searchToggle: string;
   PlaylistOrAlbum: string;
   progress: number | "--:--";
   duration: number | "--:--";
@@ -38,6 +39,7 @@ const initialState: Player = {
   duration: "--:--",
   isLoop: false,
   currentToggle: "Playlists",
+  searchToggle: "Music",
   playlistUrl: "",
   isLoading: false,
   queue: [],
@@ -89,6 +91,9 @@ const MusicPlayer = createSlice({
     },
     setCurrentToggle: (state, action: PayloadAction<string>) => {
       state.currentToggle = action.payload;
+    },
+    setSearchToggle: (state, action: PayloadAction<string>) => {
+      state.searchToggle = action.payload;
     },
     setPlayingPlaylistUrl: (state, action: PayloadAction<string>) => {
       state.playingPlaylistUrl = action.payload;
@@ -153,6 +158,7 @@ export const {
   SetQueue,
   SetCurrentPlaying,
   setPlayer,
+  setSearchToggle,
   setSearch,
   setPlaylistUrl,
   setSavedPlaylist,
