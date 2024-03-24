@@ -167,7 +167,7 @@ export function ListenNowComp() {
       )}
       {chart && artist && suggested && (
         <>
-          <div className="pb-[18vh]">
+          <div className="pb-[18vh] space-y-5">
             <Artist data={artist} />
             <Charts data={chart} />
 
