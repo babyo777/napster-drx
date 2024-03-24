@@ -136,18 +136,12 @@ export function ListenNowComp() {
       {!chart && !artist && !suggested && (
         <>
           <div className="flex px-4  space-x-4 items-center w-full mt-3">
-            <Skeleton className="w-[40vw] h-4 rounded-md bg-zinc-500" />
+            <Skeleton className="w-[37vw] h-4 rounded-md bg-zinc-500" />
           </div>
           <div className="flex px-4 justify-center space-x-4 items-center w-full mt-5">
-            <Skeleton className="w-[50vw] h-36 rounded-md bg-zinc-500" />
-            <Skeleton className="w-[50vw] h-36 rounded-md bg-zinc-500" />
-          </div>
-          <div className="flex px-4  space-x-4 items-center w-full mt-5">
-            <Skeleton className="w-[24vw] h-4 rounded-md bg-zinc-500" />
-          </div>
-          <div className="flex px-4 justify-center space-x-4 items-center w-full mt-5">
-            <Skeleton className="w-[50vw] h-36 rounded-md bg-zinc-500" />
-            <Skeleton className="w-[50vw] h-36 rounded-md bg-zinc-500" />
+            <Skeleton className="w-[30vw] h-40 rounded-md bg-zinc-500" />
+            <Skeleton className="w-[30vw] h-40 rounded-md bg-zinc-500" />
+            <Skeleton className="w-[30vw] h-40 rounded-md bg-zinc-500" />
           </div>
           <div className="flex px-4  space-x-4 items-center w-full mt-5">
             <Skeleton className="w-[27vw] h-4 rounded-md bg-zinc-500" />
@@ -156,6 +150,15 @@ export function ListenNowComp() {
             <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
             <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
             <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
+            <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
+          </div>
+          <div className="flex px-4  space-x-4 items-center w-full mt-5">
+            <Skeleton className="w-[23vw] h-4 rounded-md bg-zinc-500" />
+          </div>
+          <div className="flex px-4 justify-center space-x-4 items-center w-full mt-5">
+            <Skeleton className="w-[50vw] h-28 rounded-md bg-zinc-500" />
+            <Skeleton className="w-[50vw] h-28 rounded-md bg-zinc-500" />
+            <Skeleton className="w-[50vw] h-28 rounded-md bg-zinc-500" />
           </div>
         </>
       )}
