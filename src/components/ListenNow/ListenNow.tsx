@@ -164,10 +164,11 @@ export function ListenNowComp() {
           {suggested && suggested.length > 0 && (
             <NapsterSuggested data={suggested} />
           )}
-
-          <Charts data={chart} />
-          <NewCharts data={chart} />
-          <Artist data={artist} />
+          <div className="pb-[17vh]">
+            <Artist data={artist} />
+            <Charts data={chart} />
+            <NewCharts data={chart} />
+          </div>
         </>
       )}
     </>

@@ -20,15 +20,15 @@ const NapsterSuggested: React.FC<{ data: homePagePlaylist[] }> = ({ data }) => {
           <div className="flex  space-x-3.5 px-4 overflow-x-auto  pb-2 no-scrollbar ">
             {data.map((p) => (
               <Link to={`/library/${p.url}?cover=${p.image}`} key={p.url}>
-                <div className="flex  fade-in items-center mt-1  relative  ">
-                  <div className=" h-72 w-64">
+                <div className="flex  fade-in  items-center mt-1  relative  ">
+                  <div className=" h-44 w-32">
                     <LazyLoadImage
                       width="100%"
                       height="100%"
                       effect="blur"
                       src={p.image}
                       alt="Image"
-                      className="rounded-lg object-cover h-[100%] w-[100%]"
+                      className="rounded-lg object-cover  h-[100%] w-[100%]"
                     />
                   </div>
                   <div className=" bottom-3 right-2.5  absolute">

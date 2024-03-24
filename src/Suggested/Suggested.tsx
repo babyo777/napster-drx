@@ -46,7 +46,6 @@ function Suggested() {
           const newPos = getId(over.id);
 
           const np = arrayMove(b, or, newPos);
-          console.log(np);
 
           dispatch(setPlaylist(np));
         }
