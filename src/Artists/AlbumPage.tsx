@@ -1,5 +1,4 @@
 import { FaPlay } from "react-icons/fa6";
-import { IoReload } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -176,12 +175,6 @@ function AlbumPageComp() {
           <div className="flex w-screen h-[25rem] justify-center pt-[5.3vh] relative ">
             <GoBack />
             <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
-              <div className="">
-                <IoReload
-                  onClick={() => refetch()}
-                  className="h-8 w-8 mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
-                />
-              </div>
               {isSaved && isSaved.length == 0 && (
                 <div className=" ">
                   <AddAlbum
@@ -203,7 +196,7 @@ function AlbumPageComp() {
               )}
               <Share />
             </div>
-            <div className="h-[28vh] w-[60vw]">
+            <div className="h-[28vh] ml-[2.5vw] w-[60vw]">
               <LazyLoadImage
                 effect="blur"
                 width="100%"
@@ -215,7 +208,7 @@ function AlbumPageComp() {
               />
             </div>
             <div className=" absolute bottom-[1.5vh] px-4 left-0  right-0">
-              <h1 className="text-center truncate pb-2   font-semibold py-2 text-2xl capitalize">
+              <h1 className="text-center truncate pb-2 font-semibold py-[1vh] text-2xl capitalize">
                 {data[0]?.album}
               </h1>
               <div className="flex space-x-4 py-1 justify-center  items-center w-full">

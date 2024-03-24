@@ -1,6 +1,5 @@
 import { FaPlay } from "react-icons/fa6";
 import { IoIosArrowBack } from "react-icons/io";
-import { IoReload } from "react-icons/io5";
 import { NavLink, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
@@ -138,13 +137,6 @@ function LikedSongComp() {
           <div className="flex w-screen h-[25rem] justify-center pt-[5.3vh] relative ">
             <GoBack />
             <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
-              <div className="">
-                <IoReload
-                  onClick={() => pRefetch()}
-                  className="h-8 w-8  mb-2 backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
-                />
-              </div>
-
               {playingPlaylistUrl == id && (
                 <div className="" onClick={handleFocus}>
                   <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
@@ -152,7 +144,7 @@ function LikedSongComp() {
               )}
               <Share />
             </div>
-            <div className="h-[28vh] w-[60vw]">
+            <div className="h-[28vh] ml-[2.5vw] w-[60vw]">
               <LazyLoadImage
                 effect="blur"
                 width="100%"
@@ -164,7 +156,7 @@ function LikedSongComp() {
               />
             </div>
             <div className=" absolute bottom-[1.5vh] px-4 left-0  right-0">
-              <h1 className="text-center  font-semibold py-2 text-2xl capitalize">
+              <h1 className="text-center  font-semibold py-[1vh] text-2xl capitalize">
                 Liked Songs
               </h1>
               <div className="flex space-x-4 py-1 px-2 justify-center  items-center w-full">
