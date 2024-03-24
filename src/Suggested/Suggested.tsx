@@ -70,7 +70,7 @@ function Suggested() {
             <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
               <div className="w-fit">
                 <p className="fade-in mb-2 text-zinc-100  backdrop-blur-md bg-black/30 rounded-full p-1.5 px-2 w-fit">
-                  In beta not work properly
+                  Edit
                 </p>
               </div>
             </div>
