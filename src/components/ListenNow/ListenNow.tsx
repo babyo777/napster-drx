@@ -167,7 +167,7 @@ export function ListenNowComp() {
           {suggested && suggested.length > 0 && (
             <NapsterSuggested data={suggested} />
           )}
-          <div className="pb-[17vh]">
+          <div className="pb-[18vh]">
             <Artist data={artist} />
             <Charts data={chart} />
             <NewCharts data={chart} />
