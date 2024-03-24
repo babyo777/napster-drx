@@ -66,13 +66,13 @@ function Suggested() {
         <>
           <div className="flex w-full z-10 fixed h-[3rem]  ">
             <GoBack />
-            <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
+            {/* <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
               <div className="w-fit">
                 <p className="fade-in mb-2 text-zinc-100  backdrop-blur-md bg-black/30 rounded-full p-1.5 px-2 w-fit">
                   Edit
                 </p>
               </div>
-            </div>
+            </div> */}
 
             <div className=" absolute bottom-5  px-4 left-0  right-0">
               <h1 className="text-center  font-semibold py-2 text-2xl capitalize"></h1>

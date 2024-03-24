@@ -22,6 +22,7 @@ import { IoPlay } from "react-icons/io5";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { MdDragHandle } from "react-icons/md";
+// import { RxCross2 } from "react-icons/rx";
 function UpNextSongs({
   title,
   artist,
@@ -118,6 +119,11 @@ function UpNextSongs({
     transition,
     transform: CSS.Transform.toString(transform),
   };
+
+  // const handleDelete = useCallback(() => {
+  //   const index = playlist.filter((p, i) => i !== id);
+  //   dispatch(setPlaylist(index));
+  // }, [id, playlist, dispatch]);
   return (
     <div
       id={audio}
@@ -190,6 +196,9 @@ function UpNextSongs({
           <div ref={setNodeRef} {...listeners}>
             <MdDragHandle className=" touch-none h-6 w-6" />
           </div>
+          // <div onClick={handleDelete}>
+          //   <RxCross2 className="h-6 w-6 text-zinc-500" />
+          // </div>
         )}
       </div>
     </div>
