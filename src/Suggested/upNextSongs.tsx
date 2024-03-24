@@ -17,11 +17,11 @@ import { playlistSongs } from "@/Interface";
 import { useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { PiTextAlignJustify } from "react-icons/pi";
 import { FaPause } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { MdDragHandle } from "react-icons/md";
 function UpNextSongs({
   title,
   artist,
@@ -188,7 +188,7 @@ function UpNextSongs({
           </>
         ) : (
           <div ref={setNodeRef} {...listeners}>
-            <PiTextAlignJustify className=" touch-none h-6 w-6" />
+            <MdDragHandle className=" touch-none h-6 w-6" />
           </div>
         )}
       </div>
