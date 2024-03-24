@@ -134,7 +134,7 @@ function LikedSongComp() {
       )}
       {pDetails && (
         <>
-          <div className="flex w-screen h-[25rem] justify-center pt-[5.3vh] relative ">
+          <div className="flex w-screen h-[25rem] justify-center pt-[6vh] relative ">
             <GoBack />
             <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
               {playingPlaylistUrl == id && (
@@ -144,7 +144,7 @@ function LikedSongComp() {
               )}
               <Share />
             </div>
-            <div className="h-[28vh] ml-[2.5vw] w-[60vw]">
+            <div className="h-[60vw] w-[60vw]">
               <LazyLoadImage
                 effect="blur"
                 width="100%"
