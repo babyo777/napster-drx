@@ -125,7 +125,7 @@ function UpNextSongs({
       style={style}
       className={` ${
         isDragging ? "bg-zinc-900 rounded-md" : ""
-      } flex fade-in py-2 space-x-2  px-1.5 items-center`}
+      } flex  py-2 space-x-2  px-1.5 items-center`}
     >
       {!album ? (
         <div
