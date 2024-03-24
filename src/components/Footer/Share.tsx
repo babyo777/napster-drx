@@ -151,7 +151,9 @@ function ShareLyrics({
                 punch={1}
               />
             ) : (
-              <img
+              <LazyLoadImage
+                effect="blur"
+                visibleByDefault
                 loading="lazy"
                 src={
                   playlist[currentIndex].thumbnailUrl.replace(
