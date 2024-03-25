@@ -14,7 +14,7 @@ const Charts: React.FC<{ data: homePagePlaylist[] }> = ({ data }) => {
       )}
       {data && (
         <>
-          <div className="flex   flex-col px-4  -pb-4">
+          <div className="flex   flex-col px-4 pt-1 pb-2 ">
             <h1 className="text-start font-semibold text-xl">Top Charts</h1>
           </div>
           <div className="flex  space-x-3.5 px-4 overflow-x-auto  pb-2 no-scrollbar ">
