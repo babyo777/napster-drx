@@ -171,23 +171,21 @@ function ShareLyrics({
               {ShareSong ? (
                 <div className=" flex flex-col text-left  space-y-2  bg-black/30  py-3 px-3 pt-4">
                   <div className="overflow-hidden flex h-[15.5rem] w-[15.5rem]">
-                    <AspectRatio ratio={4 / 3}>
-                      <LazyLoadImage
-                        src={
-                          playlist[currentIndex].thumbnailUrl.replace(
-                            "w120-h120",
-                            "w1080-h1080"
-                          ) || "/favicon.jpeg"
-                        }
-                        width="100%"
-                        effect="blur"
-                        height="100%"
-                        alt="Image"
-                        loading="lazy"
-                        visibleByDefault
-                        className="rounded-xl object-cover h-[100%] w-[100%]"
-                      />
-                    </AspectRatio>
+                    <LazyLoadImage
+                      src={
+                        playlist[currentIndex].thumbnailUrl.replace(
+                          "w120-h120",
+                          "w1080-h1080"
+                        ) || "/favicon.jpeg"
+                      }
+                      width="100%"
+                      effect="blur"
+                      height="100%"
+                      alt="Image"
+                      loading="lazy"
+                      visibleByDefault
+                      className="rounded-xl object-cover h-[100%] w-[100%]"
+                    />
                   </div>
                   <div className=" break-words ">
                     <p className="text-lg  leading-[1.5rem] font-bold mt-0.5 break-words max-w-[59vw]">
