@@ -169,6 +169,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
           line.scrollIntoView({
             behavior: "smooth",
             block: "start",
+            inline: "nearest",
           });
         }
       }
