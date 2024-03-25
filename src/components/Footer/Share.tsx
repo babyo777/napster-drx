@@ -169,7 +169,7 @@ function ShareLyrics({
                 className="blur-[1.3px] rounded-none shadow-none object-cover h-[100%] w-[100%]"
               />
             )}
-            {!ShareSong && <ChangeLyrics lyrics={lyrics} />}
+            {!ShareSong && round && <ChangeLyrics lyrics={lyrics} />}
             <div className=" absolute text-zinc-100  overflow-hidden rounded-2xl font-semibold backdrop-blur-lg">
               {ShareSong ? (
                 <div className=" flex flex-col text-left  space-y-2  bg-black/30  py-3 px-3 pt-4">
