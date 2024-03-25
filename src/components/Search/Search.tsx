@@ -210,7 +210,7 @@ function SearchComp() {
           {music && !isLoading && searchQuery.length > 0 && (
             <>
               <SearchToggle />
-              <div className="h-[63vh] pb-4 overflow-y-scroll overflow-hidden flex flex-col items-center">
+              <div className="h-[63vh] pb-7 overflow-y-scroll overflow-hidden flex flex-col items-center">
                 {searchToggle === "Music" &&
                   music
                     .slice(0, 3)
