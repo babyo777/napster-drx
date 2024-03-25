@@ -47,17 +47,15 @@ export function ChangeLyrics({
             ?.filter((l) => l.lyrics !== "")
             .map((lyric, index) => (
               <div key={index}>
-                <input
-                  hidden
-                  type="checkbox"
-                  id={lyric.lyrics + index}
-                  name={lyric.lyrics + index}
-                  value={lyric.time}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleCheckboxChange(e)
-                  }
-                />
                 <label htmlFor={lyric.lyrics + index}>
+                  <input
+                    hidden
+                    type="checkbox"
+                    id={lyric.lyrics + index}
+                    value={lyric.time}
+                    onChange={handleCheckboxChange}
+                  />
+
                   <p className={`  bg-zinc-900/30 px-3 py-1.5 rounded-xl `}>
                     {lyric.lyrics}
                   </p>

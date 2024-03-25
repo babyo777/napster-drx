@@ -143,7 +143,7 @@ function ShareLyrics({
               round ? "rounded-2xl" : ""
             }`}
           >
-            {!blur ? (
+            {blur ? (
               <Blurhash
                 hash={blurHash}
                 width={"100%"}
