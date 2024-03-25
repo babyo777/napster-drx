@@ -15,6 +15,7 @@ import { GetImage } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { Button } from "../ui/button";
 import { VscMusic } from "react-icons/vsc";
+import { ChangeLyrics } from "./ChangeLyrics";
 
 function ShareLyrics({
   lyrics,
@@ -142,7 +143,7 @@ function ShareLyrics({
               round ? "rounded-2xl" : ""
             }`}
           >
-            {blur ? (
+            {!blur ? (
               <Blurhash
                 hash={blurHash}
                 width={"100%"}
@@ -168,6 +169,7 @@ function ShareLyrics({
                 className="blur-[1.3px] rounded-none shadow-none object-cover h-[100%] w-[100%]"
               />
             )}
+            {!ShareSong && <ChangeLyrics lyrics={lyrics} />}
             <div className=" absolute text-zinc-100  overflow-hidden rounded-2xl font-semibold backdrop-blur-lg">
               {ShareSong ? (
                 <div className=" flex flex-col text-left  space-y-2  bg-black/30  py-3 px-3 pt-4">
