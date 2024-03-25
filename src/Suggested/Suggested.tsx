@@ -17,7 +17,7 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { setPlaylist } from "@/Store/Player";
 
 function Suggested() {
@@ -54,6 +54,10 @@ function Suggested() {
     [dispatch, data]
   );
 
+  const [editQue, setEditQue] = useState<boolean>(false);
+  const handleEdit = useCallback(() => {
+    setEditQue((prev) => !prev);
+  }, []);
   const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor));
 
   return (
@@ -66,13 +70,16 @@ function Suggested() {
         <>
           <div className="flex w-full z-10 fixed h-[3rem]  ">
             <GoBack />
-            {/* <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
+            <div
+              onClick={handleEdit}
+              className="absolute top-4 z-10 right-3 flex-col space-y-0.5"
+            >
               <div className="w-fit">
                 <p className="fade-in mb-2 text-zinc-100  backdrop-blur-md bg-black/30 rounded-full p-1.5 px-2 w-fit">
                   Edit
                 </p>
               </div>
-            </div> */}
+            </div>
 
             <div className=" absolute bottom-5  px-4 left-0  right-0">
               <h1 className="text-center  font-semibold py-2 text-2xl capitalize"></h1>
@@ -88,18 +95,23 @@ function Suggested() {
                 }))}
                 strategy={verticalListSortingStrategy}
               >
-                {data.map((data, i) => (
+                {data.map((d, i) => (
                   <UpNextSongs
+                    playlist={data.map((it, i) => ({
+                      ...it,
+                      id: i,
+                    }))}
+                    editQue={editQue}
                     p={"suggested"}
                     where="suggested"
-                    artistId={data.artists[0]?.id}
-                    audio={data.youtubeId}
-                    key={data.youtubeId + i}
+                    artistId={d.artists[0]?.id}
+                    audio={d.youtubeId}
+                    key={d.youtubeId + i}
                     id={i}
                     album={PlaylistOrAlbum == "album" && true}
-                    title={data.title}
-                    artist={data.artists[0]?.name}
-                    cover={data.thumbnailUrl}
+                    title={d.title}
+                    artist={d.artists[0]?.name}
+                    cover={d.thumbnailUrl}
                   />
                 ))}
               </SortableContext>

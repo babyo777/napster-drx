@@ -22,7 +22,7 @@ import { IoPlay } from "react-icons/io5";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { MdDragHandle } from "react-icons/md";
-// import { RxCross2 } from "react-icons/rx";
+import { RxCross2 } from "react-icons/rx";
 function UpNextSongs({
   title,
   artist,
@@ -37,9 +37,12 @@ function UpNextSongs({
   where,
   link = true,
   album,
+  playlist,
+  editQue,
 }: {
+  editQue: boolean;
   forId?: string;
-
+  playlist: playlistSongs[];
   album?: boolean;
   where: string;
   liked?: boolean;
@@ -61,9 +64,7 @@ function UpNextSongs({
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
-  const playlist = useSelector(
-    (state: RootState) => state.musicReducer.playlist
-  );
+
   const queue = useSelector((state: RootState) => state.musicReducer.queue);
   const music = useSelector((state: RootState) => state.musicReducer.music);
 
@@ -120,10 +121,12 @@ function UpNextSongs({
     transform: CSS.Transform.toString(transform),
   };
 
-  // const handleDelete = useCallback(() => {
-  //   const index = playlist.filter((p, i) => i !== id);
-  //   dispatch(setPlaylist(index));
-  // }, [id, playlist, dispatch]);
+  const handleDelete = useCallback(() => {
+    //@ts-expect-error:added custom id
+    const index = playlist.findIndex((i) => i.id == id);
+    playlist.splice(index, 1);
+    dispatch(setPlaylist(playlist));
+  }, [id, playlist, dispatch]);
   return (
     <div
       id={audio}
@@ -193,12 +196,17 @@ function UpNextSongs({
             )}
           </>
         ) : (
-          <div ref={setNodeRef} {...listeners}>
-            <MdDragHandle className=" touch-none h-6 w-6" />
-          </div>
-          // <div onClick={handleDelete}>
-          //   <RxCross2 className="h-6 w-6 text-zinc-500" />
-          // </div>
+          <>
+            {editQue ? (
+              <div onClick={handleDelete}>
+                <RxCross2 className="h-6 w-6 text-zinc-500" />
+              </div>
+            ) : (
+              <div ref={setNodeRef} {...listeners}>
+                <MdDragHandle className=" touch-none h-6 w-6" />
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
