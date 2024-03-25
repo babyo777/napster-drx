@@ -76,7 +76,7 @@ function Suggested() {
             >
               <div className="w-fit">
                 <p className="fade-in mb-2 text-zinc-100  backdrop-blur-md bg-black/30 rounded-full p-1.5 px-2 w-fit">
-                  Edit
+                  {editQue ? "Cancel" : "Edit"}
                 </p>
               </div>
             </div>
