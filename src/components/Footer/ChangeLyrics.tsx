@@ -54,9 +54,10 @@ export function ChangeLyrics({
                     id={lyric.lyrics + index}
                     value={lyric.time}
                     onChange={handleCheckboxChange}
+                    className="bg-zinc-700"
                   />
 
-                  <p className={`  bg-zinc-900/30 px-3 py-1.5 rounded-xl `}>
+                  <p className=" bg-zinc-900/30  px-3 py-1.5 rounded-xl ">
                     {lyric.lyrics}
                   </p>
                 </label>
