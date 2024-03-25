@@ -51,6 +51,7 @@ export function ChangeLyrics({
                   hidden
                   type="checkbox"
                   id={lyric.lyrics + index}
+                  name={lyric.lyrics + index}
                   value={lyric.time}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleCheckboxChange(e)
