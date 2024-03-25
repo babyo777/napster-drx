@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import React from "react";
+import Lyric from "./Lyric";
 
 export function ChangeLyrics({
   lyrics,
@@ -20,15 +20,6 @@ export function ChangeLyrics({
     }
   ];
 }) {
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.currentTarget.checked
-      ? e.currentTarget.parentElement
-          ?.querySelector("p")
-          ?.classList.add("bg-zinc-700")
-      : e.currentTarget.parentElement
-          ?.querySelector("p")
-          ?.classList.remove("bg-zinc-700");
-  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -47,20 +38,7 @@ export function ChangeLyrics({
             ?.filter((l) => l.lyrics !== "")
             .map((lyric, index) => (
               <div key={index}>
-                <label htmlFor={lyric.lyrics + index}>
-                  <input
-                    hidden
-                    type="checkbox"
-                    id={lyric.lyrics + index}
-                    value={lyric.time}
-                    onChange={handleCheckboxChange}
-                    className="bg-zinc-700"
-                  />
-
-                  <p className=" bg-zinc-900/30  px-3 py-1.5 rounded-xl ">
-                    {lyric.lyrics}
-                  </p>
-                </label>
+                <Lyric lyric={lyric.lyrics} index={index} />
               </div>
             ))}
         </div>
