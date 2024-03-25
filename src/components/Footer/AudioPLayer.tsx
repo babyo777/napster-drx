@@ -370,7 +370,7 @@ function AudioPLayerComp() {
                   }
                   alt="Image"
                   effect="blur"
-                  className="object-cover transition-all duration-300 rounded-xl w-[100%] h-[100%] "
+                  className="object-cover transition-all duration-300 w-[100%] h-[100%] "
                 />
               </div>
               <div className="flex flex-col text-start">
