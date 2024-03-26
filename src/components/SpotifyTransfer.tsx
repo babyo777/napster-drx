@@ -98,7 +98,7 @@ function SpotifyTransfer({
             setProgress(i + 1);
             i++;
 
-            setTimeout(processTrack, 300);
+            setTimeout(processTrack, 170);
           }
         };
 
@@ -160,7 +160,7 @@ function SpotifyTransfer({
           )}
 
           {data && data.tracks.length > 0 && (
-            <div className="flex flex-col space-y-3">
+            <div className="flex w-full flex-col space-y-3">
               <input
                 type="range"
                 value={progress || 0}
