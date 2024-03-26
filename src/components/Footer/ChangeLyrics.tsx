@@ -79,14 +79,14 @@ export function ChangeLyrics({
           <DialogTitle>Select Lyrics to Share</DialogTitle>
         </DialogHeader>
 
-        <div className="text-2xl font-bold overflow-y-scroll space-y-4 max-h-[35vh]">
+        <div className="text-2xl  font-bold overflow-y-scroll space-y-4 max-h-[35vh]">
           {lyrics
             ?.filter((l) => l.lyrics !== "")
             .map((lyrics, index) => (
               <DialogClose key={index}>
                 <p
                   onClick={() => handleSelect(index)}
-                  className=" bg-zinc-900/70 px-4 py-2 rounded-xl"
+                  className="text-left bg-zinc-900/70 px-4 py-2 rounded-xl"
                   key={index}
                 >
                   {lyrics.lyrics}
