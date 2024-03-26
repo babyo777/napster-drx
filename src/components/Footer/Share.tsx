@@ -20,7 +20,7 @@ import { ChangeLyrics } from "./ChangeLyrics";
 function ShareLyrics({
   lyrics,
 }: {
-  lyrics: [{ time: number | string; lyrics: string }];
+  lyrics?: [{ time: number | string; lyrics: string }];
 }) {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex

@@ -236,7 +236,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              {lyrics && <ShareLyrics lyrics={lyrics} />}
+              <ShareLyrics lyrics={lyrics && lyrics} />
               <Options id={playingPlaylistUrl} music={playlist[currentIndex]} />
             </div>
           </div>
