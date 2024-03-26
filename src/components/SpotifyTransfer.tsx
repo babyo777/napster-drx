@@ -113,7 +113,7 @@ function SpotifyTransfer({
           Transfer from Spotify
         </p>
       </AlertDialogTrigger>
-      <AlertDialogContent className="w-[80vw] -mt-20 rounded-2xl">
+      <AlertDialogContent className="w-[80vw]  rounded-2xl">
         <AlertDialogHeader>
           {!data && !complete && !isLoading && (
             <DialogTitle className="   text-lg">Paste Spotify Link</DialogTitle>
