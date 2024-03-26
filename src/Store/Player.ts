@@ -164,7 +164,7 @@ const MusicPlayer = createSlice({
           (state.currentIndex - 1 + state.playlist.length) %
           state.playlist.length;
       } else {
-        state.currentIndex = state.currentIndex + (1 % state.playlist.length);
+        state.currentIndex = (state.currentIndex + 1) % state.playlist.length;
       }
     },
     setSavedPlaylist: (state, action: PayloadAction<savedPlaylist[]>) => {
