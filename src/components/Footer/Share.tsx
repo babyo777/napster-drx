@@ -20,12 +20,7 @@ import { ChangeLyrics } from "./ChangeLyrics";
 function ShareLyrics({
   lyrics,
 }: {
-  lyrics?: [
-    {
-      time: number | string;
-      lyrics: string;
-    }
-  ];
+  lyrics: [{ time: number | string; lyrics: string }];
 }) {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
@@ -92,13 +87,6 @@ function ShareLyrics({
       console.error(error);
     }
   }, []);
-
-  const [count, setCount] = useState<number>(0);
-  const handleCount = useCallback(() => {
-    if (lyrics) {
-      setCount((prev) => (prev + 1) % lyrics.length);
-    }
-  }, [lyrics]);
 
   const [blur, setBlur] = useState<boolean>(false);
   const [ShareSong, setShareSong] = useState<boolean>(true);
@@ -169,7 +157,7 @@ function ShareLyrics({
                 className="blur-[1.3px] rounded-none shadow-none object-cover h-[100%] w-[100%]"
               />
             )}
-            {!ShareSong && round && <ChangeLyrics lyrics={lyrics} />}
+
             <div className=" absolute text-zinc-100  overflow-hidden rounded-2xl font-semibold backdrop-blur-lg">
               {ShareSong ? (
                 <div className=" flex flex-col text-left  space-y-2  bg-black/30  py-3 px-3 pt-4">
@@ -203,45 +191,8 @@ function ShareLyrics({
                   </div>
                 </div>
               ) : (
-                <div
-                  onClick={handleCount}
-                  className="flex flex-col justify-center"
-                >
-                  {lyrics && lyrics[count].lyrics.length > 0 && (
-                    <div className="break-words bg-black/25 text-2xl px-4 py-2 min-w-[77vw]  max-w-[77vw] text-left font-bold space-y-[1vh]">
-                      <p>{lyrics[count].lyrics}</p>
-                      <p>{lyrics[count + 1].lyrics}</p>
-                    </div>
-                  )}
-                  <div className=" flex  space-x-2 items-center bg-black/30 py-3 px-3">
-                    <div className="overflow-hidden flex h-[3.3rem] w-[3.3rem]">
-                      <AspectRatio ratio={1 / 1}>
-                        <LazyLoadImage
-                          src={
-                            playlist[currentIndex].thumbnailUrl.replace(
-                              "w120-h120",
-                              "w1080-h1080"
-                            ) || "/favicon.jpeg"
-                          }
-                          width="100%"
-                          effect="blur"
-                          height="100%"
-                          alt="Image"
-                          visibleByDefault
-                          loading="lazy"
-                          className="rounded-lg object-cover h-[100%] w-[100%]"
-                        />
-                      </AspectRatio>
-                    </div>
-                    <div className=" font-normal   break-words max-w-[55vw]">
-                      <p className="text-xl font-semibold  break-words truncate  max-w-[55vw]">
-                        {playlist[currentIndex]?.title}
-                      </p>
-                      <p className="-mt-0.5 text-sm break-words max-w-[55vw]">
-                        {playlist[currentIndex]?.artists[0]?.name}
-                      </p>
-                    </div>
-                  </div>
+                <div className="flex flex-col justify-center">
+                  {lyrics && <ChangeLyrics lyrics={lyrics} />}
                 </div>
               )}
             </div>

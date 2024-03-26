@@ -169,7 +169,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
           line.scrollIntoView({
             behavior: "smooth",
             block: "start",
-            inline: "nearest",
           });
         }
       }
@@ -237,7 +236,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <ShareLyrics lyrics={lyrics && lyrics} />
+              {lyrics && <ShareLyrics lyrics={lyrics} />}
               <Options id={playingPlaylistUrl} music={playlist[currentIndex]} />
             </div>
           </div>
