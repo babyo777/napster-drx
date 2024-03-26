@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import axios from "axios";
 import { TransferFromSpotifyApi } from "@/API/api";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import Loader from "./Loaders/Loader";
 import { spotifyTransfer } from "@/Interface";
 import {
@@ -39,6 +39,8 @@ function SpotifyTransfer({
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setLink(e.target.value);
   }, []);
+
+  const query = useQueryClient();
 
   const getTracksInfo = async () => {
     const res = await axios.get(`${TransferFromSpotifyApi}${link}`);
@@ -88,8 +90,8 @@ function SpotifyTransfer({
               setData(null);
               setComplete(true);
               close.current?.click();
-              Navigate({ to: "/" });
               Navigate({ to: "/library/" });
+              query.refetchQueries("savedPlaylist");
               return;
             }
             setProgress(i + 1);
@@ -102,7 +104,7 @@ function SpotifyTransfer({
         processTrack();
       });
     }
-  }, [data, close]);
+  }, [data, close, query]);
   return (
     <AlertDialog>
       <AlertDialogTrigger>
