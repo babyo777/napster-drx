@@ -41,7 +41,10 @@ const GetLyrics = `${mainApi}/lrc/`;
 
 const GetImage = `${mainApi}/image/?img=`;
 
+const TransferFromSpotifyApi = `${mainApi}/spyt/?id=`;
+
 export {
+  TransferFromSpotifyApi,
   GetImage,
   GetLyrics,
   streamApi,
