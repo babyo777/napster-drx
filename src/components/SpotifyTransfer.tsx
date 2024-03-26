@@ -1,0 +1,164 @@
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { Button } from "./ui/button";
+
+import "react-lazy-load-image-component/src/effects/blur.css";
+import React, { useCallback, useEffect, useState } from "react";
+import { Input } from "./ui/input";
+import axios from "axios";
+import { TransferFromSpotifyApi } from "@/API/api";
+import { useQuery } from "react-query";
+import Loader from "./Loaders/Loader";
+import { spotifyTransfer } from "@/Interface";
+import {
+  ADD_TO_LIBRARY,
+  DATABASE_ID,
+  ID,
+  PLAYLIST_COLLECTION_ID,
+  db,
+} from "@/appwrite/appwriteConfig";
+import { v4 } from "uuid";
+import { Navigate } from "react-router-dom";
+
+function SpotifyTransfer({
+  close,
+}: {
+  close: React.RefObject<HTMLButtonElement>;
+}) {
+  const [progress, setProgress] = useState<number>(0);
+  const [link, setLink] = useState<string>("");
+  const [data, setData] = useState<spotifyTransfer | null>();
+  const [complete, setComplete] = useState<boolean>(false);
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setLink(e.target.value);
+  }, []);
+
+  const getTracksInfo = async () => {
+    const res = await axios.get(`${TransferFromSpotifyApi}${link}`);
+    setData(res.data);
+    return res.data as spotifyTransfer;
+  };
+
+  const { refetch, isError, isLoading } = useQuery<spotifyTransfer>(
+    ["spotify", link],
+    getTracksInfo,
+    {
+      enabled: false,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    }
+  );
+
+  const Transfer = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      refetch();
+    },
+    [refetch]
+  );
+  useEffect(() => {
+    if (data) {
+      db.createDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, ID.unique(), {
+        name: data.creator,
+        creator: data.name,
+        link: "custom" + v4(),
+        image: data.image,
+        for: localStorage.getItem("uid"),
+      }).then(async (m) => {
+        let i = 0;
+        const processTrack = async () => {
+          if (i < data.tracks.length) {
+            const track = data.tracks[i];
+            await db.createDocument(DATABASE_ID, ADD_TO_LIBRARY, ID.unique(), {
+              for: localStorage.getItem("uid"),
+              youtubeId: track.youtubeId,
+              artists: [track.artists[0].id, track.artists[0].name],
+              title: track.title,
+              thumbnailUrl: track.thumbnailUrl,
+              playlistId: m.$id,
+            });
+            if (i == data.tracks.length) {
+              setData(null);
+              setComplete(true);
+              close.current?.click();
+              Navigate({ to: "/" });
+              Navigate({ to: "/library/" });
+              return;
+            }
+            setProgress(i + 1);
+            i++;
+
+            setTimeout(processTrack, 300);
+          }
+        };
+
+        processTrack();
+      });
+    }
+  }, [data, close]);
+  return (
+    <Dialog>
+      <DialogTrigger>
+        <p className=" rounded-xl bg-green-500 py-2.5 mt-3  w-full text-base">
+          Transfer from Spotify
+        </p>
+      </DialogTrigger>
+      <DialogContent className="w-[77vw]  rounded-2xl">
+        <DialogHeader>
+          <DialogTitle className="  text-lg">Paste Spotify Link</DialogTitle>
+        </DialogHeader>
+
+        <div className=" min-h-20 flex flex-col justify-center items-center">
+          {isLoading && !isError ? (
+            <Loader />
+          ) : (
+            <>
+              {!data && !complete && (
+                <form onSubmit={Transfer} className=" w-full space-y-3">
+                  <Input
+                    type="text"
+                    required
+                    placeholder="Paste playlist link or id"
+                    value={link}
+                    className=" rounded-xl"
+                    onChange={handleChange}
+                  />
+
+                  <Button
+                    type="submit"
+                    variant={"secondary"}
+                    className=" w-full rounded-xl"
+                  >
+                    Transfer
+                  </Button>
+                </form>
+              )}
+            </>
+          )}
+          {data && data.tracks.length > 0 && (
+            <div className="flex flex-col space-y-3">
+              <input
+                type="range"
+                value={progress || 0}
+                max={data.tracks.length}
+                onChange={() => console.log("ok")}
+                min="0"
+                step=".01"
+                dir="ltr"
+                className="w-full h-2 bg-zinc-300/75 overflow-hidden rounded-lg appearance-none cursor-pointer"
+              />
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+export { SpotifyTransfer };

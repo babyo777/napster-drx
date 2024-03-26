@@ -130,7 +130,7 @@ function LibraryComp() {
         Query.orderDesc("$createdAt"),
         Query.equal("$id", [id.replace("custom", "")]),
         Query.equal("for", [localStorage.getItem("uid") || "default"]),
-        Query.limit(999),
+        Query.limit(200),
       ]);
 
       const p = [

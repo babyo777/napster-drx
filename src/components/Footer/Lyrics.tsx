@@ -21,7 +21,6 @@ import {
   useCallback,
   useEffect,
   useRef,
-  useState,
 } from "react";
 import { TbMicrophone2 } from "react-icons/tb";
 import ShareLyrics from "./Share";
@@ -44,50 +43,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const duration = useSelector(
     (state: RootState) => state.musicReducer.duration
   );
-
-  const [color, setColor] = useState<string | null>();
-
-  const getColor = useCallback(async () => {
-    // const colors = await prominent(playlist[currentIndex].thumbnailUrl, {
-    //   amount: 20,
-    //   format: "hex",
-    // });
-
-    // let lightColor = null;
-
-    // const isDarkColor = (color: string) => {
-    //   const rgb = hexToRgb(color);
-
-    //   const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
-
-    //   return luminance < 0.5;
-    // };
-
-    // if (
-    //   !isDarkColor(colors[12] as string) ||
-    //   colors[12] === "#000000" ||
-    //   colors[12] === "#808080" ||
-    //   colors[12] === "#001400"
-    // ) {
-    //   lightColor = "#FFFFFF";
-    // } else {
-    //   lightColor = colors[12];
-    // }
-
-    setColor("#f4f4f5" as string);
-  }, []);
-
-  // function hexToRgb(hex: string) {
-  //   hex = hex.replace(/^#/, "");
-
-  //   const bigint = parseInt(hex, 16);
-
-  //   const r = (bigint >> 16) & 255;
-  //   const g = (bigint >> 8) & 255;
-  //   const b = bigint & 255;
-
-  //   return { r, g, b };
-  // }
 
   const formatDuration = useCallback((seconds: number | "--:--") => {
     if (seconds == "--:--") return seconds;
@@ -178,9 +133,8 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   useEffect(() => {
     if (duration) {
       refetch();
-      getColor();
     }
-  }, [refetch, getColor, duration]);
+  }, [refetch, duration]);
 
   const handleClick: MouseEventHandler<HTMLParagraphElement> = useCallback(
     (t) => {
@@ -280,17 +234,13 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                           line.time <= progress &&
                           (index === lyrics.length - 1 ||
                             (lyrics[index + 1]?.time || 0) > progress)
-                            ? color
-                              ? 1
-                              : 1
+                            ? 1
                             : 0.7,
                         color:
                           line.time <= progress &&
                           (index === lyrics.length - 1 ||
                             (lyrics[index + 1]?.time || 0) > progress)
-                            ? color
-                              ? color
-                              : "#f4f4f5"
+                            ? "#f4f4f5"
                             : "#71717a",
                       }}
                     >

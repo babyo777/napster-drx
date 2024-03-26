@@ -22,6 +22,13 @@ interface Sponsors {
   twitter: string;
 }
 
+interface spotifyTransfer {
+  name: string;
+  image: string;
+  creator: string;
+  tracks: playlistSongs[];
+}
+
 interface artists {
   name: string;
   id: string;
@@ -138,6 +145,7 @@ export type {
   recentSearch,
   Sponsors,
   lastPlayed,
+  spotifyTransfer,
   albums,
   likedSongs,
   ArtistDetails,
