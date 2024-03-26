@@ -1,10 +1,3 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Button } from "./ui/button";
 
@@ -25,6 +18,14 @@ import {
 } from "@/appwrite/appwriteConfig";
 import { v4 } from "uuid";
 import { Navigate } from "react-router-dom";
+
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
 
 function SpotifyTransfer({
   close,
@@ -83,7 +84,7 @@ function SpotifyTransfer({
               thumbnailUrl: track.thumbnailUrl,
               playlistId: m.$id,
             });
-            if (i == data.tracks.length) {
+            if (i == data.tracks.length - 1) {
               setData(null);
               setComplete(true);
               close.current?.click();
@@ -94,7 +95,7 @@ function SpotifyTransfer({
             setProgress(i + 1);
             i++;
 
-            setTimeout(processTrack, 300);
+            setTimeout(processTrack, 100);
           }
         };
 
@@ -103,16 +104,16 @@ function SpotifyTransfer({
     }
   }, [data, close]);
   return (
-    <Dialog>
-      <DialogTrigger>
+    <AlertDialog>
+      <AlertDialogTrigger>
         <p className=" rounded-xl bg-green-500 py-2.5 mt-3  w-full text-base">
           Transfer from Spotify
         </p>
-      </DialogTrigger>
-      <DialogContent className="w-[77vw]  rounded-2xl">
-        <DialogHeader>
+      </AlertDialogTrigger>
+      <AlertDialogContent className="w-[77vw]  rounded-2xl">
+        <AlertDialogHeader>
           <DialogTitle className="  text-lg">Paste Spotify Link</DialogTitle>
-        </DialogHeader>
+        </AlertDialogHeader>
 
         <div className=" min-h-20 flex flex-col justify-center items-center">
           {isLoading && !isError ? (
@@ -139,8 +140,16 @@ function SpotifyTransfer({
                   </Button>
                 </form>
               )}
+              {!data && !complete && (
+                <AlertDialogCancel className="w-full mt-1.5 bg-none  p-0">
+                  <Button variant={"secondary"} className=" w-full rounded-xl">
+                    Close
+                  </Button>
+                </AlertDialogCancel>
+              )}
             </>
           )}
+
           {data && data.tracks.length > 0 && (
             <div className="flex flex-col space-y-3">
               <input
@@ -156,8 +165,8 @@ function SpotifyTransfer({
             </div>
           )}
         </div>
-      </DialogContent>
-    </Dialog>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
 
