@@ -63,12 +63,6 @@ function ShareLyrics({
     if (lyrics == null) return;
 
     try {
-      await toBlob(lyrics, {
-        cacheBust: true,
-      });
-      await toBlob(lyrics, {
-        cacheBust: true,
-      });
       const blob = await toBlob(lyrics, {
         cacheBust: true,
       });
