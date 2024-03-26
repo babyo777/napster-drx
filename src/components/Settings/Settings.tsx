@@ -7,12 +7,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { HowToUse } from "../HowToUse";
-import { useCallback } from "react";
+import { SpotifyTransfer } from "../SpotifyTransfer";
+import { useCallback, useRef } from "react";
 import { Token } from "../Token";
 import { SponsorsComp } from "../Sponsors";
+import { DialogClose } from "../ui/dialog";
 
 function Settings() {
+  const closeRef = useRef(null);
   const handleReset = useCallback(() => {
     const reset = confirm("Are you sure you want to reset");
     if (reset)
@@ -59,14 +61,14 @@ function Settings() {
           More by babyo7_
         </p> */}
         <SponsorsComp />
-        <HowToUse />
+        <SpotifyTransfer close={closeRef} />
         <p
           onClick={handleReset}
           className=" rounded-xl py-2.5 mt-3 flex justify-center bg-red-500 text-base "
         >
           Reset
         </p>
-
+        <DialogClose ref={closeRef}></DialogClose>
         <DrawerFooter className=" items-center">
           <span className="text-xs text-zinc-300">Version - 1.2.1 beta</span>
         </DrawerFooter>
