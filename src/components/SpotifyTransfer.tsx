@@ -17,7 +17,7 @@ import {
   db,
 } from "@/appwrite/appwriteConfig";
 import { v4 } from "uuid";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   AlertDialog,
@@ -32,6 +32,7 @@ function SpotifyTransfer({
 }: {
   close: React.RefObject<HTMLButtonElement>;
 }) {
+  const navigate = useNavigate();
   const [progress, setProgress] = useState<number>(0);
   const [link, setLink] = useState<string>("");
   const [data, setData] = useState<spotifyTransfer | null>();
@@ -90,7 +91,7 @@ function SpotifyTransfer({
               setData(null);
               setComplete(true);
               close.current?.click();
-              Navigate({ to: "/library/" });
+              navigate("/library/");
               query.refetchQueries("savedPlaylist");
               return;
             }
@@ -104,7 +105,7 @@ function SpotifyTransfer({
         processTrack();
       });
     }
-  }, [data, close, query]);
+  }, [data, close, query, navigate]);
   return (
     <AlertDialog>
       <AlertDialogTrigger>
@@ -112,9 +113,11 @@ function SpotifyTransfer({
           Transfer from Spotify
         </p>
       </AlertDialogTrigger>
-      <AlertDialogContent className="w-[77vw]  rounded-2xl">
+      <AlertDialogContent className="w-[80vw] -mt-20 rounded-2xl">
         <AlertDialogHeader>
-          <DialogTitle className="  text-lg">Paste Spotify Link</DialogTitle>
+          {!data && !complete && !isLoading && (
+            <DialogTitle className="   text-lg">Paste Spotify Link</DialogTitle>
+          )}
         </AlertDialogHeader>
 
         <div className=" min-h-20 flex flex-col justify-center items-center">
@@ -144,8 +147,12 @@ function SpotifyTransfer({
               )}
               {!data && !complete && (
                 <AlertDialogCancel className="w-full mt-1.5 bg-none  p-0">
-                  <Button variant={"secondary"} className=" w-full rounded-xl">
-                    Close
+                  <Button
+                    asChild
+                    variant={"secondary"}
+                    className=" w-full rounded-xl"
+                  >
+                    <p>Close</p>
                   </Button>
                 </AlertDialogCancel>
               )}
