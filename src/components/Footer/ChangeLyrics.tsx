@@ -39,7 +39,7 @@ export function ChangeLyrics({
     <Dialog>
       <DialogTrigger className="m-0 p-0">
         <div className="break-words bg-black/25 text-2xl px-4 py-2 min-w-[77vw]  max-w-[77vw] text-left font-bold space-y-[1vh]">
-          {lyrics && <p>{lyrics[count].lyrics}</p>}
+          {lyrics && <p>{lyrics[count]?.lyrics}</p>}
         </div>
         <div className=" flex  space-x-2 items-center bg-black/30 py-3 px-3">
           <div className="overflow-hidden flex h-[3.3rem] w-[3.3rem]">
