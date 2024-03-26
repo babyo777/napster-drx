@@ -26,6 +26,14 @@ interface Player {
   savedPlaylist: savedPlaylist[];
   savedAlbums: savedPlaylist[];
   savedArtists: suggestedArtists[];
+  shareLyrics:
+    | [
+        {
+          time: number | string;
+          lyrics: string;
+        }
+      ]
+    | null;
 }
 
 const initialState: Player = {
@@ -40,6 +48,7 @@ const initialState: Player = {
   isLoop: false,
   currentToggle: "Playlists",
   searchToggle: "Music",
+  shareLyrics: null,
   playlistUrl: "",
   isLoading: false,
   queue: [],
@@ -82,6 +91,20 @@ const MusicPlayer = createSlice({
     },
     SetCurrentSongId: (state, action: PayloadAction<string>) => {
       state.currentSongId = action.payload;
+    },
+    SetShareLyrics: (
+      state,
+      action: PayloadAction<
+        | [
+            {
+              time: number | string;
+              lyrics: string;
+            }
+          ]
+        | null
+      >
+    ) => {
+      state.shareLyrics = action.payload;
     },
     isLoop: (state, action: PayloadAction<boolean>) => {
       state.isLoop = action.payload;
@@ -134,6 +157,16 @@ const MusicPlayer = createSlice({
       state.queue = state.playlist;
       state.currentIndex = action.payload;
     },
+    setNextPrev: (state, action: PayloadAction<string>) => {
+      state.queue = state.playlist;
+      if (action.payload == "prev") {
+        state.currentIndex =
+          (state.currentIndex - 1 + state.playlist.length) %
+          state.playlist.length;
+      } else {
+        state.currentIndex = state.currentIndex + (1 % state.playlist.length);
+      }
+    },
     setSavedPlaylist: (state, action: PayloadAction<savedPlaylist[]>) => {
       state.savedPlaylist = action.payload;
     },
@@ -149,6 +182,7 @@ const MusicPlayer = createSlice({
 export const {
   shuffle,
   play,
+  SetShareLyrics,
   setSavedArtists,
   setSavedAlbums,
   setCurrentToggle,
@@ -165,6 +199,7 @@ export const {
   setIsLikedSong,
   setIsLoading,
   isLoop,
+  setNextPrev,
   SetCurrentSongId,
   setProgressLyrics,
   setIsIphone,

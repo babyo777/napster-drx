@@ -14,10 +14,10 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   play,
-  setCurrentIndex,
   setDurationLyrics,
   setIsIphone,
   setIsLoading,
+  setNextPrev,
   setPlayer,
   setProgressLyrics,
 } from "@/Store/Player";
@@ -160,10 +160,10 @@ function AudioPLayerComp() {
     if (isLooped) return;
     SetLiked(false);
     if (playlist.length > 1) {
-      dispatch(setCurrentIndex((currentIndex + 1) % playlist.length));
+      dispatch(setNextPrev("next"));
     }
     return () => clearTimeout(t);
-  }, [dispatch, currentIndex, playlist.length, isLooped, isStandalone]);
+  }, [dispatch, playlist.length, isLooped, isStandalone]);
 
   const handlePrev = useCallback(() => {
     setPrev(true);
@@ -172,12 +172,10 @@ function AudioPLayerComp() {
     }, 200);
     if (isLooped) return;
     if (playlist.length > 1) {
-      dispatch(
-        setCurrentIndex((currentIndex - 1 + playlist.length) % playlist.length)
-      );
+      dispatch(setNextPrev("prev"));
     }
     return () => clearTimeout(t);
-  }, [dispatch, currentIndex, playlist.length, isLooped]);
+  }, [dispatch, playlist.length, isLooped]);
 
   const swipeHandler = useSwipeable({
     onSwipedLeft: handleNext,
