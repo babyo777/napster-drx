@@ -98,7 +98,7 @@ function SpotifyTransfer({
             setProgress(i + 1);
             i++;
 
-            setTimeout(processTrack, 100);
+            setTimeout(processTrack, 300);
           }
         };
 
