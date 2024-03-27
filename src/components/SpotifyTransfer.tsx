@@ -140,13 +140,13 @@ function SpotifyTransfer({
           ) : (
             <>
               {!data && !complete && (
-                <form onSubmit={Transfer} className=" w-full space-y-3">
+                <form onSubmit={Transfer} className=" w-full space-y-2">
                   <Input
                     type="text"
                     required
                     placeholder="Paste playlist link or id"
                     value={link}
-                    className="py-5 rounded-xl"
+                    className="py-5 rounded-lg"
                     onChange={handleChange}
                   />
 
@@ -160,7 +160,7 @@ function SpotifyTransfer({
                 </form>
               )}
               {!data && !complete && (
-                <AlertDialogCancel className="w-full rounded-xl border-none mt-1.5 bg-none  p-0">
+                <AlertDialogCancel className="w-full rounded-xl border-none mt-2 bg-none  p-0">
                   <Button
                     asChild
                     variant={"secondary"}
