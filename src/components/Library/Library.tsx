@@ -80,16 +80,21 @@ function LibraryComp() {
     }
   );
 
-  const [offset, setOffset] = useState<number>(30);
+  const [offset, setOffset] = useState<string>();
 
+  const [data, setData] = useState<playlistSongs[]>();
   const getPlaylist = async () => {
     if (id && id.startsWith("custom")) {
       const r = await db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [
         Query.orderDesc("$createdAt"),
         Query.equal("for", [uid || ""]),
         Query.equal("playlistId", [id.replace("custom", "")]),
-        Query.limit(offset),
+        Query.limit(30),
       ]);
+      const lastId = r.documents[r.documents.length - 1].$id;
+
+      setOffset(lastId);
+
       const modified = r.documents.map((doc) => ({
         $id: doc.$id,
         for: doc.for,
@@ -104,6 +109,7 @@ function LibraryComp() {
         thumbnailUrl: doc.thumbnailUrl,
       }));
 
+      setData(modified);
       return modified as unknown as playlistSongs[];
     } else {
       const list = await axios.get(`${GetPlaylistHundredSongsApi}${id}`);
@@ -157,7 +163,7 @@ function LibraryComp() {
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
-  const { data, isLoading, isError, refetch, isRefetching } = useQuery<
+  const { isLoading, isError, refetch, isRefetching } = useQuery<
     playlistSongs[]
   >(["playlist", id], getPlaylist, {
     retry: 5,
@@ -243,10 +249,36 @@ function LibraryComp() {
 
   useEffect(() => {
     if (inView) {
-      setOffset((prev) => prev + 30);
-      refetch();
+      if (id && id.startsWith("custom") && offset && data) {
+        db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [
+          Query.orderDesc("$createdAt"),
+          Query.equal("for", [uid || ""]),
+          Query.equal("playlistId", [id.replace("custom", "")]),
+          Query.cursorAfter(offset),
+        ]).then((r) => {
+          const lastId = r.documents[r.documents.length - 1].$id;
+
+          setOffset(lastId);
+
+          const modified = r.documents.map((doc) => ({
+            $id: doc.$id,
+            for: doc.for,
+            youtubeId: doc.youtubeId,
+            artists: [
+              {
+                id: doc.artists[0],
+                name: doc.artists[1],
+              },
+            ],
+            title: doc.title,
+            thumbnailUrl: doc.thumbnailUrl,
+          }));
+
+          setData((prev) => prev?.concat(modified));
+        });
+      }
     }
-  }, [inView, refetch]);
+  }, [inView, id, uid, data, offset]);
 
   return (
     <div className=" flex flex-col items-center">
@@ -357,7 +389,7 @@ function LibraryComp() {
           </div>
           <div className="py-3 -mt-[2vh] pb-[8.5rem]">
             {data.map((data, i) => (
-              <div ref={ref}>
+              <div key={data.youtubeId + i} ref={ref}>
                 <Songs
                   reload={refetch}
                   p={id || ""}
