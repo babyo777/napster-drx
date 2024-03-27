@@ -162,7 +162,7 @@ export function ListenNowComp() {
           </div>
         </>
       )}
-      <div className="h-[80vh] pb-20 overflow-scroll">
+      <div className="h-[80dvh] pb-20 overflow-scroll">
         {suggested && suggested.length > 0 && (
           <NapsterSuggested data={suggested} />
         )}
