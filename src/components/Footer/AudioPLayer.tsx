@@ -466,7 +466,7 @@ function AudioPLayerComp() {
                   min="0"
                   step=".01"
                   dir="ltr"
-                  className="w-full h-2 bg-zinc-300/75 overflow-hidden rounded-lg appearance-none cursor-pointer"
+                  className="w-full h-2 bg-zinc-300/75 transition-all duration-300 overflow-hidden rounded-lg appearance-none cursor-pointer"
                 />
                 <div className="flex text-sm justify-between py-2 px-1">
                   <span className="text-zinc-400 transition-all duration-300 font-semibold">
