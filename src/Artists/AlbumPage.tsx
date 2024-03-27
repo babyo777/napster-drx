@@ -234,24 +234,22 @@ function AlbumPageComp() {
             </div>
           </div>
           <div className="py-3 -mt-[2vh] pb-[8.5rem]">
-            {data.map((data, i) => (
-              <div
-                onClick={handleArtist}
-                key={data.artists[0].id + i + data.title}
-              >
+            {data.map((d, i) => (
+              <div onClick={handleArtist} key={d.artists[0].id + i + d.title}>
                 <Songs
+                  data={data}
                   p={id || ""}
                   query="album"
                   where="album"
                   link={false}
-                  artistId={data.artists[0]?.id || artistId.get("id") || ""}
-                  audio={data.youtubeId}
-                  key={data.youtubeId + i}
+                  artistId={d.artists[0]?.id || artistId.get("id") || ""}
+                  audio={d.youtubeId}
+                  key={d.youtubeId + i}
                   id={i}
                   album={true}
-                  title={data.title}
-                  artist={data.artists[0]?.name}
-                  cover={data.thumbnailUrl}
+                  title={d.title}
+                  artist={d.artists[0]?.name}
+                  cover={d.thumbnailUrl}
                 />
               </div>
             ))}

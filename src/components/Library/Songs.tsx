@@ -19,7 +19,6 @@ import {
   QueryObserverResult,
   RefetchOptions,
   RefetchQueryFilters,
-  useQueryClient,
 } from "react-query";
 import { Link } from "react-router-dom";
 import SongsOptions from "./SongsOptions";
@@ -40,8 +39,10 @@ function Songs({
   album,
   reload,
   forId,
+  data,
 }: {
   forId?: string;
+  data: playlistSongs[];
   reload?: <TPageData>(
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
   ) => Promise<QueryObserverResult<playlistSongs[], unknown>>;
@@ -60,7 +61,6 @@ function Songs({
   cover: string;
 }) {
   const dispatch = useDispatch();
-  const q = useQueryClient();
   const isPlaying = useSelector(
     (state: RootState) => state.musicReducer.isPlaying
   );
@@ -72,10 +72,6 @@ function Songs({
   );
 
   const handlePlay = useCallback(async () => {
-    const data = q.getQueryData<playlistSongs[]>([
-      (query !== "custom" && query) || "playlist",
-      p,
-    ]);
     if (data && data.length > 0) {
       if (liked) {
         dispatch(setIsLikedSong(true));
@@ -98,7 +94,7 @@ function Songs({
       dispatch(setCurrentIndex(id));
     }
     if (!isPlaying) dispatch(play(true));
-  }, [dispatch, id, q, p, isPlaying, artistId, query, liked, where, playlist]);
+  }, [dispatch, id, p, isPlaying, artistId, liked, where, playlist, data]);
 
   return (
     <div id={audio} className="flex fade-in py-2 space-x-2 items-center">

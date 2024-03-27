@@ -230,6 +230,7 @@ function LikedSongComp() {
             {pDetails.map((data, i) => (
               <div key={data.youtubeId + i} ref={ref}>
                 <Songs
+                  data={pDetails}
                   p={id || ""}
                   liked={true}
                   forId={data.for}

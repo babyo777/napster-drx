@@ -390,22 +390,23 @@ function LibraryComp() {
             </div>
           </div>
           <div className="py-3 -mt-[2vh] pb-[8.5rem]">
-            {data.map((data, i) => (
-              <div key={data.youtubeId + i} ref={ref}>
+            {data.map((d, i) => (
+              <div key={d.youtubeId + i} ref={ref}>
                 <Songs
+                  data={data}
                   reload={refetch}
                   p={id || ""}
-                  forId={data.for}
+                  forId={d.for}
                   where={"library"}
-                  artistId={data.artists[0]?.id}
-                  audio={data.youtubeId}
-                  key={data.youtubeId + i}
+                  artistId={d.artists[0]?.id}
+                  audio={d.youtubeId}
+                  key={d.youtubeId + i}
                   id={i}
                   query={(id?.startsWith("custom") && "custom") || ""}
-                  delId={data.$id}
-                  title={data.title}
-                  artist={data.artists[0]?.name}
-                  cover={data.thumbnailUrl}
+                  delId={d.$id}
+                  title={d.title}
+                  artist={d.artists[0]?.name}
+                  cover={d.thumbnailUrl}
                 />
               </div>
             ))}
