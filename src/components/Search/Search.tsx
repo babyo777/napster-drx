@@ -183,7 +183,7 @@ function SearchComp() {
                 <h3 className="text-xs fade-in text-zinc-500 pt-2 pb-1 ">
                   Recently Searched
                 </h3>
-                <div className="h-[63dvh] pb-2 overflow-scroll">
+                <div className="h-[63dvh] pb-7 overflow-scroll">
                   <div className="flex  fade-in  justify-center flex-col -space-y-1  ">
                     {RecentSearch.filter(
                       (r, i, s) =>
