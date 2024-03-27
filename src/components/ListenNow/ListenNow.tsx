@@ -162,19 +162,21 @@ export function ListenNowComp() {
           </div>
         </>
       )}
-      {suggested && suggested.length > 0 && (
-        <NapsterSuggested data={suggested} />
-      )}
-      {chart && artist && suggested && (
-        <>
-          <div className="pb-[18vh]">
-            <Artist data={artist} />
-            <Charts data={chart} />
+      <div className="h-[80vh] pb-20 overflow-scroll">
+        {suggested && suggested.length > 0 && (
+          <NapsterSuggested data={suggested} />
+        )}
+        {chart && artist && suggested && (
+          <>
+            <div className="">
+              <Artist data={artist} />
+              <Charts data={chart} />
 
-            <NewCharts data={chart} />
-          </div>
-        </>
-      )}
+              <NewCharts data={chart} />
+            </div>
+          </>
+        )}
+      </div>
     </>
   );
 }
