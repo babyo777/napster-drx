@@ -25,12 +25,13 @@ import {
   setPlaylist,
   shuffle,
 } from "@/Store/Player";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RootState } from "@/Store/Store";
 import AddLibrary from "./AddLibrary";
 import GoBack from "../Goback";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { useInView } from "react-intersection-observer";
 import {
   ADD_TO_LIBRARY,
   DATABASE_ID,
@@ -41,6 +42,11 @@ import { Query } from "appwrite";
 import Share from "@/HandleShare/Share";
 import { EditCustomPlaylist } from "./EditCustomPlaylist";
 function LibraryComp() {
+  const { ref, inView } = useInView({
+    threshold: 0,
+    rootMargin: "0px 0px 100px 0px",
+  });
+
   const dispatch = useDispatch();
   const { id } = useParams();
   const search = new URLSearchParams(location.search);
@@ -74,13 +80,15 @@ function LibraryComp() {
     }
   );
 
+  const [offset, setOffset] = useState<number>(30);
+
   const getPlaylist = async () => {
     if (id && id.startsWith("custom")) {
       const r = await db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [
         Query.orderDesc("$createdAt"),
         Query.equal("for", [uid || ""]),
         Query.equal("playlistId", [id.replace("custom", "")]),
-        Query.limit(999),
+        Query.limit(offset),
       ]);
       const modified = r.documents.map((doc) => ({
         $id: doc.$id,
@@ -130,7 +138,7 @@ function LibraryComp() {
         Query.orderDesc("$createdAt"),
         Query.equal("$id", [id.replace("custom", "")]),
         Query.equal("for", [localStorage.getItem("uid") || "default"]),
-        Query.limit(200),
+        Query.limit(1),
       ]);
 
       const p = [
@@ -232,6 +240,13 @@ function LibraryComp() {
     const toFocus = document.getElementById(playlist[currentIndex].youtubeId);
     toFocus?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [currentIndex, playlist]);
+
+  useEffect(() => {
+    if (inView) {
+      setOffset((prev) => prev + 30);
+      refetch();
+    }
+  }, [inView, refetch]);
 
   return (
     <div className=" flex flex-col items-center">
@@ -342,21 +357,23 @@ function LibraryComp() {
           </div>
           <div className="py-3 -mt-[2vh] pb-[8.5rem]">
             {data.map((data, i) => (
-              <Songs
-                reload={refetch}
-                p={id || ""}
-                forId={data.for}
-                where={"library"}
-                artistId={data.artists[0]?.id}
-                audio={data.youtubeId}
-                key={data.youtubeId + i}
-                id={i}
-                query={(id?.startsWith("custom") && "custom") || ""}
-                delId={data.$id}
-                title={data.title}
-                artist={data.artists[0]?.name}
-                cover={data.thumbnailUrl}
-              />
+              <div ref={ref}>
+                <Songs
+                  reload={refetch}
+                  p={id || ""}
+                  forId={data.for}
+                  where={"library"}
+                  artistId={data.artists[0]?.id}
+                  audio={data.youtubeId}
+                  key={data.youtubeId + i}
+                  id={i}
+                  query={(id?.startsWith("custom") && "custom") || ""}
+                  delId={data.$id}
+                  title={data.title}
+                  artist={data.artists[0]?.name}
+                  cover={data.thumbnailUrl}
+                />
+              </div>
             ))}
           </div>
         </>

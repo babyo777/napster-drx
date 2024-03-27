@@ -5,10 +5,10 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import React, { useCallback, useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import axios from "axios";
-import { TransferFromSpotifyApi } from "@/API/api";
+import { SearchOneTrackApi, TransferFromSpotifyApi } from "@/API/api";
 import { useQuery, useQueryClient } from "react-query";
 import Loader from "./Loaders/Loader";
-import { spotifyTransfer } from "@/Interface";
+import { playlistSongs, spotifyTransfer } from "@/Interface";
 import {
   ADD_TO_LIBRARY,
   DATABASE_ID,
@@ -78,15 +78,27 @@ function SpotifyTransfer({
         let i = 0;
         const processTrack = async () => {
           if (i < data.tracks.length) {
-            const track = data.tracks[i];
-            await db.createDocument(DATABASE_ID, ADD_TO_LIBRARY, ID.unique(), {
-              for: localStorage.getItem("uid"),
-              youtubeId: track.youtubeId,
-              artists: [track.artists[0].id, track.artists[0].name],
-              title: track.title,
-              thumbnailUrl: track.thumbnailUrl,
-              playlistId: m.$id,
-            });
+            try {
+              const res = await axios.get(
+                `${SearchOneTrackApi}${data.tracks[i].track}`
+              );
+              const track = res.data as playlistSongs;
+              await db.createDocument(
+                DATABASE_ID,
+                ADD_TO_LIBRARY,
+                ID.unique(),
+                {
+                  for: localStorage.getItem("uid"),
+                  youtubeId: track.youtubeId,
+                  artists: [track.artists[0].id, track.artists[0].name],
+                  title: track.title,
+                  thumbnailUrl: track.thumbnailUrl,
+                  playlistId: m.$id,
+                }
+              );
+            } catch (error) {
+              console.log(error);
+            }
             if (i == data.tracks.length - 1) {
               setData(null);
               setComplete(true);
@@ -146,7 +158,7 @@ function SpotifyTransfer({
                 </form>
               )}
               {!data && !complete && (
-                <AlertDialogCancel className="w-full mt-1.5 bg-none  p-0">
+                <AlertDialogCancel className="w-full rounded-xl border-none mt-1.5 bg-none  p-0">
                   <Button
                     asChild
                     variant={"secondary"}

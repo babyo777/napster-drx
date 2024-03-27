@@ -26,7 +26,7 @@ interface spotifyTransfer {
   name: string;
   image: string;
   creator: string;
-  tracks: playlistSongs[];
+  tracks: [{ track: string }];
 }
 
 interface artists {

@@ -41,9 +41,12 @@ const GetLyrics = `${mainApi}/lrc/`;
 
 const GetImage = `${mainApi}/image/?img=`;
 
-const TransferFromSpotifyApi = `${mainApi}/spyt/?id=`;
+const TransferFromSpotifyApi = `${mainApi}/get/?id=`;
+
+const SearchOneTrackApi = `${mainApi}/one/?t=`;
 
 export {
+  SearchOneTrackApi,
   TransferFromSpotifyApi,
   GetImage,
   GetLyrics,
