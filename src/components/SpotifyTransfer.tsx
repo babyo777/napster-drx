@@ -125,14 +125,16 @@ function SpotifyTransfer({
           Transfer from Spotify
         </p>
       </AlertDialogTrigger>
-      <AlertDialogContent className="w-[80vw]  rounded-2xl">
+      <AlertDialogContent className="w-full flex items-center flex-col justify-center h-dvh rounded-2xl">
         <AlertDialogHeader>
           {!data && !complete && !isLoading && (
-            <DialogTitle className="   text-lg">Paste Spotify Link</DialogTitle>
+            <DialogTitle className="   text-2xl">
+              Paste Spotify Link
+            </DialogTitle>
           )}
         </AlertDialogHeader>
 
-        <div className=" min-h-20 flex flex-col justify-center items-center">
+        <div className=" min-h-20 w-full flex flex-col justify-center items-center">
           {isLoading && !isError ? (
             <Loader />
           ) : (
@@ -173,7 +175,7 @@ function SpotifyTransfer({
 
           {data && data.tracks.length > 0 && (
             <div className="flex w-full flex-col space-y-3 items-center">
-              <p className="text-zinc-300 text-sm">
+              <p className="text-zinc-300 text-xl">
                 Transferred {progress}/{data.tracks.length}
               </p>
               <input

@@ -125,7 +125,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
           </span>
         )}
       </DialogTrigger>
-      <DialogContent className="w-[80vw]  rounded-2xl">
+      <DialogContent className="h-dvh items-center justify-center flex flex-col w-full  rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-base font-medium">
             {clone ? "Save this playlist" : "Create your own playlist"}
@@ -133,7 +133,10 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="w-full space-y-3"
+          >
             {!clone && clone && (
               <FormField
                 control={form.control}
@@ -191,7 +194,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
             </Button>
           </form>
         </Form>
-        <DialogClose>
+        <DialogClose className="w-full">
           <Button
             ref={close}
             asChild

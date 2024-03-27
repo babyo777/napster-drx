@@ -120,7 +120,7 @@ const AddAlbum: React.FC<{
           </span>
         )}
       </DialogTrigger>
-      <DialogContent className="w-[85vw]  rounded-2xl">
+      <DialogContent className="w-full h-dvh flex flex-col justify-center items-center  rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-base font-medium">
             {clone ? "Save this album" : "Create your own playlist"}
@@ -128,7 +128,10 @@ const AddAlbum: React.FC<{
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="w-full space-y-3"
+          >
             {!clone && (
               <FormField
                 control={form.control}
@@ -188,7 +191,7 @@ const AddAlbum: React.FC<{
             </Button>
           </form>
         </Form>
-        <DialogClose>
+        <DialogClose className="w-full">
           <Button
             ref={close}
             asChild
