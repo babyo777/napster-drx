@@ -100,76 +100,80 @@ function SavedLibraryComp() {
     <>
       <Header title="Library" l={true} />
       <ToggleLibrary />
-      {currentToggle === "Playlists" && (
-        <Link to={`/liked/${localStorage.getItem("uid")}`}>
-          <div className="flex space-x-2 px-5 mb-3 items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="overflow-hidden h-14  w-14 ">
-                <AspectRatio ratio={1 / 1}>
-                  <LazyLoadImage
-                    height="100%"
-                    width="100%"
-                    effect="blur"
-                    src="/liked.webp"
-                    alt="Image"
-                    className="rounded-lg object-cover w-[100%] h-[100%]"
-                  />
-                </AspectRatio>
+      <div className="  h-[80dvh] pb-32 overflow-scroll ">
+        {currentToggle === "Playlists" && (
+          <Link to={`/liked/${localStorage.getItem("uid")}`}>
+            <div className="flex space-x-2 px-5 mb-3 items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="overflow-hidden h-14  w-14 ">
+                  <AspectRatio ratio={1 / 1}>
+                    <LazyLoadImage
+                      height="100%"
+                      width="100%"
+                      effect="blur"
+                      src="/liked.webp"
+                      alt="Image"
+                      className="rounded-lg object-cover w-[100%] h-[100%]"
+                    />
+                  </AspectRatio>
+                </div>
+                <div className="flex flex-col  text-xl text-start">
+                  <p className="w-[59vw] fade-in text-lg truncate">
+                    Liked Songs
+                  </p>
+                  <p className="-mt-2  text-xs w-[50vw] truncate h-2"></p>
+                </div>
               </div>
-              <div className="flex flex-col  text-xl text-start">
-                <p className="w-[59vw] fade-in text-lg truncate">Liked Songs</p>
-                <p className="-mt-2  text-xs w-[50vw] truncate h-2"></p>
-              </div>
+
+              <GrNext className="h-5  w-5" />
             </div>
-
-            <GrNext className="h-5  w-5" />
+          </Link>
+        )}
+        {isLoading && (
+          <div className="flex fade-in space-y-3  flex-col px-5">
+            <SkeletonP />
+            <SkeletonP />
+            <SkeletonP />
+            <SkeletonP />
           </div>
-        </Link>
-      )}
-      {isLoading && (
-        <div className="flex fade-in space-y-3  flex-col px-5">
-          <SkeletonP />
-          <SkeletonP />
-          <SkeletonP />
-          <SkeletonP />
-        </div>
-      )}
+        )}
 
-      <div className="flex fade-in pb-40 flex-col px-5">
-        <div className="pb-36 space-y-3">
-          {currentToggle === "Playlists" &&
-            savedPlaylist.map((saved, id) => (
-              <SavedLibraryCard
-                key={saved.link + id}
-                id={saved.$id || ""}
-                data={saved}
-                author={saved.creator}
-                link={saved.link}
-                f={saved.for}
-              />
-            ))}
+        <div className="flex fade-in flex-col px-5">
+          <div className=" space-y-3">
+            {currentToggle === "Playlists" &&
+              savedPlaylist.map((saved, id) => (
+                <SavedLibraryCard
+                  key={saved.link + id}
+                  id={saved.$id || ""}
+                  data={saved}
+                  author={saved.creator}
+                  link={saved.link}
+                  f={saved.for}
+                />
+              ))}
 
-          {currentToggle === "Albums" &&
-            savedAlbums.map((saved, id) => (
-              <SavedAlbumCard
-                key={saved.link + id}
-                id={saved.$id || ""}
-                author={saved.creator}
-                album={saved.name}
-                Image={saved.image}
-                link={saved.link}
-                f={saved.for}
-              />
-            ))}
-          {currentToggle === "Artists" &&
-            savedArtists.map((saved, id) => (
-              <ArtistSearch
-                key={saved.artistId + id}
-                artistId={saved.artistId}
-                name={saved.name}
-                thumbnailUrl={saved.thumbnailUrl}
-              />
-            ))}
+            {currentToggle === "Albums" &&
+              savedAlbums.map((saved, id) => (
+                <SavedAlbumCard
+                  key={saved.link + id}
+                  id={saved.$id || ""}
+                  author={saved.creator}
+                  album={saved.name}
+                  Image={saved.image}
+                  link={saved.link}
+                  f={saved.for}
+                />
+              ))}
+            {currentToggle === "Artists" &&
+              savedArtists.map((saved, id) => (
+                <ArtistSearch
+                  key={saved.artistId + id}
+                  artistId={saved.artistId}
+                  name={saved.name}
+                  thumbnailUrl={saved.thumbnailUrl}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </>
