@@ -184,7 +184,7 @@ function SpotifyTransfer({
                 min="0"
                 step=".01"
                 dir="ltr"
-                className="w-full h-2 bg-zinc-300/75 overflow-hidden rounded-lg appearance-none cursor-pointer"
+                className="w-full h-2 bg-green-500 overflow-hidden rounded-lg appearance-none cursor-pointer"
               />
             </div>
           )}
