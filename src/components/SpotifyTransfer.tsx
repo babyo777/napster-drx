@@ -172,7 +172,10 @@ function SpotifyTransfer({
           )}
 
           {data && data.tracks.length > 0 && (
-            <div className="flex w-full flex-col space-y-3">
+            <div className="flex w-full flex-col space-y-3 items-center">
+              <p className="text-zinc-300 text-sm">
+                Transferred {progress}/{data.tracks.length}
+              </p>
               <input
                 type="range"
                 value={progress || 0}
