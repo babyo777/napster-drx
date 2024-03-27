@@ -100,7 +100,7 @@ function SavedLibraryComp() {
     <>
       <Header title="Library" l={true} />
       <ToggleLibrary />
-      <div className="  h-[80dvh] pb-32 overflow-scroll ">
+      <div className="  h-[80dvh] pb-36 overflow-scroll ">
         {currentToggle === "Playlists" && (
           <Link to={`/liked/${localStorage.getItem("uid")}`}>
             <div className="flex space-x-2 px-5 mb-3 items-center justify-between">
