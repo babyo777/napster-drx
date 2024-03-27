@@ -128,7 +128,7 @@ function SpotifyTransfer({
       <AlertDialogContent className="w-full border-none flex items-center flex-col justify-center h-dvh rounded-2xl">
         <AlertDialogHeader>
           {!data && !complete && !isLoading && (
-            <DialogTitle className="   text-2xl">
+            <DialogTitle className=" text-2xl -mb-1">
               Paste Spotify Link
             </DialogTitle>
           )}
