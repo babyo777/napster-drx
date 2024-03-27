@@ -89,7 +89,7 @@ function LibraryComp() {
         Query.orderDesc("$createdAt"),
         Query.equal("for", [uid || ""]),
         Query.equal("playlistId", [id.replace("custom", "")]),
-        Query.limit(30),
+        Query.limit(150),
       ]);
       const lastId = r.documents[r.documents.length - 1].$id;
 
