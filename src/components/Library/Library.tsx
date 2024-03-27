@@ -172,6 +172,7 @@ function LibraryComp() {
     refetchOnMount: false,
     staleTime: 60 * 60000,
     onSuccess(data) {
+      if (id && id.startsWith("custom")) return;
       data.length == 0 && refetch();
     },
   });
