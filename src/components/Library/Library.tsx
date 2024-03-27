@@ -113,6 +113,7 @@ function LibraryComp() {
       return modified as unknown as playlistSongs[];
     } else {
       const list = await axios.get(`${GetPlaylistHundredSongsApi}${id}`);
+      setData(list.data);
       return list.data as playlistSongs[];
     }
   };

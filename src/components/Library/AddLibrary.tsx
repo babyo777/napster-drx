@@ -26,20 +26,19 @@ import {
 } from "@/components/ui/form";
 
 const FormSchema = z.object({
-  link: z.string().url(),
+  link: z.string().min(2),
   creator: z.string().min(2),
 });
 import { IoMdAdd } from "react-icons/io";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { isPlaylist } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { useDispatch } from "react-redux";
 import { setCurrentToggle, setSavedPlaylist } from "@/Store/Player";
 import { savedPlaylist } from "@/Interface";
 import { useNavigate } from "react-router-dom";
+import { v4 } from "uuid";
 
 const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
   clone,
@@ -60,50 +59,47 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
     },
   });
   useEffect(() => {
-    clone &&
-      id &&
-      form.setValue("link", `https://www.youtube.com/playlist?list=${id}`);
+    clone && id && form.setValue("link", id);
+    !clone && form.setValue("link", `custom${v4()}`);
   }, [clone, form, id]);
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsSubmit(true);
 
     try {
-      const res = await axios.get(`${isPlaylist}${data.link}`);
       const payload: savedPlaylist = {
-        name: "default",
+        name: "new playlist",
         creator: data.creator,
-        link: res.data,
+        link: data.link,
         for: localStorage.getItem("uid") || "default",
       };
-      if (res.status !== 500) {
-        db.createDocument(
-          DATABASE_ID,
-          PLAYLIST_COLLECTION_ID,
-          ID.unique(),
-          payload
-        )
-          .then(async () => {
-            form.reset();
-            const r = await db.listDocuments(
-              DATABASE_ID,
-              PLAYLIST_COLLECTION_ID,
-              [
-                Query.orderDesc("$createdAt"),
-                Query.equal("for", [
-                  localStorage.getItem("uid") || "default",
-                  "default",
-                ]),
-              ]
-            );
-            const p = r.documents as unknown as savedPlaylist[];
-            dispatch(setCurrentToggle("Playlists"));
-            dispatch(setSavedPlaylist(p)), close.current?.click();
-            clone && n("/library/");
-          })
-          .catch((error) => {
-            throw new Error(error);
-          });
-      }
+
+      db.createDocument(
+        DATABASE_ID,
+        PLAYLIST_COLLECTION_ID,
+        ID.unique(),
+        payload
+      )
+        .then(async () => {
+          form.reset();
+          const r = await db.listDocuments(
+            DATABASE_ID,
+            PLAYLIST_COLLECTION_ID,
+            [
+              Query.orderDesc("$createdAt"),
+              Query.equal("for", [
+                localStorage.getItem("uid") || "default",
+                "default",
+              ]),
+            ]
+          );
+          const p = r.documents as unknown as savedPlaylist[];
+          dispatch(setCurrentToggle("Playlists"));
+          dispatch(setSavedPlaylist(p)), close.current?.click();
+          clone && n("/library/");
+        })
+        .catch((error) => {
+          throw new Error(error);
+        });
     } catch (error) {
       setIsSubmit(false);
       setError(true);
@@ -138,7 +134,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-            {!clone && (
+            {!clone && clone && (
               <FormField
                 control={form.control}
                 name="link"
