@@ -17,10 +17,10 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { setPlaylist } from "@/Store/Player";
 
-function Suggested() {
+function SuggestedComp() {
   const dispatch = useDispatch();
   const PlaylistOrAlbum = useSelector(
     (state: RootState) => state.musicReducer.PlaylistOrAlbum
@@ -123,4 +123,5 @@ function Suggested() {
   );
 }
 
+const Suggested = React.memo(SuggestedComp);
 export default Suggested;
