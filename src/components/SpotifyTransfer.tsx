@@ -144,7 +144,7 @@ function SpotifyTransfer({
                     required
                     placeholder="Paste playlist link or id"
                     value={link}
-                    className=" rounded-xl"
+                    className="py-5 rounded-xl"
                     onChange={handleChange}
                   />
 
