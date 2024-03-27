@@ -14,7 +14,6 @@ import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-import { transliterate as tr } from "transliteration";
 import {
   MouseEventHandler,
   RefObject,
@@ -78,9 +77,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
         if (matches) {
           const minutes = parseInt(matches[1]);
           const seconds = parseFloat(matches[2]);
-          const lyrics = tr(matches[3].trim(), {
-            replaceAfter: [["N", "n"]],
-          });
+          const lyrics = matches[3].trim();
           const time = minutes * 60 + seconds;
           return { time, lyrics };
         }
