@@ -12,11 +12,11 @@ import {
   setPlaylist,
   shuffle,
 } from "@/Store/Player";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RootState } from "@/Store/Store";
 import { DATABASE_ID, LIKE_SONG, db } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
-import { likedSongs } from "@/Interface";
+import { likedSongs, playlistSongs } from "@/Interface";
 import Loader from "@/components/Loaders/Loader";
 import GoBack from "@/components/Goback";
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,12 @@ import { RiFocus3Line } from "react-icons/ri";
 import Share from "@/HandleShare/Share";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { useInView } from "react-intersection-observer";
 function LikedSongComp() {
+  const { ref, inView } = useInView({
+    threshold: 0,
+    rootMargin: "0px 0px 100px 0px",
+  });
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -41,12 +46,20 @@ function LikedSongComp() {
     (state: RootState) => state.musicReducer.playlist
   );
 
+  const [offset, setOffset] = useState<string>();
+  const [pDetails, setPDetails] = useState<playlistSongs[]>();
+
   const getPlaylistDetails = async () => {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
       Query.orderDesc("$createdAt"),
       Query.equal("for", [id || localStorage.getItem("uid") || ""]),
-      Query.limit(999),
+      Query.limit(150),
     ]);
+
+    const lastId = r.documents[r.documents.length - 1].$id;
+
+    setOffset(lastId);
+
     const modified = r.documents.map((doc) => ({
       $id: doc.$id,
       for: doc.for,
@@ -60,6 +73,7 @@ function LikedSongComp() {
       title: doc.title,
       thumbnailUrl: doc.thumbnailUrl,
     }));
+    setPDetails(modified);
     return modified as unknown as likedSongs[];
   };
 
@@ -68,7 +82,6 @@ function LikedSongComp() {
   );
 
   const {
-    data: pDetails,
     isLoading: pLoading,
     isError: pError,
     refetch: pRefetch,
@@ -114,6 +127,38 @@ function LikedSongComp() {
     const toFocus = document.getElementById(playlist[currentIndex].youtubeId);
     toFocus?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [currentIndex, playlist]);
+
+  useEffect(() => {
+    if (inView) {
+      if (id && pDetails && offset) {
+        db.listDocuments(DATABASE_ID, LIKE_SONG, [
+          Query.orderDesc("$createdAt"),
+          Query.equal("for", [id || localStorage.getItem("uid") || ""]),
+          Query.cursorAfter(offset),
+        ]).then((r) => {
+          const lastId = r.documents[r.documents.length - 1].$id;
+
+          setOffset(lastId);
+
+          const modified = r.documents.map((doc) => ({
+            $id: doc.$id,
+            for: doc.for,
+            youtubeId: doc.youtubeId,
+            artists: [
+              {
+                id: doc.artists[0],
+                name: doc.artists[1],
+              },
+            ],
+            title: doc.title,
+            thumbnailUrl: doc.thumbnailUrl,
+          }));
+          setPDetails((prev) => prev?.concat(modified));
+          return modified as unknown as likedSongs[];
+        });
+      }
+    }
+  }, [inView, id, pDetails, offset]);
 
   return (
     <div className=" flex flex-col items-center">
@@ -183,22 +228,24 @@ function LikedSongComp() {
           </div>
           <div className="py-3 -mt-[2vh] pb-[8.5rem]">
             {pDetails.map((data, i) => (
-              <Songs
-                p={id || ""}
-                liked={true}
-                forId={data.for}
-                delId={data.$id}
-                query="likedSongsDetails"
-                artistId={data.artists[0].id}
-                audio={data.youtubeId}
-                key={data.youtubeId + i}
-                id={i}
-                where="liked"
-                title={data.title}
-                artist={data.artists[0].name}
-                cover={data.thumbnailUrl}
-                reload={pRefetch}
-              />
+              <div key={data.youtubeId + i} ref={ref}>
+                <Songs
+                  p={id || ""}
+                  liked={true}
+                  forId={data.for}
+                  delId={data.$id}
+                  query="likedSongsDetails"
+                  artistId={data.artists[0].id}
+                  audio={data.youtubeId}
+                  key={data.youtubeId + i}
+                  id={i}
+                  where="liked"
+                  title={data.title}
+                  artist={data.artists[0].name}
+                  cover={data.thumbnailUrl}
+                  reload={pRefetch}
+                />
+              </div>
             ))}
           </div>
         </>
