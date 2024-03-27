@@ -13,7 +13,7 @@ import { PiQueue } from "react-icons/pi";
 import { useCallback } from "react";
 import { playlistSongs, savedPlaylist } from "@/Interface";
 import { useDispatch, useSelector } from "react-redux";
-import { setPlaylist } from "@/Store/Player";
+import { setNextQueue, setPlaylist } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoAddSharp } from "react-icons/io5";
@@ -66,9 +66,9 @@ function SongsOptions({
     (state: RootState) => state.musicReducer.nextQueue
   );
   const handleQueue = useCallback(() => {
-    const que = [...[music], ...nextQueue];
     const newPlaylist = [...playlist];
-    newPlaylist.splice(currentIndex + 1, 0, ...que);
+    newPlaylist.splice(currentIndex + nextQueue, 0, music);
+    dispatch(setNextQueue(nextQueue + 1));
     dispatch(setPlaylist(newPlaylist));
   }, [music, dispatch, playlist, currentIndex, nextQueue]);
 

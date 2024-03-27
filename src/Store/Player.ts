@@ -8,7 +8,7 @@ interface Player {
   isPlaying: boolean;
   currentIndex: number;
   isIphone: boolean;
-  nextQueue: playlistSongs[];
+  nextQueue: number;
   queue: playlistSongs[];
   music: HTMLAudioElement | null;
   search: string;
@@ -54,7 +54,7 @@ const initialState: Player = {
   isLoading: false,
   queue: [],
   playlist: [],
-  nextQueue: [],
+  nextQueue: 1,
   isPlaying: false,
   currentPlaying: null,
   currentIndex: 0,
@@ -120,7 +120,7 @@ const MusicPlayer = createSlice({
     setSearchToggle: (state, action: PayloadAction<string>) => {
       state.searchToggle = action.payload;
     },
-    setNextQueue: (state, action: PayloadAction<playlistSongs[]>) => {
+    setNextQueue: (state, action: PayloadAction<number>) => {
       state.nextQueue = action.payload;
     },
     setPlayingPlaylistUrl: (state, action: PayloadAction<string>) => {
