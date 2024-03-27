@@ -125,7 +125,7 @@ function SpotifyTransfer({
           Transfer from Spotify
         </p>
       </AlertDialogTrigger>
-      <AlertDialogContent className="w-full flex items-center flex-col justify-center h-dvh rounded-2xl">
+      <AlertDialogContent className="w-full border-none flex items-center flex-col justify-center h-dvh rounded-2xl">
         <AlertDialogHeader>
           {!data && !complete && !isLoading && (
             <DialogTitle className="   text-2xl">
