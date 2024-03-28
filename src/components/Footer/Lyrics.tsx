@@ -62,7 +62,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       ""
     )} `;
 
-    console.log(query.replace(/  +/g, " "));
+    // console.log(query.replace(/  +/g, " "));
 
     const lyrics = await axios.get(
       `${GetLyrics}${query.replace(/  +/g, " ")}?d=${formatDuration(

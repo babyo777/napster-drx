@@ -44,7 +44,7 @@ import { EditCustomPlaylist } from "./EditCustomPlaylist";
 function LibraryComp() {
   const { ref, inView } = useInView({
     threshold: 0,
-    rootMargin: "0px 0px 100px 0px",
+    rootMargin: "0px 0px 900px 0px",
   });
 
   const dispatch = useDispatch();
