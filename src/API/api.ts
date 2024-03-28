@@ -1,4 +1,5 @@
 const mainApi = import.meta.env.VITE_API_URL;
+const isIPhone = /iPhone/i.test(navigator.userAgent);
 
 const STREAM = [
   "https://exotic-cloe-babyo77.koyeb.app/?url=",
@@ -10,7 +11,10 @@ const DOWNLOAD = [
   "https://unconscious-elianora-babyo7.koyeb.app/download?url=",
   "https://occasional-clara-babyo777.koyeb.app/download?url=",
 ];
-const streamApi = STREAM[Math.floor(Math.random() * STREAM.length)];
+
+const streamApi = isIPhone
+  ? STREAM[Math.floor(Math.random() * STREAM.length)]
+  : "https://alone-dorothee-wolfey.koyeb.app?url=";
 const downloadApi = DOWNLOAD[Math.floor(Math.random() * STREAM.length)];
 
 const isPlaylist = `${mainApi}/is/p?l=`;
