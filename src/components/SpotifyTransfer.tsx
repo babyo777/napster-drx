@@ -153,7 +153,7 @@ function SpotifyTransfer({
                   <Button
                     type="submit"
                     variant={"secondary"}
-                    className=" w-full rounded-xl"
+                    className=" w-full py-5 rounded-xl"
                   >
                     Transfer
                   </Button>
@@ -164,7 +164,7 @@ function SpotifyTransfer({
                   <Button
                     asChild
                     variant={"secondary"}
-                    className=" w-full rounded-xl"
+                    className=" w-full py-5 rounded-xl"
                   >
                     <p>Close</p>
                   </Button>
