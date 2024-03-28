@@ -82,7 +82,7 @@ function Check() {
         Query.orderDesc("$createdAt"),
         Query.equal("for", [localStorage.getItem("uid") || ""]),
         Query.equal("playlistId", [data.playlisturl.replace("custom", "")]),
-        Query.limit(400),
+        Query.limit(999),
       ]);
       const modified = r.documents.map((doc) => ({
         for: doc.for,
@@ -179,7 +179,7 @@ function Check() {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
       Query.orderDesc("$createdAt"),
       Query.equal("for", [localStorage.getItem("uid") || ""]),
-      Query.limit(400),
+      Query.limit(999),
     ]);
     const s = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
     const modified = r.documents.map((doc) => ({
