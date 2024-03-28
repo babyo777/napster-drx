@@ -1,12 +1,3 @@
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -39,6 +30,14 @@ import { setCurrentToggle, setSavedPlaylist } from "@/Store/Player";
 import { savedPlaylist } from "@/Interface";
 import { useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerHeader,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+} from "../ui/drawer";
 
 const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
   clone,
@@ -115,8 +114,8 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
   }, [form]);
 
   return (
-    <Dialog>
-      <DialogTrigger className="w-full fade-in">
+    <Drawer>
+      <DrawerTrigger className="w-full fade-in">
         {clone ? (
           <IoMdAdd className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
         ) : (
@@ -124,90 +123,92 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
             <IoMdAdd className="h-8 w-8 fill-zinc-100" />
           </span>
         )}
-      </DialogTrigger>
-      <DialogContent className="h-dvh items-center border-none justify-center flex flex-col w-full  rounded-2xl">
-        <DialogHeader>
-          <DialogTitle className="text-xl font-medium">
-            {clone ? "Save this playlist" : "Create your own playlist"}
-          </DialogTitle>
-        </DialogHeader>
+      </DrawerTrigger>
+      <DrawerContent className="h-[100dvh] px-5">
+        <div className="h-dvh items-center border-none justify-center flex flex-col w-full  rounded-2xl">
+          <DrawerHeader>
+            <DrawerTitle className="text-xl font-medium">
+              {clone ? "Save this playlist" : "Create your own playlist"}
+            </DrawerTitle>
+          </DrawerHeader>
 
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full space-y-3"
-          >
-            {!clone && clone && (
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-full space-y-3"
+            >
+              {!clone && clone && (
+                <FormField
+                  control={form.control}
+                  name="link"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className=" py-5"
+                          placeholder="Paste youtube playlist link"
+                          {...field}
+                        ></Input>
+                      </FormControl>
+                      {error && (
+                        <FormMessage className="text-red-500">
+                          Playlist is private or invalid url
+                        </FormMessage>
+                      )}
+                      <FormMessage className="text-red-500" />
+                    </FormItem>
+                  )}
+                />
+              )}
+
               <FormField
                 control={form.control}
-                name="link"
+                name="creator"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <Input
                         className=" py-5"
-                        placeholder="Paste youtube playlist link"
+                        placeholder="Give a name..."
                         {...field}
                       ></Input>
                     </FormControl>
-                    {error && (
-                      <FormMessage className="text-red-500">
-                        Playlist is private or invalid url
-                      </FormMessage>
-                    )}
                     <FormMessage className="text-red-500" />
                   </FormItem>
                 )}
               />
-            )}
 
-            <FormField
-              control={form.control}
-              name="creator"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      className=" py-5"
-                      placeholder="Give a name..."
-                      {...field}
-                    ></Input>
-                  </FormControl>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            />
-
+              <Button
+                type="submit"
+                variant={"secondary"}
+                disabled={isSubmit || error}
+                className=" py-5 w-full rounded-xl"
+              >
+                {isSubmit ? (
+                  <Loader size="20" loading={true} />
+                ) : clone ? (
+                  "Save"
+                ) : (
+                  "Add"
+                )}
+              </Button>
+            </form>
+          </Form>
+          <DrawerClose className="w-full mt-3">
             <Button
-              type="submit"
+              ref={close}
+              asChild
+              onClick={handleReset}
               variant={"secondary"}
               disabled={isSubmit || error}
-              className=" py-5 w-full rounded-xl"
+              className=" text-zinc-100 py-5 -mt-1.5 w-full rounded-xl"
             >
-              {isSubmit ? (
-                <Loader size="20" loading={true} />
-              ) : clone ? (
-                "Save"
-              ) : (
-                "Add"
-              )}
+              <p>Close</p>
             </Button>
-          </form>
-        </Form>
-        <DialogClose className="w-full">
-          <Button
-            ref={close}
-            asChild
-            onClick={handleReset}
-            variant={"secondary"}
-            disabled={isSubmit || error}
-            className=" text-zinc-100 py-5 -mt-1.5 w-full rounded-xl"
-          >
-            <p>Close</p>
-          </Button>
-        </DialogClose>
-      </DialogContent>
-    </Dialog>
+          </DrawerClose>
+        </div>
+      </DrawerContent>
+    </Drawer>
   );
 };
 
