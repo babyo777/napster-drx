@@ -279,6 +279,10 @@ function LibraryComp() {
     }
   }, [inView, id, uid, data, offset]);
 
+  const isStandalone = useSelector(
+    (state: RootState) => state.musicReducer.isIphone
+  );
+
   return (
     <div className=" flex flex-col items-center">
       {isError && pError && playlistThumbnailError && (
@@ -338,17 +342,19 @@ function LibraryComp() {
                   <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
                 </div>
               )}
-
-              <div>
-                <PlaylistShare
-                  cover={
-                    (playlistThumbnail && playlistThumbnail[0]?.thumbnailUrl) ||
-                    "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
-                  }
-                  maker={(pDetails && pDetails[0]?.name) || ""}
-                  name={(pDetails && pDetails[0]?.title) || ""}
-                />{" "}
-              </div>
+              {isStandalone && (
+                <div>
+                  <PlaylistShare
+                    cover={
+                      (playlistThumbnail &&
+                        playlistThumbnail[0]?.thumbnailUrl) ||
+                      "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
+                    }
+                    maker={(pDetails && pDetails[0]?.name) || ""}
+                    name={(pDetails && pDetails[0]?.title) || ""}
+                  />{" "}
+                </div>
+              )}
             </div>
             <div className="h-[60vw]  w-[60vw]">
               <LazyLoadImage
