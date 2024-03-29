@@ -39,7 +39,6 @@ import {
   db,
 } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
-import Share from "@/HandleShare/Share";
 import { EditCustomPlaylist } from "./EditCustomPlaylist";
 import PlaylistShare from "./playlistShare";
 function LibraryComp() {
@@ -326,7 +325,7 @@ function LibraryComp() {
                   }
                   id={id.replace("custom", "")}
                   name={(pDetails && pDetails[0]?.title) || ""}
-                  creator={(pDetails && pDetails[0].name) || ""}
+                  creator={(pDetails && pDetails[0]?.name) || ""}
                 />
               )}
               {isSaved && isSaved.length == 0 && !id?.startsWith("custom") && (
@@ -340,21 +339,16 @@ function LibraryComp() {
                 </div>
               )}
 
-              {id?.startsWith("custom") ? (
-                <div>
-                  <PlaylistShare
-                    cover={
-                      (playlistThumbnail &&
-                        playlistThumbnail[0]?.thumbnailUrl) ||
-                      "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
-                    }
-                    maker={(pDetails && pDetails[0]?.name) || ""}
-                    name={(pDetails && pDetails[0]?.title) || ""}
-                  />{" "}
-                </div>
-              ) : (
-                <Share />
-              )}
+              <div>
+                <PlaylistShare
+                  cover={
+                    (playlistThumbnail && playlistThumbnail[0]?.thumbnailUrl) ||
+                    "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
+                  }
+                  maker={(pDetails && pDetails[0]?.name) || ""}
+                  name={(pDetails && pDetails[0]?.title) || ""}
+                />{" "}
+              </div>
             </div>
             <div className="h-[60vw]  w-[60vw]">
               <LazyLoadImage

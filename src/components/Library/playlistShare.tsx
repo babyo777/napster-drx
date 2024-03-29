@@ -175,7 +175,7 @@ function PlaylistShare({
                       {name}
                     </p>
                     <p className=" -mt-0.5 text-zinc-200 text-base font-semibold break-words max-w-[55vw]">
-                      Playlist by {maker}
+                      Playlist by {maker || "Someone"}
                     </p>
                     <p className=" text-sm mt-0.5 text-zinc-300/50 font-semibold break-words max-w-[55vw]">
                       Napster
