@@ -25,7 +25,7 @@ export function AndroidScreenshots() {
         <CarouselItem className="rounded-xl">
           <AspectRatio ratio={9 / 16} className="bg-muted rounded-xl">
             <video
-              src="https://cdn.discordapp.com/attachments/1213096773342601246/1213096773829001256/RPReplay_Final1709229551.mov?ex=6606b069&is=65f43b69&hm=1219a70ed8b3ec93c93424c756696ee7a54f92caa48d7044591621c177680d5a&"
+              src="/demo.mp4"
               muted
               autoPlay
               controls
