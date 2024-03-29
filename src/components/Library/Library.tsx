@@ -41,6 +41,7 @@ import {
 import { Query } from "appwrite";
 import Share from "@/HandleShare/Share";
 import { EditCustomPlaylist } from "./EditCustomPlaylist";
+import PlaylistShare from "./playlistShare";
 function LibraryComp() {
   const { ref, inView } = useInView({
     threshold: 0,
@@ -49,8 +50,7 @@ function LibraryComp() {
 
   const dispatch = useDispatch();
   const { id } = useParams();
-  const search = new URLSearchParams(location.search);
-  const cover = search.get("cover");
+
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
@@ -87,7 +87,6 @@ function LibraryComp() {
     if (id && id.startsWith("custom")) {
       const r = await db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [
         Query.orderDesc("$createdAt"),
-        Query.equal("for", [uid || ""]),
         Query.equal("playlistId", [id.replace("custom", "")]),
         Query.limit(150),
       ]);
@@ -144,7 +143,6 @@ function LibraryComp() {
       const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
         Query.orderDesc("$createdAt"),
         Query.equal("$id", [id.replace("custom", "")]),
-        Query.equal("for", [localStorage.getItem("uid") || "default"]),
         Query.limit(1),
       ]);
 
@@ -341,7 +339,22 @@ function LibraryComp() {
                   <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
                 </div>
               )}
-              {!id?.startsWith("custom") && <Share />}
+
+              {id?.startsWith("custom") ? (
+                <div>
+                  <PlaylistShare
+                    cover={
+                      (playlistThumbnail &&
+                        playlistThumbnail[0]?.thumbnailUrl) ||
+                      "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
+                    }
+                    maker={(pDetails && pDetails[0]?.name) || ""}
+                    name={(pDetails && pDetails[0]?.title) || ""}
+                  />{" "}
+                </div>
+              ) : (
+                <Share />
+              )}
             </div>
             <div className="h-[60vw]  w-[60vw]">
               <LazyLoadImage
@@ -349,7 +362,6 @@ function LibraryComp() {
                 width="100%"
                 height="100%"
                 src={
-                  (!id?.startsWith("custom") && cover) ||
                   (playlistThumbnail &&
                     playlistThumbnail[0]?.thumbnailUrl.replace(
                       "w120-h120",
