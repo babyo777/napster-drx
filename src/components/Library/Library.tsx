@@ -251,7 +251,6 @@ function LibraryComp() {
       if (id && id.startsWith("custom") && offset && data) {
         db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [
           Query.orderDesc("$createdAt"),
-          Query.equal("for", [uid || ""]),
           Query.equal("playlistId", [id.replace("custom", "")]),
           Query.cursorAfter(offset),
         ]).then((r) => {
@@ -316,7 +315,7 @@ function LibraryComp() {
             <GoBack />
 
             <div className="absolute top-4 z-10 right-3  flex-col space-y-0.5">
-              {id?.startsWith("custom") && (
+              {id?.startsWith("custom") && data && uid == data[0].for && (
                 <EditCustomPlaylist
                   reload={playlistThumbnailRefetch}
                   thumbnailUrl={
