@@ -40,7 +40,7 @@ export function AppScreenshots() {
         <CarouselItem className="rounded-xl">
           <AspectRatio ratio={9 / 16} className="bg-muted rounded-xl">
             <video
-              src="/demo.mp4"
+              src="/assets/demo.mp4"
               muted
               autoPlay
               controls

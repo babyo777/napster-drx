@@ -28,7 +28,7 @@ function Desktop({ desktop, iPad }: { desktop: boolean; iPad: boolean }) {
                 className=" bg-transparent rounded-xl"
               >
                 <video
-                  src="https://cdn.discordapp.com/attachments/1213096773342601246/1213096773829001256/RPReplay_Final1709229551.mov?ex=6606b069&is=65f43b69&hm=1219a70ed8b3ec93c93424c756696ee7a54f92caa48d7044591621c177680d5a&"
+                  src="/assets/demo.mp4"
                   muted
                   autoPlay
                   onClick={(e: SyntheticEvent<HTMLVideoElement>) =>
