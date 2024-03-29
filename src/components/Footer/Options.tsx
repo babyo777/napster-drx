@@ -36,7 +36,6 @@ function Options({ music, id }: { id?: string; music: playlistSongs }) {
         Query.equal("playlistId", [playlistId]),
         Query.limit(999),
       ]);
-      console.log(r.documents);
 
       if (r.total > 0) {
         return;
@@ -49,6 +48,7 @@ function Options({ music, id }: { id?: string; music: playlistSongs }) {
           title: music.title,
           thumbnailUrl: music.thumbnailUrl,
           playlistId: playlistId,
+          index: r.total + 1,
         }).then(() => {
           if (show) return;
         });

@@ -88,6 +88,7 @@ function SpotifyTransfer({
                 ADD_TO_LIBRARY,
                 ID.unique(),
                 {
+                  index: i,
                   for: localStorage.getItem("uid"),
                   youtubeId: track.youtubeId,
                   artists: [track.artists[0].id, track.artists[0].name],

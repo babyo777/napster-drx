@@ -81,7 +81,6 @@ function SongsOptions({
         Query.equal("playlistId", [playlistId]),
         Query.limit(999),
       ]);
-      console.log(r.documents);
 
       if (r.total > 0) {
         return;
@@ -94,6 +93,7 @@ function SongsOptions({
           title: music.title,
           thumbnailUrl: music.thumbnailUrl,
           playlistId: playlistId,
+          index: r.total + 1,
         }).then(() => {
           if (show) return;
         });
