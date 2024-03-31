@@ -95,7 +95,8 @@ export function EditCustomPlaylist({
       ...info,
     }).then(
       () => (
-        form.reset(),
+        form.setValue("Playlist", data.Playlist),
+        form.setValue("creator", data.creator),
         setIsSubmit(false),
         close.current?.click(),
         q.fetchQuery(["playlistDetails", "custom" + id])
