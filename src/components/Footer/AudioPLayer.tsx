@@ -264,6 +264,9 @@ function AudioPLayerComp() {
       };
 
       const handleLoad = () => {
+        if (sound.currentTime! == progress) {
+          sound.currentTime == progress;
+        }
         navigator.mediaSession.metadata = new MediaMetadata({
           title: playlist[currentIndex].title,
           artist: playlist[currentIndex].artists[0]?.name,

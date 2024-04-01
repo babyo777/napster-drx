@@ -248,7 +248,7 @@ function Check() {
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
       dispatch(SetPlaylistOrAlbum(data.navigator));
       dispatch(setCurrentIndex(data.index));
-      if (music && music.duration !== data.seek && music.seekable) {
+      if (music && music.duration !== data.seek) {
         music.currentTime = data.seek;
       }
       if (data.navigator == "library") {
