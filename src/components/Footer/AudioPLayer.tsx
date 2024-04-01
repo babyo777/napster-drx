@@ -479,7 +479,7 @@ function AudioPLayerComp() {
                   type="range"
                   value={progress || 0}
                   max={duration || 1}
-                  onInput={handleSeek}
+                  onChange={handleSeek}
                   min="0"
                   step=".01"
                   dir="ltr"
