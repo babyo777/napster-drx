@@ -291,8 +291,9 @@ function AudioPLayerComp() {
       };
 
       const handleTimeUpdate = () => {
-        setProgress(sound.currentTime);
-        dispatch(setProgressLyrics(sound.currentTime));
+        const time = sound.currentTime;
+        setProgress(time);
+        dispatch(setProgressLyrics(time));
       };
 
       sound.setAttribute("playsinline", "true");
