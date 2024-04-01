@@ -41,6 +41,7 @@ import {
 import { Query } from "appwrite";
 import { EditCustomPlaylist } from "./EditCustomPlaylist";
 import PlaylistShare from "./playlistShare";
+import Share from "@/HandleShare/Share";
 function LibraryComp() {
   const { ref, inView } = useInView({
     threshold: 0,
@@ -341,7 +342,7 @@ function LibraryComp() {
                   <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
                 </div>
               )}
-              {isStandalone && (
+              {isStandalone ? (
                 <div>
                   <PlaylistShare
                     cover={
@@ -353,6 +354,8 @@ function LibraryComp() {
                     name={(pDetails && pDetails[0]?.title) || ""}
                   />{" "}
                 </div>
+              ) : (
+                <Share />
               )}
             </div>
             <div className="h-[60vw]  w-[60vw]">
