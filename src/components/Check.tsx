@@ -248,9 +248,12 @@ function Check() {
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
       dispatch(SetPlaylistOrAlbum(data.navigator));
       dispatch(setCurrentIndex(data.index));
-      if (music && music.duration !== data.seek) {
-        music.currentTime = data.seek;
-      }
+
+      const t = setTimeout(() => {
+        if (music && music.duration !== data.seek) {
+          music.currentTime = data.seek;
+        }
+      }, 1000);
       if (data.navigator == "library") {
         refetch();
       }
@@ -264,6 +267,7 @@ function Check() {
         dispatch(setCurrentIndex(0));
         suggested();
       }
+      return () => clearTimeout(t);
     }
     const isStandalone = window.matchMedia(
       "(display-mode: standalone)"
