@@ -2,7 +2,6 @@ import { GetArtistDetails, GetPlaylistHundredSongsApi } from "@/API/api";
 import { ArtistDetails, favArtist, playlistSongs } from "@/Interface";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { IoReload } from "react-icons/io5";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import SuggestedArtist from "./SuggestedArtist";
@@ -95,6 +94,9 @@ function ArtistPageComp() {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       staleTime: 60 * 60000,
+      onSuccess(d) {
+        d == null && refetch();
+      },
     });
 
   const getPlaylist = async () => {
@@ -173,14 +175,7 @@ function ArtistPageComp() {
       {data && (
         <div className="flex w-full h-[23rem] justify-center pt-[19vw] relative ">
           <GoBack />
-
-          <div className=" absolute top-4 z-10 right-3">
-            <IoReload
-              onClick={() => refetch()}
-              className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
-            />
-          </div>
-          <div className="absolute top-[3.6rem] z-10 right-3">
+          <div className="absolute top-4 z-10 right-3">
             {isFavArtist ? (
               <FaStar
                 onClick={removeFromFav}
