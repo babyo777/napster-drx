@@ -1,5 +1,6 @@
-function Socket() {
-  return <div>Socket</div>;
-}
+import { SharePlayApi } from "@/API/api";
+import { io } from "socket.io-client";
 
-export default Socket;
+export const socket = io(SharePlayApi, {
+  autoConnect: false,
+});

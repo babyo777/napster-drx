@@ -74,12 +74,12 @@ export function ChangeLyrics({
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="w-[80dvw] bg-zinc-950/85 rounded-2xl">
+      <DialogContent className="h-[100vh] bg-zinc-950 rounded-2xl">
         <DialogHeader>
           <DialogTitle>Select Lyrics to Share</DialogTitle>
         </DialogHeader>
 
-        <div className="text-2xl  font-bold overflow-y-scroll space-y-4 max-h-[35vh]">
+        <div className="text-2xl  font-bold overflow-y-scroll space-y-4 max-h-[100vh]">
           {lyrics
             ?.filter((l) => l.lyrics !== "")
             .map((lyrics, index) => (

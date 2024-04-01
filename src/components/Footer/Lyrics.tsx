@@ -244,7 +244,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
                             : "#71717a",
                       }}
                     >
-                      {line.lyrics}
+                      {line.lyrics == null ? "🎵" : line.lyrics}
                     </p>
                   ))}
                 </div>
