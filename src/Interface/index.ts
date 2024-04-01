@@ -101,6 +101,7 @@ interface ArtistDetails {
 }
 
 interface lastPlayed {
+  seek: number;
   user: string;
   playlisturl: string;
   navigator: string;

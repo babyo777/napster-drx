@@ -202,6 +202,20 @@ function AudioPLayerComp() {
     }
   }, [playlist, currentIndex, PlaylistOrAlbum, uid, playingPlaylistUrl]);
 
+  const updateSeek = useCallback(async () => {
+    if (uid && music) {
+      await db.updateDocument(DATABASE_ID, LAST_PLAYED, uid, {
+        seek: music.currentTime,
+      });
+    }
+  }, [uid, music]);
+
+  useEffect(() => {
+    const seek = setInterval(async () => {
+      updateSeek();
+    }, 5000);
+    return () => clearInterval(seek);
+  }, [updateSeek]);
   // const playingInsights = useCallback(() => {
   //   db.createDocument(DATABASE_ID, MOST_PLAYED, ID.unique(), {
   //     user: localStorage.getItem("uid"),
@@ -275,8 +289,9 @@ function AudioPLayerComp() {
       };
 
       const handleTimeUpdate = () => {
-        setProgress(sound.currentTime);
-        dispatch(setProgressLyrics(sound.currentTime));
+        const time = sound.currentTime;
+        setProgress(time);
+        dispatch(setProgressLyrics(time));
       };
 
       sound.setAttribute("playsinline", "true");

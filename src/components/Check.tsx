@@ -241,12 +241,16 @@ function Check() {
     }
   );
 
+  const music = useSelector((state: RootState) => state.musicReducer.music);
+
   useEffect(() => {
     if (data) {
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
       dispatch(SetPlaylistOrAlbum(data.navigator));
       dispatch(setCurrentIndex(data.index));
-
+      if (music && music.duration !== data.seek) {
+        music.currentTime = data.seek;
+      }
       if (data.navigator == "library") {
         refetch();
       }
@@ -270,7 +274,7 @@ function Check() {
     dispatch(setIsIphone(isStandalone));
     setGraphic(checkGpuCapabilities());
     setCheck(false);
-  }, [dispatch, data, refetch, likedSong, suggested, album]);
+  }, [dispatch, data, refetch, likedSong, suggested, album, music]);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
