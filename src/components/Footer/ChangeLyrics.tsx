@@ -79,7 +79,7 @@ export function ChangeLyrics({
           <DialogTitle>Select Lyrics to Share</DialogTitle>
         </DialogHeader>
 
-        <div className="text-2xl  font-bold overflow-y-scroll space-y-4 max-h-[100vh]">
+        <div className="text-2xl  font-bold overflow-y-scroll space-y-4 border-none max-h-[100vh]">
           {lyrics
             ?.filter((l) => l.lyrics !== "")
             .map((lyrics, index) => (
