@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +26,6 @@ import { RxCross2 } from "react-icons/rx";
 function UpNextSongs({
   title,
   artist,
-
   cover,
   id,
   audio,
@@ -121,8 +120,9 @@ function UpNextSongs({
     transform: CSS.Transform.toString(transform),
   };
 
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const toFocus = document.getElementById(queue[currentIndex].youtubeId);
+    const toFocus = ref.current;
     toFocus?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [queue, currentIndex]);
 
@@ -134,7 +134,6 @@ function UpNextSongs({
   }, [id, playlist, dispatch]);
   return (
     <div
-      id={audio}
       {...attributes}
       style={style}
       className={` ${
@@ -187,7 +186,7 @@ function UpNextSongs({
       </div>
       <div>
         {queue[currentIndex]?.youtubeId == audio ? (
-          <>
+          <div ref={ref}>
             {isPlaying ? (
               <FaPause
                 className={` h-5 w-5 transition-all duration-300`}
@@ -199,7 +198,7 @@ function UpNextSongs({
                 onClick={handlePlayer}
               />
             )}
-          </>
+          </div>
         ) : (
           <>
             {editQue ? (
