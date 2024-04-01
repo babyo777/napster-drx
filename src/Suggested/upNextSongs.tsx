@@ -124,7 +124,7 @@ function UpNextSongs({
   useEffect(() => {
     const toFocus = ref.current;
     toFocus?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, [queue, currentIndex]);
+  }, []);
 
   const handleDelete = useCallback(() => {
     //@ts-expect-error:added custom id
