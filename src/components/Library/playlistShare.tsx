@@ -14,6 +14,8 @@ import { Button } from "../ui/button";
 import { VscMusic } from "react-icons/vsc";
 import { GoShare } from "react-icons/go";
 import { BiLinkAlt } from "react-icons/bi";
+import { RootState } from "@/Store/Store";
+import { useSelector } from "react-redux";
 
 function PlaylistShare({
   lyrics,
@@ -108,11 +110,15 @@ function PlaylistShare({
     setShareSong((prev) => !prev);
   }, []);
 
+  const uid = useSelector((state: RootState) => state.musicReducer.uid);
+
   const handleCopyLink = useCallback(() => {
-    navigator.share({
-      url: window.location.href,
-    });
-  }, []);
+    if (uid) {
+      navigator.share({
+        url: window.location.href.replace(uid.substring(uid.length - 4), ""),
+      });
+    }
+  }, [uid]);
   return (
     <Drawer>
       <DrawerTrigger className="p-0 m-0">

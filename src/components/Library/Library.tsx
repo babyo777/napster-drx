@@ -1,7 +1,7 @@
 import Songs from "./Songs";
 import { Button } from "../ui/button";
 import { FaPlay } from "react-icons/fa6";
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack, IoMdAdd } from "react-icons/io";
 import { NavLink, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -64,14 +64,33 @@ function LibraryComp() {
   );
 
   const loadSavedPlaylist = async () => {
-    const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
-      Query.equal("for", [uid || ""]),
-      Query.equal("link", [id || "none"]),
-    ]);
-    const p = r.documents as unknown as savedPlaylist[];
-    return p;
+    if (id && id.startsWith("custom") && uid) {
+      const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
+        Query.equal("for", [uid || ""]),
+        Query.equal("$id", [
+          id
+            .replace("custom", "")
+            .replace(uid?.substring(uid.length - 4), "") || "none",
+        ]),
+      ]);
+      const p = r.documents as unknown as savedPlaylist[];
+      if (p.length > 0) return p;
+      const q = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
+        Query.equal("for", [uid || ""]),
+        Query.equal("$id", [id.replace("custom", "") || "none"]),
+      ]);
+      const pp = q.documents as unknown as savedPlaylist[];
+      return pp;
+    } else {
+      const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
+        Query.equal("for", [uid || ""]),
+        Query.equal("link", [id || "none"]),
+      ]);
+      const p = r.documents as unknown as savedPlaylist[];
+      return p;
+    }
   };
-  const { data: isSaved } = useQuery<savedPlaylist[]>(
+  const { data: isSaved, refetch: isSavedRefetch } = useQuery<savedPlaylist[]>(
     ["checkIfSaved", id],
     loadSavedPlaylist,
     {
@@ -84,10 +103,12 @@ function LibraryComp() {
 
   const [data, setData] = useState<playlistSongs[]>();
   const getPlaylist = async () => {
-    if (id && id.startsWith("custom")) {
+    if (id && id.startsWith("custom") && uid) {
       const r = await db.listDocuments(DATABASE_ID, ADD_TO_LIBRARY, [
         Query.orderDesc("$createdAt"),
-        Query.equal("playlistId", [id.replace("custom", "")]),
+        Query.equal("playlistId", [
+          id.replace("custom", "").replace(uid.substring(uid.length - 4), ""),
+        ]),
         Query.limit(150),
       ]);
       const lastId = r.documents[r.documents.length - 1].$id;
@@ -283,6 +304,23 @@ function LibraryComp() {
     (state: RootState) => state.musicReducer.isIphone
   );
 
+  const handleSave = useCallback(async () => {
+    if (uid && isSaved) {
+      await db.createDocument(
+        DATABASE_ID,
+        PLAYLIST_COLLECTION_ID,
+        uid.substring(uid.length - 4) + isSaved[0].$id,
+        {
+          name: isSaved[0].name,
+          creator: isSaved[0].creator,
+          link: isSaved[0].link,
+          for: uid,
+          image: isSaved[0].image,
+        }
+      );
+      isSavedRefetch();
+    }
+  }, [uid, isSaved, isSavedRefetch]);
   return (
     <div className=" flex flex-col items-center">
       {isError && pError && playlistThumbnailError && (
@@ -337,11 +375,18 @@ function LibraryComp() {
                   <AddLibrary clone={true} id={id} />
                 </div>
               )}
+              {isSaved && isSaved.length == 0 && id?.startsWith("custom") && (
+                <div className="" onClick={handleSave}>
+                  <IoMdAdd className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+                </div>
+              )}
+
               {playingPlaylistUrl == id && (
                 <div className="" onClick={handleFocus}>
                   <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
                 </div>
               )}
+
               {isStandalone ? (
                 <div>
                   <PlaylistShare

@@ -1,11 +1,17 @@
+import { RootState } from "@/Store/Store";
 import { useCallback } from "react";
 import { GoShare } from "react-icons/go";
+import { useSelector } from "react-redux";
 function Share() {
+  const uid = useSelector((state: RootState) => state.musicReducer.uid);
+
   const handleShare = useCallback(() => {
-    navigator.share({
-      url: window.location.href,
-    });
-  }, []);
+    if (uid) {
+      navigator.share({
+        url: window.location.href.replace(uid.substring(uid.length - 4), ""),
+      });
+    }
+  }, [uid]);
   return (
     <div className="fade-in">
       <GoShare
