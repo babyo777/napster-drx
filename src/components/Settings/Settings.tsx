@@ -29,10 +29,12 @@ function Settings() {
   }, []);
   const handleLoadPlaylist = useCallback(() => {
     const l = prompt("Enter Shared Playlist Link");
-    if (l && l?.trim() != "" && l.startsWith(window.location.origin)) {
-      window.location.href = l;
-    } else {
-      alert("invalid link");
+    if (l && l?.trim() != "") {
+      if (l.startsWith(window.location.origin)) {
+        window.location.href = l;
+      } else {
+        alert("invalid link");
+      }
     }
   }, []);
 
