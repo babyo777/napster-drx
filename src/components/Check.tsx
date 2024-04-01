@@ -249,8 +249,8 @@ function Check() {
       dispatch(SetPlaylistOrAlbum(data.navigator));
       dispatch(setCurrentIndex(data.index));
 
-      if (music && music.duration !== data.seek) {
-        music.currentTime = Math.floor(data.seek);
+      if (music) {
+        music.currentTime = data.seek;
       }
       if (data.navigator == "library") {
         refetch();
