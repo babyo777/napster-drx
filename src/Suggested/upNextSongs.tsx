@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -120,6 +120,11 @@ function UpNextSongs({
     transition,
     transform: CSS.Transform.toString(transform),
   };
+
+  useEffect(() => {
+    const toFocus = document.getElementById(queue[currentIndex].youtubeId);
+    toFocus?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [queue, currentIndex]);
 
   const handleDelete = useCallback(() => {
     //@ts-expect-error:added custom id
