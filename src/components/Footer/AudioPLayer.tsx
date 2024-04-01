@@ -211,11 +211,13 @@ function AudioPLayerComp() {
   }, [uid, music]);
 
   useEffect(() => {
-    const seek = setInterval(async () => {
-      updateSeek();
-    }, 5000);
-    return () => clearInterval(seek);
-  }, [updateSeek]);
+    if (isPlaying) {
+      const seek = setInterval(async () => {
+        updateSeek();
+      }, 5000);
+      return () => clearInterval(seek);
+    }
+  }, [updateSeek, isPlaying]);
   // const playingInsights = useCallback(() => {
   //   db.createDocument(DATABASE_ID, MOST_PLAYED, ID.unique(), {
   //     user: localStorage.getItem("uid"),
