@@ -27,6 +27,14 @@ function Settings() {
       location.reload();
     }
   }, []);
+  const handleLoadPlaylist = useCallback(() => {
+    const l = prompt("Enter Shared Playlist Link");
+    if (l && l?.trim() != "" && l.startsWith(window.location.origin)) {
+      window.location.href = l;
+    } else {
+      alert("invalid link");
+    }
+  }, []);
 
   return (
     <Drawer>
@@ -45,6 +53,14 @@ function Settings() {
         >
           Load From Token
         </p>
+        {/iPhone/i.test(navigator.userAgent) && (
+          <p
+            onClick={handleLoadPlaylist}
+            className=" rounded-xl py-2.5 mt-3  bg-secondary flex justify-center  text-base"
+          >
+            Load Playlist
+          </p>
+        )}
         <Token />
         {/* <p
           onClick={() =>
