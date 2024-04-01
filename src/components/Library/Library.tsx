@@ -63,23 +63,29 @@ function LibraryComp() {
     (state: RootState) => state.musicReducer.playlist
   );
 
+  const [isSaved, setIsSaved] = useState<savedPlaylist[]>();
   const loadSavedPlaylist = async () => {
     if (id && id.startsWith("custom") && uid) {
       const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
         Query.equal("for", [uid || ""]),
         Query.equal("$id", [
-          id
-            .replace("custom", "")
-            .replace(uid?.substring(uid.length - 4), "") || "none",
+          id.replace("custom", "").replace(uid.substring(uid.length - 4), "") ||
+            "none",
         ]),
       ]);
       const p = r.documents as unknown as savedPlaylist[];
+      setIsSaved(p);
+
       if (p.length > 0) return p;
       const q = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
         Query.equal("for", [uid || ""]),
-        Query.equal("$id", [id.replace("custom", "") || "none"]),
+        Query.equal("$id", [
+          uid.substring(uid.length - 4) + id.replace("custom", "") || "none",
+        ]),
       ]);
       const pp = q.documents as unknown as savedPlaylist[];
+      setIsSaved(pp);
+
       return pp;
     } else {
       const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
@@ -90,7 +96,7 @@ function LibraryComp() {
       return p;
     }
   };
-  const { data: isSaved, refetch: isSavedRefetch } = useQuery<savedPlaylist[]>(
+  const { refetch: isSavedRefetch } = useQuery<savedPlaylist[]>(
     ["checkIfSaved", id],
     loadSavedPlaylist,
     {
@@ -305,7 +311,12 @@ function LibraryComp() {
   );
 
   const handleSave = useCallback(async () => {
-    if (uid && isSaved) {
+    if (uid && id) {
+      const q = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
+        Query.equal("$id", [id.replace("custom", "")]),
+      ]);
+      const isSaved = q.documents as unknown as savedPlaylist[];
+
       await db.createDocument(
         DATABASE_ID,
         PLAYLIST_COLLECTION_ID,
@@ -320,7 +331,7 @@ function LibraryComp() {
       );
       isSavedRefetch();
     }
-  }, [uid, isSaved, isSavedRefetch]);
+  }, [uid, isSavedRefetch, id]);
   return (
     <div className=" flex flex-col items-center">
       {isError && pError && playlistThumbnailError && (
