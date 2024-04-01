@@ -242,15 +242,13 @@ function Check() {
   );
 
   const music = useSelector((state: RootState) => state.musicReducer.music);
-  const isPlaying = useSelector(
-    (state: RootState) => state.musicReducer.isPlaying
-  );
+
   useEffect(() => {
     if (data) {
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
       dispatch(SetPlaylistOrAlbum(data.navigator));
       dispatch(setCurrentIndex(data.index));
-      if (music && music.duration !== data.seek && isPlaying) {
+      if (music && music.duration !== data.seek) {
         music.currentTime = data.seek;
       }
       if (data.navigator == "library") {
@@ -276,7 +274,7 @@ function Check() {
     dispatch(setIsIphone(isStandalone));
     setGraphic(checkGpuCapabilities());
     setCheck(false);
-  }, [dispatch, data, refetch, likedSong, suggested, album, music, isPlaying]);
+  }, [dispatch, data, refetch, likedSong, suggested, album, music]);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
