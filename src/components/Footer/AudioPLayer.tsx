@@ -74,6 +74,7 @@ function AudioPLayerComp() {
   const isStandalone = useSelector(
     (state: RootState) => state.musicReducer.isIphone
   );
+  const seek = useSelector((state: RootState) => state.musicReducer.seek);
   const uid = useSelector((state: RootState) => state.musicReducer.uid);
   const isLikedCheck = async () => {
     const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
@@ -218,6 +219,12 @@ function AudioPLayerComp() {
       return () => clearInterval(seek);
     }
   }, [updateSeek, isPlaying]);
+
+  useEffect(() => {
+    if (music) {
+      music.currentTime = seek;
+    }
+  }, [music, seek]);
   // const playingInsights = useCallback(() => {
   //   db.createDocument(DATABASE_ID, MOST_PLAYED, ID.unique(), {
   //     user: localStorage.getItem("uid"),

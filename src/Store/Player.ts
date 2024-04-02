@@ -21,6 +21,7 @@ interface Player {
   duration: number | "--:--";
   isLoading: boolean;
   isLoop: boolean;
+  seek: number;
   uid: string | null;
   isLikedSong: boolean;
   currentArtistId: string;
@@ -47,6 +48,7 @@ const initialState: Player = {
   progress: "--:--",
   duration: "--:--",
   isLoop: false,
+  seek: 0,
   currentToggle: "Playlists",
   searchToggle: "Music",
   shareLyrics: null,
@@ -90,6 +92,9 @@ const MusicPlayer = createSlice({
     },
     SetQueue: (state, action: PayloadAction<playlistSongs[]>) => {
       state.queue = action.payload;
+    },
+    SetSeek: (state, action: PayloadAction<number>) => {
+      state.seek = action.payload;
     },
     SetCurrentSongId: (state, action: PayloadAction<string>) => {
       state.currentSongId = action.payload;
@@ -187,6 +192,7 @@ const MusicPlayer = createSlice({
 export const {
   shuffle,
   play,
+  SetSeek,
   SetShareLyrics,
   setSavedArtists,
   setSavedAlbums,

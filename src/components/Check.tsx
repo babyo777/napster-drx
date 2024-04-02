@@ -6,6 +6,7 @@ import InstallNapsterAndroid from "@/Testing/AndInstaller";
 import { useDispatch, useSelector } from "react-redux";
 import {
   SetPlaylistOrAlbum,
+  SetSeek,
   setCurrentIndex,
   setIsIphone,
   setPlayingPlaylistUrl,
@@ -248,10 +249,8 @@ function Check() {
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
       dispatch(SetPlaylistOrAlbum(data.navigator));
       dispatch(setCurrentIndex(data.index));
+      dispatch(SetSeek(data.seek));
 
-      if (music && music.duration !== data.seek) {
-        music.currentTime = data.seek;
-      }
       if (data.navigator == "library") {
         refetch();
       }
