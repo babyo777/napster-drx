@@ -186,7 +186,7 @@ function SpotifyTransfer({
                 className=" w-full border-none"
                 height="7px"
                 isLabelVisible={false}
-                bgColor="green"
+                bgColor="#1DD45F"
                 maxCompleted={data.tracks.length}
                 completed={progress || 0}
               />
