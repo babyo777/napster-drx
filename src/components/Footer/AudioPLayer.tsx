@@ -234,7 +234,6 @@ function AudioPLayerComp() {
       dispatch(setIsLoading(true));
 
       const sound: HTMLAudioElement | null = audioRef.current;
-      sound.currentTime = seek;
       sound.src = `${streamApi}${playlist[currentIndex]?.youtubeId}`;
       const handlePlay = () => {
         if (isLooped) {
