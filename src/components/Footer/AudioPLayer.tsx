@@ -220,11 +220,6 @@ function AudioPLayerComp() {
     }
   }, [updateSeek, isPlaying]);
 
-  useEffect(() => {
-    if (music) {
-      music.currentTime = seek;
-    }
-  }, [music, seek]);
   // const playingInsights = useCallback(() => {
   //   db.createDocument(DATABASE_ID, MOST_PLAYED, ID.unique(), {
   //     user: localStorage.getItem("uid"),
@@ -239,6 +234,7 @@ function AudioPLayerComp() {
       dispatch(setIsLoading(true));
 
       const sound: HTMLAudioElement | null = audioRef.current;
+      sound.currentTime = seek;
       sound.src = `${streamApi}${playlist[currentIndex]?.youtubeId}`;
       const handlePlay = () => {
         if (isLooped) {
@@ -337,6 +333,7 @@ function AudioPLayerComp() {
     currentIndex,
     playlist,
     handleNext,
+    seek,
     refetch,
     isLooped,
     saveLastPlayed,
