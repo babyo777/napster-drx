@@ -2,7 +2,7 @@ import Songs from "./Songs";
 import { Button } from "../ui/button";
 import { FaPlay } from "react-icons/fa6";
 import { IoIosArrowBack, IoMdAdd } from "react-icons/io";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { SearchPlaylist, playlistSongs, savedPlaylist } from "@/Interface";
@@ -50,6 +50,8 @@ function LibraryComp() {
 
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [search] = useSearchParams(location.search);
+  const c = search.get("c");
 
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
@@ -94,7 +96,6 @@ function LibraryComp() {
       ]);
       const p = r.documents as unknown as savedPlaylist[];
       setIsSaved(p);
-
       return p;
     }
   };
@@ -422,6 +423,7 @@ function LibraryComp() {
                 width="100%"
                 height="100%"
                 src={
+                  c ||
                   (playlistThumbnail &&
                     playlistThumbnail[0]?.thumbnailUrl.replace(
                       "w120-h120",
