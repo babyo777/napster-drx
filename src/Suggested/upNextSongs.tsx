@@ -23,6 +23,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { MdDragHandle } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import { GetImage } from "@/API/api";
 function UpNextSongs({
   title,
   artist,
@@ -147,7 +148,7 @@ function UpNextSongs({
         >
           <AspectRatio ratio={1 / 1}>
             <LazyLoadImage
-              src={cover}
+              src={`${GetImage}${cover}`}
               width="100%"
               height="100%"
               effect="blur"

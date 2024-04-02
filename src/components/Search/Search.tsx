@@ -30,6 +30,7 @@ import { AlbumSearchComp } from "./albumSearch";
 import SkeletonP from "../Library/SkeletonP";
 import RecentSearchesComp from "./RecentSearches";
 import { SearchToggle } from "./searchToggle";
+import { IoSearchOutline } from "react-icons/io5";
 
 function SearchComp() {
   const searchQuery = useSelector(
@@ -156,19 +157,28 @@ function SearchComp() {
     <>
       <Header title="Search" />
       <div className="flex flex-col fade-in items-center space-x-1 px-4">
-        <Input
-          ref={s}
-          type="text"
-          onChange={() => search(1100)}
-          placeholder="Artists, Songs, Playlists, Albums"
-          className=" relative shadow-none rounded-lg"
-        />
+        <div className="flex w-full -space-x-2">
+          <div className="border rounded-lg rounded-r-none border-r-0 px-2 border-zinc-800">
+            <IoSearchOutline
+              onClick={clearSearchQuery}
+              className=" text-white fade-in left-6 mt-2 h-5 w-5"
+            />
+          </div>
+          <Input
+            ref={s}
+            type="text"
+            onChange={() => search(1100)}
+            placeholder="Artists, Songs, Playlists and More"
+            className="  px-2 relative  shadow-none rounded-lg rounded-l-none border-l-0 "
+          />
+        </div>
         {searchQuery.length > 0 && (
           <MdCancel
             onClick={clearSearchQuery}
             className=" absolute fade-in right-6 mt-2 h-5 w-5"
           />
         )}
+
         <div className="flex flex-col  text-start w-full py-2">
           {isLoading && (
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">

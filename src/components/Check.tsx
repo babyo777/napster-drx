@@ -249,7 +249,7 @@ function Check() {
       dispatch(SetPlaylistOrAlbum(data.navigator));
       dispatch(setCurrentIndex(data.index));
 
-      if (music && music.duration !== data.seek && !music.pause) {
+      if (music && music.duration !== data.seek) {
         music.currentTime = data.seek;
       }
       if (data.navigator == "library") {
