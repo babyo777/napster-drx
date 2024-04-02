@@ -412,9 +412,10 @@ function AudioPLayerComp() {
                 >
                   <div className="flex justify-center items-center  h-[44dvh]">
                     <LazyLoadImage
-                      src={`${GetImage}${playlist[
-                        currentIndex
-                      ].thumbnailUrl.replace("w120-h120", "w1080-h1080")}`}
+                      src={playlist[currentIndex].thumbnailUrl.replace(
+                        "w120-h120",
+                        "w1080-h1080"
+                      )}
                       onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
                         (e.currentTarget.src =
                           "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg")
