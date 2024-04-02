@@ -305,7 +305,7 @@ function AudioPLayerComp() {
       sound.addEventListener("error", handleError);
       sound.addEventListener("timeupdate", handleTimeUpdate);
       sound.addEventListener("ended", handleNext);
-
+      sound.play();
       dispatch(setPlayer(sound));
 
       return () => {
