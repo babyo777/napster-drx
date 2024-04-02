@@ -122,7 +122,7 @@ const AddAlbum: React.FC<{
       </DialogTrigger>
       <DialogContent className="w-full h-dvh border-none flex flex-col justify-center items-center rounded-none">
         <DialogHeader>
-          <DialogTitle className="text-xl font-medium">
+          <DialogTitle className="text-xl font-semibold">
             {clone ? "Save this album" : "Create your own playlist"}
           </DialogTitle>
         </DialogHeader>

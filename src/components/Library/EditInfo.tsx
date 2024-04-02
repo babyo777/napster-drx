@@ -44,24 +44,26 @@ const EditInfo: React.FC<{ id: string; f: string; collection?: string }> = ({
       <AlertDialogTrigger className="flex w-full items-center justify-end space-x-2">
         <RxCross2 className="h-6 w-6 text-zinc-500" />
       </AlertDialogTrigger>
-      <AlertDialogContent className="items-center m-0 p-0 pt-3 pb-2 border-none rounded-2xl flex flex-col w-[60vw] bg-neutral-900/95">
+      <AlertDialogContent className="items-center m-0 p-0 pt-3 pb-1 border-none rounded-2xl flex flex-col w-[60vw] bg-neutral-900/95">
         <AlertDialogHeader>
-          <AlertTitle className="text-zinc-300  font-normal pt-1">
+          <AlertTitle className="text-zinc-300  font-semibold pt-1">
             Are you sure?
           </AlertTitle>
         </AlertDialogHeader>
 
         <div className="flex items-center flex-col w-full justify-center ">
           <div className=" h-[0.11rem] bg-zinc-800/30 w-full"></div>
-          <Button
-            asChild
-            disabled={f === "default" ? true : false}
-            variant={"secondary"}
-            onClick={handleDelete}
-            className="px-7 py-5 bg-transparent text-lg font-normal rounded-xl  text-red-500 "
-          >
-            <p>Yes</p>
-          </Button>
+          <AlertDialogCancel className=" bg-transparent  border-none p-0 m-0">
+            <Button
+              asChild
+              disabled={f === "default" ? true : false}
+              variant={"secondary"}
+              onClick={handleDelete}
+              className="px-7 py-5 bg-transparent text-lg font-normal rounded-xl  text-red-500 "
+            >
+              <p>Yes</p>
+            </Button>
+          </AlertDialogCancel>
           <div className=" h-[0.11rem] bg-zinc-800/30 w-full"></div>
           <AlertDialogCancel className=" bg-transparent  border-none p-0 m-0">
             <Button

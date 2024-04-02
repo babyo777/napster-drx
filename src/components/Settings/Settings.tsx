@@ -43,7 +43,7 @@ function Settings() {
       <DrawerTrigger>
         <FaUserCircle className="h-7 w-7 text-zinc-100" />
       </DrawerTrigger>
-      <DrawerContent className="px-5">
+      <DrawerContent className="px-5 bg-neutral-950">
         <DrawerHeader>
           <DrawerTitle className="text-zinc-400 font-bold">
             Napster Settings
@@ -51,14 +51,14 @@ function Settings() {
         </DrawerHeader>
         <p
           onClick={handleLoad}
-          className=" rounded-xl py-2.5  bg-secondary flex justify-center  text-base"
+          className=" rounded-xl py-2.5  bg-neutral-900 flex justify-center  text-base"
         >
           Load From Token
         </p>
         {/iPhone/i.test(navigator.userAgent) && (
           <p
             onClick={handleLoadPlaylist}
-            className=" rounded-xl py-2.5 mt-3  bg-secondary flex justify-center  text-base"
+            className=" rounded-xl py-2.5 mt-3  bg-neutral-900 flex justify-center  text-base"
           >
             Load Playlist
           </p>
@@ -68,13 +68,13 @@ function Settings() {
           onClick={() =>
             (window.location.href = "mailto:yfw111realone@gmail.com")
           }
-          className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center text-base "
+          className=" rounded-xl py-2.5 mt-3 bg-neutral-900 flex justify-center text-base "
         >
           Report bug
         </p> */}
         {/* <p
           onClick={() => window.open("https://tanmayo7.vercel.app")}
-          className=" rounded-xl py-2.5 mt-3 bg-secondary flex justify-center text-base "
+          className=" rounded-xl py-2.5 mt-3 bg-neutral-900 flex justify-center text-base "
         >
           More by babyo7_
         </p> */}
@@ -88,7 +88,7 @@ function Settings() {
         </p>
         <DialogClose ref={closeRef}></DialogClose>
         <DrawerFooter className=" items-center">
-          <span className="text-xs text-zinc-300">Version - 1.2.1 beta</span>
+          <span className="text-xs text-zinc-300">Version - 1.2.7 beta</span>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

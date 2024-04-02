@@ -47,7 +47,7 @@ function SponsorsComp() {
   return (
     <Dialog>
       <DialogTrigger>
-        <p className=" rounded-xl flex items-center justify-center bg-zinc-800  py-2.5 mt-3  w-full text-base">
+        <p className=" rounded-xl flex items-center justify-center bg-neutral-900   py-2.5 mt-3  w-full text-base">
           <SiGithubsponsors className="mr-2 fill-pink-400" /> Sponsor
         </p>
       </DialogTrigger>

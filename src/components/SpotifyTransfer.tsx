@@ -124,14 +124,14 @@ function SpotifyTransfer({
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <p className=" rounded-xl bg-green-500 py-2.5 mt-3  w-full text-base">
+        <p className=" rounded-xl  bg-green-600 py-2.5 mt-3  w-full text-base">
           Transfer from Spotify
         </p>
       </AlertDialogTrigger>
       <AlertDialogContent className="w-full border-none flex items-center flex-col justify-center h-dvh rounded-none">
         <AlertDialogHeader>
           {!data && !complete && !isLoading && (
-            <DialogTitle className=" text-2xl -mb-1">
+            <DialogTitle className=" text-2xl font-semibold -mb-1">
               Paste Spotify Link
             </DialogTitle>
           )}
@@ -156,7 +156,7 @@ function SpotifyTransfer({
                   <Button
                     type="submit"
                     variant={"secondary"}
-                    className=" w-full py-5 rounded-xl"
+                    className=" w-full py-5  rounded-xl"
                   >
                     Transfer
                   </Button>
@@ -179,7 +179,7 @@ function SpotifyTransfer({
           {data && data.tracks.length > 0 && (
             <div className="flex w-full flex-col space-y-3 items-center">
               <p className="text-zinc-300 text-xl">
-                Transferred {progress}/{data.tracks.length}
+                {Math.floor((progress / data.tracks.length) * 100)} %
               </p>
 
               <ProgressBar
@@ -190,6 +190,9 @@ function SpotifyTransfer({
                 maxCompleted={data.tracks.length}
                 completed={progress || 0}
               />
+              <p className="text-zinc-300 text-xl">
+                Total:- {data.tracks.length}
+              </p>
             </div>
           )}
         </div>
