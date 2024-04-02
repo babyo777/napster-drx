@@ -124,7 +124,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
           </span>
         )}
       </DrawerTrigger>
-      <DrawerContent className="h-[100dvh] px-5">
+      <DrawerContent className="h-[100dvh] rounded-none px-5">
         <div className="h-dvh items-center border-none justify-center flex flex-col w-full  rounded-2xl">
           <DrawerHeader>
             <DrawerTitle className="text-xl font-medium">
