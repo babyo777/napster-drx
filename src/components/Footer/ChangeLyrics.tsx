@@ -74,7 +74,7 @@ export function ChangeLyrics({
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="h-[100vh] bg-zinc-950 rounded-2xl">
+      <DialogContent className="h-[100vh]  rounded-2xl">
         <DialogHeader>
           <DialogTitle>Select Lyrics to Share</DialogTitle>
         </DialogHeader>

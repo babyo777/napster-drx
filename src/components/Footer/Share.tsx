@@ -116,7 +116,7 @@ function ShareLyrics({
       <DrawerTrigger className="m-0 p-1.5 flex  justify-center items-center bg-zinc-900 rounded-full">
         <IoShareOutline className="h-6 w-6 text-white" />
       </DrawerTrigger>
-      <DrawerContent className="  h-[100dvh] rounded-none px-[4.5vw]  bg-[#09090b]">
+      <DrawerContent className="  h-[100dvh] rounded-none px-[4.5vw]">
         {!round && (
           <div className=" absolute z-10 bg-black/10 w-[91vw] h-[100dvh] flex justify-center items-center">
             <Loader color="white" />
