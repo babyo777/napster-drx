@@ -234,9 +234,8 @@ function LibraryComp() {
   );
 
   useEffect(() => {
-    if (id?.startsWith("custom")) {
-      refetch();
-    }
+    refetch();
+
     dispatch(setIsLikedSong(false));
   }, [dispatch, refetch, id]);
   const handleShufflePlay = useCallback(async () => {
