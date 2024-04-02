@@ -93,6 +93,8 @@ function LibraryComp() {
         Query.equal("link", [id || "none"]),
       ]);
       const p = r.documents as unknown as savedPlaylist[];
+      setIsSaved(p);
+
       return p;
     }
   };
