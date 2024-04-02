@@ -74,7 +74,7 @@ export function ChangeLyrics({
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="h-[100vh] rounded-none ">
+      <DialogContent className="h-[100vh] border-none rounded-none ">
         <DialogHeader>
           <DialogTitle>Select Lyrics to Share</DialogTitle>
         </DialogHeader>
