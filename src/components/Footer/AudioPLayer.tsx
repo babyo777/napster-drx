@@ -22,7 +22,7 @@ import {
   setProgressLyrics,
 } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
-import { streamApi } from "@/API/api";
+import { GetImage, streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -304,7 +304,6 @@ function AudioPLayerComp() {
       sound.addEventListener("timeupdate", handleTimeUpdate);
       sound.addEventListener("ended", handleNext);
 
-      sound.play();
       dispatch(setPlayer(sound));
 
       return () => {
@@ -380,7 +379,7 @@ function AudioPLayerComp() {
                   height="100%"
                   width="100%"
                   src={
-                    playlist[currentIndex].thumbnailUrl ||
+                    `${GetImage}${playlist[currentIndex].thumbnailUrl}` ||
                     "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg"
                   }
                   alt="Image"
@@ -410,10 +409,9 @@ function AudioPLayerComp() {
                 >
                   <div className="flex justify-center items-center  h-[44dvh]">
                     <LazyLoadImage
-                      src={playlist[currentIndex].thumbnailUrl.replace(
-                        "w120-h120",
-                        "w1080-h1080"
-                      )}
+                      src={`${GetImage}${playlist[
+                        currentIndex
+                      ].thumbnailUrl.replace("w120-h120", "w1080-h1080")}`}
                       onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
                         (e.currentTarget.src =
                           "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg")
