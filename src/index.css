@@ -37,7 +37,7 @@
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    --background: #121212;
     --foreground: 0 0% 98%;
 
     --card: 240 10% 3.9%;
@@ -78,6 +78,7 @@
 
 body {
   font-family: "Inter" sans-serif;
+  background-color: #121212;
 }
 
 *:focus {
