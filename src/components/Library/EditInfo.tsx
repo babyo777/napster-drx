@@ -53,7 +53,7 @@ const EditInfo: React.FC<{ id: string; f: string; collection?: string }> = ({
 
         <div className="flex items-center flex-col w-full justify-center ">
           <div className=" h-[0.11rem] bg-zinc-800/30 w-full"></div>
-          <AlertDialogCancel className=" bg-transparent  border-none p-0 m-0">
+          <AlertDialogCancel className="w-full bg-transparent  border-none p-0 m-0">
             <Button
               asChild
               disabled={f === "default" ? true : false}
@@ -61,18 +61,18 @@ const EditInfo: React.FC<{ id: string; f: string; collection?: string }> = ({
               onClick={handleDelete}
               className="px-7 py-5 bg-transparent text-lg font-normal rounded-xl  text-red-500 "
             >
-              <p>Yes</p>
+              <p className=" w-full">Yes</p>
             </Button>
           </AlertDialogCancel>
           <div className=" h-[0.11rem] bg-zinc-800/30 w-full"></div>
-          <AlertDialogCancel className=" bg-transparent  border-none p-0 m-0">
+          <AlertDialogCancel className="w-full bg-transparent  border-none p-0 m-0">
             <Button
               asChild
               ref={closeRef}
               variant={"secondary"}
               className="px-7 bg-transparent text-zinc-400 font-normal text-base rounded-xl "
             >
-              <p className="font-normal">No</p>
+              <p className="font-normal w-full">No</p>
             </Button>
           </AlertDialogCancel>
         </div>
