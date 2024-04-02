@@ -178,8 +178,8 @@ function SpotifyTransfer({
 
           {data && data.tracks.length > 0 && (
             <div className="flex w-full flex-col space-y-3 items-center">
-              <p className="text-zinc-300 text-xl">
-                {Math.floor((progress / data.tracks.length) * 100)} %
+              <p className="text-zinc-300  font-semibold text-xl">
+                {Math.floor((progress / data.tracks.length) * 100)}%
               </p>
 
               <ProgressBar
@@ -190,8 +190,8 @@ function SpotifyTransfer({
                 maxCompleted={data.tracks.length}
                 completed={progress || 0}
               />
-              <p className="text-zinc-300 text-xl">
-                Total:- {data.tracks.length}
+              <p className="text-zinc-300  font-semibold text-lg">
+                Transferred {progress}/{data.tracks.length}
               </p>
             </div>
           )}
