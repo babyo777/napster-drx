@@ -404,6 +404,7 @@ function LibraryComp() {
                 <div>
                   <PlaylistShare
                     cover={
+                      c ||
                       (playlistThumbnail &&
                         playlistThumbnail[0]?.thumbnailUrl) ||
                       "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
