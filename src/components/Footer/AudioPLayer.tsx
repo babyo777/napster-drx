@@ -401,7 +401,7 @@ function AudioPLayerComp() {
             </div>
           </DrawerTrigger>
 
-          <DrawerContent className=" h-[100dvh]  rounded-none bg-[#09090b] ">
+          <DrawerContent className=" h-[100dvh]  rounded-none bg-[#121212] ">
             <div className="flex flex-col justify-start pt-7  h-full">
               <DrawerHeader>
                 <div
