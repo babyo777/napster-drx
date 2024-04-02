@@ -9,6 +9,8 @@ import { SearchOneTrackApi, TransferFromSpotifyApi } from "@/API/api";
 import { useQuery, useQueryClient } from "react-query";
 import Loader from "./Loaders/Loader";
 import { playlistSongs, spotifyTransfer } from "@/Interface";
+import ProgressBar from "@ramonak/react-progress-bar";
+
 import {
   ADD_TO_LIBRARY,
   DATABASE_ID,
@@ -179,15 +181,14 @@ function SpotifyTransfer({
               <p className="text-zinc-300 text-xl">
                 Transferred {progress}/{data.tracks.length}
               </p>
-              <input
-                type="range"
-                value={progress || 0}
-                max={data.tracks.length}
-                onChange={() => console.log("ok")}
-                min="0"
-                step=".01"
-                dir="ltr"
-                className="w-full h-2 transition-all duration-300 bg-zinc-300/75 overflow-hidden rounded-lg appearance-none cursor-pointer"
+
+              <ProgressBar
+                className=" w-full border-none"
+                height="7px"
+                isLabelVisible={false}
+                bgColor="green"
+                maxCompleted={data.tracks.length}
+                completed={progress || 0}
               />
             </div>
           )}
