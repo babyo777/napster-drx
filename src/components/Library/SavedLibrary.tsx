@@ -122,7 +122,7 @@ function SavedLibraryComp() {
                   <p className="w-[59vw] fade-in text-lg truncate">
                     Liked Songs
                   </p>
-                  <div className="flex items-center space-x-1">
+                  <div className="flex -mt-0.5  items-center space-x-1">
                     <GiPin className="h-3 w-3" />
                     <p className="text-xs w-[50vw] truncate">Playlist</p>
                   </div>
