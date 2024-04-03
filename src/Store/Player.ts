@@ -23,11 +23,13 @@ interface Player {
   isLoop: boolean;
   seek: number;
   uid: string | null;
+  sharePlayCode: string;
   isLikedSong: boolean;
   currentArtistId: string;
   savedPlaylist: savedPlaylist[];
   savedAlbums: savedPlaylist[];
   savedArtists: suggestedArtists[];
+  sharePlayConnected: boolean;
   shareLyrics:
     | [
         {
@@ -40,6 +42,7 @@ interface Player {
 
 const initialState: Player = {
   isLikedSong: false,
+  sharePlayCode: "",
   uid: localStorage.getItem("uid"),
   currentArtistId: "",
   isIphone: false,
@@ -49,6 +52,7 @@ const initialState: Player = {
   duration: "--:--",
   isLoop: false,
   seek: 0,
+  sharePlayConnected: false,
   currentToggle: "Playlists",
   searchToggle: "Music",
   shareLyrics: null,
@@ -98,6 +102,12 @@ const MusicPlayer = createSlice({
     },
     SetCurrentSongId: (state, action: PayloadAction<string>) => {
       state.currentSongId = action.payload;
+    },
+    SetSharePlayCode: (state, action: PayloadAction<string>) => {
+      state.sharePlayCode = action.payload;
+    },
+    SetSharePlayConnected: (state, action: PayloadAction<boolean>) => {
+      state.sharePlayConnected = action.payload;
     },
     SetShareLyrics: (
       state,
@@ -192,10 +202,12 @@ const MusicPlayer = createSlice({
 export const {
   shuffle,
   play,
+  SetSharePlayConnected,
   SetSeek,
   SetShareLyrics,
   setSavedArtists,
   setSavedAlbums,
+  SetSharePlayCode,
   setCurrentToggle,
   SetPlaylistOrAlbum,
   setPlaylist,

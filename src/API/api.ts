@@ -49,7 +49,7 @@ const TransferFromSpotifyApi = `${mainApi}/get/?id=`;
 
 const SearchOneTrackApi = `${mainApi}/one/?t=`;
 
-const SharePlayApi = `http://localhost:3000`;
+const SharePlayApi = `https://napster-share-play.onrender.com/`;
 
 export {
   SharePlayApi,
