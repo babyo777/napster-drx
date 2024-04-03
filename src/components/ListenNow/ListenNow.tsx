@@ -229,6 +229,7 @@ export function ListenNowComp() {
               .map((r, i) => (
                 <div key={r.youtubeId + i} ref={ref}>
                   <FeedSong
+                    fromSearch={true}
                     artistId={r.artists[0].id}
                     audio={r.youtubeId}
                     artistName={r.artists[0].name}
