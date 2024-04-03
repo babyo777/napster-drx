@@ -136,6 +136,9 @@ export function ListenNowComp() {
       refetchOnWindowFocus: false,
       staleTime: 60 * 60000,
       refetchOnMount: false,
+      onError() {
+        refetchFeed();
+      },
       onSuccess(data) {
         data.length == 0 && refetchFeed();
       },
@@ -204,7 +207,7 @@ export function ListenNowComp() {
         </div>
       )}
       {lastPlayed && (
-        <div className=" rounded-xl -mt-4  py-2.5  items-center space-x-2 flex px-5">
+        <div className=" rounded-xl fade-in -mt-4  py-2.5  items-center space-x-2 flex px-5">
           <Label htmlFor="airplane-mode" className="text-base">
             Feed mode
           </Label>
