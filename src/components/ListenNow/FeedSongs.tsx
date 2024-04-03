@@ -136,7 +136,7 @@ function FeedSong({
             {title}
           </p>
           <Link to={`/artist/${artistId}`} className="w-[70dvw]">
-            <p className="  text-zinc-400 text-sm w-[70dvw]   truncate">
+            <p className="  -mt-0.5 text-zinc-400 text-sm w-[70dvw]   truncate">
               {artist[0]?.name || artistName}
             </p>
           </Link>
