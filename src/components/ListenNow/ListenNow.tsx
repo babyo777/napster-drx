@@ -21,7 +21,7 @@ import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
-import { SetFeedMode } from "@/Store/Player";
+import { SetFeed, SetFeedMode } from "@/Store/Player";
 import { useInView } from "react-intersection-observer";
 import ReactPullToRefresh from "react-simple-pull-to-refresh";
 import FeedSong from "./FeedSongs";
@@ -29,6 +29,7 @@ export function ListenNowComp() {
   const checked = useSelector(
     (state: RootState) => state.musicReducer.feedMode
   );
+  const music = useSelector((state: RootState) => state.musicReducer.Feed);
 
   const [report, setReport] = React.useState<boolean>();
   const dispatch = useDispatch();
@@ -116,7 +117,6 @@ export function ListenNowComp() {
     (state: RootState) => state.musicReducer.playlist
   );
 
-  const [music, setMusic] = React.useState<playlistSongs[]>();
   const query = async () => {
     const currentIndex = Math.floor(Math.random() * playlist.length);
     const q = await axios.get(
@@ -124,18 +124,22 @@ export function ListenNowComp() {
         playlist.length > 0 ? playlist[currentIndex].youtubeId : "w6Y8fvBczYM"
       }`
     );
-    setMusic(q.data.slice(1));
+    dispatch(SetFeed(q.data.slice(1)));
     return q.data as playlistSongs[];
   };
 
-  const { refetch: refetchFeed } = useQuery<playlistSongs[]>(["Feed"], query, {
-    refetchOnWindowFocus: false,
-    staleTime: 30000,
-    refetchOnMount: false,
-    onSuccess(data) {
-      data.length == 0 && refetchFeed();
-    },
-  });
+  const { refetch: refetchFeed, isLoading } = useQuery<playlistSongs[]>(
+    ["Feed"],
+    query,
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 60 * 60000,
+      refetchOnMount: false,
+      onSuccess(data) {
+        data.length == 0 && refetchFeed();
+      },
+    }
+  );
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -146,10 +150,10 @@ export function ListenNowComp() {
       axios
         .get(`${SuggestionSearchApi}${music[music.length - 1].youtubeId}`)
         .then((q) => {
-          setMusic((prev) => prev?.concat(q.data.slice(1)));
+          dispatch(SetFeed(music.concat(q.data.slice(1))));
         });
     }
-  }, [inView, music]);
+  }, [inView, music, dispatch]);
   const handleRefresh = React.useCallback(async () => {
     await refetchFeed();
   }, [refetchFeed]);
@@ -193,7 +197,7 @@ export function ListenNowComp() {
           <Loader />
         </div>
       )}
-      {!music && checked && (
+      {isLoading && checked && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex   items-center space-x-2">
           <Loader />
         </div>
