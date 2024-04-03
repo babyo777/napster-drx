@@ -27,6 +27,7 @@ import { GrNext } from "react-icons/gr";
 import { ToggleLibrary } from "./Toggle";
 import SavedAlbumCard from "./savedAAlbums";
 import { ArtistSearch } from "./savedArtists";
+import { GiPin } from "react-icons/gi";
 
 function SavedLibraryComp() {
   const dispatch = useDispatch();
@@ -118,10 +119,13 @@ function SavedLibraryComp() {
                   </AspectRatio>
                 </div>
                 <div className="flex flex-col  text-xl text-start">
-                  <p className="w-[59vw] fade-in text-lg truncate">
+                  <p className="w-[59vw] fade-in text-base truncate">
                     Liked Songs
                   </p>
-                  <p className="-mt-2  text-xs w-[50vw] truncate h-2"></p>
+                  <div className="flex items-center space-x-1">
+                    <GiPin className="h-3 w-3" />
+                    <p className="text-xs w-[50vw] truncate">Playlist</p>
+                  </div>
                 </div>
               </div>
 
