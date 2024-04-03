@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { socket } from "./Socket";
 import { v4 } from "uuid";
 import { playlistSongs } from "@/Interface";
-// import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Avatar, AvatarFallback } from "../ui/avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { SetSharePlayCode, SetSharePlayConnected } from "@/Store/Player";
@@ -99,14 +99,14 @@ function SharePlay() {
         <div className="px-4">
           <div className="flex space-x-2 items-center justify-between">
             <div className=" flex font-semibold  items-center justify-start  rounded-lg">
-              {/* <Avatar>
+              <Avatar>
                 <AvatarFallback>
                   <img
                     src="https://cdn.discordapp.com/avatars/497085547970560021/ae252d246e9df2336dec3c4541de57a8.webp?size=4096"
                     alt=""
                   />
                 </AvatarFallback>
-              </Avatar> */}
+              </Avatar>
             </div>
             <div className="flex space-x-2 items-center">
               <Button

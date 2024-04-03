@@ -119,12 +119,12 @@ function SavedLibraryComp() {
                   </AspectRatio>
                 </div>
                 <div className="flex flex-col  text-xl text-start">
-                  <p className="w-[59vw] fade-in text-lg truncate">
+                  <p className="w-[59vw] fade-in font-semibold text-lg truncate">
                     Liked Songs
                   </p>
-                  <div className="flex -mt-0.5  items-center space-x-1">
+                  <div className="flex -mt-0.5 text-zinc-300 items-center space-x-1">
                     <GiPin className="h-3 w-3" />
-                    <p className="text-xs w-[50vw] truncate">Playlist</p>
+                    <p className="text-xs w-[50vw]truncate">Playlist</p>
                   </div>
                 </div>
               </div>
