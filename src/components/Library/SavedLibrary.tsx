@@ -123,7 +123,7 @@ function SavedLibraryComp() {
                     Liked Songs
                   </p>
                   <div className="flex -mt-0.5 text-zinc-300 items-center space-x-1">
-                    <GiPin className="h-3 w-3" />
+                    <GiPin className="h-3 text-white w-3" />
                     <p className="text-xs w-[50vw]truncate">Playlist</p>
                   </div>
                 </div>

@@ -67,7 +67,7 @@ function SavedAlbumCard({
                 {album}
               </p>
 
-              <p className="-mt-0.5 text-zinc-300 text-xs w-[50vw] truncate">
+              <p className="-mt-0.5 text-zinc-400 text-xs w-[50vw] truncate">
                 {author}
               </p>
             </div>

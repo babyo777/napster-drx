@@ -69,7 +69,7 @@ function SavedLibraryCard({
               <p className="w-[59vw]  text-lg font-semibold fade-in truncate">
                 {author || data.creator || "NapsterDrx."}
               </p>
-              <p className="-mt-0.5  text-xs w-[50vw] text-zinc-300 truncate">
+              <p className="-mt-0.5  text-xs w-[50vw] text-zinc-400 truncate">
                 {p[0]?.title || data.name}
               </p>
             </div>
