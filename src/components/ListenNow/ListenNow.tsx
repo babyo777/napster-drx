@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { SetFeedMode } from "@/Store/Player";
 import { useInView } from "react-intersection-observer";
-import ReactPullToRefresh from "react-pull-to-refresh";
+import ReactPullToRefresh from "react-simple-pull-to-refresh";
 import FeedSong from "./FeedSongs";
 export function ListenNowComp() {
   const checked = useSelector(
@@ -151,7 +151,7 @@ export function ListenNowComp() {
     }
   }, [inView, music]);
   const handleRefresh = React.useCallback(async () => {
-    refetchFeed();
+    await refetchFeed();
   }, [refetchFeed]);
 
   return (
@@ -209,27 +209,27 @@ export function ListenNowComp() {
         />
       </div>
       {checked && music && (
-        <ReactPullToRefresh
-          onRefresh={handleRefresh}
-          className="h-[80dvh] pb-28 px-5 overflow-scroll"
-        >
-          {music
-            .filter(
-              (r, i, s) => i === s.findIndex((t) => t.youtubeId == r.youtubeId)
-            )
-            .map((r, i) => (
-              <div key={r.youtubeId + i} ref={ref}>
-                <FeedSong
-                  artistId={r.artists[0].id}
-                  audio={r.youtubeId}
-                  artistName={r.artists[0].name}
-                  id={r.youtubeId}
-                  title={r.title}
-                  artist={r.artists}
-                  cover={r.thumbnailUrl}
-                />
-              </div>
-            ))}
+        <ReactPullToRefresh onRefresh={handleRefresh}>
+          <div className="h-[80dvh] pb-28 px-5 overflow-scroll">
+            {music
+              .filter(
+                (r, i, s) =>
+                  i === s.findIndex((t) => t.youtubeId == r.youtubeId)
+              )
+              .map((r, i) => (
+                <div key={r.youtubeId + i} ref={ref}>
+                  <FeedSong
+                    artistId={r.artists[0].id}
+                    audio={r.youtubeId}
+                    artistName={r.artists[0].name}
+                    id={r.youtubeId}
+                    title={r.title}
+                    artist={r.artists}
+                    cover={r.thumbnailUrl}
+                  />
+                </div>
+              ))}
+          </div>
         </ReactPullToRefresh>
       )}
       {!checked && (
