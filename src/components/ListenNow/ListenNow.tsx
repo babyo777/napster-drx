@@ -128,18 +128,14 @@ export function ListenNowComp() {
     return q.data as playlistSongs[];
   };
 
-  const { refetch: refetchFeed, isLoading } = useQuery<playlistSongs[]>(
-    ["Feed"],
-    query,
-    {
-      refetchOnWindowFocus: false,
-      staleTime: 30000,
-      refetchOnMount: false,
-      onSuccess(data) {
-        data.length == 0 && refetchFeed();
-      },
-    }
-  );
+  const { refetch: refetchFeed } = useQuery<playlistSongs[]>(["Feed"], query, {
+    refetchOnWindowFocus: false,
+    staleTime: 30000,
+    refetchOnMount: false,
+    onSuccess(data) {
+      data.length == 0 && refetchFeed();
+    },
+  });
 
   const { ref, inView } = useInView({
     threshold: 0,
