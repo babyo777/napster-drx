@@ -209,7 +209,7 @@ export function ListenNowComp() {
         />
       </div>
       {checked && music && (
-        <ReactPullToRefresh onRefresh={handleRefresh}>
+        <ReactPullToRefresh pullingContent={""} onRefresh={handleRefresh}>
           <div className="h-[80dvh] pb-28 px-5 overflow-scroll">
             {music
               .filter(
