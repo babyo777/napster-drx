@@ -47,9 +47,9 @@ function ArtistSearch({ name, artistId, thumbnailUrl }: suggestedArtists) {
       </Link>
       <Link to={`/artist/${artistId}`}>
         <div className="flex  flex-col pl-1 text-start w-[66dvw]">
-          <p className={`w-[60dvw] text-lg truncate`}>{name}</p>
+          <p className={`w-[60dvw] text-lg font-semibold truncate`}>{name}</p>
 
-          <p className="-mt-0.5  text-zinc-400 text-xs w-[40dvw]   truncate">
+          <p className="-mt-0.5 text-zinc-300 text-xs w-[40dvw]   truncate">
             Artist
           </p>
         </div>

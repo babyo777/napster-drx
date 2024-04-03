@@ -63,9 +63,13 @@ function SavedAlbumCard({
               </AspectRatio>
             </div>
             <div className="flex flex-col   text-start">
-              <p className="w-[59vw] text-lg fade-in truncate">{album}</p>
+              <p className="w-[59vw] text-lg font-semibold fade-in truncate">
+                {album}
+              </p>
 
-              <p className="-mt-0.5   text-xs w-[50vw] truncate">{author}</p>
+              <p className="-mt-0.5 text-zinc-300 text-xs w-[50vw] truncate">
+                {author}
+              </p>
             </div>
           </Link>
           <EditInfo id={id} f={f} collection={ALBUM_COLLECTION_ID} />
