@@ -5,6 +5,7 @@ import { Desktop } from "./Desktop";
 import InstallNapsterAndroid from "@/Testing/AndInstaller";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  SetFeedMode,
   SetLastPlayed,
   SetPlaylistOrAlbum,
   SetSeek,
@@ -247,6 +248,7 @@ function Check() {
 
   useEffect(() => {
     if (data) {
+      dispatch(SetFeedMode(true));
       dispatch(SetLastPlayed(true));
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
       dispatch(SetPlaylistOrAlbum(data.navigator));
@@ -266,6 +268,8 @@ function Check() {
         dispatch(setCurrentIndex(0));
         suggested();
       }
+    } else {
+      dispatch(SetFeedMode(false));
     }
     const isStandalone = window.matchMedia(
       "(display-mode: standalone)"

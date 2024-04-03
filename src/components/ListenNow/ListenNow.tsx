@@ -29,6 +29,9 @@ export function ListenNowComp() {
   const checked = useSelector(
     (state: RootState) => state.musicReducer.feedMode
   );
+  const lastPlayed = useSelector(
+    (state: RootState) => state.musicReducer.lastPlayed
+  );
   const music = useSelector((state: RootState) => state.musicReducer.Feed);
 
   const [report, setReport] = React.useState<boolean>();
@@ -120,9 +123,7 @@ export function ListenNowComp() {
   const query = async () => {
     const currentIndex = Math.floor(Math.random() * playlist.length);
     const q = await axios.get(
-      `${SuggestionSearchApi}${
-        playlist.length > 0 ? playlist[currentIndex].youtubeId : "w6Y8fvBczYM"
-      }`
+      `${SuggestionSearchApi}${playlist[currentIndex].youtubeId}`
     );
     dispatch(SetFeed(q.data.slice(1)));
     return q.data as playlistSongs[];
@@ -202,16 +203,18 @@ export function ListenNowComp() {
           <Loader />
         </div>
       )}
-      <div className=" rounded-xl -mt-4  py-2.5  items-center space-x-2 flex px-5">
-        <Label htmlFor="airplane-mode" className="text-base">
-          Feed mode
-        </Label>
-        <Switch
-          checked={checked}
-          id="airplane-mode"
-          onClick={() => dispatch(SetFeedMode(!checked))}
-        />
-      </div>
+      {lastPlayed && (
+        <div className=" rounded-xl -mt-4  py-2.5  items-center space-x-2 flex px-5">
+          <Label htmlFor="airplane-mode" className="text-base">
+            Feed mode
+          </Label>
+          <Switch
+            checked={checked}
+            id="airplane-mode"
+            onClick={() => dispatch(SetFeedMode(!checked))}
+          />
+        </div>
+      )}
       {checked && music && (
         <ReactPullToRefresh pullingContent={""} onRefresh={handleRefresh}>
           <div className="h-[80dvh] pb-28 px-5 overflow-scroll">
