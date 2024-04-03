@@ -184,7 +184,7 @@ export function ListenNowComp() {
 
   return (
     <>
-      {data && data == "url not provided" && (
+      {data && data !== "url not provided" && (
         <div className=" fixed fade-in w-full px-4 z-10">
           <Alert className=" fade-in bg-red-500 top-4 border-none">
             <AlertTitle>Playback Server is Down !</AlertTitle>
