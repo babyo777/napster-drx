@@ -15,7 +15,7 @@ import { artists, playlistSongs } from "@/Interface";
 import { Link } from "react-router-dom";
 import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 import axios from "axios";
-import { GetImage, SuggestionSearchApi } from "@/API/api";
+import { SuggestionSearchApi } from "@/API/api";
 import { useQuery } from "react-query";
 import SongsOptions from "../Library/SongsOptions";
 function FeedSong({
@@ -110,7 +110,7 @@ function FeedSong({
         <AspectRatio ratio={4 / 4}>
           <LazyLoadImage
             onClick={handlePlay}
-            src={`${GetImage}${cover}`}
+            src={cover}
             width="100%"
             height="100%"
             effect="blur"
