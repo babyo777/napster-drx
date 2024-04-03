@@ -5,21 +5,35 @@ import {
   LISTEN_NOW_COLLECTION_ID,
   db,
 } from "@/appwrite/appwriteConfig";
-import { homePagePlaylist } from "@/Interface";
+import { homePagePlaylist, playlistSongs } from "@/Interface";
 import { useQuery } from "react-query";
 import Artist from "./Artist";
 import Charts from "./Charts";
 import NewCharts from "./neewChart";
 import { Query } from "appwrite";
-import { Skeleton } from "../ui/skeleton";
 import axios from "axios";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import Header from "../Header/Header";
 import NapsterSuggested from "./NapsterSuggested";
-import { streamApi } from "@/API/api";
-
+import { SuggestionSearchApi, streamApi } from "@/API/api";
+import Loader from "../Loaders/Loader";
+import { Label } from "../ui/label";
+import { Switch } from "../ui/switch";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/Store/Store";
+import { SetFeedMode } from "@/Store/Player";
+import { useInView } from "react-intersection-observer";
+import ReactPullToRefresh from "react-pull-to-refresh";
+import FeedSong from "./FeedSongs";
 export function ListenNowComp() {
+  const checked = useSelector(
+    (state: RootState) => state.musicReducer.feedMode
+  );
+  const lastPlayed = useSelector(
+    (state: RootState) => state.musicReducer.lastPlayed
+  );
   const [report, setReport] = React.useState<boolean>();
+  const dispatch = useDispatch();
 
   const PlaybackCheck = async () => {
     const res = await axios.get(streamApi);
@@ -99,9 +113,78 @@ export function ListenNowComp() {
     }
     refetch();
   };
+
+  const playlist = useSelector(
+    (state: RootState) => state.musicReducer.playlist
+  );
+
+  const [music, setMusic] = React.useState<playlistSongs[]>();
+  const query = async () => {
+    const currentIndex = Math.floor(Math.random() * playlist.length);
+    const q = await axios.get(
+      `${SuggestionSearchApi}${playlist[currentIndex].youtubeId}`
+    );
+    setMusic(q.data.slice(1));
+    return q.data as playlistSongs[];
+  };
+
+  const { refetch: refetchFeed } = useQuery<playlistSongs[]>(["Feed"], query, {
+    enabled: false,
+    refetchOnWindowFocus: false,
+    staleTime: 30000,
+    refetchOnMount: false,
+    onSuccess(data) {
+      data.length == 0 && refetchFeed();
+    },
+  });
+  const defaultQuery = async () => {
+    const q = await axios.get(`${SuggestionSearchApi}w6Y8fvBczYM`);
+    setMusic(q.data.slice(1));
+    return q.data as playlistSongs[];
+  };
+
+  const { refetch: refetchDefault } = useQuery<playlistSongs[]>(
+    ["DefaultFeed"],
+    defaultQuery,
+    {
+      enabled: false,
+      refetchOnWindowFocus: false,
+      staleTime: 30000,
+      refetchOnMount: false,
+      onSuccess(data) {
+        data.length == 0 && refetchFeed();
+      },
+    }
+  );
+
+  React.useEffect(() => {
+    if (lastPlayed) {
+      refetchFeed();
+    } else {
+      refetchDefault();
+    }
+  }, [refetchFeed, lastPlayed, refetchDefault]);
+
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
+
+  React.useEffect(() => {
+    if (inView && music && music.length > 0) {
+      axios
+        .get(`${SuggestionSearchApi}${music[music.length - 1].youtubeId}`)
+        .then((q) => {
+          setMusic((prev) => prev?.concat(q.data.slice(1)));
+        });
+    }
+  }, [inView, music]);
+  const handleRefresh = React.useCallback(async () => {
+    refetchFeed();
+  }, [refetchFeed]);
+
   return (
     <>
-      {data && data !== "url not provided" && (
+      {data && data == "url not provided" && (
         <div className=" fixed fade-in w-full px-4 z-10">
           <Alert className=" fade-in bg-red-500 top-4 border-none">
             <AlertTitle>Playback Server is Down !</AlertTitle>
@@ -134,49 +217,66 @@ export function ListenNowComp() {
       <Header title="Home" />
 
       {!chart && !artist && !suggested && (
-        <>
-          <div className="flex px-4  space-x-4 items-center w-full mt-3">
-            <Skeleton className="w-[37vw] h-4 rounded-md bg-zinc-500" />
-          </div>
-          <div className="flex px-4 justify-center space-x-4 items-center w-full mt-5">
-            <Skeleton className="w-[30vw] h-40 rounded-md bg-zinc-500" />
-            <Skeleton className="w-[30vw] h-40 rounded-md bg-zinc-500" />
-            <Skeleton className="w-[30vw] h-40 rounded-md bg-zinc-500" />
-          </div>
-          <div className="flex px-4  space-x-4 items-center w-full mt-5">
-            <Skeleton className="w-[27vw] h-4 rounded-md bg-zinc-500" />
-          </div>
-          <div className="flex px-4  space-x-3 items-start w-full mt-5">
-            <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
-            <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
-            <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
-            <Skeleton className="w-20 h-20 rounded-full bg-zinc-500" />
-          </div>
-          <div className="flex px-4  space-x-4 items-center w-full mt-5">
-            <Skeleton className="w-[23vw] h-4 rounded-md bg-zinc-500" />
-          </div>
-          <div className="flex px-4 justify-center space-x-4 items-center w-full mt-5">
-            <Skeleton className="w-[50vw] h-28 rounded-md bg-zinc-500" />
-            <Skeleton className="w-[50vw] h-28 rounded-md bg-zinc-500" />
-            <Skeleton className="w-[50vw] h-28 rounded-md bg-zinc-500" />
-          </div>
-        </>
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex   items-center space-x-2">
+          <Loader />
+        </div>
       )}
-      <div className="h-[80dvh] pb-20 overflow-scroll">
-        {suggested && suggested.length > 0 && (
-          <NapsterSuggested data={suggested} />
-        )}
-        {chart && artist && suggested && (
-          <>
-            <div className="">
-              <Artist data={artist} />
-              <Charts data={chart} />
-
-              <NewCharts data={chart} />
-            </div>
-          </>
-        )}
+      {!music && checked && (
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex   items-center space-x-2">
+          <Loader />
+        </div>
+      )}
+      <div className=" rounded-xl -mt-4  py-2.5  items-center space-x-2 flex px-5">
+        <Label htmlFor="airplane-mode" className="text-base">
+          Feed mode
+        </Label>
+        <Switch
+          checked={checked}
+          id="airplane-mode"
+          onClick={() => dispatch(SetFeedMode(!checked))}
+        />
       </div>
+      {checked && music && (
+        <ReactPullToRefresh
+          onRefresh={handleRefresh}
+          className="h-[80dvh] pb-28 px-5 overflow-scroll"
+        >
+          {music
+            .filter(
+              (r, i, s) => i === s.findIndex((t) => t.youtubeId == r.youtubeId)
+            )
+            .map((r, i) => (
+              <div key={r.youtubeId + i} ref={ref}>
+                <FeedSong
+                  artistId={r.artists[0].id}
+                  audio={r.youtubeId}
+                  artistName={r.artists[0].name}
+                  id={r.youtubeId}
+                  title={r.title}
+                  artist={r.artists}
+                  cover={r.thumbnailUrl}
+                />
+              </div>
+            ))}
+        </ReactPullToRefresh>
+      )}
+      {!checked && (
+        <div className="h-[80dvh] pb-20 overflow-scroll">
+          {suggested && suggested.length > 0 && (
+            <NapsterSuggested data={suggested} />
+          )}
+          {chart && artist && suggested && (
+            <>
+              <div className="">
+                <Artist data={artist} />
+                <Charts data={chart} />
+
+                <NewCharts data={chart} />
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </>
   );
 }

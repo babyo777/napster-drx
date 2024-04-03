@@ -15,10 +15,10 @@ import { artists, playlistSongs } from "@/Interface";
 import { Link } from "react-router-dom";
 import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 import axios from "axios";
-import { SuggestionSearchApi } from "@/API/api";
+import { GetImage, SuggestionSearchApi } from "@/API/api";
 import { useQuery } from "react-query";
 import SongsOptions from "../Library/SongsOptions";
-function SearchSong({
+function FeedSong({
   title,
   artist,
   cover,
@@ -105,12 +105,12 @@ function SearchSong({
     (state: RootState) => state.musicReducer.playlist
   );
   return (
-    <div className="flex fade-in py-2 space-x-2 items-center">
-      <div className="overflow-hidden h-14 w-14 space-y-2">
-        <AspectRatio ratio={1 / 1}>
+    <div className="flex fade-in flex-col py-2 space-y-2 ">
+      <div className="overflow-hidden  space-y-2">
+        <AspectRatio ratio={4 / 4}>
           <LazyLoadImage
             onClick={handlePlay}
-            src={cover}
+            src={`${GetImage}${cover}`}
             width="100%"
             height="100%"
             effect="blur"
@@ -123,37 +123,39 @@ function SearchSong({
           />
         </AspectRatio>
       </div>
-      <div className="flex space-y-0.5 flex-col pl-1 text-start w-[65dvw]">
-        <p
-          onClick={handlePlay}
-          className={`w-[60dvw] ${
-            playlist[currentIndex]?.youtubeId == audio &&
-            currentIndex == 0 &&
-            "text-red-500"
-          }  truncate`}
-        >
-          {title}
-        </p>
-        <Link to={`/artist/${artistId}`} className="w-[40dvw]">
-          <p className="-mt-0.5 h-[1rem]   text-zinc-400 text-xs w-[40dvw]   truncate">
-            {artist[0]?.name || artistName}
+      <div className=" flex justify-between">
+        <div className="flex space-y-0.5  flex-col  text-start w-[85dvw]">
+          <p
+            onClick={handlePlay}
+            className={`w-[80dvw] ${
+              playlist[currentIndex]?.youtubeId == audio &&
+              currentIndex == 0 &&
+              "text-red-500"
+            }  truncate text-2xl font-semibold`}
+          >
+            {title}
           </p>
-        </Link>
-        {/* <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div> */}
+          <Link to={`/artist/${artistId}`} className="w-[70dvw]">
+            <p className="  text-zinc-400 text-sm w-[70dvw]   truncate">
+              {artist[0]?.name || artistName}
+            </p>
+          </Link>
+          {/* <div className="h-[.05rem] w-full bg-zinc-300/10 mt-1.5"></div> */}
+        </div>
+        <SongsOptions
+          underline={true}
+          music={{
+            youtubeId: id,
+            title: title,
+            thumbnailUrl: cover,
+            artists: [
+              { id: artistId, name: artist[0]?.name || artistName || "" },
+            ],
+          }}
+        />
       </div>
-      <SongsOptions
-        underline={true}
-        music={{
-          youtubeId: id,
-          title: title,
-          thumbnailUrl: cover,
-          artists: [
-            { id: artistId, name: artist[0]?.name || artistName || "" },
-          ],
-        }}
-      />
     </div>
   );
 }
 
-export default SearchSong;
+export default FeedSong;

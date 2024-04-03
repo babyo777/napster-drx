@@ -45,7 +45,7 @@ function ArtistSearch({
               alt="Image"
               loading="lazy"
               onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
-                (e.currentTarget.src = "/demo3.jpeg")
+                (e.currentTarget.src = "/liked.webp")
               }
               className="rounded-full object-cover h-[100%] w-[100%]"
             />

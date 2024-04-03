@@ -5,6 +5,7 @@ import { Desktop } from "./Desktop";
 import InstallNapsterAndroid from "@/Testing/AndInstaller";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  SetLastPlayed,
   SetPlaylistOrAlbum,
   SetSeek,
   setCurrentIndex,
@@ -246,6 +247,7 @@ function Check() {
 
   useEffect(() => {
     if (data) {
+      dispatch(SetLastPlayed(true));
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
       dispatch(SetPlaylistOrAlbum(data.navigator));
       dispatch(setCurrentIndex(data.index));

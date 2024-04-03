@@ -133,14 +133,14 @@ function SharePlay() {
             <Button
               onClick={handleConnect}
               variant={"secondary"}
-              className="text-xl px-9 py-6 rounded-xl items-center"
+              className="text-xl px-9 py-6 font-semibold rounded-xl items-center"
             >
               Start
             </Button>
             <Button
               onClick={handleJoin}
               variant={"secondary"}
-              className="text-xl px-9 py-6 rounded-xl items-center"
+              className="text-xl px-9 py-6 font-semibold rounded-xl items-center"
             >
               Join
             </Button>

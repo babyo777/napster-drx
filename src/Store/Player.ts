@@ -12,6 +12,7 @@ interface Player {
   queue: playlistSongs[];
   music: HTMLAudioElement | null;
   search: string;
+  feedMode: boolean;
   currentPlaying: playlistSongs | null;
   currentSongId: string;
   currentToggle: string;
@@ -23,6 +24,7 @@ interface Player {
   isLoop: boolean;
   seek: number;
   uid: string | null;
+  lastPlayed: boolean;
   sharePlayCode: string;
   isLikedSong: boolean;
   currentArtistId: string;
@@ -43,6 +45,7 @@ interface Player {
 const initialState: Player = {
   isLikedSong: false,
   sharePlayCode: "",
+  lastPlayed: false,
   uid: localStorage.getItem("uid"),
   currentArtistId: "",
   isIphone: false,
@@ -52,6 +55,7 @@ const initialState: Player = {
   duration: "--:--",
   isLoop: false,
   seek: 0,
+  feedMode: true,
   sharePlayConnected: false,
   currentToggle: "Playlists",
   searchToggle: "Music",
@@ -97,11 +101,17 @@ const MusicPlayer = createSlice({
     SetQueue: (state, action: PayloadAction<playlistSongs[]>) => {
       state.queue = action.payload;
     },
+    SetLastPlayed: (state, action: PayloadAction<boolean>) => {
+      state.lastPlayed = action.payload;
+    },
     SetSeek: (state, action: PayloadAction<number>) => {
       state.seek = action.payload;
     },
     SetCurrentSongId: (state, action: PayloadAction<string>) => {
       state.currentSongId = action.payload;
+    },
+    SetFeedMode: (state, action: PayloadAction<boolean>) => {
+      state.feedMode = action.payload;
     },
     SetSharePlayCode: (state, action: PayloadAction<string>) => {
       state.sharePlayCode = action.payload;
@@ -202,6 +212,8 @@ const MusicPlayer = createSlice({
 export const {
   shuffle,
   play,
+  SetFeedMode,
+  SetLastPlayed,
   SetSharePlayConnected,
   SetSeek,
   SetShareLyrics,
