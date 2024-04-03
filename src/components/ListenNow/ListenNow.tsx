@@ -29,9 +29,7 @@ export function ListenNowComp() {
   const checked = useSelector(
     (state: RootState) => state.musicReducer.feedMode
   );
-  const lastPlayed = useSelector(
-    (state: RootState) => state.musicReducer.lastPlayed
-  );
+
   const [report, setReport] = React.useState<boolean>();
   const dispatch = useDispatch();
 
@@ -122,32 +120,18 @@ export function ListenNowComp() {
   const query = async () => {
     const currentIndex = Math.floor(Math.random() * playlist.length);
     const q = await axios.get(
-      `${SuggestionSearchApi}${playlist[currentIndex].youtubeId}`
+      `${SuggestionSearchApi}${
+        playlist.length > 0 ? playlist[currentIndex].youtubeId : "w6Y8fvBczYM"
+      }`
     );
     setMusic(q.data.slice(1));
     return q.data as playlistSongs[];
   };
 
-  const { refetch: refetchFeed } = useQuery<playlistSongs[]>(["Feed"], query, {
-    enabled: false,
-    refetchOnWindowFocus: false,
-    staleTime: 30000,
-    refetchOnMount: false,
-    onSuccess(data) {
-      data.length == 0 && refetchFeed();
-    },
-  });
-  const defaultQuery = async () => {
-    const q = await axios.get(`${SuggestionSearchApi}w6Y8fvBczYM`);
-    setMusic(q.data.slice(1));
-    return q.data as playlistSongs[];
-  };
-
-  const { refetch: refetchDefault } = useQuery<playlistSongs[]>(
-    ["DefaultFeed"],
-    defaultQuery,
+  const { refetch: refetchFeed, isLoading } = useQuery<playlistSongs[]>(
+    ["Feed"],
+    query,
     {
-      enabled: false,
       refetchOnWindowFocus: false,
       staleTime: 30000,
       refetchOnMount: false,
@@ -156,14 +140,6 @@ export function ListenNowComp() {
       },
     }
   );
-
-  React.useEffect(() => {
-    if (lastPlayed) {
-      refetchFeed();
-    } else {
-      refetchDefault();
-    }
-  }, [refetchFeed, lastPlayed, refetchDefault]);
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -216,7 +192,7 @@ export function ListenNowComp() {
       )}
       <Header title="Home" />
 
-      {!chart && !artist && !suggested && (
+      {!chart && !artist && !suggested && !checked && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex   items-center space-x-2">
           <Loader />
         </div>
