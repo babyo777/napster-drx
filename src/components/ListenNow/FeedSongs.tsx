@@ -54,7 +54,7 @@ function FeedSong({
   );
 
   const handlePlay = useCallback(async () => {
-    if (!fromSearch) {
+    if (fromSearch) {
       try {
         db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {
           youtubeId: id,
