@@ -224,7 +224,7 @@ function ShareLyrics({
               <LiaExchangeAltSolid className=" h-6 w-6" />
               <p>Change BG</p>
             </Button>
-            {lyrics && (
+            {lyrics && lyrics.length > 0 && (
               <Button
                 variant={"secondary"}
                 onClick={handleShareSong}

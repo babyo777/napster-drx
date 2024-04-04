@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { socket } from "./Socket";
 import { v4 } from "uuid";
 import { playlistSongs } from "@/Interface";
-import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { SetSharePlayCode, SetSharePlayConnected } from "@/Store/Player";
@@ -98,21 +98,24 @@ function SharePlay() {
       {isConnected && (
         <div className="px-4">
           <div className="flex space-x-2 items-center justify-between">
-            <div className=" flex font-semibold  items-center justify-start  rounded-lg">
+            <div className=" flex font-semibold  space-x-2 items-center justify-start  rounded-lg">
               <Avatar>
-                <AvatarFallback>
+                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage>
                   <img
-                    src="https://cdn.discordapp.com/avatars/497085547970560021/ae252d246e9df2336dec3c4541de57a8.webp?size=4096"
-                    alt=""
+                    src="cm"
+                    className=" border-red-500 border-2  rounded-full"
                   />
-                </AvatarFallback>
+                </AvatarImage>
               </Avatar>
+              <p className=" font-semibold text-red-500">Access denied !</p>
             </div>
             <div className="flex space-x-2 items-center">
               <Button
                 onClick={handleInvite}
                 variant={"secondary"}
                 className=" rounded-lg "
+                disabled
               >
                 Invite
               </Button>

@@ -1,18 +1,18 @@
 import { RootState } from "@/Store/Store";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { useCallback, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useSelector } from "react-redux";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "../ui/drawer";
 
 export function ChangeLyrics({
   lyrics,
@@ -36,8 +36,8 @@ export function ChangeLyrics({
   }, []);
 
   return (
-    <Dialog>
-      <DialogTrigger className="m-0 p-0">
+    <Drawer>
+      <DrawerTrigger className="m-0 p-0">
         <div className="break-words bg-black/25 text-2xl px-4 py-2 min-w-[77vw]  max-w-[77vw] text-left font-bold space-y-[1vh]">
           {lyrics && <p>{lyrics[count]?.lyrics}</p>}
         </div>
@@ -73,17 +73,17 @@ export function ChangeLyrics({
             </p>
           </div>
         </div>
-      </DialogTrigger>
-      <DialogContent className="h-[100vh] border-none rounded-none ">
-        <DialogHeader>
-          <DialogTitle>Select Lyrics to Share</DialogTitle>
-        </DialogHeader>
+      </DrawerTrigger>
+      <DrawerContent className="h-[100vh] border-none rounded-none ">
+        <DrawerHeader>
+          <DrawerTitle>Select Lyrics to Share</DrawerTitle>
+        </DrawerHeader>
 
-        <div className="text-2xl  font-bold overflow-y-scroll space-y-4 border-none max-h-[100vh]">
+        <div className="text-2xl  font-bold overflow-y-scroll space-y-4 px-4 border-none max-h-[97vh]">
           {lyrics
             ?.filter((l) => l.lyrics !== "")
             .map((lyrics, index) => (
-              <DialogClose key={index}>
+              <DrawerClose key={index}>
                 <p
                   onClick={() => handleSelect(index)}
                   className="text-left bg-zinc-900/70 px-4 py-2 rounded-xl"
@@ -91,18 +91,22 @@ export function ChangeLyrics({
                 >
                   {lyrics.lyrics}
                 </p>
-              </DialogClose>
+              </DrawerClose>
             ))}
         </div>
 
-        <DialogFooter>
-          <DialogClose className="w-full">
-            <Button asChild variant={"secondary"} className="w-full rounded-xl">
+        <DrawerFooter>
+          <DrawerClose className="w-full">
+            <Button
+              asChild
+              variant={"secondary"}
+              className="w-full py-5 rounded-2xl"
+            >
               <p>Done</p>
             </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   );
 }
