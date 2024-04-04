@@ -247,7 +247,7 @@ function Check() {
   const music = useSelector((state: RootState) => state.musicReducer.music);
 
   useEffect(() => {
-    if (data) {
+    if (data && uid) {
       dispatch(SetFeedMode(true));
       dispatch(SetLastPlayed(true));
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
@@ -280,7 +280,7 @@ function Check() {
     dispatch(setIsIphone(isStandalone));
     setGraphic(checkGpuCapabilities());
     setCheck(false);
-  }, [dispatch, data, refetch, likedSong, suggested, album, music]);
+  }, [dispatch, data, refetch, likedSong, suggested, album, music, uid]);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
