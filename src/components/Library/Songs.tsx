@@ -19,9 +19,11 @@ import {
   QueryObserverResult,
   RefetchOptions,
   RefetchQueryFilters,
+  useQuery,
 } from "react-query";
 import { Link } from "react-router-dom";
 import SongsOptions from "./SongsOptions";
+import axios from "axios";
 
 function Songs({
   title,
@@ -96,6 +98,19 @@ function Songs({
     if (!isPlaying) dispatch(play(true));
   }, [dispatch, id, p, isPlaying, artistId, liked, where, playlist, data]);
 
+  const image = async () => {
+    const response = await axios.get(cover, { responseType: "arraybuffer" });
+    const blob = new Blob([response.data], {
+      type: response.headers["content-type"],
+    });
+    return URL.createObjectURL(blob);
+  };
+
+  const { data: c } = useQuery(["image", cover], image, {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
   return (
     <div id={audio} className="flex fade-in py-2 space-x-2 items-center">
       {!album ? (
@@ -103,12 +118,15 @@ function Songs({
           <AspectRatio ratio={1 / 1}>
             <LazyLoadImage
               onClick={handlePlay}
-              src={cover}
+              src={c || ""}
               width="100%"
               height="100%"
               effect="blur"
               alt="Image"
               loading="lazy"
+              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
+                (e.currentTarget.src = "/liked.webp")
+              }
               className="rounded-md object-cover h-[100%] w-[100%]"
             />
           </AspectRatio>
