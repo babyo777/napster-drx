@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { searchAlbumsInterface } from "@/Interface";
 import { useCallback } from "react";
 import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 function AlbumSearchComp({
   albumId,
@@ -28,6 +30,23 @@ function AlbumSearchComp({
       }
     }
   }, [albumId, title, thumbnailUrl, fromSearch]);
+
+  const image = async () => {
+    const response = await axios.get(thumbnailUrl, {
+      responseType: "arraybuffer",
+    });
+    const blob = new Blob([response.data], {
+      type: response.headers["content-type"],
+    });
+    return URL.createObjectURL(blob);
+  };
+
+  const { data: c } = useQuery(["image", thumbnailUrl], image, {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
+
   return (
     <div
       onClick={handleClick}
@@ -37,7 +56,7 @@ function AlbumSearchComp({
         <div className="overflow-hidden h-14 w-14 space-y-2">
           <AspectRatio ratio={1 / 1}>
             <LazyLoadImage
-              src={thumbnailUrl}
+              src={c || thumbnailUrl}
               width="100%"
               height="100%"
               effect="blur"

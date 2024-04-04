@@ -14,7 +14,7 @@ import {
   setPlaylist,
 } from "@/Store/Player";
 import { playlistSongs } from "@/Interface";
-import { useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { FaPause } from "react-icons/fa";
@@ -23,7 +23,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { MdDragHandle } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
-import { GetImage } from "@/API/api";
+import axios from "axios";
 function UpNextSongs({
   title,
   artist,
@@ -133,6 +133,20 @@ function UpNextSongs({
     playlist.splice(index, 1);
     dispatch(setPlaylist(playlist));
   }, [id, playlist, dispatch]);
+
+  const image = async () => {
+    const response = await axios.get(cover, { responseType: "arraybuffer" });
+    const blob = new Blob([response.data], {
+      type: response.headers["content-type"],
+    });
+    return URL.createObjectURL(blob);
+  };
+
+  const { data: c } = useQuery(["image", cover], image, {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
   return (
     <div
       {...attributes}
@@ -148,12 +162,15 @@ function UpNextSongs({
         >
           <AspectRatio ratio={1 / 1}>
             <LazyLoadImage
-              src={`${GetImage}${cover}`}
+              src={c || cover}
               width="100%"
               height="100%"
               effect="blur"
               alt="Image"
               loading="lazy"
+              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
+                (e.currentTarget.src = "/liked.webp")
+              }
               className="rounded-md object-cover h-[100%] w-[100%]"
             />
           </AspectRatio>

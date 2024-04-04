@@ -104,13 +104,27 @@ function SearchSong({
   const playlist = useSelector(
     (state: RootState) => state.musicReducer.playlist
   );
+
+  const image = async () => {
+    const response = await axios.get(cover, { responseType: "arraybuffer" });
+    const blob = new Blob([response.data], {
+      type: response.headers["content-type"],
+    });
+    return URL.createObjectURL(blob);
+  };
+
+  const { data: c } = useQuery(["image", cover], image, {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
   return (
     <div className="flex fade-in py-2 space-x-2 items-center">
       <div className="overflow-hidden h-14 w-14 space-y-2">
         <AspectRatio ratio={1 / 1}>
           <LazyLoadImage
             onClick={handlePlay}
-            src={cover}
+            src={c || ""}
             width="100%"
             height="100%"
             effect="blur"

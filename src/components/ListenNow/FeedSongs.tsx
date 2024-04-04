@@ -104,13 +104,27 @@ function FeedSong({
   const playlist = useSelector(
     (state: RootState) => state.musicReducer.playlist
   );
+
+  const image = async () => {
+    const response = await axios.get(cover, { responseType: "arraybuffer" });
+    const blob = new Blob([response.data], {
+      type: response.headers["content-type"],
+    });
+    return URL.createObjectURL(blob);
+  };
+
+  const { data: c } = useQuery(["image", cover], image, {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
   return (
     <div className="flex fade-in flex-col py-2 space-y-2 ">
       <div className="overflow-hidden  space-y-2">
         <AspectRatio ratio={4 / 4}>
           <LazyLoadImage
             onClick={handlePlay}
-            src={cover}
+            src={c || cover}
             width="100%"
             height="100%"
             effect="blur"
