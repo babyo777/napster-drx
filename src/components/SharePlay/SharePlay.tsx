@@ -100,12 +100,11 @@ function SharePlay() {
           <div className="flex space-x-2 items-center justify-between">
             <div className=" flex font-semibold  space-x-2 items-center justify-start  rounded-lg">
               <Avatar>
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarFallback className=" border-red-500 border-2  rounded-full">
+                  CN
+                </AvatarFallback>
                 <AvatarImage>
-                  <img
-                    src="cm"
-                    className=" border-red-500 border-2  rounded-full"
-                  />
+                  <img src="cm" className="rounded-full" />
                 </AvatarImage>
               </Avatar>
               <p className=" font-semibold text-red-500">Access denied !</p>
