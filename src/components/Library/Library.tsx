@@ -69,12 +69,10 @@ function LibraryComp() {
     if (id && id.startsWith("custom") && uid) {
       const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
         Query.equal("for", [uid || ""]),
-        Query.equal("$id", [
-          id.replace("custom", "").replace(uid.substring(uid.length - 4), "") ||
-            "none",
-        ]),
+        Query.equal("$id", [id.replace("custom", "") || "none"]),
       ]);
       const p = r.documents as unknown as savedPlaylist[];
+
       setIsSaved(p);
 
       if (p.length > 0) return p;
