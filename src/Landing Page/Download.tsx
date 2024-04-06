@@ -45,7 +45,7 @@ export default function Download() {
         </Button>
       </DialogTrigger>
       <DialogContent
-        className={`border-none bg-[#09090B] rounded-xl  justify-center  flex gap-4 py-11 pb-7  w-fit max-md:w-[77dvw] ${
+        className={`border-none bg-[#09090B]  prose text-zinc-400 items-center rounded-xl  justify-center  flex  py-11 pb-7  w-fit max-md:w-[77dvw] ${
           !ios ? "px-16 " : "px-11"
         }  max-md:flex-wrap `}
       >
@@ -55,7 +55,7 @@ export default function Download() {
               <div
                 onClick={() => (SetIos((prev) => !prev), SetAndroid(false))}
                 title="ios"
-                className="flex text-9xl text-zinc-300 hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-pointer bg-white/10 shadow-md  p-5 rounded-xl "
+                className="flex text-9xl text-zinc-400 hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-pointer bg-white/10 shadow-md  p-5 rounded-xl "
               >
                 <FaApple />
               </div>
@@ -65,12 +65,12 @@ export default function Download() {
             <>
               <div
                 title="ios"
-                className="flex text-7xl text-zinc-300 hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-pointer bg-white/10 shadow-md  p-5 max-md:p-4 rounded-xl "
+                className="flex text-7xl  hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-pointer bg-white/10 shadow-md  p-5 max-md:p-4 rounded-xl "
               >
                 <QRCodeSVG value={window.location.origin} />
               </div>
               <p
-                className="hover:text-white transition-all duration-300 font-semibold text-zinc-300 text-base cursor-pointer"
+                className="hover:text-white transition-all duration-300 font-semibold  text-base cursor-pointer"
                 onClick={() => SetIos((prev) => !prev)}
               >
                 Go Back
@@ -85,14 +85,14 @@ export default function Download() {
               <div
                 onClick={() => (SetIos((prev) => !prev), SetAndroid(true))}
                 title="android"
-                className="flex text-9xl text-zinc-300 hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-pointer bg-white/10 shadow-md  p-5 rounded-xl "
+                className="flex text-9xl text-zinc-400 hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-pointer bg-white/10 shadow-md  p-5 rounded-xl "
               >
                 <MdOutlineAndroid />
               </div>
               <p className=" font-semibold">Android</p>{" "}
             </>
           ) : (
-            <ul className="text-lg text-start space-y-1 max-md:py-0 whitespace-nowrap py-5">
+            <ul className="">
               <li className="flex items-center space-x-1">
                 {!android ? <RiSafariFill /> : <RiChromeFill />}
                 <p>{!android ? "Open in Safari" : "Open in Chrome"}</p>
