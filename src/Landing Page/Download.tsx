@@ -34,9 +34,9 @@ export default function Download() {
         </Button>
       </DialogTrigger>
       <DialogContent
-        className={`bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-xl  justify-center  flex gap-4 py-11 pb-7  w-fit ${
+        className={`bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-xl  justify-center  flex gap-4 py-11 pb-7  w-fit max-md:w-[77dvw] ${
           !ios ? "px-16 " : "px-11"
-        }  max-md:flex-wrap`}
+        }  max-md:flex-wrap `}
       >
         <div className=" text-center space-y-2">
           {!ios ? (
