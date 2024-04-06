@@ -114,7 +114,7 @@ function SavedLibraryComp() {
                       effect="blur"
                       src="/liked.webp"
                       alt="Image"
-                      className="rounded-lg object-cover w-[100%] h-[100%]"
+                      className="rounded-md object-cover w-[100%] h-[100%]"
                     />
                   </AspectRatio>
                 </div>
