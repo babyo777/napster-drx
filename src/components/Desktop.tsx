@@ -28,7 +28,7 @@ function Desktop() {
           </ul>
         </header>
 
-        <div className="bg-gradient-to-r from-fuchsia-500 to-pink-500 font-semibold w-full min-h-screen flex justify-center items-center px-9 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-center max-md:px-4">
+        <div className="bg-[#09090B] font-semibold w-full min-h-screen flex justify-center items-center px-9 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-center max-md:px-4 overflow-hidden fixed -z-10">
           <div>
             <p>Enjoy Music Without Interruptions</p>
           </div>
@@ -44,7 +44,7 @@ function Desktop() {
             </Button>
           </div>
         </div>
-        <footer className=" absolute text-zinc-100 hover:text-white transition-all duration-300  bottom-0 flex justify-center items-center w-full py-2.5 text-xs space-x-1">
+        <footer className=" fixed text-zinc-100 hover:text-white transition-all duration-300  bottom-0 flex justify-center items-center w-full py-2.5 text-xs space-x-1">
           <SiGithubsponsors />
           <a href="https://www.instagram.com/babyo7_/" target="_blank">
             From Babyo7_
