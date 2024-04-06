@@ -17,6 +17,8 @@ import ArtistPage from "./Artists/ArtistPage.tsx";
 import ListenNow from "./components/ListenNow/ListenNow.tsx";
 import LikedSong from "./LikedSongs/likedSongs.tsx";
 import Suggested from "./Suggested/Suggested.tsx";
+import Docs from "./Landing Page/Docs.tsx";
+
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -39,6 +41,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
+
         element: <ListenNow />,
       },
       {
@@ -77,11 +80,16 @@ const router = createBrowserRouter([
         path: "/suggested/:id",
         element: <Suggested />,
       },
+
       {
         path: "*",
         element: <NotFound />,
       },
     ],
+  },
+  {
+    path: "/docs/",
+    element: <Docs />,
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")!).render(
