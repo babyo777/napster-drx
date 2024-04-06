@@ -50,8 +50,6 @@ function FeedSong({
     getSuggestedSongs,
     {
       refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      staleTime: 5 * 60000,
     }
   );
 
