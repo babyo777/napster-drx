@@ -107,7 +107,7 @@ export default function Docs() {
                 <div>
                   <h2 className=" font-semibold text-white">How to Use</h2>
                   <p>
-                    After <span className=" font-bold "> ?url= </span> enter the
+                    After <span className=" font-bold "> ?url= </span> enter
                     YouTube video ID.
                   </p>
                 </div>
@@ -150,7 +150,7 @@ export default function Docs() {
                   <p>
                     After
                     <span className=" font-bold "> /s/ </span>
-                    enter the song name.
+                    enter song name.
                   </p>
                 </div>
                 <div>
@@ -197,7 +197,7 @@ export default function Docs() {
                   <p>
                     After
                     <span className=" font-bold "> /lrc/ </span>
-                    enter the song name with the artist's name to get better
+                    enter song name with the artist's name to get better
                     results. The output will be in{" "}
                     <a
                       href="https://en.wikipedia.org/wiki/LRC_(file_format)"
@@ -237,7 +237,7 @@ export default function Docs() {
                   <p>
                     After
                     <span className=" font-bold "> /a/ </span>
-                    enter the artist's name.
+                    enter artist's name.
                   </p>
                 </div>
                 <div>
@@ -281,8 +281,7 @@ export default function Docs() {
                   <p>
                     After
                     <span className=" font-bold "> /al/ </span>
-                    enter the album name with the artist's name for better
-                    results.
+                    enter album name with the artist's name for better results.
                   </p>
                 </div>
                 <div>
@@ -326,7 +325,7 @@ export default function Docs() {
                   <p>
                     After
                     <span className=" font-bold "> /p/ </span>
-                    enter the playlist name.
+                    enter playlist name.
                   </p>
                 </div>
                 <div>
