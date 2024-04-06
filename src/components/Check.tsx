@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import App from "@/App";
-import InstallNapster from "./InstallNapster";
 import { Desktop } from "./Desktop";
-import InstallNapsterAndroid from "@/Testing/AndInstaller";
 import { useDispatch, useSelector } from "react-redux";
 import {
   SetFeedMode,
@@ -285,7 +283,7 @@ function Check() {
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
   if (isDesktop || isiPad) {
-    return <Desktop desktop={isDesktop} iPad={isiPad} />;
+    return <Desktop />;
   }
   if (isStandalone) {
     return <App />;
@@ -306,7 +304,7 @@ function Check() {
           <Loader />
         </div>
       ) : (
-        <>{isIPhone ? <InstallNapster /> : <InstallNapsterAndroid />}</>
+        <>{isIPhone ? <Desktop /> : <Desktop />}</>
       )}
     </>
   );
