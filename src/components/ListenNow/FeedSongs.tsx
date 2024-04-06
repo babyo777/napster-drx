@@ -46,10 +46,12 @@ function FeedSong({
     return r.data as playlistSongs[];
   };
   const { data } = useQuery<playlistSongs[]>(
-    ["suggestedSongs", id],
+    ["suggestedFeed", id],
     getSuggestedSongs,
     {
       refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: 5 * 60000,
     }
   );
 
