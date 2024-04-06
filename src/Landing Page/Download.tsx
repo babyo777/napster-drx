@@ -95,20 +95,20 @@ export default function Download() {
               <p className=" font-semibold">Android</p>{" "}
             </>
           ) : (
-            <ul className="text-lg animate-fade-up text-start space-y-2.5 max-md:py-0 break-all py-5">
-              <li className="flex items-center space-x-1">
+            <ul className="text-lg up text-start animate-fade-up space-y-2.5 max-md:py-0 break-all py-5">
+              <li className="flex items-center space-x-1 animate-flip-up">
                 {!android ? <RiSafariFill /> : <RiChromeFill />}
                 <p>{!android ? "Open in Safari" : "Open in Chrome"}</p>
               </li>
-              <li className="flex items-center space-x-1">
+              <li className="flex items-center space-x-1 animate-flip-up">
                 {!android ? <FiShare /> : <BsThreeDotsVertical />}
                 <p>{!android ? "Tap on Share" : "Click on Three Dots"}</p>
               </li>
-              <li className="flex items-center space-x-1">
+              <li className="flex items-center space-x-1 animate-flip-up">
                 {!android ? <MdOutlineAddBox /> : <MdInstallMobile />}
                 <p>{!android ? "Add to Home Screen" : "Click on Install"}</p>
               </li>
-              <li className="flex items-center space-x-1">
+              <li className="flex items-center space-x-1 animate-flip-up">
                 <RiHeadphoneLine />
                 <p>Enjoy Listening!</p>
               </li>
