@@ -18,7 +18,7 @@ import ListenNow from "./components/ListenNow/ListenNow.tsx";
 import LikedSong from "./LikedSongs/likedSongs.tsx";
 import Suggested from "./Suggested/Suggested.tsx";
 import Docs from "./Landing Page/Docs.tsx";
-
+import { ReactLenis } from "@studio-freight/react-lenis";
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -97,7 +97,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <QueryClientProvider client={client}>
         <ThemeProvider>
-          <RouterProvider router={router} />
+          <ReactLenis root>
+            <RouterProvider router={router} />
+          </ReactLenis>
         </ThemeProvider>
       </QueryClientProvider>
     </Provider>
