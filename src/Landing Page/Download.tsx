@@ -13,13 +13,25 @@ import {
   RiHeadphoneLine,
 } from "react-icons/ri";
 import { FiShare } from "react-icons/fi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 export default function Download() {
   const [ios, SetIos] = useState<boolean>(false);
   const [android, SetAndroid] = useState<boolean>(false);
 
+  useEffect(() => {
+    const i = /iPhone/i.test(navigator.userAgent);
+    const a = /Android/i.test(navigator.userAgent);
+    if (i) {
+      SetIos(true);
+      SetAndroid(false);
+    }
+    if (a) {
+      SetIos(true);
+      SetAndroid(false);
+    }
+  }, []);
   return (
     <Dialog>
       <DialogTrigger className="p-0 m-0 flex">
