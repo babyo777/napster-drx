@@ -41,9 +41,12 @@ export default function Docs() {
 
   return (
     <>
-      <div className="animate-fade-up">
+      <div className=" fade-in">
         <header className=" px-11 max-md:px-5 py-4 bg-transparent fixed w-full backdrop-blur-xl justify-between flex">
-          <Link to={"/"} className=" font-bold text-lg max-md:text-lg">
+          <Link
+            to={"/"}
+            className="animate-fade-right font-bold text-lg max-md:text-lg"
+          >
             Napster Docs 📚
           </Link>
           <ul className=" flex text-lg text-zinc-200  items-center space-x-3">
@@ -60,9 +63,9 @@ export default function Docs() {
         </header>
         {logged ? (
           <>
-            <div className="bg-[#09090B] font-semibold w-full min-h-screen flex  justify-start items-start px-9 pb-4 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-start pt-[11dvh] max-md:px-2.5 prose break-all prose-green">
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2">
-                <h1 className="text-2xl font-bold  text-white ">
+            <div className="bg-[#09090B] font-semibold w-full min-h-screen flex  justify-start items-start px-9 pb-4 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-start pt-[11dvh] max-md:px-2.5  prose break-all prose-green">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+                <h1 className="text-2xl font-bold  text-white animate-fade-right ">
                   Getting Started 🚀
                 </h1>
                 <ul>
@@ -74,8 +77,8 @@ export default function Docs() {
                   </li>
                 </ul>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2">
-                <h1 className="text-2xl font-bold  text-white ">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+                <h1 className="text-2xl font-bold  text-white animate-fade-right ">
                   Streaming 🎶{" "}
                 </h1>
                 <ul>
@@ -136,8 +139,8 @@ export default function Docs() {
                   </p>
                 </div>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2">
-                <h1 className="text-2xl font-bold  text-white ">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+                <h1 className="text-2xl font-bold  text-white animate-fade-right ">
                   Search Songs 🔍
                 </h1>
                 <ul>
@@ -183,8 +186,8 @@ export default function Docs() {
                   </p>
                 </div>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2">
-                <h1 className="text-2xl font-bold  text-white ">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+                <h1 className="text-2xl font-bold  text-white animate-fade-right ">
                   Get Lyrics 📝
                 </h1>
                 <ul>
@@ -223,8 +226,8 @@ export default function Docs() {
                   </p>
                 </div>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2">
-                <h1 className="text-2xl font-bold  text-white ">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+                <h1 className="text-2xl font-bold  text-white animate-fade-right ">
                   Search Artists 🎤
                 </h1>
                 <ul>
@@ -267,8 +270,8 @@ export default function Docs() {
                   </p>
                 </div>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2">
-                <h1 className="text-2xl font-bold  text-white ">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+                <h1 className="text-2xl font-bold  text-white animate-fade-right ">
                   Search Albums 📀
                 </h1>
                 <ul>
@@ -311,8 +314,8 @@ export default function Docs() {
                   </p>
                 </div>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2">
-                <h1 className="text-2xl font-bold  text-white">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+                <h1 className="text-2xl font-bold  text-white animate-fade-right">
                   Search Playlists 🎵
                 </h1>
                 <ul>
