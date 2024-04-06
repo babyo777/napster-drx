@@ -46,7 +46,7 @@ export default function Download() {
       </DialogTrigger>
       <DialogContent
         className={`border-none bg-[#09090B] rounded-xl  justify-center  flex gap-4 py-11 pb-7  w-fit max-md:w-[77dvw] ${
-          !ios ? "px-0" : "px-11"
+          !ios ? "px-16" : "px-11"
         }  max-md:flex-wrap `}
       >
         <div className=" text-center space-y-2">
