@@ -5,13 +5,12 @@ import { RiDownloadLine } from "react-icons/ri";
 import { Button } from "@/components/ui/button";
 import { FaApple } from "react-icons/fa";
 import { QRCodeSVG } from "qrcode.react";
-import { MdInstallMobile, MdOutlineAndroid } from "react-icons/md";
 import {
-  RiSafariFill,
-  RiChromeFill,
-  RiHomeLine,
-  RiHeadphoneLine,
-} from "react-icons/ri";
+  MdInstallMobile,
+  MdOutlineAddBox,
+  MdOutlineAndroid,
+} from "react-icons/md";
+import { RiSafariFill, RiChromeFill, RiHeadphoneLine } from "react-icons/ri";
 import { FiShare } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -103,7 +102,7 @@ export default function Download() {
                 <p>{!android ? "Tap on Share" : "Click on Three Dots"}</p>
               </li>
               <li className="flex items-center space-x-1">
-                {!android ? <RiHomeLine /> : <MdInstallMobile />}
+                {!android ? <MdOutlineAddBox /> : <MdInstallMobile />}
                 <p>{!android ? "Add to Home Screen" : "Click on Install"}</p>
               </li>
               <li className="flex items-center space-x-1">
