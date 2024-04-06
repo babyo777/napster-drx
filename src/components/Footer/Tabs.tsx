@@ -5,8 +5,11 @@ import { NavLink } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
 import { BiLibrary } from "react-icons/bi";
 // import { MdOutlineGridView } from "react-icons/md";
-import React from "react";
+import React, { useCallback } from "react";
 function TabsComp() {
+  const handleClick = useCallback(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="fixed fade-in w-screen right-0 left-0 bottom-0 flex flex-col justify-center items-center">
       <Player />
@@ -14,6 +17,7 @@ function TabsComp() {
         <ul className="flex items-center text-zinc-500 space-x-14 justify-center">
           <li>
             <NavLink
+              onClick={handleClick}
               to={""}
               className={({ isActive }) =>
                 `${isActive && "text-zinc-300"} flex flex-col  items-center`
