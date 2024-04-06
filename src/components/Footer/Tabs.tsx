@@ -11,9 +11,9 @@ function TabsComp() {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="fixed fade-in w-screen right-0 left-0 bottom-0 flex flex-col justify-center items-center">
+    <div className="fixed  fade-in w-screen right-0 left-0 bottom-0 flex flex-col justify-center items-center">
       <Player />
-      <nav className="py-3 pb-7 pt-5 backdrop-blur-md bg-neutral-900 w-full">
+      <nav className="py-3 pb-7 pt-5 animate-fade-up backdrop-blur-md bg-neutral-900 w-full">
         <ul className="flex items-center text-zinc-500 space-x-14 justify-center">
           <li>
             <NavLink

@@ -208,12 +208,16 @@ export function ListenNowComp() {
       )}
       {lastPlayed && (
         <div className=" rounded-xl fade-in -mt-4  py-2.5  items-center space-x-2 flex px-5">
-          <Label htmlFor="airplane-mode" className="text-base">
+          <Label
+            htmlFor="airplane-mode"
+            className="text-base animate-fade-right"
+          >
             Feed mode
           </Label>
           <Switch
             checked={checked}
             id="airplane-mode"
+            className="animate-fade-left"
             onClick={() => dispatch(SetFeedMode(!checked))}
           />
         </div>

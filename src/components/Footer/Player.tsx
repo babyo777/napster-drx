@@ -41,9 +41,9 @@ export function Player() {
   }, [dispatch, isPlaying, music]);
 
   const handleNext = useCallback(() => {
-    if (!isStandalone) {
-      dispatch(setIsIphone(true));
-    }
+    // if (!isStandalone) {
+    //   dispatch(setIsIphone(true));
+    // }
     if (isLooped) return;
     if (isPlaylist.length > 1) {
       dispatch(setCurrentIndex((currentIndex + 1) % isPlaylist.length));
@@ -52,12 +52,12 @@ export function Player() {
 
   return (
     <>
-      <div className="flex items-center w-[95vw] ml-0.5 fade-in py-2 backdrop-blur-md space-x-5 bg-zinc-800/70  rounded-2xl shadow-md z-10 -mb-3">
+      <div className="flex items-center   w-[95vw] ml-0.5 fade-in py-2 backdrop-blur-md space-x-5 bg-zinc-800/70  rounded-2xl shadow-md z-10 -mb-3">
         {isPlaylist && isPlaylist.length > 0 ? (
           <AudioPLayer />
         ) : (
           <>
-            <div className="items-center fade-in flex space-x-2 w-[68dvw]  border-white   px-2.5">
+            <div className="items-center animate-fade-up  flex space-x-2 w-[68dvw]  border-white   px-2.5">
               <div className=" h-11 w-11 overflow-hidden rounded-xl">
                 <AspectRatio>
                   <LazyLoadImage
@@ -77,11 +77,11 @@ export function Player() {
             {isLoading ? (
               <Loader loading={true} />
             ) : (
-              <div className="flex fade-in space-x-3 pr-3">
-                <IoPlay className="h-7 w-7" />
+              <div className="flex  space-x-3 pr-3">
+                <IoPlay className="h-7 w-7 animate-fade-left" />
 
                 <TbPlayerTrackNextFilled
-                  className={`h-7 w-7 ${
+                  className={`h-7 w-7 animate-fade-left ${
                     isPlaylist && isPlaylist.length > 0
                       ? "text-zinc-200"
                       : "text-zinc-400"
@@ -98,14 +98,17 @@ export function Player() {
         ) : (
           <>
             {isPlaylist && isPlaylist.length > 0 && (
-              <div className="flex fade-in space-x-3  pr-3">
+              <div className="flex  fade-in space-x-3  pr-3">
                 {isPlaying ? (
-                  <FaPause className="h-7 w-7" onClick={handlePlay} />
+                  <FaPause
+                    className="h-7 w-7 animate-fade-left"
+                    onClick={handlePlay}
+                  />
                 ) : (
                   <IoPlay className="h-7 w-7" onClick={handlePlay} />
                 )}
                 <TbPlayerTrackNextFilled
-                  className={`h-7 w-7  ${
+                  className={`h-7 w-7 animate-fade-left  ${
                     isPlaylist && isPlaylist.length > 0
                       ? "text-zinc-200"
                       : "text-zinc-400"

@@ -41,7 +41,7 @@ function Settings() {
   return (
     <Drawer>
       <DrawerTrigger>
-        <FaUserCircle className="h-7 w-7 text-zinc-100" />
+        <FaUserCircle className="h-7 w-7 animate-fade-left text-zinc-100" />
       </DrawerTrigger>
       <DrawerContent className="px-5 bg-neutral-950">
         <DrawerHeader>
@@ -82,7 +82,7 @@ function Settings() {
         <SpotifyTransfer close={closeRef} />
         <p
           onClick={handleReset}
-          className=" rounded-xl py-2.5 mt-3 flex justify-center bg-red-500 text-base "
+          className=" rounded-xl  py-2.5 mt-3 flex justify-center bg-red-500 text-base "
         >
           Reset
         </p>

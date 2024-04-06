@@ -39,7 +39,7 @@ function SavedLibraryCard({
   );
 
   return (
-    <div className="flex space-x-2.5 items-center justify-between">
+    <div className="flex animate-fade-right space-x-2.5 items-center justify-between">
       {p ? (
         <>
           {isLoading && <SkeletonP />}

@@ -104,7 +104,7 @@ function SavedLibraryComp() {
       <div className="  h-[80dvh] pb-36 overflow-scroll ">
         {currentToggle === "Playlists" && (
           <Link to={`/liked/${localStorage.getItem("uid")}`}>
-            <div className="flex space-x-2 px-5 mb-3 items-center justify-between">
+            <div className="flex space-x-2 px-5 mb-3 animate-fade-right items-center justify-between">
               <div className="flex items-center space-x-2">
                 <div className="overflow-hidden h-14  w-14 ">
                   <AspectRatio ratio={1 / 1}>
