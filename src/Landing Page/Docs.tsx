@@ -41,7 +41,7 @@ export default function Docs() {
 
   return (
     <>
-      <div className=" fade-in">
+      <div className="animate-fade-up">
         <header className=" px-11 max-md:px-5 py-4 bg-transparent fixed w-full backdrop-blur-xl justify-between flex">
           <Link to={"/"} className=" font-bold text-lg max-md:text-lg">
             Napster Docs 📚
@@ -104,6 +104,7 @@ export default function Docs() {
                     </a>
                   </li>
                 </ul>
+
                 <div>
                   <h2 className=" font-semibold text-white">How to Use</h2>
                   <p>

@@ -12,7 +12,7 @@ function Desktop() {
   };
   return (
     <>
-      <div className=" fade-in">
+      <div className="animate-fade-up">
         <header className=" px-11 max-md:px-5 py-4 bg-transparent fixed w-full backdrop-blur-xl justify-between flex">
           <h1 className=" font-semibold text-2xl max-md:text-xl">Napster</h1>
           <ul className=" flex text-lg text-zinc-200  items-center space-x-3">
@@ -30,7 +30,7 @@ function Desktop() {
 
         <div className="bg-[#09090B] font-semibold w-full min-h-screen flex justify-center items-center px-9 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-center max-md:px-4 overflow-hidden fixed -z-10">
           <div>
-            <p>Enjoy Music Without Interruptions</p>
+            <p className="">Enjoy Music Without Interruptions</p>
           </div>
           <div className="flex space-x-2">
             <Download />
