@@ -42,7 +42,7 @@ export default function Docs() {
   return (
     <>
       <div className=" fade-in">
-        <header className=" px-11 max-md:px-5 py-4 bg-transparent fixed w-full backdrop-blur-xl justify-between flex">
+        <header className=" px-11 max-md:px-5 py-4 bg-transparent fixed w-full backdrop-blur-xl justify-between flex animate-fade-up z-10">
           <Link
             to={"/"}
             className="animate-fade-right font-bold text-lg max-md:text-lg"
@@ -64,12 +64,12 @@ export default function Docs() {
         {logged ? (
           <>
             <div className="bg-[#09090B] font-semibold w-full min-h-screen flex  justify-start items-start px-9 pb-4 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-start pt-[11dvh] max-md:px-2.5  prose break-all prose-green">
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
                 <h1 className="text-2xl font-bold  text-white animate-fade-right ">
                   Getting Started 🚀
                 </h1>
                 <ul>
-                  <li>
+                  <li className="animate-fade-up">
                     Endpoint - {""}
                     <a href="https://music-player-api-mu.vercel.app">
                       https://music-player-api-mu.vercel.app
@@ -77,30 +77,30 @@ export default function Docs() {
                   </li>
                 </ul>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
                 <h1 className="text-2xl font-bold  text-white animate-fade-right ">
                   Streaming 🎶{" "}
                 </h1>
                 <ul>
-                  <li>
+                  <li className="animate-fade-up">
                     Endpoint 1 - {""}
                     <a href="  https://exotic-cloe-babyo77.koyeb.app/?url=">
                       https://exotic-cloe-babyo77.koyeb.app/?url=
                     </a>
                   </li>
-                  <li>
+                  <li className="animate-fade-up">
                     Endpoint 2- {""}
                     <a href="https://unconscious-elianora-babyo7.koyeb.app/?url=">
                       https://unconscious-elianora-babyo7.koyeb.app/?url=
                     </a>
                   </li>
-                  <li>
+                  <li className="animate-fade-up">
                     Endpoint 3- {""}
                     <a href="https://occasional-clara-babyo777.koyeb.app/?url=">
                       https://occasional-clara-babyo777.koyeb.app/?url=
                     </a>
                   </li>
-                  <li>
+                  <li className="animate-fade-up">
                     Endpoint 4- {""}
                     <a href="https://alone-dorothee-wolfey.koyeb.app?url=">
                       https://alone-dorothee-wolfey.koyeb.app?url=
@@ -109,14 +109,18 @@ export default function Docs() {
                 </ul>
 
                 <div>
-                  <h2 className=" font-semibold text-white">How to Use</h2>
-                  <p>
+                  <h2 className=" font-semibold text-white animate-fade-up">
+                    How to Use
+                  </h2>
+                  <p className="animate-fade-up">
                     After <span className=" font-bold "> ?url= </span> enter
                     YouTube video ID.
                   </p>
                 </div>
                 <div>
-                  <h3 className=" font-semibold text-white">Example</h3>
+                  <h3 className=" font-semibold text-white animate-fade-up">
+                    Example
+                  </h3>
                   <p>
                     Stream - {""}
                     <a
@@ -139,26 +143,30 @@ export default function Docs() {
                   </p>
                 </div>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
                 <h1 className="text-2xl font-bold  text-white animate-fade-right ">
                   Search Songs 🔍
                 </h1>
                 <ul>
-                  <li>
+                  <li className="animate-fade-up">
                     Endpoint - {""}
                     <a href={SearchApi}>{SearchApi}</a>
                   </li>
                 </ul>
                 <div>
-                  <h2 className=" font-semibold text-white">How to Use</h2>
-                  <p>
+                  <h2 className=" font-semibold text-white animate-fade-up">
+                    How to Use
+                  </h2>
+                  <p className="animate-fade-up">
                     After
                     <span className=" font-bold "> /s/ </span>
                     enter song name.
                   </p>
                 </div>
                 <div>
-                  <h3 className=" font-semibold text-white">Example</h3>
+                  <h3 className=" font-semibold text-white animate-fade-up">
+                    Example
+                  </h3>
                   <p>
                     Search - {""}
                     <a
@@ -186,19 +194,21 @@ export default function Docs() {
                   </p>
                 </div>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
                 <h1 className="text-2xl font-bold  text-white animate-fade-right ">
                   Get Lyrics 📝
                 </h1>
                 <ul>
-                  <li>
+                  <li className="animate-fade-up">
                     Endpoint - {""}
                     <a href={GetLyrics}>{GetLyrics}</a>
                   </li>
                 </ul>
                 <div>
-                  <h2 className=" font-semibold text-white">How to Use</h2>
-                  <p>
+                  <h2 className=" font-semibold text-white animate-fade-up">
+                    How to Use
+                  </h2>
+                  <p className="animate-fade-up">
                     After
                     <span className=" font-bold "> /lrc/ </span>
                     enter song name with the artist's name to get better
@@ -213,7 +223,9 @@ export default function Docs() {
                   </p>
                 </div>
                 <div>
-                  <h3 className=" font-semibold text-white">Example</h3>
+                  <h3 className=" font-semibold text-white animate-fade-up">
+                    Example
+                  </h3>
                   <p>
                     Get Lyrics - {""}
                     <a
@@ -226,26 +238,30 @@ export default function Docs() {
                   </p>
                 </div>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
                 <h1 className="text-2xl font-bold  text-white animate-fade-right ">
                   Search Artists 🎤
                 </h1>
                 <ul>
-                  <li>
+                  <li className="animate-fade-up">
                     Endpoint - {""}
                     <a href={SearchArtist}>{SearchArtist}</a>
                   </li>
                 </ul>
                 <div>
-                  <h2 className=" font-semibold text-white">How to Use</h2>
-                  <p>
+                  <h2 className=" font-semibold text-white animate-fade-up">
+                    How to Use
+                  </h2>
+                  <p className="animate-fade-up">
                     After
                     <span className=" font-bold "> /a/ </span>
                     enter artist's name.
                   </p>
                 </div>
                 <div>
-                  <h3 className=" font-semibold text-white">Example</h3>
+                  <h3 className=" font-semibold text-white animate-fade-up">
+                    Example
+                  </h3>
                   <p>
                     Get Artists - {""}
                     <a target="blank" href={SearchArtist + "taylor swift"}>
@@ -270,26 +286,30 @@ export default function Docs() {
                   </p>
                 </div>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
                 <h1 className="text-2xl font-bold  text-white animate-fade-right ">
                   Search Albums 📀
                 </h1>
                 <ul>
-                  <li>
+                  <li className="animate-fade-up">
                     Endpoint - {""}
                     <a href={SearchAlbum}>{SearchAlbum}</a>
                   </li>
                 </ul>
                 <div>
-                  <h2 className=" font-semibold text-white">How to Use</h2>
-                  <p>
+                  <h2 className=" font-semibold text-white animate-fade-up">
+                    How to Use
+                  </h2>
+                  <p className="animate-fade-up">
                     After
                     <span className=" font-bold "> /al/ </span>
                     enter album name with the artist's name for better results.
                   </p>
                 </div>
                 <div>
-                  <h3 className=" font-semibold text-white">Example</h3>
+                  <h3 className=" font-semibold text-white animate-fade-up">
+                    Example
+                  </h3>
                   <p>
                     Get Albums - {""}
                     <a target="blank" href={SearchAlbum + "Lunch Break"}>
@@ -314,26 +334,30 @@ export default function Docs() {
                   </p>
                 </div>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 animate-fade-up">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
                 <h1 className="text-2xl font-bold  text-white animate-fade-right">
                   Search Playlists 🎵
                 </h1>
                 <ul>
-                  <li>
+                  <li className="animate-fade-up">
                     Endpoint - {""}
                     <a href={SearchPlaylistApi}>{SearchPlaylistApi}</a>
                   </li>
                 </ul>
                 <div>
-                  <h2 className=" font-semibold text-white">How to Use</h2>
-                  <p>
+                  <h2 className=" font-semibold text-white animate-fade-up">
+                    How to Use
+                  </h2>
+                  <p className="animate-fade-up">
                     After
                     <span className=" font-bold "> /p/ </span>
                     enter playlist name.
                   </p>
                 </div>
                 <div>
-                  <h3 className=" font-semibold text-white">Example</h3>
+                  <h3 className=" font-semibold text-white animate-fade-up">
+                    Example
+                  </h3>
                   <p>
                     Get Playlists - {""}
                     <a
