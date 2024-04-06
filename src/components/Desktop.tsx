@@ -44,9 +44,13 @@ function Desktop() {
             </Button>
           </div>
         </div>
-        <footer className=" fixed text-zinc-100 hover:text-white transition-all duration-300  bottom-0 flex justify-center items-center w-full py-2.5 text-xs space-x-1">
+        <footer className=" fixed text-zinc-400 hover:text-white transition-all duration-300  bottom-0 flex justify-center items-center w-full py-2.5 text-xs space-x-1">
           <SiGithubsponsors />
-          <a href="https://www.instagram.com/babyo7_/" target="_blank">
+          <a
+            className=" font-semibold"
+            href="https://www.instagram.com/babyo7_/"
+            target="_blank"
+          >
             From Babyo7_
           </a>
         </footer>
