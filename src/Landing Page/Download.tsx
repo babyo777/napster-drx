@@ -55,7 +55,7 @@ export default function Download() {
               <div
                 onClick={() => (SetIos((prev) => !prev), SetAndroid(false))}
                 title="ios"
-                className="flex text-9xl text-zinc-300 hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-pointer bg-white/10 shadow-md  p-5 rounded-xl "
+                className="flex animate-fade-right text-9xl text-zinc-300 hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-pointer bg-white/10 shadow-md  p-5 rounded-xl "
               >
                 <FaApple />
               </div>
@@ -65,12 +65,15 @@ export default function Download() {
             <>
               <div
                 title="ios"
-                className="flex text-7xl text-zinc-300 hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-pointer bg-white/10 shadow-md  p-5 max-md:p-4 rounded-xl "
+                className="flex  animate-fade-up text-7xl text-zinc-300 hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-pointer bg-white/10 shadow-md  p-5 max-md:p-4 rounded-xl "
               >
-                <QRCodeSVG value={window.location.origin} />
+                <QRCodeSVG
+                  className="animate-rotate-x animate-once animate-duration-1000 animate-ease-in-out"
+                  value={window.location.origin}
+                />
               </div>
               <p
-                className="hover:text-white transition-all duration-300 font-semibold text-zinc-300 text-base cursor-pointer max-md:pt-1"
+                className="hover:text-white transition-all duration-300 font-semibold text-zinc-300 text-base cursor-pointer max-md:pt-1 animate-fade-up"
                 onClick={() => SetIos((prev) => !prev)}
               >
                 Go Back
@@ -85,14 +88,14 @@ export default function Download() {
               <div
                 onClick={() => (SetIos((prev) => !prev), SetAndroid(true))}
                 title="android"
-                className="flex text-9xl text-zinc-300 hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-pointer bg-white/10 shadow-md  p-5 rounded-xl "
+                className="flex text-9xl animate-fade-left text-zinc-300 hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-pointer bg-white/10 shadow-md  p-5 rounded-xl "
               >
                 <MdOutlineAndroid />
               </div>
               <p className=" font-semibold">Android</p>{" "}
             </>
           ) : (
-            <ul className="text-lg text-start space-y-2.5 max-md:py-0 break-all py-5">
+            <ul className="text-lg animate-fade-up text-start space-y-2.5 max-md:py-0 break-all py-5">
               <li className="flex items-center space-x-1">
                 {!android ? <RiSafariFill /> : <RiChromeFill />}
                 <p>{!android ? "Open in Safari" : "Open in Chrome"}</p>
