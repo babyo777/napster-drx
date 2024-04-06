@@ -22,7 +22,7 @@ import {
   useEffect,
   useRef,
 } from "react";
-import { TbMicrophone2 } from "react-icons/tb";
+
 import ShareLyrics from "./Share";
 // import { prominent } from "color.js";
 
@@ -150,7 +150,38 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   return (
     <Drawer>
       <DrawerTrigger>
-        <TbMicrophone2 className="h-6 w-6" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          viewBox="0,0,256,256"
+          className="h-7 w-7 m-0 p-0"
+        >
+          <g
+            fill-rule="nonzero"
+            stroke="none"
+            stroke-width="1"
+            stroke-linecap="butt"
+            stroke-linejoin="miter"
+            stroke-miterlimit="10"
+            stroke-dasharray=""
+            stroke-dashoffset="0"
+            font-family="none"
+            font-weight="none"
+            font-size="none"
+            text-anchor="none"
+            style={{ mixBlendMode: "normal" }}
+            className={`${
+              lyrics && lyrics.length > 0
+                ? "fill-zinc-300 m-0 p-0"
+                : "fill-zinc-500 m-0 p-0"
+            } `}
+          >
+            <g transform="scale(8.53333,8.53333)">
+              <path d="M5,3c-1.105,0 -2,0.895 -2,2v15c0,1.105 0.895,2 2,2h4v4c0,0.552 0.448,1 1,1c0.3377,0 0.62165,-0.17897 0.80273,-0.43555l0.01563,0.00586l3.43164,-4.57031h10.75c1.105,0 2,-0.895 2,-2v-15c0,-1.105 -0.895,-2 -2,-2zM11.5,9c1.381,0 2.5,1.119 2.5,2.5v0.5c0,2.214 -1.10041,4.26909 -2.94141,5.49609l-0.50391,0.33594l-1.10938,-1.66406l0.50391,-0.33594c0.698,-0.465 1.23684,-1.10394 1.58984,-1.83594c-0.014,0 -0.02606,0.00391 -0.03906,0.00391c-1.381,0 -2.5,-1.119 -2.5,-2.5c0,-1.381 1.119,-2.5 2.5,-2.5zM18.5,9c1.381,0 2.5,1.119 2.5,2.5v0.5c0,2.214 -1.10041,4.26909 -2.94141,5.49609l-0.50391,0.33594l-1.10938,-1.66406l0.50391,-0.33594c0.698,-0.465 1.23684,-1.10394 1.58984,-1.83594c-0.014,0 -0.02606,0.00391 -0.03906,0.00391c-1.381,0 -2.5,-1.119 -2.5,-2.5c0,-1.381 1.119,-2.5 2.5,-2.5z"></path>
+            </g>
+          </g>
+        </svg>
       </DrawerTrigger>
       <DrawerContent className="h-[100dvh] pb-[3vh] rounded-none ">
         <div className="   w-full px-5 mt-[0.5vh] pb-[2vh] backdrop-blur-lg bg-transparent flex justify-between items-center ">
