@@ -27,6 +27,6 @@
   "start_url": "https://napster-drx.vercel.app/?utm_source=pwa_install",
   "scope": "https://napster-drx.vercel.app/",
   "display": "standalone",
-  "background_color": "#191616",
-  "theme_color": "#191616"
+  "background_color": "#121212",
+  "theme_color": "#121212"
 }
