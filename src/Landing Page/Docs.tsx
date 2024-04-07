@@ -65,7 +65,7 @@ export default function Docs() {
           <>
             <div className="bg-[#09090B] font-semibold w-full min-h-screen flex  justify-start items-start px-9 pb-4 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-start pt-[11dvh] max-md:px-2.5  prose break-all prose-green">
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className="text-2xl font-bold  text-white animate-fade-up ">
+                <h1 className=" font-bold  text-white animate-fade-up ">
                   Getting Started 🚀
                 </h1>
                 <ul>
@@ -75,10 +75,14 @@ export default function Docs() {
                       https://music-player-api-mu.vercel.app
                     </a>
                   </li>
+                  <li className=" animate-fade-up">
+                    Authentication is not required for accessing public
+                    endpoints.
+                  </li>
                 </ul>
               </div>
               {/* <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className="text-2xl font-bold  text-white animate-fade-up ">
+                <h1 className=" font-bold  text-white animate-fade-up ">
                   Streaming 🎶{" "}
                 </h1>
                 <ul>
@@ -144,7 +148,7 @@ export default function Docs() {
                 </div>
               </div> */}
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className="text-2xl font-bold  text-white animate-fade-up ">
+                <h1 className=" font-bold  text-white animate-fade-up ">
                   Search Songs 🔍
                 </h1>
                 <ul>
@@ -195,7 +199,7 @@ export default function Docs() {
                 </div>
               </div>
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className="text-2xl font-bold  text-white animate-fade-up ">
+                <h1 className=" font-bold  text-white animate-fade-up ">
                   Get Lyrics 📝
                 </h1>
                 <ul>
@@ -239,7 +243,7 @@ export default function Docs() {
                 </div>
               </div>
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className="text-2xl font-bold  text-white animate-fade-up ">
+                <h1 className=" font-bold  text-white animate-fade-up ">
                   Search Artists 🎤
                 </h1>
                 <ul>
@@ -287,7 +291,7 @@ export default function Docs() {
                 </div>
               </div>
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className="text-2xl font-bold  text-white animate-fade-up ">
+                <h1 className=" font-bold  text-white animate-fade-up ">
                   Search Albums 📀
                 </h1>
                 <ul>
@@ -335,7 +339,7 @@ export default function Docs() {
                 </div>
               </div>
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className="text-2xl font-bold  text-white animate-fade-right">
+                <h1 className=" font-bold  text-white animate-fade-right">
                   Search Playlists 🎵
                 </h1>
                 <ul>
@@ -416,7 +420,7 @@ export default function Docs() {
           <div className="bg-[#09090B] fade-in font-semibold w-full min-h-screen flex justify-center items-center px-9 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-center max-md:px-4 overflow-hidden fixed -z-10">
             <Button
               onClick={handleSignIn}
-              className=" text-2xl py-6 animate-fade-up  max-md:text-base rounded-lg space-x-1"
+              className="  py-6 animate-fade-up  max-md:text-base rounded-lg space-x-1"
             >
               <FcGoogle />
               <p>Continue with Google</p>
