@@ -22,7 +22,9 @@ import {
 
 function SpotifyTransfer({
   close,
+  className,
 }: {
+  className?: string;
   close: React.RefObject<HTMLButtonElement>;
 }) {
   const track = useSelector(
@@ -71,7 +73,9 @@ function SpotifyTransfer({
   return (
     <Drawer>
       <DrawerTrigger className=" w-full">
-        <p className=" rounded-xl  bg-green-600 py-2.5 mt-3  w-full text-base">
+        <p
+          className={` ${className} rounded-xl  bg-green-600 py-2.5 mt-3  w-full text-base`}
+        >
           Transfer from Spotify
         </p>
       </DrawerTrigger>

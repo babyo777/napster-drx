@@ -195,6 +195,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
               </Button>
             </form>
           </Form>
+
           <DrawerClose className="w-full mt-3 ">
             <Button
               ref={close}
@@ -209,7 +210,10 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
           </DrawerClose>
           {!clone && (
             <div className=" animate-fade-up w-full -mt-1">
-              <SpotifyTransfer close={close} />
+              <SpotifyTransfer
+                close={close}
+                className=" rounded-xl text-sm bg-green-500 text-black font-semibold"
+              />
             </div>
           )}
         </div>
