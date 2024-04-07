@@ -137,7 +137,7 @@ export function EditCustomPlaylist({
     <Dialog>
       <DialogTrigger>
         <div className="">
-          <MdOutlineEdit className="h-8 w-8 animate-fade-left fade-in backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+          <MdOutlineEdit className="h-8 w-8 animate-fade-left  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
         </div>
       </DialogTrigger>
       <DialogContent className="w-[80vw] rounded-xl flex justify-center flex-col items-center">
