@@ -127,7 +127,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
       <DrawerContent className="h-[100dvh] rounded-none px-5">
         <div className="h-dvh items-center border-none justify-center flex flex-col w-full  rounded-2xl">
           <DrawerHeader>
-            <DrawerTitle className="text-xl  font-semibold">
+            <DrawerTitle className="text-xl animate-fade-down  font-semibold">
               {clone ? "Save this playlist" : "Create your own playlist"}
             </DrawerTitle>
           </DrawerHeader>
@@ -145,17 +145,17 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
                     <FormItem>
                       <FormControl>
                         <Input
-                          className=" py-5"
+                          className=" py-5 animate-fade-up"
                           placeholder="Paste youtube playlist link"
                           {...field}
                         ></Input>
                       </FormControl>
                       {error && (
-                        <FormMessage className="text-red-500">
+                        <FormMessage className="text-red-500 animate-fade-left">
                           Playlist is private or invalid url
                         </FormMessage>
                       )}
-                      <FormMessage className="text-red-500" />
+                      <FormMessage className="text-red-500 animate-fade-right" />
                     </FormItem>
                   )}
                 />
@@ -168,7 +168,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
                   <FormItem>
                     <FormControl>
                       <Input
-                        className=" py-5"
+                        className=" py-5 animate-fade-up"
                         placeholder="Give a name..."
                         {...field}
                       ></Input>
@@ -182,7 +182,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
                 type="submit"
                 variant={"secondary"}
                 disabled={isSubmit || error}
-                className=" py-5 w-full rounded-xl"
+                className=" py-5 w-full animate-fade-up rounded-xl"
               >
                 {isSubmit ? (
                   <Loader size="20" loading={true} />
@@ -194,14 +194,14 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
               </Button>
             </form>
           </Form>
-          <DrawerClose className="w-full mt-3">
+          <DrawerClose className="w-full mt-3 ">
             <Button
               ref={close}
               asChild
               onClick={handleReset}
               variant={"secondary"}
               disabled={isSubmit || error}
-              className=" text-zinc-100 py-5 -mt-1.5 w-full rounded-xl"
+              className=" text-zinc-100 py-5 animate-fade-up -mt-1.5 w-full rounded-xl"
             >
               <p>Close</p>
             </Button>

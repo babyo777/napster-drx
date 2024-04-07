@@ -131,7 +131,7 @@ function SpotifyTransfer({
       <AlertDialogContent className="w-full border-none flex items-center flex-col justify-center h-dvh rounded-none">
         <AlertDialogHeader>
           {!data && !complete && !isLoading && (
-            <DialogTitle className=" text-2xl font-semibold -mb-1">
+            <DialogTitle className=" text-2xl animate-fade-down font-semibold -mb-1">
               Paste Spotify Link
             </DialogTitle>
           )}
@@ -149,14 +149,14 @@ function SpotifyTransfer({
                     required
                     placeholder="Paste playlist link or id"
                     value={link}
-                    className="py-5 rounded-lg"
+                    className="py-5 rounded-lg animate-fade-down"
                     onChange={handleChange}
                   />
 
                   <Button
                     type="submit"
                     variant={"secondary"}
-                    className=" w-full py-5  rounded-xl"
+                    className=" w-full py-5 animate-fade-up  rounded-xl"
                   >
                     Transfer
                   </Button>
@@ -167,7 +167,7 @@ function SpotifyTransfer({
                   <Button
                     asChild
                     variant={"secondary"}
-                    className=" w-full py-5 rounded-xl"
+                    className=" w-full py-5 animate-fade-up rounded-xl"
                   >
                     <p>Close</p>
                   </Button>
@@ -178,7 +178,7 @@ function SpotifyTransfer({
 
           {data && data.tracks.length > 0 && (
             <div className="flex w-full flex-col space-y-3 items-center">
-              <p className="text-zinc-300  font-semibold text-xl">
+              <p className="text-zinc-300  font-semibold text-xl animate-fade-down">
                 {Math.floor((progress / data.tracks.length) * 100)}%
               </p>
 
@@ -190,7 +190,7 @@ function SpotifyTransfer({
                 maxCompleted={data.tracks.length}
                 completed={progress || 0}
               />
-              <p className="text-zinc-300  font-semibold text-lg">
+              <p className="text-zinc-300  font-semibold text-lg animate-fade-up">
                 Transferred {progress}/{data.tracks.length}
               </p>
             </div>

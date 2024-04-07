@@ -122,7 +122,7 @@ const AddAlbum: React.FC<{
       </DialogTrigger>
       <DialogContent className="w-full h-dvh border-none flex flex-col justify-center items-center rounded-none">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold">
+          <DialogTitle className="text-xl font-semibold animate-fade-down">
             {clone ? "Save this album" : "Create your own playlist"}
           </DialogTitle>
         </DialogHeader>
@@ -140,7 +140,7 @@ const AddAlbum: React.FC<{
                   <FormItem>
                     <FormControl>
                       <Input
-                        className=" py-5"
+                        className=" py-5 animate-fade-up"
                         placeholder="Paste youtube playlist link"
                         {...field}
                       ></Input>
@@ -165,7 +165,7 @@ const AddAlbum: React.FC<{
                     <Input
                       readOnly
                       disabled
-                      className=" py-5"
+                      className=" py-5 animate-fade-up"
                       placeholder={name}
                       {...field}
                     ></Input>
@@ -179,7 +179,7 @@ const AddAlbum: React.FC<{
               type="submit"
               variant={"secondary"}
               disabled={isSubmit || error}
-              className=" py-5 w-full rounded-xl"
+              className=" py-5 w-full rounded-xl animate-fade-up"
             >
               {isSubmit ? (
                 <Loader size="20" loading={true} />
@@ -198,7 +198,7 @@ const AddAlbum: React.FC<{
             onClick={handleReset}
             variant={"secondary"}
             disabled={isSubmit || error}
-            className=" text-zinc-100 py-5 -mt-1.5 w-full rounded-xl"
+            className=" text-zinc-100 py-5 animate-fade-up -mt-1.5 w-full rounded-xl"
           >
             <p>Close</p>
           </Button>
