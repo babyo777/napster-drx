@@ -77,7 +77,7 @@ export default function Docs() {
                   </li>
                 </ul>
               </div>
-              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
+              {/* <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
                 <h1 className="text-2xl font-bold  text-white animate-fade-up ">
                   Streaming 🎶{" "}
                 </h1>
@@ -142,7 +142,7 @@ export default function Docs() {
                     </a>
                   </p>
                 </div>
-              </div>
+              </div> */}
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
                 <h1 className="text-2xl font-bold  text-white animate-fade-up ">
                   Search Songs 🔍
