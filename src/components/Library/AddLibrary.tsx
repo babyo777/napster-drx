@@ -207,7 +207,11 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
               <p>Close</p>
             </Button>
           </DrawerClose>
-          {!clone && <SpotifyTransfer close={close} />}
+          {!clone && (
+            <div className=" animate-fade-up">
+              <SpotifyTransfer close={close} />
+            </div>
+          )}
         </div>
       </DrawerContent>
     </Drawer>
