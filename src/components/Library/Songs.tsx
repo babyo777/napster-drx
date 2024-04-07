@@ -73,6 +73,8 @@ function Songs({
     (state: RootState) => state.musicReducer.playlist
   );
 
+  const queue = useSelector((state: RootState) => state.musicReducer.queue);
+
   const handlePlay = useCallback(async () => {
     if (data && data.length > 0) {
       if (liked) {
@@ -142,7 +144,7 @@ function Songs({
         <p
           onClick={handlePlay}
           className={`w-[60dvw]   ${
-            playlist[currentIndex]?.youtubeId == audio && "text-red-500"
+            queue[currentIndex]?.youtubeId == audio && "text-red-500"
           }  truncate capitalize`}
         >
           {title.replace("______________________________________", "untitled")}
