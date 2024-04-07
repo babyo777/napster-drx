@@ -10,7 +10,7 @@ import {
 import { SpotifyTransfer } from "../SpotifyTransfer";
 import { useCallback, useRef } from "react";
 import { Token } from "../Token";
-import { SponsorsComp } from "../Sponsors";
+// import { SponsorsComp } from "../Sponsors";
 import { DialogClose } from "../ui/dialog";
 
 function Settings() {
@@ -78,7 +78,7 @@ function Settings() {
         >
           More by babyo7_
         </p> */}
-        <SponsorsComp />
+        {/* <SponsorsComp /> */}
         <SpotifyTransfer close={closeRef} />
         <p
           onClick={handleReset}
