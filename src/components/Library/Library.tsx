@@ -10,6 +10,7 @@ import Loader from "../Loaders/Loader";
 import { RxShuffle } from "react-icons/rx";
 import { RiFocus3Line } from "react-icons/ri";
 import {
+  GetPlaylistHundredSongsApi,
   GetPlaylistSongsApi,
   SearchPlaylistApi,
   getPlaylistDetails,
@@ -138,7 +139,7 @@ function LibraryComp() {
       setData(modified);
       return modified as unknown as playlistSongs[];
     } else {
-      const list = await axios.get(`${GetPlaylistSongsApi}${id}`);
+      const list = await axios.get(`${GetPlaylistHundredSongsApi}${id}`);
       setData(list.data);
       return list.data as playlistSongs[];
     }
