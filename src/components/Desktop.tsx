@@ -31,6 +31,8 @@ function Desktop() {
         </header>
 
         <div className="bg-[#09090B] font-semibold w-full min-h-screen flex justify-center items-center px-9 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-center max-md:px-4 animate-fade-up overflow-hidden fixed -z-10">
+          <div className=" bg-white backdrop-blur-xl -z-10 blur-[50px] h-[27vw] w-[27vw] rounded-full opacity-5 border-none shadow-none absolute"></div>
+
           <div>
             <p className="">Enjoy Music Without Interruptions</p>
           </div>
