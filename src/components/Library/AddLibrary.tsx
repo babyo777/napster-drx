@@ -38,6 +38,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
+import { SpotifyTransfer } from "../SpotifyTransfer";
 
 const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
   clone,
@@ -206,6 +207,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
               <p>Close</p>
             </Button>
           </DrawerClose>
+          {!clone && <SpotifyTransfer close={close} />}
         </div>
       </DrawerContent>
     </Drawer>

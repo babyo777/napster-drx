@@ -9,17 +9,16 @@ import { TransferFromSpotifyApi } from "@/API/api";
 import { useQuery } from "react-query";
 import Loader from "./Loaders/Loader";
 import { spotifyTransfer } from "@/Interface";
-
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTrigger,
-} from "./ui/alert-dialog";
 import { useDispatch, useSelector } from "react-redux";
 import { setSpotifyTrack } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTrigger,
+} from "./ui/drawer";
 
 function SpotifyTransfer({
   close,
@@ -70,64 +69,66 @@ function SpotifyTransfer({
     }
   }, [data, dispatch, close]);
   return (
-    <AlertDialog>
-      <AlertDialogTrigger>
+    <Drawer>
+      <DrawerTrigger className=" w-full">
         <p className=" rounded-xl  bg-green-600 py-2.5 mt-3  w-full text-base">
           Transfer from Spotify
         </p>
-      </AlertDialogTrigger>
-      <AlertDialogContent className="w-full border-none flex items-center flex-col justify-center h-dvh rounded-none">
-        <AlertDialogHeader>
-          {!data && !track && !isLoading && (
-            <DialogTitle className=" text-2xl animate-fade-down font-semibold -mb-1">
-              Paste Spotify Link
-            </DialogTitle>
-          )}
-        </AlertDialogHeader>
+      </DrawerTrigger>
+      <DrawerContent className="w-full border-none flex items-center flex-col justify-center h-dvh rounded-none">
+        <div className="h-dvh items-center border-none px-5 justify-center flex flex-col w-full  rounded-2xl">
+          <DrawerHeader>
+            {!data && !track && !isLoading && (
+              <DialogTitle className=" text-2xl animate-fade-down font-semibold -mb-1">
+                Paste Spotify Link
+              </DialogTitle>
+            )}
+          </DrawerHeader>
 
-        <div className=" min-h-20 w-full flex flex-col justify-center items-center">
-          {isLoading && !isError ? (
-            <Loader />
-          ) : (
-            <>
-              {!data && !track && (
-                <form onSubmit={Transfer} className=" w-full space-y-2">
-                  <Input
-                    type="text"
-                    required
-                    placeholder="Paste playlist link or id"
-                    value={link}
-                    className="py-5 rounded-lg animate-fade-down"
-                    onChange={handleChange}
-                  />
+          <div className=" min-h-20 w-full flex flex-col justify-center items-center">
+            {isLoading && !isError ? (
+              <Loader />
+            ) : (
+              <>
+                {!data && !track && (
+                  <form onSubmit={Transfer} className=" w-full space-y-2">
+                    <Input
+                      type="text"
+                      required
+                      placeholder="Paste playlist link or id"
+                      value={link}
+                      className="py-5 rounded-lg animate-fade-down"
+                      onChange={handleChange}
+                    />
 
-                  <Button
-                    type="submit"
-                    variant={"secondary"}
-                    className=" w-full py-5 animate-fade-up  rounded-xl"
-                  >
-                    Transfer
-                  </Button>
-                </form>
-              )}
+                    <Button
+                      type="submit"
+                      variant={"secondary"}
+                      className=" w-full py-5 animate-fade-up  rounded-xl"
+                    >
+                      Transfer
+                    </Button>
+                  </form>
+                )}
 
-              <AlertDialogCancel
-                ref={ref}
-                className="w-full rounded-xl border-none mt-2 bg-none  p-0"
-              >
-                <Button
-                  asChild
-                  variant={"secondary"}
-                  className=" w-full py-5 animate-fade-up rounded-xl"
+                <DrawerClose
+                  ref={ref}
+                  className="w-full rounded-xl border-none mt-2 bg-none  p-0"
                 >
-                  <p>Close</p>
-                </Button>
-              </AlertDialogCancel>
-            </>
-          )}
+                  <Button
+                    asChild
+                    variant={"secondary"}
+                    className=" w-full py-5 animate-fade-up rounded-xl"
+                  >
+                    <p>Close</p>
+                  </Button>
+                </DrawerClose>
+              </>
+            )}
+          </div>
         </div>
-      </AlertDialogContent>
-    </AlertDialog>
+      </DrawerContent>
+    </Drawer>
   );
 }
 
