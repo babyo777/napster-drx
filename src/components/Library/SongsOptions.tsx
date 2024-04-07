@@ -166,7 +166,7 @@ function SongsOptions({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="m-0 p-0">
+      <DropdownMenuTrigger className="m-0 p-0 animate-fade-left">
         <BiDotsHorizontalRounded className="h-6 w-6 text-zinc-300" />
         {!underline && (
           <div className="h-[.05rem] w-[8vw] bg-zinc-300/10 mt-[1.1rem] -ml-2"></div>

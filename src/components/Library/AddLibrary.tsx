@@ -115,7 +115,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
 
   return (
     <Drawer>
-      <DrawerTrigger className="w-full fade-in">
+      <DrawerTrigger className="w-full animate-fade-left">
         {clone ? (
           <IoMdAdd className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
         ) : (

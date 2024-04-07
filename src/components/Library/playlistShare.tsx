@@ -122,7 +122,7 @@ function PlaylistShare({
   return (
     <Drawer>
       <DrawerTrigger className="p-0 m-0">
-        <GoShare className="h-8 w-8 fade-in   backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+        <GoShare className="h-8 w-8 animate-fade-left backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
       </DrawerTrigger>
       <DrawerContent className="  h-[100dvh] rounded-none px-[4.5vw] ">
         {!round && (
