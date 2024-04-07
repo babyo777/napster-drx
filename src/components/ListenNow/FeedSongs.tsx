@@ -121,7 +121,7 @@ function FeedSong({
     staleTime: Infinity,
   });
   return (
-    <div className="flex  animate-fade-down flex-col py-2 space-y-2 ">
+    <div className="flex  animate-fade-up flex-col py-2 space-y-2 ">
       <div className="overflow-hidden  space-y-2">
         <AspectRatio ratio={4 / 4}>
           <LazyLoadImage
