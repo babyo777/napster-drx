@@ -112,9 +112,12 @@ function Songs({
     staleTime: Infinity,
   });
   return (
-    <div id={audio} className="flex  py-2 space-x-2 items-center">
+    <div
+      id={audio}
+      className="flex animate-fade-right  py-2 space-x-2 items-center"
+    >
       {!album ? (
-        <div className="overflow-hidden animate-fade-right h-12 w-12 space-y-2">
+        <div className="overflow-hidden  h-12 w-12 space-y-2">
           <AspectRatio ratio={1 / 1}>
             <LazyLoadImage
               onClick={handlePlay}
@@ -132,15 +135,13 @@ function Songs({
           </AspectRatio>
         </div>
       ) : (
-        <p className="flex  text-xl animate-fade-right font-semibold w-[7vw]">
-          {id + 1}
-        </p>
+        <p className="flex  text-xl font-semibold w-[7vw]">{id + 1}</p>
       )}
 
-      <div className="flex flex-col pl-1 space-y-0.5 text-start w-[70dvw] ">
+      <div className="flex  flex-col pl-1 space-y-0.5 text-start w-[70dvw] ">
         <p
           onClick={handlePlay}
-          className={`w-[60dvw] animate-fade-up   ${
+          className={`w-[60dvw]   ${
             playlist[currentIndex]?.youtubeId == audio && "text-red-500"
           }  truncate capitalize`}
         >
@@ -148,16 +149,16 @@ function Songs({
         </p>
         {link ? (
           <Link to={`/artist/${artistId}`} className="w-[40vw]">
-            <p className="-mt-0.5 h-[1rem]  animate-fade-up capitalize text-xs  text-zinc-400 w-[40dvw]  truncate">
+            <p className="-mt-0.5 h-[1rem] capitalize text-xs  text-zinc-400 w-[40dvw]  truncate">
               {artist}
             </p>
           </Link>
         ) : (
-          <p className="-mt-0.5 animate-fade-up  text-xs  text-zinc-400 w-[40dvw]  truncate">
+          <p className="-mt-0.5   text-xs  text-zinc-400 w-[40dvw]  truncate">
             {artist}
           </p>
         )}
-        <div className="h-[.05rem] w-full animate-fade-right  bg-zinc-300/10 mt-1.5"></div>
+        <div className="h-[.05rem] w-full  bg-zinc-300/10 mt-1.5"></div>
       </div>
       <SongsOptions
         key={audio + cover + title}
