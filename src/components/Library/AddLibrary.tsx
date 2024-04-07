@@ -212,7 +212,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
             <div className=" animate-fade-up w-full -mt-1">
               <SpotifyTransfer
                 close={close}
-                className=" rounded-xl text-sm bg-green-500 py-1 font-semibold"
+                className=" rounded-xl text-sm bg-green-500 py-2 font-semibold"
               />
             </div>
           )}
