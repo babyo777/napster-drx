@@ -108,8 +108,29 @@ export default function Docs() {
                   </li> */}
                   <li className="animate-fade-up">
                     Endpoint - {""}
-                    <a href="https://alone-dorothee-wolfey.koyeb.app?url=">
+                    <a
+                      target="blank"
+                      href="https://alone-dorothee-wolfey.koyeb.app?url="
+                    >
                       https://alone-dorothee-wolfey.koyeb.app?url=
+                    </a>
+                  </li>
+                  <li className="animate-fade-up">
+                    Deploy You Own - {""}
+                    <a
+                      target="blank"
+                      href="https://app.koyeb.com/deploy?type=git&builder=buildpack&repository=https://github.com/babyo7/stream-audio"
+                    >
+                      Deploy Now
+                    </a>
+                  </li>
+                  <li className="animate-fade-up">
+                    Source Code - {""}
+                    <a
+                      target="blank"
+                      href="https://github.com/babyo7/stream-audio"
+                    >
+                      https://github.com/babyo7/stream-audio
                     </a>
                   </li>
                 </ul>
