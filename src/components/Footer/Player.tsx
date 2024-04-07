@@ -41,9 +41,9 @@ export function Player() {
   }, [dispatch, isPlaying, music]);
 
   const handleNext = useCallback(() => {
-    // if (!isStandalone) {
-    //   dispatch(setIsIphone(true));
-    // }
+    if (!isStandalone) {
+      dispatch(setIsIphone(true));
+    }
     if (isLooped) return;
     if (isPlaylist.length > 1) {
       dispatch(setCurrentIndex((currentIndex + 1) % isPlaylist.length));
