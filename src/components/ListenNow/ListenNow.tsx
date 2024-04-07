@@ -252,7 +252,7 @@ export function ListenNowComp() {
         </ReactPullToRefresh>
       )}
       {!checked && (
-        <div className="h-[80dvh] pb-20 overflow-scroll">
+        <div className="h-[80dvh] pb-28 overflow-scroll">
           {suggested && suggested.length > 0 && (
             <NapsterSuggested data={suggested} />
           )}
