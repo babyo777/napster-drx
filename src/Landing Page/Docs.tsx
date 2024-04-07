@@ -422,9 +422,9 @@ export default function Docs() {
           <div className="bg-[09090B] fade-in font-semibold w-full min-h-screen flex justify-center items-center px-9 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-center max-md:px-4 overflow-hidden fixed -z-10">
             <Button
               onClick={handleSignIn}
-              className="  py-6 animate-fade-up  max-md:text-base rounded-lg space-x-1"
+              className="  py-6 animate-fade-up text-xl  max-md:text-base rounded-lg space-x-1"
             >
-              <FcGoogle />
+              <FcGoogle className="h-7 w-7" />
               <p>Continue with Google</p>
             </Button>
           </div>
