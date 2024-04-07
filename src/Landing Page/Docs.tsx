@@ -79,17 +79,16 @@ export default function Docs() {
                     </a>
                   </li>
                   <li className=" animate-fade-up">
-                    Authentication is not required for accessing public
-                    endpoints.
+                    Authentication is not required for accessing endpoints.
                   </li>
                 </ul>
               </div>
-              {/* <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
+              <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
                 <h1 className=" font-bold max-md:text-2xl text-4xl  text-white animate-fade-up ">
-                   Streaming 🎶{" "}
+                  Streaming 🎶{" "}
                 </h1>
                 <ul>
-                  <li className="animate-fade-up">
+                  {/* <li className="animate-fade-up">
                     Endpoint 1 - {""}
                     <a href="  https://exotic-cloe-babyo77.koyeb.app/?url=">
                       https://exotic-cloe-babyo77.koyeb.app/?url=
@@ -106,9 +105,9 @@ export default function Docs() {
                     <a href="https://occasional-clara-babyo777.koyeb.app/?url=">
                       https://occasional-clara-babyo777.koyeb.app/?url=
                     </a>
-                  </li>
+                  </li> */}
                   <li className="animate-fade-up">
-                    Endpoint 4- {""}
+                    Endpoint - {""}
                     <a href="https://alone-dorothee-wolfey.koyeb.app?url=">
                       https://alone-dorothee-wolfey.koyeb.app?url=
                     </a>
@@ -149,7 +148,7 @@ export default function Docs() {
                     </a>
                   </p>
                 </div>
-              </div> */}
+              </div>
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
                 <h1 className=" font-bold max-md:text-2xl text-4xl  text-white animate-fade-up ">
                   Search Songs 🔍
