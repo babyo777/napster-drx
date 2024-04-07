@@ -42,7 +42,7 @@ function SavedAlbumCard({
   );
 
   return (
-    <div className="flex space-x-2.5 items-center justify-between">
+    <div className="flex space-x-2.5 animate-fade-right items-center justify-between">
       {isLoading && <SkeletonP />}
       {!isLoading && link && (
         <>
