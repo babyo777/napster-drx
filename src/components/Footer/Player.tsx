@@ -78,10 +78,10 @@ export function Player() {
               <Loader loading={true} />
             ) : (
               <div className="flex  space-x-3 pr-3">
-                <IoPlay className="h-7 w-7 animate-fade-left" />
+                <IoPlay className="h-7 w-7" />
 
                 <TbPlayerTrackNextFilled
-                  className={`h-7 w-7 animate-fade-left ${
+                  className={`h-7 w-7 ${
                     isPlaylist && isPlaylist.length > 0
                       ? "text-zinc-200"
                       : "text-zinc-400"
@@ -100,15 +100,12 @@ export function Player() {
             {isPlaylist && isPlaylist.length > 0 && (
               <div className="flex  fade-in space-x-3  pr-3">
                 {isPlaying ? (
-                  <FaPause
-                    className="h-7 w-7 animate-fade-left"
-                    onClick={handlePlay}
-                  />
+                  <FaPause className="h-7 w-7" onClick={handlePlay} />
                 ) : (
                   <IoPlay className="h-7 w-7" onClick={handlePlay} />
                 )}
                 <TbPlayerTrackNextFilled
-                  className={`h-7 w-7 animate-fade-left  ${
+                  className={`h-7 w-7  ${
                     isPlaylist && isPlaylist.length > 0
                       ? "text-zinc-200"
                       : "text-zinc-400"
