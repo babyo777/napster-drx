@@ -111,9 +111,9 @@ const AddAlbum: React.FC<{
 
   return (
     <Dialog>
-      <DialogTrigger className="w-full fade-in">
+      <DialogTrigger className="w-full">
         {clone ? (
-          <IoMdAdd className="h-8 w-8  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
+          <IoMdAdd className="h-8 w-8 animate-fade-left  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
         ) : (
           <span className="text-center  justify-end px-3 flex  text-lg truncate">
             <IoMdAdd className="h-8 w-8 fill-zinc-100" />
