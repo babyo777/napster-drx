@@ -3,6 +3,9 @@ import Tabs from "./components/Footer/Tabs";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { DATABASE_ID, ID, NEW_USER, db } from "./appwrite/appwriteConfig";
+import TransferHeader from "./TransferHrader";
+import { useSelector } from "react-redux";
+import { RootState } from "./Store/Store";
 
 function AppComp() {
   function ScreenSizeCheck() {
@@ -23,9 +26,12 @@ function AppComp() {
       }
     }
   }, []);
-
+  const data = useSelector(
+    (state: RootState) => state.musicReducer.spotifyTrack
+  );
   return (
     <>
+      {data && <TransferHeader data={data} />}
       <Outlet />
       <Tabs />
       <ScrollRestoration

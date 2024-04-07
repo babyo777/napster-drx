@@ -1,4 +1,9 @@
-import { savedPlaylist, playlistSongs, suggestedArtists } from "@/Interface";
+import {
+  savedPlaylist,
+  playlistSongs,
+  suggestedArtists,
+  spotifyTransfer,
+} from "@/Interface";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface Player {
@@ -25,9 +30,11 @@ interface Player {
   seek: number;
   uid: string | null;
   lastPlayed: boolean;
+  SpotifyProgress: number;
   sharePlayCode: string;
   Feed: playlistSongs[];
   isLikedSong: boolean;
+  spotifyTrack: spotifyTransfer | null;
   currentArtistId: string;
   savedPlaylist: savedPlaylist[];
   savedAlbums: savedPlaylist[];
@@ -50,10 +57,12 @@ const initialState: Player = {
   uid: localStorage.getItem("uid"),
   currentArtistId: "",
   isIphone: false,
+  spotifyTrack: null,
   PlaylistOrAlbum: "",
   playingPlaylistUrl: "",
   progress: "--:--",
   duration: "--:--",
+  SpotifyProgress: 0,
   isLoop: false,
   seek: 0,
   feedMode: true,
@@ -111,6 +120,9 @@ const MusicPlayer = createSlice({
     },
     SetSeek: (state, action: PayloadAction<number>) => {
       state.seek = action.payload;
+    },
+    SetSpotifyProgress: (state, action: PayloadAction<number>) => {
+      state.SpotifyProgress = action.payload;
     },
     SetCurrentSongId: (state, action: PayloadAction<string>) => {
       state.currentSongId = action.payload;
@@ -211,6 +223,9 @@ const MusicPlayer = createSlice({
     setSavedArtists: (state, action: PayloadAction<suggestedArtists[]>) => {
       state.savedArtists = action.payload;
     },
+    setSpotifyTrack: (state, action: PayloadAction<spotifyTransfer | null>) => {
+      state.spotifyTrack = action.payload;
+    },
   },
 });
 
@@ -236,6 +251,8 @@ export const {
   setNextQueue,
   SetFeed,
   setSearch,
+  SetSpotifyProgress,
+  setSpotifyTrack,
   setPlaylistUrl,
   setSavedPlaylist,
   setIsLikedSong,

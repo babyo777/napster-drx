@@ -2,24 +2,13 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { Button } from "./ui/button";
 
 import "react-lazy-load-image-component/src/effects/blur.css";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Input } from "./ui/input";
 import axios from "axios";
-import { SearchOneTrackApi, TransferFromSpotifyApi } from "@/API/api";
-import { useQuery, useQueryClient } from "react-query";
+import { TransferFromSpotifyApi } from "@/API/api";
+import { useQuery } from "react-query";
 import Loader from "./Loaders/Loader";
-import { playlistSongs, spotifyTransfer } from "@/Interface";
-import ProgressBar from "@ramonak/react-progress-bar";
-
-import {
-  ADD_TO_LIBRARY,
-  DATABASE_ID,
-  ID,
-  PLAYLIST_COLLECTION_ID,
-  db,
-} from "@/appwrite/appwriteConfig";
-import { v4 } from "uuid";
-import { useNavigate } from "react-router-dom";
+import { spotifyTransfer } from "@/Interface";
 
 import {
   AlertDialog,
@@ -28,22 +17,25 @@ import {
   AlertDialogHeader,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
+import { useDispatch, useSelector } from "react-redux";
+import { setSpotifyTrack } from "@/Store/Player";
+import { RootState } from "@/Store/Store";
 
 function SpotifyTransfer({
   close,
 }: {
   close: React.RefObject<HTMLButtonElement>;
 }) {
-  const navigate = useNavigate();
-  const [progress, setProgress] = useState<number>(0);
+  const track = useSelector(
+    (state: RootState) => state.musicReducer.spotifyTrack
+  );
+
+  const dispatch = useDispatch();
   const [link, setLink] = useState<string>("");
   const [data, setData] = useState<spotifyTransfer | null>();
-  const [complete, setComplete] = useState<boolean>(false);
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setLink(e.target.value);
   }, []);
-
-  const query = useQueryClient();
 
   const getTracksInfo = async () => {
     const res = await axios.get(`${TransferFromSpotifyApi}${link}`);
@@ -68,59 +60,15 @@ function SpotifyTransfer({
     },
     [refetch]
   );
+
+  const ref = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    if (data) {
-      db.createDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, ID.unique(), {
-        name: data.creator,
-        creator: data.name,
-        link: "custom" + v4(),
-        image: data.image,
-        for: localStorage.getItem("uid"),
-      }).then(async (m) => {
-        let i = 0;
-        const processTrack = async () => {
-          if (i < data.tracks.length) {
-            try {
-              const res = await axios.get(
-                `${SearchOneTrackApi}${data.tracks[i].track}`
-              );
-              const track = res.data as playlistSongs;
-              await db.createDocument(
-                DATABASE_ID,
-                ADD_TO_LIBRARY,
-                ID.unique(),
-                {
-                  index: i,
-                  for: localStorage.getItem("uid"),
-                  youtubeId: track.youtubeId,
-                  artists: [track.artists[0].id, track.artists[0].name],
-                  title: track.title,
-                  thumbnailUrl: track.thumbnailUrl,
-                  playlistId: m.$id,
-                }
-              );
-            } catch (error) {
-              console.log(error);
-            }
-            if (i == data.tracks.length - 1) {
-              setData(null);
-              setComplete(true);
-              close.current?.click();
-              navigate("/library/");
-              query.refetchQueries("savedPlaylist");
-              return;
-            }
-            setProgress(i + 1);
-            i++;
-
-            setTimeout(processTrack, 111);
-          }
-        };
-
-        processTrack();
-      });
+    if (data && ref.current && close.current) {
+      dispatch(setSpotifyTrack(data));
+      ref.current.click();
+      close.current.click();
     }
-  }, [data, close, query, navigate]);
+  }, [data, dispatch, close]);
   return (
     <AlertDialog>
       <AlertDialogTrigger>
@@ -130,7 +78,7 @@ function SpotifyTransfer({
       </AlertDialogTrigger>
       <AlertDialogContent className="w-full border-none flex items-center flex-col justify-center h-dvh rounded-none">
         <AlertDialogHeader>
-          {!data && !complete && !isLoading && (
+          {!data && !track && !isLoading && (
             <DialogTitle className=" text-2xl animate-fade-down font-semibold -mb-1">
               Paste Spotify Link
             </DialogTitle>
@@ -142,7 +90,7 @@ function SpotifyTransfer({
             <Loader />
           ) : (
             <>
-              {!data && !complete && (
+              {!data && !track && (
                 <form onSubmit={Transfer} className=" w-full space-y-2">
                   <Input
                     type="text"
@@ -162,38 +110,20 @@ function SpotifyTransfer({
                   </Button>
                 </form>
               )}
-              {!data && !complete && (
-                <AlertDialogCancel className="w-full rounded-xl border-none mt-2 bg-none  p-0">
-                  <Button
-                    asChild
-                    variant={"secondary"}
-                    className=" w-full py-5 animate-fade-up rounded-xl"
-                  >
-                    <p>Close</p>
-                  </Button>
-                </AlertDialogCancel>
-              )}
+
+              <AlertDialogCancel
+                ref={ref}
+                className="w-full rounded-xl border-none mt-2 bg-none  p-0"
+              >
+                <Button
+                  asChild
+                  variant={"secondary"}
+                  className=" w-full py-5 animate-fade-up rounded-xl"
+                >
+                  <p>Close</p>
+                </Button>
+              </AlertDialogCancel>
             </>
-          )}
-
-          {data && data.tracks.length > 0 && (
-            <div className="flex w-full flex-col space-y-3 items-center">
-              <p className="text-zinc-300  font-semibold text-xl animate-fade-down">
-                {Math.floor((progress / data.tracks.length) * 100)}%
-              </p>
-
-              <ProgressBar
-                className=" w-full border-none"
-                height="7px"
-                isLabelVisible={false}
-                bgColor="#1DD45F"
-                maxCompleted={data.tracks.length}
-                completed={progress || 0}
-              />
-              <p className="text-zinc-300  font-semibold text-lg animate-fade-up">
-                Transferred {progress}/{data.tracks.length}
-              </p>
-            </div>
           )}
         </div>
       </AlertDialogContent>

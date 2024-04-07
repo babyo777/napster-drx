@@ -12,9 +12,11 @@ import { useCallback, useRef } from "react";
 import { Token } from "../Token";
 // import { SponsorsComp } from "../Sponsors";
 import { DialogClose } from "../ui/dialog";
+import { RootState } from "@/Store/Store";
+import { useSelector } from "react-redux";
 
 function Settings() {
-  const closeRef = useRef(null);
+  const close = useRef<HTMLButtonElement>(null);
   const handleReset = useCallback(() => {
     const reset = confirm("Are you sure you want to reset");
     if (reset)
@@ -37,6 +39,10 @@ function Settings() {
       }
     }
   }, []);
+
+  const track = useSelector(
+    (state: RootState) => state.musicReducer.spotifyTrack
+  );
 
   return (
     <Drawer>
@@ -79,14 +85,14 @@ function Settings() {
           More by babyo7_
         </p> */}
         {/* <SponsorsComp /> */}
-        <SpotifyTransfer close={closeRef} />
+        {!track && <SpotifyTransfer close={close} />}
         <p
           onClick={handleReset}
           className=" rounded-xl  py-2.5 mt-3 flex justify-center bg-red-500 text-base "
         >
           Reset
         </p>
-        <DialogClose ref={closeRef}></DialogClose>
+        <DialogClose ref={close}></DialogClose>
         <DrawerFooter className=" items-center">
           <span className="text-xs text-zinc-300">Version - 1.2.7 beta</span>
         </DrawerFooter>
