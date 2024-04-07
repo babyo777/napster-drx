@@ -63,10 +63,10 @@ export default function Docs() {
         </header>
         {logged ? (
           <>
-            <div className="bg-[#09090B] font-semibold w-full min-h-screen flex  justify-start items-start px-9 pb-4 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-start pt-[11dvh] max-md:px-2.5  prose break-all prose-green">
+            <div className="bg-[09090B] font-semibold w-full min-h-screen flex  justify-start items-start px-9 pb-4 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-start pt-[11dvh] max-md:px-2.5  prose break-all prose-green">
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className=" font-bold max-md:text-xl text-4xl  text-white animate-fade-up ">
-                  # Getting Started 🚀
+                <h1 className=" font-bold max-md:text-2xl text-4xl  text-white animate-fade-up ">
+                  Getting Started 🚀
                 </h1>
                 <ul>
                   <li className="animate-fade-up">
@@ -85,8 +85,8 @@ export default function Docs() {
                 </ul>
               </div>
               {/* <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className=" font-bold max-md:text-xl text-4xl  text-white animate-fade-up ">
-                 #  Streaming 🎶{" "}
+                <h1 className=" font-bold max-md:text-2xl text-4xl  text-white animate-fade-up ">
+                   Streaming 🎶{" "}
                 </h1>
                 <ul>
                   <li className="animate-fade-up">
@@ -151,8 +151,8 @@ export default function Docs() {
                 </div>
               </div> */}
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className=" font-bold max-md:text-xl text-4xl  text-white animate-fade-up ">
-                  # Search Songs 🔍
+                <h1 className=" font-bold max-md:text-2xl text-4xl  text-white animate-fade-up ">
+                  Search Songs 🔍
                 </h1>
                 <ul>
                   <li className="animate-fade-up">
@@ -202,8 +202,8 @@ export default function Docs() {
                 </div>
               </div>
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className=" font-bold max-md:text-xl text-4xl  text-white animate-fade-up ">
-                  # Get Lyrics 📝
+                <h1 className=" font-bold max-md:text-2xl text-4xl  text-white animate-fade-up ">
+                  Get Lyrics 📝
                 </h1>
                 <ul>
                   <li className="animate-fade-up">
@@ -246,8 +246,8 @@ export default function Docs() {
                 </div>
               </div>
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className=" font-bold max-md:text-xl text-4xl  text-white animate-fade-up ">
-                  # Search Artists 🎤
+                <h1 className=" font-bold max-md:text-2xl text-4xl  text-white animate-fade-up ">
+                  Search Artists 🎤
                 </h1>
                 <ul>
                   <li className="animate-fade-up">
@@ -294,8 +294,8 @@ export default function Docs() {
                 </div>
               </div>
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className=" font-bold max-md:text-xl text-4xl  text-white animate-fade-up ">
-                  # Search Albums 📀
+                <h1 className=" font-bold max-md:text-2xl text-4xl  text-white animate-fade-up ">
+                  Search Albums 📀
                 </h1>
                 <ul>
                   <li className="animate-fade-up">
@@ -342,8 +342,8 @@ export default function Docs() {
                 </div>
               </div>
               <div className=" text-base  text-zinc-300 font-normal px-2 space-y-2 ">
-                <h1 className=" font-bold max-md:text-xl text-4xl  text-white animate-fade-right">
-                  # Search Playlists 🎵
+                <h1 className=" font-bold max-md:text-2xl text-4xl  text-white animate-fade-right">
+                  Search Playlists 🎵
                 </h1>
                 <ul>
                   <li className="animate-fade-up">
@@ -420,7 +420,7 @@ export default function Docs() {
             </div>
           </>
         ) : (
-          <div className="bg-[#09090B] fade-in font-semibold w-full min-h-screen flex justify-center items-center px-9 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-center max-md:px-4 overflow-hidden fixed -z-10">
+          <div className="bg-[09090B] fade-in font-semibold w-full min-h-screen flex justify-center items-center px-9 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-center max-md:px-4 overflow-hidden fixed -z-10">
             <Button
               onClick={handleSignIn}
               className="  py-6 animate-fade-up  max-md:text-base rounded-lg space-x-1"
