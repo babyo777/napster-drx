@@ -121,7 +121,7 @@ export default function Docs() {
                   <h3 className=" font-semibold text-white animate-fade-up">
                     Example
                   </h3>
-                  <p>
+                  <p className="animate-fade-up">
                     Stream - {""}
                     <a
                       target="blank"
@@ -131,7 +131,7 @@ export default function Docs() {
                       <span className=" ">e-ORhEE9VVg</span>
                     </a>
                   </p>
-                  <p>
+                  <p className="animate-fade-up">
                     Download - {""}
                     <a
                       target="blank"
@@ -167,7 +167,7 @@ export default function Docs() {
                   <h3 className=" font-semibold text-white animate-fade-up">
                     Example
                   </h3>
-                  <p>
+                  <p className="animate-fade-up">
                     Search - {""}
                     <a
                       target="blank"
@@ -177,7 +177,7 @@ export default function Docs() {
                       <span className=" ">Lover by Taylor Swift</span>
                     </a>
                   </p>
-                  <p>
+                  <p className="animate-fade-up">
                     Search with Suggestion{" "}
                     <span className=" text-white font-semibold">
                       {" "}
@@ -226,7 +226,7 @@ export default function Docs() {
                   <h3 className=" font-semibold text-white animate-fade-up">
                     Example
                   </h3>
-                  <p>
+                  <p className="animate-fade-up">
                     Get Lyrics - {""}
                     <a
                       target="blank"
@@ -262,14 +262,14 @@ export default function Docs() {
                   <h3 className=" font-semibold text-white animate-fade-up">
                     Example
                   </h3>
-                  <p>
+                  <p className="animate-fade-up">
                     Get Artists - {""}
                     <a target="blank" href={SearchArtist + "taylor swift"}>
                       {SearchArtist}
                       <span className=" ">Taylor Swift</span>
                     </a>
                   </p>
-                  <p>
+                  <p className="animate-fade-up">
                     Get Artist Details{" "}
                     <span className=" text-white font-semibold">
                       {" "}
@@ -310,14 +310,14 @@ export default function Docs() {
                   <h3 className=" font-semibold text-white animate-fade-up">
                     Example
                   </h3>
-                  <p>
+                  <p className="animate-fade-up">
                     Get Albums - {""}
                     <a target="blank" href={SearchAlbum + "Lunch Break"}>
                       {SearchAlbum}
                       <span className=" ">Lunch Break</span>
                     </a>
                   </p>
-                  <p>
+                  <p className="animate-fade-up">
                     Get Album Songs{" "}
                     <span className=" text-white font-semibold">
                       {" "}
@@ -358,7 +358,7 @@ export default function Docs() {
                   <h3 className=" font-semibold text-white animate-fade-up">
                     Example
                   </h3>
-                  <p>
+                  <p className="animate-fade-up">
                     Get Playlists - {""}
                     <a
                       target="blank"
@@ -368,7 +368,7 @@ export default function Docs() {
                       <span className=" ">Billie Eilish</span>
                     </a>
                   </p>
-                  <p>
+                  <p className="animate-fade-up">
                     Get Playlist Songs{" "}
                     <span className=" text-white font-semibold">
                       {" "}
@@ -388,7 +388,7 @@ export default function Docs() {
                       </span>
                     </a>
                   </p>
-                  <p>
+                  <p className="animate-fade-up">
                     Get Playlist Detail{" "}
                     <span className=" text-white font-semibold">
                       {" "}
