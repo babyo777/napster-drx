@@ -11,7 +11,6 @@ import { RxShuffle } from "react-icons/rx";
 import { RiFocus3Line } from "react-icons/ri";
 import {
   GetPlaylistHundredSongsApi,
-  GetPlaylistSongsApi,
   SearchPlaylistApi,
   getPlaylistDetails,
 } from "@/API/api";
