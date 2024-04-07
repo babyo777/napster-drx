@@ -71,7 +71,10 @@ export default function Docs() {
                 <ul>
                   <li className="animate-fade-up">
                     Endpoint - {""}
-                    <a href="https://music-player-api-mu.vercel.app">
+                    <a
+                      target="blank"
+                      href="https://music-player-api-mu.vercel.app"
+                    >
                       https://music-player-api-mu.vercel.app
                     </a>
                   </li>
