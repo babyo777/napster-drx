@@ -21,10 +21,10 @@ const SuggestedArtist: React.FC<suggestedArtists> = ({
               effect="blur"
               src={thumbnailUrl}
               alt="Image"
-              className="rounded-full animate-fade-up object-cover h-[100%] w-[100%]"
+              className="rounded-full animate-fade-right object-cover h-[100%] w-[100%]"
             />
           </div>
-          <h1 className="text-center animate-fade-up text-xs mt-3 w-[5rem] truncate">
+          <h1 className="text-center animate-fade-right text-xs mt-3 w-[5rem] truncate">
             {name}
           </h1>
         </div>

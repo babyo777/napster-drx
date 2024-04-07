@@ -22,10 +22,10 @@ const ArtistAlbums: React.FC<albums> = ({
                 (e.currentTarget.src = "/liked.webp")
               }
               alt="Image"
-              className="rounded-lg animate-fade-up object-cover h-[100%] w-[100%]"
+              className="rounded-lg animate-fade-right object-cover h-[100%] w-[100%]"
             />
           </div>
-          <h1 className=" truncate pt-2 animate-fade-up w-[7rem] overflow-hidden">
+          <h1 className=" truncate pt-2 animate-fade-right w-[7rem] overflow-hidden">
             {title}
           </h1>
         </div>
