@@ -309,15 +309,14 @@ function Check() {
   if (isDesktop || isiPad) {
     return <Desktop />;
   }
-  if (isStandalone && online) {
+  if (isStandalone) {
     return <App />;
   }
   if (
     !isStandaloneWep &&
     hardwareConcurrency &&
     hardwareConcurrency >= 4 &&
-    graphic &&
-    online
+    graphic
   ) {
     return <App />;
   }
