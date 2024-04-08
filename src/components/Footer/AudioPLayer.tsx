@@ -22,7 +22,7 @@ import {
   setProgressLyrics,
 } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
-import { GetImage, streamApi } from "@/API/api";
+import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -231,9 +231,11 @@ function AudioPLayerComp() {
   useEffect(() => {
     if (audioRef.current) {
       dispatch(setIsLoading(true));
-
+      const online = navigator.onLine;
       const sound: HTMLAudioElement | null = audioRef.current;
-      sound.src = `${streamApi}${playlist[currentIndex]?.youtubeId}`;
+      sound.src = `${online ? streamApi : ""}${
+        playlist[currentIndex]?.youtubeId
+      }`;
       const handlePlay = () => {
         if (isLooped) {
           sound.loop = true;
@@ -374,26 +376,26 @@ function AudioPLayerComp() {
       ) : (
         <Drawer>
           <DrawerTrigger>
-            <div className="items-center fade-in flex space-x-2 w-[68dvw]   px-2.5">
+            <div className="items-center  flex space-x-2 w-[68dvw]   px-2.5">
               <div className=" h-11 w-11 overflow-hidden rounded-xl">
                 <LazyLoadImage
                   height="100%"
                   width="100%"
                   src={
-                    `${GetImage}${playlist[currentIndex].thumbnailUrl}` ||
+                    playlist[currentIndex]?.thumbnailUrl ||
                     "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg"
                   }
                   alt="Image"
                   effect="blur"
-                  className="object-cover transition-all duration-300 w-[100%] h-[100%] "
+                  className="object-cover  transition-all duration-300 w-[100%] h-[100%] "
                 />
               </div>
               <div className="flex flex-col text-start">
-                <p className=" text-sm truncate  w-[50vw] ">
-                  {playlist[currentIndex].title}
+                <p className=" text-sm truncate animate-fade-up w-[50vw] ">
+                  {playlist[currentIndex]?.title}
                 </p>
-                <p className=" text-xs w-[30vw] truncate">
-                  {playlist[currentIndex].artists[0]?.name}
+                <p className=" text-xs w-[30vw] animate-fade-up truncate">
+                  {playlist[currentIndex].artists[0]?.name || "Unknown"}
                 </p>
               </div>
             </div>
@@ -408,9 +410,13 @@ function AudioPLayerComp() {
                    
                      rounded-2xl mx-1 `}
                 >
-                  <div className="flex justify-center items-center  h-[44dvh]">
+                  <div
+                    className={`${next && " animate-fade-left"}
+                      ${prev && " animate-fade-right"}
+                    } flex  justify-center items-center  h-[44dvh]`}
+                  >
                     <LazyLoadImage
-                      src={playlist[currentIndex].thumbnailUrl.replace(
+                      src={playlist[currentIndex]?.thumbnailUrl.replace(
                         "w120-h120",
                         "w1080-h1080"
                       )}
@@ -432,7 +438,7 @@ function AudioPLayerComp() {
                   <div className="flex items-center  w-fit space-x-3">
                     <h1 className="text-3xl truncate transition-all duration-300  w-[63vw] font-semibold">
                       {" "}
-                      {playlist[currentIndex].title}
+                      {playlist[currentIndex]?.title}
                     </h1>
                     <div className=" bg-zinc-900 p-1.5 rounded-full">
                       {liked ? (
@@ -460,7 +466,11 @@ function AudioPLayerComp() {
                       }`}
                     >
                       <DrawerClose className="text-start">
-                        <p className="text-base truncate transition-all duration-300 w-[70vw] text-red-500">
+                        <p
+                          className={`text-base truncate transition-all duration-300 w-[70vw] text-red-500 ${
+                            prev && " animate-fade-down"
+                          } ${next && " animate-fade-down"}`}
+                        >
                           {" "}
                           {playlist[currentIndex].artists[0]?.name}
                         </p>
