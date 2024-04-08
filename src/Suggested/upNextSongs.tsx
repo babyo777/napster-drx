@@ -190,15 +190,15 @@ function UpNextSongs({
         >
           {title.replace("______________________________________", "untitled")}
         </p>
-        {link ? (
+        {link && artistId ? (
           <Link to={`/artist/${artistId}`} className="w-[40vw]">
             <p className="-mt-0.5 h-[1rem] capitalize text-xs  text-zinc-400 w-[40dvw]  truncate">
-              {artist}
+              {artist || "Unknown"}
             </p>
           </Link>
         ) : (
           <p className="-mt-0.5 text-xs  text-zinc-400 w-[40dvw]  truncate">
-            {artist}
+            {artist || "Unknown"}
           </p>
         )}
       </div>

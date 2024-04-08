@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import { playlistSongs } from "@/Interface";
+import { SetQueue, setPlaylist } from "@/Store/Player";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Offline = () => {
-  const [tracks, setTracks] = useState<File[]>([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -10,31 +15,33 @@ const Offline = () => {
       const mp3Files = selectedFiles.filter((file) =>
         file.name.endsWith(".mp3")
       );
-      //     const playlist:playlistSongs[] = [
-      //       {
+      const playlist = mp3Files.map((track) => ({
+        youtubeId: URL.createObjectURL(track),
+        title: track.name.replace(".mp3", ""),
+        artists: "",
+        thumbnailUrl: "/newfavicon.jpg",
+      }));
+      console.log(playlist);
 
-      // youtubeId: string;
-      // for?: string;
-      // title: string;
-      // artists: artists[];
-      // thumbnailUrl: string;
-      //       }
-      //     ]
-      console.log(mp3Files);
-
-      setTracks(mp3Files);
+      dispatch(SetQueue(playlist as unknown as playlistSongs[]));
+      dispatch(setPlaylist(playlist as unknown as playlistSongs[]));
+      navigate("/suggested/");
     }
   };
 
   return (
-    <div>
-      <h2>MP3 Tracks:</h2>
-      <input type="file" accept=".mp3" multiple onChange={handleFileChange} />
-      <ul>
-        {tracks.map((track, index) => (
-          <audio controls key={index} src={URL.createObjectURL(track)} />
-        ))}
-      </ul>
+    <div className=" flex justify-center items-center h-[95dvh] w-full">
+      <label htmlFor="file" className=" bg-zinc-800 px-4 py-3 rounded-xl">
+        Load From Local
+      </label>
+      <input
+        type="file"
+        accept=".mp3"
+        id="file"
+        className="hidden"
+        multiple
+        onChange={handleFileChange}
+      />
     </div>
   );
 };

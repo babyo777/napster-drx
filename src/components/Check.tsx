@@ -297,13 +297,13 @@ function Check() {
 
   const playlist = useSelector((state: RootState) => state.musicReducer.queue);
   useEffect(() => {
-    if (playlist.length == 1) {
+    if (playlist.length == 1 && online) {
       axios.get(`${SuggestionSearchApi}${data?.curentsongid}`).then((s) => {
         dispatch(setPlaylist(s.data));
         dispatch(SetQueue(s.data));
       });
     }
-  }, [playlist, data, dispatch]);
+  }, [playlist, data, dispatch, online]);
 
   if (isDesktop || isiPad) {
     return <Desktop />;
