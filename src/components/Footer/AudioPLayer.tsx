@@ -440,7 +440,7 @@ function AudioPLayerComp() {
                   <div className="flex items-center  w-fit space-x-3">
                     <h1
                       className={`text-3xl truncate transition-all duration-300  ${
-                        online ? "w-[63vw] " : "w-[87vw] border "
+                        online ? "w-[63vw] " : "w-[87vw]"
                       } font-semibold`}
                     >
                       {" "}
