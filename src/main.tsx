@@ -20,8 +20,9 @@ import Suggested from "./Suggested/Suggested.tsx";
 import Docs from "./Landing Page/Docs.tsx";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import Test from "./Test/offline.tsx";
-import TuneBox from "./Tune Box/tunebox.tsx";
-import Box from "./Tune Box/box.tsx";
+import Box from "./components/Tune Box/box.tsx";
+import TuneBox from "./components/Tune Box/tunebox.tsx";
+
 const client = new QueryClient();
 const router = createBrowserRouter([
   {

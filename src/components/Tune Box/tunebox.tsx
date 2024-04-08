@@ -190,14 +190,13 @@ function TuneBoxComp() {
               tunebox.
             </p>
             <Button
-              disabled
               onClick={handleShare}
               variant={"secondary"}
               className=" rounded-xl animate-fade-up text-xl space-x-1 py-6 font-normal p-6"
             >
               <FiShare />
 
-              <p>Soon</p>
+              <p>Share</p>
             </Button>
           </div>
           <NavLink to={"/library/"}>
