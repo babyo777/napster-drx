@@ -31,7 +31,7 @@ import {
   SuggestionSearchApi,
 } from "@/API/api";
 import { Query } from "appwrite";
-import { useNavigate } from "react-router-dom";
+import Offline from "@/Offline/offline";
 
 function Check() {
   const dispatch = useDispatch();
@@ -306,12 +306,6 @@ function Check() {
     }
   }, [playlist, data, dispatch, online]);
 
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!online) {
-      navigate("/offline/");
-    }
-  });
   if (isDesktop || isiPad) {
     return <Desktop />;
   }
@@ -326,6 +320,9 @@ function Check() {
     online
   ) {
     return <App />;
+  }
+  if (!online) {
+    return <Offline />;
   }
 
   return (

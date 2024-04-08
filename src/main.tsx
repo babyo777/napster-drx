@@ -19,7 +19,6 @@ import LikedSong from "./LikedSongs/likedSongs.tsx";
 import Suggested from "./Suggested/Suggested.tsx";
 import Docs from "./Landing Page/Docs.tsx";
 import { ReactLenis } from "@studio-freight/react-lenis";
-import Test from "./Test/offline.tsx";
 import Box from "./components/Tune Box/box.tsx";
 import TuneBox from "./components/Tune Box/tunebox.tsx";
 
@@ -87,10 +86,6 @@ const router = createBrowserRouter([
       {
         path: "/suggested/:id",
         element: <Suggested />,
-      },
-      {
-        path: "/offline/",
-        element: <Test />,
       },
       {
         path: "*",
