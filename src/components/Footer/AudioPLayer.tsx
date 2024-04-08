@@ -462,11 +462,7 @@ function AudioPLayerComp() {
                       }`}
                     >
                       <DrawerClose className="text-start">
-                        <p
-                          className={`text-base truncate transition-all duration-300 w-[70vw] text-red-500 ${
-                            prev && " animate-fade-down"
-                          } ${next && " animate-fade-down"}`}
-                        >
+                        <p className="text-base truncate transition-all duration-300 w-[70vw] text-red-500">
                           {" "}
                           {playlist[currentIndex].artists[0]?.name}
                         </p>
