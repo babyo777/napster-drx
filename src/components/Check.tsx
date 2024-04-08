@@ -40,13 +40,27 @@ function Check() {
   const [hardwareConcurrency, setHardwareConcurrency] = useState<number | null>(
     null
   );
+  const [online, setOnline] = useState<boolean>();
+  const [isiPad, setIsIpad] = useState<boolean>();
+  const [isIPhone, setIphone] = useState<boolean>();
+  const [isDesktop, setDesktop] = useState<boolean>();
+
+  useEffect(() => {
+    const isIPhone = /iPhone/i.test(navigator.userAgent);
+    const isDesktop = window.innerWidth > 786;
+    const isiPad = navigator.userAgent.match(/iPad/i) !== null;
+    const online = navigator.onLine;
+    setIsIpad(isiPad);
+    setOnline(online);
+    setDesktop(isDesktop);
+    setIphone(isIPhone);
+  }, []);
+
   const isStandaloneWep = useSelector(
     (state: RootState) => state.musicReducer.isIphone
   );
   const uid = useSelector((state: RootState) => state.musicReducer.uid);
 
-  const isIPhone = /iPhone/i.test(navigator.userAgent);
-  const isDesktop = window.innerWidth > 786;
   const checkGpuCapabilities = () => {
     const canvas = document.createElement("canvas");
     const gl = canvas.getContext("webgl");
@@ -274,9 +288,9 @@ function Check() {
       "(display-mode: standalone)"
     ).matches;
     const hardwareConcurrency = navigator.hardwareConcurrency || null;
+    dispatch(setIsIphone(isStandalone));
     setHardwareConcurrency(hardwareConcurrency);
     setIsStandalone(isStandalone);
-    dispatch(setIsIphone(isStandalone));
     setGraphic(checkGpuCapabilities());
     setCheck(false);
   }, [dispatch, data, refetch, likedSong, suggested, album, music, uid]);
@@ -291,8 +305,6 @@ function Check() {
     }
   }, [playlist, data, dispatch]);
 
-  const isiPad = navigator.userAgent.match(/iPad/i) !== null;
-  const online = navigator.onLine;
   if (isDesktop || isiPad) {
     return <Desktop />;
   }

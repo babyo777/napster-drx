@@ -5,8 +5,13 @@ import { NavLink } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
 import { BiLibrary } from "react-icons/bi";
 // import { MdOutlineGridView } from "react-icons/md";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 function TabsComp() {
+  const [online, setOnline] = useState<boolean>();
+  useEffect(() => {
+    const online = navigator.onLine;
+    setOnline(online);
+  }, []);
   const handleClick = useCallback(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -18,7 +23,7 @@ function TabsComp() {
           <li>
             <NavLink
               onClick={handleClick}
-              to={""}
+              to={online ? "" : "/offline/"}
               className={({ isActive }) =>
                 `${isActive && "text-zinc-300"} flex flex-col  items-center`
               }
@@ -40,7 +45,7 @@ function TabsComp() {
           </li> */}
           <li>
             <NavLink
-              to={"/share-play"}
+              to={online ? "/share-play" : "/offline/"}
               className={({ isActive }) =>
                 `${isActive && "text-zinc-300"} flex flex-col mb-1 items-center`
               }
@@ -51,7 +56,7 @@ function TabsComp() {
           </li>
           <li>
             <NavLink
-              to={`/library/`}
+              to={online ? `/library/` : "/offline/"}
               className={({ isActive }) =>
                 `${isActive && "text-zinc-300"} flex flex-col mb-1 items-center`
               }
@@ -63,7 +68,7 @@ function TabsComp() {
 
           <li>
             <NavLink
-              to={"/search"}
+              to={online ? "/search" : "/offline/"}
               className={({ isActive }) =>
                 `${isActive && "text-zinc-300"} flex flex-col mb-1 items-center`
               }
