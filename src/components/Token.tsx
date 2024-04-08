@@ -48,7 +48,7 @@ export function Token() {
               Link
             </Label>
             <Input
-              className="animate-fade-right"
+              className="animate-fade-right selection:bg-none"
               id="link"
               defaultValue={localStorage.getItem("uid") || ""}
               readOnly
