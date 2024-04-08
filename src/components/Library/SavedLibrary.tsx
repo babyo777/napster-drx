@@ -103,35 +103,66 @@ function SavedLibraryComp() {
       <ToggleLibrary />
       <div className="  h-[80dvh] pb-36 overflow-scroll ">
         {currentToggle === "Playlists" && (
-          <Link to={`/liked/${localStorage.getItem("uid")}`}>
-            <div className="flex space-x-2 px-5 mb-3 animate-fade-right items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <div className="overflow-hidden h-14  w-14 ">
-                  <AspectRatio ratio={1 / 1}>
-                    <LazyLoadImage
-                      height="100%"
-                      width="100%"
-                      effect="blur"
-                      src="/liked.webp"
-                      alt="Image"
-                      className="rounded-md object-cover w-[100%] h-[100%]"
-                    />
-                  </AspectRatio>
-                </div>
-                <div className="flex flex-col  text-xl text-start">
-                  <p className="w-[59vw] fade-in font-semibold text-lg truncate">
-                    Liked Songs
-                  </p>
-                  <div className="flex -mt-0.5 text-zinc-400 items-center space-x-1">
-                    <GiPin className="h-3 text-white w-3" />
-                    <p className="text-xs w-[50vw]truncate">Playlist</p>
+          <>
+            <Link to={`/liked/${localStorage.getItem("uid")}`}>
+              <div className="flex space-x-2 px-5 mb-3 animate-fade-right items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div className="overflow-hidden h-14  w-14 ">
+                    <AspectRatio ratio={1 / 1}>
+                      <LazyLoadImage
+                        height="100%"
+                        width="100%"
+                        effect="blur"
+                        src="/liked.webp"
+                        alt="Image"
+                        className="rounded-md object-cover w-[100%] h-[100%]"
+                      />
+                    </AspectRatio>
+                  </div>
+                  <div className="flex flex-col  text-xl text-start">
+                    <p className="w-[59vw] fade-in font-semibold text-lg truncate">
+                      Liked Songs
+                    </p>
+                    <div className="flex -mt-0.5 text-zinc-400 items-center space-x-1">
+                      <GiPin className="h-3 text-white w-3" />
+                      <p className="text-xs w-[50vw]truncate">Playlist</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <GrNext className="h-5  w-5" />
-            </div>
-          </Link>
+                <GrNext className="h-5  w-5" />
+              </div>
+            </Link>
+            <Link to={`/tunebox/${localStorage.getItem("uid")}`}>
+              <div className="flex space-x-2 px-5 mb-3 animate-fade-right items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div className="overflow-hidden h-14  w-14 ">
+                    <AspectRatio ratio={1 / 1}>
+                      <LazyLoadImage
+                        height="100%"
+                        width="100%"
+                        effect="blur"
+                        src="/tunebox.jpg"
+                        alt="Image"
+                        className="rounded-md object-cover w-[100%] h-[100%]"
+                      />
+                    </AspectRatio>
+                  </div>
+                  <div className="flex flex-col  text-xl text-start">
+                    <p className="w-[59vw] fade-in font-semibold text-lg truncate">
+                      Tube Box
+                    </p>
+                    <div className="flex -mt-0.5 text-zinc-400 items-center space-x-1">
+                      <GiPin className="h-3 text-white w-3" />
+                      <p className="text-xs w-[50vw]truncate">Showcase</p>
+                    </div>
+                  </div>
+                </div>
+
+                <GrNext className="h-5  w-5" />
+              </div>
+            </Link>
+          </>
         )}
         {isLoading && (
           <div className="flex fade-in space-y-3  flex-col px-5">

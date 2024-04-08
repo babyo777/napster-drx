@@ -292,25 +292,26 @@ function Check() {
   }, [playlist, data, dispatch]);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
-
+  const online = navigator.onLine;
   if (isDesktop || isiPad) {
     return <Desktop />;
   }
-  if (isStandalone) {
+  if (isStandalone && online) {
     return <App />;
   }
   if (
     !isStandaloneWep &&
     hardwareConcurrency &&
     hardwareConcurrency >= 4 &&
-    graphic
+    graphic &&
+    online
   ) {
     return <App />;
   }
 
   return (
     <>
-      {check && navigator.onLine && !data && !playlistSongs ? (
+      {check && online && !data && !playlistSongs ? (
         <div className="load flex justify-center items-center h-screen">
           <Loader />
         </div>
