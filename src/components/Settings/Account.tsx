@@ -60,19 +60,24 @@ function Account() {
 
         return newUserResult;
       } else {
-        const res = await axios.get(
-          `${getUserApi}${result.documents[0].spotifyId}`
-        );
-        const code: verify = res.data;
-        await db.updateDocument(
-          DATABASE_ID,
-          NEW_USER,
-          result.documents[0].$id,
-          {
-            image: code.image,
-            name: code.name,
-          }
-        );
+        if (
+          result.documents[0].image.length > 0 &&
+          result.documents[0].name.length > 0
+        ) {
+          const res = await axios.get(
+            `${getUserApi}${result.documents[0].spotifyId}`
+          );
+          const code: verify = res.data;
+          await db.updateDocument(
+            DATABASE_ID,
+            NEW_USER,
+            result.documents[0].$id,
+            {
+              image: code.image,
+              name: code.name,
+            }
+          );
+        }
 
         return result.documents[0] as user;
       }
