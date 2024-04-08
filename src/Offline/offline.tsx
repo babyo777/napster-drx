@@ -19,7 +19,7 @@ const Offline = () => {
         youtubeId: URL.createObjectURL(track),
         title: track.name.replace(".mp3", ""),
         artists: "",
-        thumbnailUrl: "/newfavicon.jpg",
+        thumbnailUrl: "/assets/newfavicon.jpg",
       }));
       console.log(playlist);
 
