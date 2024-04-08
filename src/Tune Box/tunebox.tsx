@@ -171,7 +171,7 @@ function TuneBoxComp() {
     <div className=" flex flex-col items-center">
       {pError && pError && (
         <div className=" relative  w-full">
-          <div className="fixed h-[90dvh] w-full px-4 flex justify-center flex-col items-center space-y-4 ">
+          <div className="fixed h-[90dvh] w-full px-4 flex justify-center flex-col items-center space-y-2.5">
             <div className="h-[60vw] w-[60vw]">
               <LazyLoadImage
                 effect="blur"
@@ -201,7 +201,7 @@ function TuneBoxComp() {
             </Button>
           </div>
           <NavLink to={"/library/"}>
-            <IoIosArrowBack className="h-7 w-7 animate-fade-right  my-5 mx-4  backdrop-blur-md text-black bg-white/70 rounded-full p-1" />
+            <IoIosArrowBack className="animate-fade-right  my-5 mx-4  backdrop-blur-md  bg-black/30 rounded-full p-1  h-8 w-8 text-white " />
           </NavLink>
         </div>
       )}
