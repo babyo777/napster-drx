@@ -21,6 +21,7 @@ import Docs from "./Landing Page/Docs.tsx";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import Box from "./components/Tune Box/box.tsx";
 import TuneBox from "./components/Tune Box/tunebox.tsx";
+import Offline from "./Offline/offline.tsx";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
       {
         path: "/suggested/:id",
         element: <Suggested />,
+      },
+      {
+        path: "/offline/",
+        element: <Offline />,
       },
       {
         path: "*",
