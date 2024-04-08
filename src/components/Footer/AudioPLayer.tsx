@@ -247,7 +247,7 @@ function AudioPLayerComp() {
         }
         dispatch(play(true));
         dispatch(setDurationLyrics(sound.duration));
-        if (!online) {
+        if (online) {
           saveLastPlayed();
         }
       };
