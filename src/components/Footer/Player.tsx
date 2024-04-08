@@ -64,7 +64,7 @@ export function Player() {
                     width="100%"
                     height="100%"
                     effect="blur"
-                    src="https://i.pinimg.com/originals/f1/91/a4/f191a4786289ade562884722ef784cff.jpg"
+                    src="/cache.jpg"
                     alt="Image"
                     className="object-cover rounded-xl w-[100%] h-[100%] "
                   />
