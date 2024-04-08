@@ -247,7 +247,9 @@ function AudioPLayerComp() {
         }
         dispatch(play(true));
         dispatch(setDurationLyrics(sound.duration));
-        saveLastPlayed();
+        if (!online) {
+          saveLastPlayed();
+        }
       };
 
       const handlePause = () => {
