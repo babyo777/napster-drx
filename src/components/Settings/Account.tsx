@@ -160,7 +160,7 @@ function Account() {
                     className=" rounded-full object-cover"
                   />
                 </Avatar>
-                <h1 className=" font-semibold animate-fade-up text-5xl mt-2">
+                <h1 className=" font-semibold break-all text-center animate-fade-up text-4xl mt-2">
                   {data.name}
                 </h1>
               </>
