@@ -228,10 +228,15 @@ function AudioPLayerComp() {
   //   });
   // }, [playlist, currentIndex]);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [online, setOnline] = useState<boolean>();
+  useEffect(() => {
+    const online = navigator.onLine;
+    setOnline(online);
+  }, []);
   useEffect(() => {
     if (audioRef.current) {
       dispatch(setIsLoading(true));
-      const online = navigator.onLine;
+
       const sound: HTMLAudioElement | null = audioRef.current;
       sound.src = `${online ? streamApi : ""}${
         playlist[currentIndex]?.youtubeId
@@ -335,6 +340,7 @@ function AudioPLayerComp() {
     handleNext,
     refetch,
     isLooped,
+    online,
     saveLastPlayed,
   ]);
 
@@ -432,27 +438,35 @@ function AudioPLayerComp() {
                 </div>
                 <div className=" absolute bottom-[35.5vh] w-full text-start px-2 ">
                   <div className="flex items-center  w-fit space-x-3">
-                    <h1 className="text-3xl truncate transition-all duration-300  w-[63vw] font-semibold">
+                    <h1
+                      className={`text-3xl truncate transition-all duration-300  ${
+                        online ? "w-[63vw] " : "w-[87vw] border "
+                      } font-semibold`}
+                    >
                       {" "}
                       {playlist[currentIndex]?.title}
                     </h1>
-                    <div className=" bg-zinc-900 p-1.5 rounded-full">
-                      {liked ? (
-                        <AiFillStar
-                          onClick={RemoveLike}
-                          className="h-6 w-6 fade-in "
+                    {online && (
+                      <>
+                        <div className=" bg-zinc-900 p-1.5 rounded-full">
+                          {liked ? (
+                            <AiFillStar
+                              onClick={RemoveLike}
+                              className="h-6 w-6 fade-in "
+                            />
+                          ) : (
+                            <FaRegStar
+                              className="h-6 w-6 fade-in"
+                              onClick={handleLink}
+                            />
+                          )}
+                        </div>
+                        <Options
+                          id={playingPlaylistUrl}
+                          music={playlist[currentIndex]}
                         />
-                      ) : (
-                        <FaRegStar
-                          className="h-6 w-6 fade-in"
-                          onClick={handleLink}
-                        />
-                      )}
-                    </div>
-                    <Options
-                      id={playingPlaylistUrl}
-                      music={playlist[currentIndex]}
-                    />
+                      </>
+                    )}
                   </div>
 
                   {playlist[currentIndex].artists[0]?.name ? (

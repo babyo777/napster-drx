@@ -149,7 +149,7 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   );
   return (
     <Drawer>
-      <DrawerTrigger>
+      <DrawerTrigger disabled={!navigator.onLine}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           x="0px"
