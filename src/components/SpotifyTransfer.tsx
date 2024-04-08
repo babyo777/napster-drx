@@ -74,7 +74,7 @@ function SpotifyTransfer({
     <Drawer>
       <DrawerTrigger className=" w-full">
         <p
-          className={` ${className} rounded-xl  bg-green-600 py-2.5 mt-3  w-full text-base`}
+          className={` ${className} animate-fade-up rounded-xl  bg-green-600 py-2.5 mt-3  w-full text-base`}
         >
           Transfer from Spotify
         </p>

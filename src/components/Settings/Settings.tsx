@@ -14,6 +14,9 @@ import { Token } from "../Token";
 import { DialogClose } from "../ui/dialog";
 import { RootState } from "@/Store/Store";
 import { useSelector } from "react-redux";
+import { Account } from "./Account";
+import { DATABASE_ID, NEW_USER, db } from "@/appwrite/appwriteConfig";
+import { Query } from "appwrite";
 
 function Settings() {
   const close = useRef<HTMLButtonElement>(null);
@@ -23,10 +26,21 @@ function Settings() {
       localStorage.clear(), alert("successfully reset"), location.reload();
   }, []);
   const handleLoad = useCallback(() => {
-    const l = prompt("Enter Shared Token");
-    if (l && l?.trim() != "") {
-      localStorage.setItem("uid", l);
-      location.reload();
+    const uid = localStorage.getItem("uid");
+    if (uid) {
+      const l = prompt("Enter Shared Token");
+      if (l && l?.trim() != "") {
+        db.listDocuments(DATABASE_ID, NEW_USER, [
+          Query.equal("user", [uid]),
+        ]).then((result) => {
+          if (result.documents[0]) {
+            localStorage.setItem("uid", l);
+            location.reload();
+          } else {
+            alert("User not found with requested Uid!");
+          }
+        });
+      }
     }
   }, []);
   const handleLoadPlaylist = useCallback(() => {
@@ -47,24 +61,29 @@ function Settings() {
   return (
     <Drawer>
       <DrawerTrigger>
+        {/* <Avatar className="animate-fade-left p-0 m-0 -mr-0.5">
+          <AvatarImage src="/liked.webp"></AvatarImage>
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar> */}
         <FaUserCircle className="h-7 w-7 animate-fade-left text-zinc-100" />
       </DrawerTrigger>
       <DrawerContent className="px-5 bg-neutral-950">
         <DrawerHeader>
-          <DrawerTitle className="text-zinc-400 font-bold">
+          <DrawerTitle className="text-zinc-400 animate-fade-up font-bold">
             Napster Settings
           </DrawerTitle>
         </DrawerHeader>
+        <Account />
         <p
           onClick={handleLoad}
-          className=" rounded-xl py-2.5  bg-neutral-900 flex justify-center  text-base"
+          className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex justify-center  text-base"
         >
           Load From Token
         </p>
         {/iPhone/i.test(navigator.userAgent) && (
           <p
             onClick={handleLoadPlaylist}
-            className=" rounded-xl py-2.5 mt-3  bg-neutral-900 flex justify-center  text-base"
+            className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex justify-center  text-base"
           >
             Load Playlist
           </p>
@@ -88,13 +107,15 @@ function Settings() {
         {!track && <SpotifyTransfer close={close} />}
         <p
           onClick={handleReset}
-          className=" rounded-xl  py-2.5 mt-3 flex justify-center bg-red-500 text-base "
+          className=" rounded-xl animate-fade-up  py-2.5 mt-3 flex justify-center bg-red-500 text-base "
         >
           Reset
         </p>
         <DialogClose ref={close}></DialogClose>
         <DrawerFooter className=" items-center">
-          <span className="text-xs text-zinc-300">Version - 1.2.7 beta</span>
+          <span className="text-xs text-zinc-300 animate-fade-up">
+            Version - 1.2.7 beta
+          </span>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

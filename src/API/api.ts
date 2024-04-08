@@ -55,7 +55,10 @@ const SearchOneTrackApi = `${mainApi}/one/?t=`;
 
 const SharePlayApi = `https://napster-share-play.onrender.com/`;
 
+const getUserApi = `${mainApi}/user/`;
+
 export {
+  getUserApi,
   SharePlayApi,
   SearchOneTrackApi,
   TransferFromSpotifyApi,

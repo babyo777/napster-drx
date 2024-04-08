@@ -20,7 +20,7 @@ export function Token() {
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(token);
-      alert("copied");
+      alert("Token Copied to Clipboard");
     } catch (error) {
       console.log(error);
     }
@@ -29,14 +29,16 @@ export function Token() {
   return (
     <Dialog>
       <DialogTrigger>
-        <p className=" rounded-xl py-2.5 mt-3 bg-neutral-900  w-full text-base">
+        <p className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900  w-full text-base">
           Token
         </p>
       </DialogTrigger>
       <DialogContent className="w-[87vw] rounded-2xl">
         <DialogHeader>
-          <DialogTitle>Your access token</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="animate-fade-down">
+            Your access token
+          </DialogTitle>
+          <DialogDescription className="animate-fade-down">
             Anyone who has this token will be able to change your playlists.
           </DialogDescription>
         </DialogHeader>
@@ -46,6 +48,7 @@ export function Token() {
               Link
             </Label>
             <Input
+              className="animate-fade-right"
               id="link"
               defaultValue={localStorage.getItem("uid") || ""}
               readOnly
@@ -55,7 +58,7 @@ export function Token() {
             type="submit"
             size="sm"
             variant={"secondary"}
-            className="px-3 bg-zinc-800 hover:bg-zinc-100/20 text-white"
+            className="px-3 bg-zinc-800 animate-fade-left hover:bg-zinc-100/20 text-white"
           >
             <span className="sr-only" onClick={handleCopy}>
               Copy
@@ -68,7 +71,7 @@ export function Token() {
             <Button
               asChild
               variant={"secondary"}
-              className=" py-5 w-full rounded-xl"
+              className=" py-5 w-full animate-fade-up rounded-xl"
             >
               <p>Close</p>
             </Button>
