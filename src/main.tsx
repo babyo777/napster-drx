@@ -19,6 +19,9 @@ import LikedSong from "./LikedSongs/likedSongs.tsx";
 import Suggested from "./Suggested/Suggested.tsx";
 import Docs from "./Landing Page/Docs.tsx";
 import { ReactLenis } from "@studio-freight/react-lenis";
+import Test from "./Test/offline.tsx";
+import TuneBox from "./Tune Box/tunebox.tsx";
+import Box from "./Tune Box/box.tsx";
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -77,10 +80,17 @@ const router = createBrowserRouter([
         element: <Suggested />,
       },
       {
+        path: "/tunebox/:id",
+        element: <TuneBox />,
+      },
+      {
         path: "/suggested/:id",
         element: <Suggested />,
       },
-
+      {
+        path: "/offline/",
+        element: <Test />,
+      },
       {
         path: "*",
         element: <NotFound />,
@@ -90,6 +100,10 @@ const router = createBrowserRouter([
   {
     path: "/docs/",
     element: <Docs />,
+  },
+  {
+    path: "/box/:id",
+    element: <Box />,
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")!).render(
