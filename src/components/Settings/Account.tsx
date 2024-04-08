@@ -153,11 +153,11 @@ function Account() {
 
             {data && data.image.length > 0 && data.name.length > 0 && (
               <>
-                <Avatar className="w-40 h-40">
+                <Avatar className="w-40 h-40 animate-fade-down ">
                   <LazyLoadImage
                     effect="blur"
                     src={data.image}
-                    className=" rounded-full animate-fade-down object-cover"
+                    className=" rounded-full object-cover"
                   />
                 </Avatar>
                 <h1 className=" font-semibold animate-fade-up text-5xl mt-2">
