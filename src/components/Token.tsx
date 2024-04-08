@@ -43,13 +43,14 @@ export function Token() {
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center space-x-2">
-          <div className="grid flex-1 gap-2 selection:bg-none">
+          <div className="grid flex-1 gap-2 ">
             <Label htmlFor="link" className="sr-only">
               Link
             </Label>
             <Input
-              className="animate-fade-right selection:bg-none"
+              className="animate-fade-right "
               id="link"
+              disabled
               defaultValue={localStorage.getItem("uid") || ""}
               readOnly
             />
