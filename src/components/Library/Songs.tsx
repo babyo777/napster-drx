@@ -24,6 +24,7 @@ import {
 import { Link } from "react-router-dom";
 import SongsOptions from "./SongsOptions";
 import axios from "axios";
+import { SuggestionSearchApi } from "@/API/api";
 
 function Songs({
   title,
@@ -75,6 +76,20 @@ function Songs({
 
   const queue = useSelector((state: RootState) => state.musicReducer.queue);
 
+  const getSuggestedSongs = async () => {
+    const r = await axios.get(`${SuggestionSearchApi}${data[0].youtubeId}`);
+    return r.data as playlistSongs[];
+  };
+  const { data: isSingle } = useQuery<playlistSongs[]>(
+    ["songsSuggestion", link],
+    getSuggestedSongs,
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      staleTime: 2 * 6000,
+    }
+  );
+
   const handlePlay = useCallback(async () => {
     if (data && data.length > 0) {
       if (liked) {
@@ -83,7 +98,15 @@ function Songs({
       dispatch(isLoop(false));
       dispatch(setPlayingPlaylistUrl(p));
       dispatch(setCurrentArtistId(artistId));
-      dispatch(setPlaylist(data));
+      if (data.length > 1) {
+        dispatch(setPlaylist(data));
+      } else {
+        if (isSingle) {
+          dispatch(setPlaylist(isSingle));
+        } else {
+          dispatch(setPlaylist(data));
+        }
+      }
       dispatch(SetPlaylistOrAlbum(where));
       dispatch(setCurrentIndex(id));
     } else if (p == "suggested") {
@@ -98,7 +121,18 @@ function Songs({
       dispatch(setCurrentIndex(id));
     }
     if (!isPlaying) dispatch(play(true));
-  }, [dispatch, id, p, isPlaying, artistId, liked, where, playlist, data]);
+  }, [
+    dispatch,
+    id,
+    p,
+    isPlaying,
+    artistId,
+    liked,
+    where,
+    playlist,
+    data,
+    isSingle,
+  ]);
 
   const image = async () => {
     const response = await axios.get(cover, { responseType: "arraybuffer" });
