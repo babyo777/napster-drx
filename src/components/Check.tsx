@@ -31,7 +31,6 @@ import {
   SuggestionSearchApi,
 } from "@/API/api";
 import { Query } from "appwrite";
-import { useNavigate } from "react-router-dom";
 
 function Check() {
   const dispatch = useDispatch();
@@ -297,14 +296,6 @@ function Check() {
   }, [dispatch, data, refetch, likedSong, suggested, album, music, uid]);
 
   const playlist = useSelector((state: RootState) => state.musicReducer.queue);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const online = navigator.onLine;
-    if (!online) {
-      navigate("/offline/");
-    }
-  }, [online, navigate]);
 
   useEffect(() => {
     if (playlist.length == 1 && online) {

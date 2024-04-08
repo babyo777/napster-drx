@@ -5,6 +5,8 @@ import {
   LISTEN_NOW_COLLECTION_ID,
   db,
 } from "@/appwrite/appwriteConfig";
+import { useNavigate } from "react-router-dom";
+
 import { homePagePlaylist, playlistSongs } from "@/Interface";
 import { useQuery } from "react-query";
 import Artist from "./Artist";
@@ -117,6 +119,15 @@ export function ListenNowComp() {
     }
     refetch();
   };
+
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const online = navigator.onLine;
+    if (!online) {
+      navigate("/offline/");
+    }
+  }, [navigate]);
 
   const playlist = useSelector(
     (state: RootState) => state.musicReducer.playlist
