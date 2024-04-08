@@ -183,7 +183,7 @@ function TuneBoxComp() {
                 className="object-cover animate-fade-down rounded-xl h-[100%] w-[100%]"
               />
             </div>
-            <p className=" text-zinc-300 text-center  text-lg">
+            <p className=" text-zinc-300 text-center animate-fade-up  text-lg">
               Tunebox is a place for people to send you song recommendations.
               Click on Share To add songs to your Tunebox, This playlist will
               automatically be updated with any songs people add to your
@@ -193,7 +193,7 @@ function TuneBoxComp() {
               disabled
               onClick={handleShare}
               variant={"secondary"}
-              className=" rounded-xl text-xl space-x-1 py-6 font-normal p-6"
+              className=" rounded-xl animate-fade-up text-xl space-x-1 py-6 font-normal p-6"
             >
               <FiShare />
 
@@ -201,7 +201,7 @@ function TuneBoxComp() {
             </Button>
           </div>
           <NavLink to={"/library/"}>
-            <IoIosArrowBack className="h-7 w-7  my-5 mx-4  backdrop-blur-md text-black bg-white/70 rounded-full p-1" />
+            <IoIosArrowBack className="h-7 w-7 animate-fade-right  my-5 mx-4  backdrop-blur-md text-black bg-white/70 rounded-full p-1" />
           </NavLink>
         </div>
       )}

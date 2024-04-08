@@ -308,7 +308,9 @@ function Check() {
   ) {
     return <App />;
   }
-
+  if (!online) {
+    <div>Working On Offline Player</div>;
+  }
   return (
     <>
       {check && online && !data && !playlistSongs ? (
