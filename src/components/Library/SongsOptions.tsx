@@ -105,8 +105,8 @@ function SongsOptions({
   const handleLibrary = useCallback(async () => {
     if (localStorage.getItem("uid")) {
       db.createDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, ID.unique(), {
-        name: music.title,
-        creator: music.artists[0].name || "unknown",
+        name: music.artists[0].name || "unknown",
+        creator: music.title,
         link: "custom" + uuidv4(),
         image: music.thumbnailUrl,
         for: localStorage.getItem("uid"),
