@@ -6,7 +6,6 @@ import {
   SetFeedMode,
   SetLastPlayed,
   SetPlaylistOrAlbum,
-  SetQueue,
   SetSeek,
   setCurrentIndex,
   setIsIphone,
@@ -280,16 +279,6 @@ function Check() {
     setGraphic(checkGpuCapabilities());
     setCheck(false);
   }, [dispatch, data, refetch, likedSong, suggested, album, music, uid]);
-
-  const playlist = useSelector((state: RootState) => state.musicReducer.queue);
-  useEffect(() => {
-    if (playlist.length == 1) {
-      axios.get(`${SuggestionSearchApi}${data?.curentsongid}`).then((s) => {
-        dispatch(setPlaylist(s.data));
-        dispatch(SetQueue(s.data));
-      });
-    }
-  }, [playlist, data, dispatch]);
 
   const isiPad = navigator.userAgent.match(/iPad/i) !== null;
 
