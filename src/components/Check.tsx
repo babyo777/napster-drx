@@ -298,11 +298,14 @@ function Check() {
 
   const playlist = useSelector((state: RootState) => state.musicReducer.queue);
   const navigate = useNavigate();
+
   useEffect(() => {
+    const online = navigator.onLine;
     if (!online) {
       navigate("/offline");
     }
   }, [online, navigate]);
+
   useEffect(() => {
     if (playlist.length == 1 && online) {
       axios.get(`${SuggestionSearchApi}${data?.curentsongid}`).then((s) => {
