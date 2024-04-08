@@ -302,7 +302,7 @@ function Check() {
   useEffect(() => {
     const online = navigator.onLine;
     if (!online) {
-      navigate("/offline");
+      navigate("/offline/");
     }
   }, [online, navigate]);
 
