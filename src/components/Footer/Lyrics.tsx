@@ -21,6 +21,7 @@ import {
   useCallback,
   useEffect,
   useRef,
+  useState,
 } from "react";
 
 import ShareLyrics from "./Share";
@@ -147,9 +148,15 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     },
     [music]
   );
+  const [online, setOnline] = useState<boolean>();
+
+  useEffect(() => {
+    const online = !navigator.onLine;
+    setOnline(online);
+  }, []);
   return (
     <Drawer>
-      <DrawerTrigger disabled={!navigator.onLine}>
+      <DrawerTrigger disabled={online}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           x="0px"
