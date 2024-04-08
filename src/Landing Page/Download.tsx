@@ -18,6 +18,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 export default function Download() {
   const [ios, SetIos] = useState<boolean>(false);
   const [android, SetAndroid] = useState<boolean>(false);
+  const isDesktop = window.innerWidth > 768;
 
   useEffect(() => {
     const i = /iPhone/i.test(navigator.userAgent);
@@ -96,10 +97,12 @@ export default function Download() {
             </>
           ) : (
             <ul className="text-lg up text-start animate-fade-up space-y-2.5 max-md:py-0 break-all py-5">
-              <li className="flex items-center space-x-1 animate-flip-up">
-                {!android ? <RiSafariFill /> : <RiChromeFill />}
-                <p>{!android ? "Open in Safari" : "Open in Chrome"}</p>
-              </li>
+              {isDesktop && (
+                <li className="flex items-center space-x-1 animate-flip-up">
+                  {!android ? <RiSafariFill /> : <RiChromeFill />}
+                  <p>{!android ? "Open in Safari" : "Open in Chrome"}</p>
+                </li>
+              )}
               <li className="flex items-center space-x-1 animate-flip-up">
                 {!android ? <FiShare /> : <BsThreeDotsVertical />}
                 <p>{!android ? "Tap on Share" : "Click on Three Dots"}</p>
