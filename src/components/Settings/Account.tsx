@@ -3,6 +3,7 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerFooter,
   DrawerHeader,
   DrawerTrigger,
 } from "../ui/drawer";
@@ -149,6 +150,22 @@ function Account() {
     }
   }, [data, verify, refetch, q]);
 
+  const handleRemove = async () => {
+    if (data) {
+      const isOK = confirm("Are you sure you want to remove");
+      if (isOK) {
+        await db.updateDocument(DATABASE_ID, NEW_USER, data.$id, {
+          image: "",
+          name: "",
+          spotifyId: "",
+        });
+        await refetch();
+        setVerify("");
+        setLoading(false);
+      }
+    }
+  };
+
   return (
     <Drawer>
       <DrawerTrigger className=" w-full">
@@ -266,6 +283,11 @@ function Account() {
             {loading && <Loader />}
           </div>
         </div>
+        {data && data.image.length > 0 && data.name.length > 0 && (
+          <DrawerFooter className=" text-red-500">
+            <p onClick={handleRemove}>Remove</p>
+          </DrawerFooter>
+        )}
       </DrawerContent>
     </Drawer>
   );
