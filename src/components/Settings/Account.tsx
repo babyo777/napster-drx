@@ -224,18 +224,22 @@ function Account() {
 
             {verify && !loading && (
               <>
-                <h2 className="text-zinc-100 text-2xl font-bold mb-1 ">
+                <h2 className="text-zinc-100 animate-fade-down text-2xl font-bold mb-1 ">
                   Verify it's Your Account
                 </h2>
-                <div className="prose flex flex-col font-semibold items-start text-zinc-300">
+                <div className="prose flex flex-col  font-semibold items-start text-zinc-300">
                   <ul className="text-base">
-                    <li>Open Spotify on your device.</li>
-                    <li>Go to Your Playlists</li>
-                    <li>Tap "Create Playlist" and name it "Napster".</li>
+                    <li className="animate=fade-up">
+                      Open Spotify on your device.
+                    </li>
+                    <li className="animate=fade-up">Go to Your Playlists</li>
+                    <li className="animate=fade-up">
+                      Tap "Create Playlist" and name it "Napster".
+                    </li>
 
-                    <li>Tap "Save" or "Create".</li>
+                    <li className="animate=fade-up">Tap "Save" or "Create".</li>
 
-                    <li>
+                    <li className="animate=fade-up">
                       Look for the option to sort your playlists. Choose "Sort
                       by Latest" or any option that ensures the "Napster"
                       playlist is at the top.
@@ -246,7 +250,7 @@ function Account() {
                   onClick={handleVerify}
                   variant={"secondary"}
                   asChild
-                  className=" w-full py-5 mt-3 text-lg animate-fade-up rounded-xl"
+                  className=" animate=fade-up w-full py-5 mt-3 text-lg animate-fade-up rounded-xl"
                 >
                   <p>Verify</p>
                 </Button>
