@@ -140,7 +140,7 @@ function FeedSong({
         </AspectRatio>
       </div>
       <div className=" flex justify-between">
-        <div className="flex space-y-0.5  flex-col  text-start w-[85dvw]">
+        <div className="flex space-y-0.5 px-1 flex-col  text-start w-[85dvw]">
           <p
             onClick={handlePlay}
             className={`w-[80dvw] ${
