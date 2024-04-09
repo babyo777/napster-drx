@@ -123,7 +123,7 @@ function FeedSong({
   return (
     <div className="flex  animate-fade-up flex-col py-2 space-y-2 ">
       <div className="overflow-hidden  space-y-2">
-        <AspectRatio ratio={4 / 4}>
+        <AspectRatio ratio={4 / 5}>
           <LazyLoadImage
             onClick={handlePlay}
             src={c || cover}
@@ -135,7 +135,7 @@ function FeedSong({
             onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
               (e.currentTarget.src = "/liked.webp")
             }
-            className="rounded-md object-cover h-[100%] w-[100%]"
+            className="rounded-xl object-cover object-center h-[100%] w-[100%]"
           />
         </AspectRatio>
       </div>
