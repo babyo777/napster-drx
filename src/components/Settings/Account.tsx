@@ -20,6 +20,19 @@ import axios from "axios";
 import { getUserApi } from "@/API/api";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Avatar } from "../ui/avatar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 interface user extends Models.Document {
   user: string;
@@ -163,6 +176,16 @@ function Account() {
                 <h1 className=" font-semibold break-all text-center animate-fade-up text-4xl mt-2">
                   {data.name}
                 </h1>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className=" animate-fade-up ">
+                    <DropdownMenuLabel className="mt-2 text-xl text-zinc-400">
+                      <IoMdInformationCircleOutline />
+                    </DropdownMenuLabel>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className=" -mt-3.5 flex text-sm  justify-center items-center rounded-xl bg-transparent py-2 font-normal text-zinc-300 border-none">
+                    <p>Automatic sync enabled</p>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </>
             )}
             {data &&
