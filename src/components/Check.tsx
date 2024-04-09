@@ -260,7 +260,7 @@ function Check() {
   const music = useSelector((state: RootState) => state.musicReducer.music);
 
   useEffect(() => {
-    if (data && uid) {
+    if (data && uid && online) {
       dispatch(SetFeedMode(true));
       dispatch(SetLastPlayed(true));
       dispatch(setPlayingPlaylistUrl(data.playlisturl));
