@@ -48,6 +48,7 @@ function Account() {
     return isIPhone;
   }
   const uid = useSelector((state: RootState) => state.musicReducer.uid);
+  const q = useQueryClient();
   const getUser = useCallback(async () => {
     if (uid) {
       const result = await db.listDocuments(DATABASE_ID, NEW_USER, [
@@ -85,13 +86,13 @@ function Account() {
             }
           );
         }
-
+        q.refetchQueries("dpImage");
         return result.documents[0] as user;
       }
     } else {
       return null;
     }
-  }, [uid]);
+  }, [uid, q]);
 
   const { data, isLoading, refetch } = useQuery<user | null>(
     ["user", uid],
@@ -122,7 +123,7 @@ function Account() {
   );
 
   const [loading, setLoading] = useState<boolean>(false);
-  const q = useQueryClient();
+
   const handleVerify = useCallback(async () => {
     setLoading(true);
     try {
