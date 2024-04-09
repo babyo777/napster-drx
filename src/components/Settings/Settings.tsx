@@ -19,6 +19,8 @@ import { DATABASE_ID, NEW_USER, db } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
 import { useQuery } from "react-query";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { getUserApi } from "@/API/api";
+import axios from "axios";
 
 function Settings() {
   const close = useRef<HTMLButtonElement>(null);
@@ -63,10 +65,29 @@ function Settings() {
 
   const handleImage = async () => {
     if (uid) {
-      const data = await db.listDocuments(DATABASE_ID, NEW_USER, [
+      const result = await db.listDocuments(DATABASE_ID, NEW_USER, [
         Query.equal("user", [uid]),
       ]);
-      return data.documents[0];
+      if (
+        result.documents[0].image.length > 0 &&
+        result.documents[0].name.length > 0
+      ) {
+        const res = await axios.get(
+          `${getUserApi}${result.documents[0].spotifyId}`
+        );
+        const code = res.data;
+        await db.updateDocument(
+          DATABASE_ID,
+          NEW_USER,
+          result.documents[0].$id,
+          {
+            image: code.image,
+            name: code.name,
+          }
+        );
+      }
+
+      return result.documents[0];
     }
   };
 

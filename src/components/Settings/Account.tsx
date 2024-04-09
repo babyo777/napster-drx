@@ -13,7 +13,7 @@ import { DATABASE_ID, NEW_USER, db } from "@/appwrite/appwriteConfig";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { Models, Query } from "appwrite";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import Loader from "../Loaders/Loader";
 import { DialogTitle } from "../ui/dialog";
 import axios from "axios";
@@ -122,6 +122,7 @@ function Account() {
   );
 
   const [loading, setLoading] = useState<boolean>(false);
+  const q = useQueryClient();
   const handleVerify = useCallback(async () => {
     setLoading(true);
     try {
@@ -133,6 +134,7 @@ function Account() {
           name: code.name,
           spotifyId: verify,
         });
+        q.refetchQueries("dpImage");
         await refetch();
         setVerify("");
         setLoading(false);
@@ -144,7 +146,7 @@ function Account() {
       alert("verification failed or invalid Link");
       setLoading(false);
     }
-  }, [data, verify, refetch]);
+  }, [data, verify, refetch, q]);
 
   return (
     <Drawer>
