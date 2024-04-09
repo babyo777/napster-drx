@@ -285,7 +285,9 @@ function Account() {
         </div>
         {data && data.image.length > 0 && data.name.length > 0 && (
           <DrawerFooter className=" text-red-500">
-            <p onClick={handleRemove}>Remove</p>
+            <p onClick={handleRemove} className="animate-fade-up">
+              Remove
+            </p>
           </DrawerFooter>
         )}
       </DrawerContent>
