@@ -254,7 +254,7 @@ function Account() {
                   onClick={() => (refetch(), setVerify(""))}
                   variant={"secondary"}
                   asChild
-                  className=" w-full py-5 mt-3 text-lg animate-fade-up rounded-xl"
+                  className=" w-full py-5 mt-1.5 text-lg animate-fade-up rounded-xl"
                 >
                   <p>Cancel</p>
                 </Button>
