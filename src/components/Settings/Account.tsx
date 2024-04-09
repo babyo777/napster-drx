@@ -21,12 +21,6 @@ import { getUserApi } from "@/API/api";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Avatar } from "../ui/avatar";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
