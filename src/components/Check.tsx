@@ -293,7 +293,17 @@ function Check() {
     setIsStandalone(isStandalone);
     setGraphic(checkGpuCapabilities());
     setCheck(false);
-  }, [dispatch, data, refetch, likedSong, suggested, album, music, uid]);
+  }, [
+    dispatch,
+    data,
+    refetch,
+    likedSong,
+    suggested,
+    album,
+    music,
+    uid,
+    online,
+  ]);
 
   const playlist = useSelector((state: RootState) => state.musicReducer.queue);
 
