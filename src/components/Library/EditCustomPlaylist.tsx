@@ -140,7 +140,7 @@ export function EditCustomPlaylist({
       <DrawerContent className="h-[100dvh] rounded-xl flex justify-center flex-col items-center ">
         <div className="h-dvh items-center border-none px-5 justify-center flex flex-col w-full  rounded-2x">
           <DrawerHeader>
-            <DrawerTitle className="text-2xl animate-fade-down font-semibold -mb-2">
+            <DrawerTitle className="text-2xl animate-fade-down font-semibold -mb-2.5">
               Edit Playlist details
             </DrawerTitle>
           </DrawerHeader>
