@@ -163,7 +163,7 @@ export function EditCustomPlaylist({
                     {<Loader loading={true} />}
                   </div>
                 ) : (
-                  <div className=" animate-fade-down w-full">
+                  <div className=" animate-fade-down  h-80 w-full">
                     <LazyLoadImage
                       effect="blur"
                       width="100%"
