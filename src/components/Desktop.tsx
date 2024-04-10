@@ -36,7 +36,7 @@ function Desktop() {
             <div>
               <p className="">Enjoy Music Without Interruptions</p>
             </div>
-            <div className="flex space-x-2">
+            <div className="flex space-x-2 ml-1 max-md:ml-0">
               <Download />
 
               <Button
