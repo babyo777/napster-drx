@@ -50,15 +50,15 @@ function Desktop() {
           </div>
           <div className=" relative max-md:hidden  w-[50dvw]  h-dvh  flex overflow-scroll space-x-4 px-[11dvw] justify-center items-center ">
             <img
-              src="/ui/home.PNG"
+              src="/ui/home.webp"
               className="h-[80vh] rounded-xl absolute  top-16  animate-fade-up left-10 border "
             />
             <img
-              src="/ui/lyrics.PNG"
+              src="/ui/lyrics.webp"
               className="h-[80vh] rounded-xl absolute  top-16  animate-fade-up right-10  border"
             />
             <img
-              src="/ui/share.PNG"
+              src="/ui/share.webp"
               className="h-[80vh] rounded-xl absolute animate-fade-up  border top-16 "
             />
           </div>
