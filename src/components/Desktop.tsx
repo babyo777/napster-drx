@@ -1,7 +1,7 @@
 import { FaXTwitter } from "react-icons/fa6";
 import { FiGithub } from "react-icons/fi";
 import { Button } from "./ui/button";
-import { SiDocsdotrs } from "react-icons/si";
+import { SiDocsdotrs, SiGithubsponsors } from "react-icons/si";
 import Download from "@/Landing Page/Download";
 import { useNavigate } from "react-router-dom";
 function Desktop() {
@@ -63,7 +63,7 @@ function Desktop() {
             />
           </div>
         </div>
-        {/* <footer className=" animate-fade-up fixed text-zinc-400 hover:text-white transition-all duration-300  bottom-0 flex justify-center items-center w-full py-2.5 text-xs space-x-1">
+        <footer className=" hidden animate-fade-up fixed text-zinc-400 hover:text-white transition-all duration-300  bottom-0 max-md:flex justify-center items-center w-full py-2.5 text-xs space-x-1">
           <SiGithubsponsors />
           <a
             className=" font-semibold"
@@ -72,7 +72,7 @@ function Desktop() {
           >
             From Babyo7_
           </a>
-        </footer> */}
+        </footer>
       </div>
     </>
   );
