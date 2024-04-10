@@ -42,7 +42,7 @@ export default defineConfig({
         theme_color: "#121212",
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,jpeg,jpg,json}"],
+        globPatterns: ["**/*.{js,css,html,jpeg,jpg,json,webp}"],
       },
     }),
   ],
