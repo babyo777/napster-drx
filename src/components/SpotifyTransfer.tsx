@@ -110,7 +110,7 @@ function SpotifyTransfer({
                       variant={"secondary"}
                       className=" w-full py-5 animate-fade-up  rounded-xl"
                     >
-                      Transfer
+                      Import
                     </Button>
                   </form>
                 )}
