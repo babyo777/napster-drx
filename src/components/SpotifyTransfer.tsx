@@ -76,7 +76,7 @@ function SpotifyTransfer({
         <p
           className={` ${className} animate-fade-up rounded-xl  bg-green-600 py-2.5 mt-3  w-full text-base`}
         >
-          Transfer from Spotify
+          Import from Spotify
         </p>
       </DrawerTrigger>
       <DrawerContent className="w-full border-none flex items-center flex-col justify-center h-dvh rounded-none">
