@@ -1,7 +1,7 @@
 import { FaXTwitter } from "react-icons/fa6";
 import { FiGithub } from "react-icons/fi";
 import { Button } from "./ui/button";
-import { SiDocsdotrs, SiGithubsponsors } from "react-icons/si";
+import { SiDocsdotrs } from "react-icons/si";
 import Download from "@/Landing Page/Download";
 import { useNavigate } from "react-router-dom";
 function Desktop() {
@@ -30,25 +30,40 @@ function Desktop() {
           </ul>
         </header>
 
-        <div className="bg-[#09090B] font-semibold w-full min-h-screen flex justify-center items-center px-9 max-lg:text-4xl max-md:text-4xl text-7xl flex-col space-y-7 text-center max-md:px-4 animate-fade-up overflow-hidden fixed -z-10">
+        <div className=" bg-[#09090B] font-semibold w-full min-h-screen flex  justify-center items-center px-9 max-lg:text-4xl max-md:text-4xl text-7xl space-y-7  text-center max-md:px-4 animate-fade-up overflow-hidden fixed -z-10 space-x-3 max-md:space-x-0">
           <div className=" bg-white backdrop-blur-xl -z-10 blur-[50px] h-[27vw] w-[27vw] rounded-full opacity-5 border-none shadow-none absolute"></div>
+          <div className="flex flex-col max-md:text-center max-md:items-center text-start justify-start items-start space-y-7 max-md:space-y-2.5 max-md:pt-[9dvh] pb-[11dvh]">
+            <div>
+              <p className="">Enjoy Music Without Interruptions</p>
+            </div>
+            <div className="flex space-x-2">
+              <Download />
 
-          <div>
-            <p className="">Enjoy Music Without Interruptions</p>
+              <Button
+                onClick={handleNavigate}
+                className=" text-2xl py-6  max-md:text-base rounded-lg space-x-1"
+              >
+                <SiDocsdotrs />
+                <p>Docs</p>
+              </Button>
+            </div>
           </div>
-          <div className="flex space-x-2">
-            <Download />
-
-            <Button
-              onClick={handleNavigate}
-              className=" text-2xl py-6  max-md:text-base rounded-lg space-x-1"
-            >
-              <SiDocsdotrs />
-              <p>Docs</p>
-            </Button>
+          <div className=" relative max-md:hidden  w-[50dvw]  h-dvh  flex overflow-scroll space-x-4 px-[11dvw] justify-center items-center ">
+            <img
+              src="/ui/home.PNG"
+              className="h-[80vh] rounded-xl absolute  top-16  animate-fade-up left-10 border "
+            />
+            <img
+              src="/ui/lyrics.PNG"
+              className="h-[80vh] rounded-xl absolute  top-16  animate-fade-up right-10  border"
+            />
+            <img
+              src="/ui/share.PNG"
+              className="h-[80vh] rounded-xl absolute animate-fade-up  border top-16 "
+            />
           </div>
         </div>
-        <footer className=" animate-fade-up fixed text-zinc-400 hover:text-white transition-all duration-300  bottom-0 flex justify-center items-center w-full py-2.5 text-xs space-x-1">
+        {/* <footer className=" animate-fade-up fixed text-zinc-400 hover:text-white transition-all duration-300  bottom-0 flex justify-center items-center w-full py-2.5 text-xs space-x-1">
           <SiGithubsponsors />
           <a
             className=" font-semibold"
@@ -57,7 +72,7 @@ function Desktop() {
           >
             From Babyo7_
           </a>
-        </footer>
+        </footer> */}
       </div>
     </>
   );
