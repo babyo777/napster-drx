@@ -156,6 +156,7 @@ export function ListenNowComp() {
       refetchOnWindowFocus: false,
       staleTime: 60 * 60000,
       refetchOnMount: false,
+      keepPreviousData: true,
       onError() {
         refetchFeed();
       },

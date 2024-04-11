@@ -1,155 +1,318 @@
-import { useCallback, useEffect, useState } from "react";
-import Header from "../Header/Header";
-import Loader from "../Loaders/Loader";
-import { Button } from "../ui/button";
-import { socket } from "./Socket";
-import { v4 } from "uuid";
-import { playlistSongs } from "@/Interface";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
+import { IoAddSharp } from "react-icons/io5";
+import ShareLyrics from "../Footer/Share";
+import { LiaDownloadSolid } from "react-icons/lia";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
-import { SetSharePlayCode, SetSharePlayConnected } from "@/Store/Player";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import {
+  DATABASE_ID,
+  FAV_ARTIST,
+  LIKE_SONG,
+  db,
+} from "@/appwrite/appwriteConfig";
+import { ID, Query } from "appwrite";
+import { ArtistDetails, favArtist } from "@/Interface";
+import { useQuery } from "react-query";
+import { GetArtistDetails, downloadApi } from "@/API/api";
+import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
+import { useSwipeable } from "react-swipeable";
+import { setNextPrev } from "@/Store/Player";
 
 function SharePlay() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const isConnected = useSelector(
-    (state: RootState) => state.musicReducer.sharePlayConnected
+  const playlist = useSelector((state: RootState) => state.musicReducer.queue);
+  const currentIndex = useSelector(
+    (state: RootState) => state.musicReducer.currentIndex
   );
-  const sharePlayCode = useSelector(
-    (state: RootState) => state.musicReducer.sharePlayCode
+  const [isFavArtist, setIsFavArtist] = useState<boolean>();
+
+  const loadIsFav = async () => {
+    const r = await db.listDocuments(DATABASE_ID, FAV_ARTIST, [
+      Query.equal("for", [localStorage.getItem("uid") || "default"]),
+      Query.equal("artistId", [
+        playlist[currentIndex]?.artists[0].id || "none",
+      ]),
+    ]);
+    const p = r.documents as unknown as favArtist[];
+    if (p.length == 0) {
+      setIsFavArtist(false);
+    } else {
+      setIsFavArtist(true);
+    }
+    return p;
+  };
+
+  const { data: isFav, refetch: refetchFav } = useQuery<favArtist[]>(
+    ["checkFavArtist", playlist[currentIndex]?.artists[0].id],
+    loadIsFav,
+    {
+      refetchOnWindowFocus: false,
+      keepPreviousData: true,
+    }
   );
-  const dispatch = useDispatch();
-  useEffect(() => {
-    function onConnect() {
-      setIsLoading(false);
-      dispatch(SetSharePlayConnected(true));
-    }
 
-    function onDisconnect() {
-      dispatch(SetSharePlayConnected(false));
-    }
-    function onJoined(data: { id: string; song: playlistSongs[] }) {
-      console.log(data);
-    }
-    function onPlay(data: { id: string; song: boolean }) {
-      console.log(data);
-    }
-    function onSeek(data: { id: string; seek: string }) {
-      console.log(data);
-    }
+  const removeFromFav = async () => {
+    if (isFav) {
+      setIsFavArtist(false);
 
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
-    socket.on("joined", onJoined);
-    socket.on("playSong", onPlay);
-    socket.on("seek", onSeek);
-    return () => {
-      socket.off("playSong", onPlay);
-      socket.off("seek", onSeek);
-      socket.off("joined", onJoined);
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
-    };
-  }, [dispatch]);
+      await db
+        .deleteDocument(DATABASE_ID, FAV_ARTIST, isFav[0].$id)
+        .catch(() => setIsFavArtist(false));
+      refetchFav();
+    }
+  };
 
-  const handleJoin = useCallback(() => {
-    const code = prompt("Enter Shared Code");
-    if (code && code.trim() !== "") {
-      const data = {
-        id: code,
-      };
-      if (!isConnected) {
-        socket.connect();
+  const getArtistDetails = async () => {
+    const list = await axios.get(
+      `${GetArtistDetails}${playlist[currentIndex]?.artists[0].id}`
+    );
+    return list.data as ArtistDetails;
+  };
+
+  const { data, refetch: followRefetch } = useQuery<ArtistDetails>(
+    ["artist", playlist[currentIndex]?.artists[0].id],
+    getArtistDetails,
+    {
+      retry: 5,
+      enabled: false,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: 60 * 60000,
+      onSuccess(d) {
+        d == null && followRefetch();
+      },
+    }
+  );
+
+  const addToFav = async () => {
+    if (!playlist[currentIndex].artists[0].id) return;
+    setIsFavArtist(true);
+    await db
+      .createDocument(DATABASE_ID, FAV_ARTIST, ID.unique(), {
+        artistId: playlist[currentIndex]?.artists[0].id,
+        name: data?.name,
+        thumbnailUrl: data?.thumbnails[0].url.replace(
+          "w540-h225",
+          "w1080-h1080"
+        ),
+        for: localStorage.getItem("uid"),
+      })
+      .catch(() => setIsFavArtist(true));
+    refetchFav();
+  };
+
+  const isLikedCheck = async () => {
+    const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
+      Query.equal("for", [localStorage.getItem("uid") || "default"]),
+      Query.equal("youtubeId", [playlist[currentIndex].youtubeId]),
+    ]);
+    if (r.documents.length == 0) {
+      SetLiked(false);
+    } else {
+      SetLiked(true);
+    }
+    return r.documents;
+  };
+
+  const { data: isLiked, refetch } = useQuery(
+    ["likedSongs", playlist[currentIndex]?.youtubeId],
+    isLikedCheck,
+    {
+      enabled: false,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+    }
+  );
+
+  const [liked, SetLiked] = useState<boolean>();
+  const currentArtistId = useSelector(
+    (state: RootState) => state.musicReducer.currentArtistId
+  );
+  const handleLink = useCallback(() => {
+    SetLiked(true);
+    db.createDocument(DATABASE_ID, LIKE_SONG, ID.unique(), {
+      youtubeId: playlist[currentIndex].youtubeId,
+      title: playlist[currentIndex].title,
+      artists: [
+        playlist[currentIndex].artists[0]?.id || currentArtistId || "unknown",
+        playlist[currentIndex].artists[0]?.name || "unknown",
+      ],
+      thumbnailUrl: playlist[currentIndex].thumbnailUrl,
+      for: localStorage.getItem("uid") || "default",
+    })
+      .then(() => {
+        refetch();
+      })
+      .catch(() => {
+        SetLiked(false);
+      });
+  }, [currentIndex, playlist, currentArtistId, refetch]);
+
+  const RemoveLike = useCallback(async () => {
+    SetLiked(false);
+    if (isLiked) {
+      try {
+        await db.deleteDocument(
+          DATABASE_ID,
+          LIKE_SONG,
+          isLiked[0].$id || "default"
+        );
+      } catch (error) {
+        console.error(error);
+        SetLiked(true);
       }
-      socket.emit("join", data);
     }
-  }, [isConnected]);
+  }, [isLiked]);
 
-  const handleConnect = useCallback(() => {
-    setIsLoading(true);
-    socket.connect();
-    const code = v4();
-    const data = {
-      id: code,
-    };
-    socket.emit("JoinRoom", data);
-    dispatch(SetSharePlayCode(code));
-  }, [dispatch]);
+  useEffect(() => {
+    if (playlist[currentIndex]?.artists[0].id) {
+      followRefetch();
+      refetch();
+    }
+  }, [playlist, currentIndex, followRefetch, refetch]);
 
-  const handleLeave = useCallback(() => {
-    socket.disconnect();
-  }, []);
-
-  const handleInvite = useCallback(() => {
-    navigator.share({
-      title: `Invite Code for SharePlay`,
-      text: `Code - ${sharePlayCode}`,
-      url: window.location.href,
+  const image = async () => {
+    const response = await axios.get(
+      playlist[currentIndex]?.thumbnailUrl.replace("w120-h120", "w1080-h1080"),
+      {
+        responseType: "arraybuffer",
+      }
+    );
+    const blob = new Blob([response.data], {
+      type: response.headers["content-type"],
     });
-  }, [sharePlayCode]);
+    return URL.createObjectURL(blob);
+  };
+
+  const { data: c } = useQuery(
+    ["image", playlist[currentIndex]?.thumbnailUrl],
+    image,
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+    }
+  );
+
+  const handleDownload = useCallback(() => {
+    if (!playlist) return;
+    const link = document.createElement("a");
+    link.style.display = "none";
+    link.target = "_blank";
+    link.href = `${downloadApi}${playlist[currentIndex].youtubeId}&file=${playlist[currentIndex].title}`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, [playlist, currentIndex]);
+
+  const [next, setNext] = useState<boolean>();
+  const [prev, setPrev] = useState<boolean>();
+
+  const dispatch = useDispatch();
+  const handleNext = useCallback(() => {
+    setNext(true);
+    const t = setTimeout(() => {
+      setNext(false);
+    }, 200);
+    SetLiked(false);
+    if (playlist.length > 1) {
+      dispatch(setNextPrev("next"));
+    }
+    return () => clearTimeout(t);
+  }, [dispatch, playlist.length]);
+
+  const handlePrev = useCallback(() => {
+    setPrev(true);
+    const t = setTimeout(() => {
+      setPrev(false);
+    }, 200);
+    if (playlist.length > 1) {
+      dispatch(setNextPrev("prev"));
+    }
+    return () => clearTimeout(t);
+  }, [dispatch, playlist.length]);
+
+  const swipeHandler = useSwipeable({
+    onSwipedUp: handleNext,
+    onSwipedDown: handlePrev,
+  });
+
   return (
-    <>
-      <Header title="Share Play" />
-      {isLoading && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex   items-center space-x-2">
-          <Loader />
+    <div className="h-dvh pb-[17dvh] relative">
+      <div className=" absolute top-4 w-full flex items-center justify-center ">
+        <p className=" text-sm bg-zinc-800 rounded-xl px-4 animate-fade-down py-0.5">
+          Beta
+        </p>
+      </div>
+      <div className=" z-10 absolute text-3xl bottom-40 space-y-2.5 flex flex-col items-center right-2">
+        <div className=" animate-fade-left">
+          {liked ? (
+            <IoMdHeart onClick={RemoveLike} className=" text-red-500" />
+          ) : (
+            <IoMdHeartEmpty onClick={handleLink} />
+          )}
         </div>
-      )}
-      {isConnected && (
-        <div className="px-4">
-          <div className="flex space-x-2 items-center justify-between">
-            <div className=" flex font-semibold  space-x-2 items-center justify-start  rounded-lg">
-              <Avatar>
-                <AvatarFallback className=" border-red-500 border-2  rounded-full">
-                  CN
-                </AvatarFallback>
-                <AvatarImage>
-                  <img src="cm" className="rounded-full" />
-                </AvatarImage>
-              </Avatar>
-              <p className=" font-semibold text-red-500">Access denied !</p>
-            </div>
-            <div className="flex space-x-2 items-center">
-              <Button
-                onClick={handleInvite}
-                variant={"secondary"}
-                className=" rounded-lg "
-                disabled
-              >
-                Invite
-              </Button>
-              <Button
-                onClick={handleLeave}
-                variant={"secondary"}
-                className=" rounded-lg bg-red-600 "
-              >
-                Leave
-              </Button>
-            </div>
+        <div className=" animate-fade-left text-zinc-500">
+          <IoAddSharp />
+        </div>
+        <div className=" animate-fade-left">
+          <ShareLyrics className="h-6 w-6" />
+        </div>
+        <div onClick={handleDownload} className=" animate-fade-left">
+          <LiaDownloadSolid />
+        </div>
+      </div>
+
+      <div className=" absolute animate-fade-right z-10 bottom-40 left-3.5">
+        <div className=" flex space-x-2 items-center">
+          <Avatar>
+            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={playlist[currentIndex]?.thumbnailUrl} />
+          </Avatar>
+          <div>
+            <h1 className=" flex truncate w-[60dvw] text-base font-semibold">
+              {playlist[currentIndex]?.artists[0].name || "unknown"}
+              {playlist[currentIndex]?.artists[0].name && (
+                <div className="ml-1.5">
+                  <p className=" border px-2 py-1 rounded-lg text-xs  ">
+                    {isFavArtist ? (
+                      <span onClick={removeFromFav}>Following</span>
+                    ) : (
+                      <span onClick={addToFav}>Follow</span>
+                    )}
+                  </p>
+                </div>
+              )}
+            </h1>
+            <p className="  text-xs truncate w-[65dvw]">
+              {playlist[currentIndex]?.title || "unknown"}
+            </p>
           </div>
         </div>
-      )}
-      {!isConnected && !isLoading && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex   items-center space-x-2">
-          <>
-            <Button
-              onClick={handleConnect}
-              variant={"secondary"}
-              className="text-xl  animate-fade-right px-9 py-6 font-semibold rounded-xl items-center"
-            >
-              Start
-            </Button>
-            <Button
-              onClick={handleJoin}
-              variant={"secondary"}
-              className="text-xl px-9   animate-fade-left py-6 font-semibold rounded-xl items-center"
-            >
-              Join
-            </Button>
-          </>
-        </div>
-      )}
-    </>
+      </div>
+
+      <div
+        {...swipeHandler}
+        className="max-h-full min-h-full relative px-14 flex justify-center items-center "
+      >
+        <LazyLoadImage
+          height="100%"
+          width="100%"
+          src={c || playlist[currentIndex]?.thumbnailUrl}
+          onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+            (e.currentTarget.src = "/newfavicon.jpg")
+          }
+          alt="Image"
+          effect="blur"
+          className={`object-cover rounded-xl ${next && "animate-fade-up"}  ${
+            prev && "animate-fade-down"
+          }  transition-all duration-300 w-[100%] h-[100%] `}
+        />
+      </div>
+    </div>
   );
 }
 
