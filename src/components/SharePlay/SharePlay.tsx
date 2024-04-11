@@ -22,6 +22,7 @@ import { useSwipeable } from "react-swipeable";
 import { setNextPrev } from "@/Store/Player";
 import { useDoubleTap } from "use-double-tap";
 import { FaHeart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.queue);
@@ -295,22 +296,26 @@ function SharePlay() {
 
         <div className=" absolute animate-fade-right z-10 bottom-40 left-3.5">
           <div className=" flex space-x-2 items-center">
-            <Avatar className=" h-11 w-11">
-              <AvatarFallback>CN</AvatarFallback>
-              <AvatarImage
-                src={
-                  (data &&
-                    data.thumbnails[0]?.url.replace(
-                      "w540-h225",
-                      "w1080-h1080"
-                    )) ||
-                  "/favicon.jpeg"
-                }
-              />
-            </Avatar>
+            <Link to={`/artist/${data?.artistId}`}>
+              <Avatar className=" h-11 w-11">
+                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage
+                  src={
+                    (data &&
+                      data.thumbnails[0]?.url.replace(
+                        "w540-h225",
+                        "w1080-h1080"
+                      )) ||
+                    "/favicon.jpeg"
+                  }
+                />
+              </Avatar>
+            </Link>
             <div>
               <h1 className=" flex truncate w-[60dvw] text-base font-semibold">
-                {playlist[currentIndex]?.artists[0].name || "unknown"}
+                <Link to={`/artist/${data?.artistId}`}>
+                  {playlist[currentIndex]?.artists[0].name || "unknown"}
+                </Link>
                 {playlist[currentIndex]?.artists[0].name && (
                   <div className="ml-1.5">
                     <p className=" border px-2 py-1 rounded-lg text-xs  ">
@@ -323,9 +328,11 @@ function SharePlay() {
                   </div>
                 )}
               </h1>
-              <p className="  text-xs truncate w-[65dvw]">
-                {playlist[currentIndex]?.title || "unknown"}
-              </p>
+              <Link to={`/artist/${data?.artistId}`}>
+                <p className="  text-xs truncate w-[65dvw]">
+                  {playlist[currentIndex]?.title || "unknown"}
+                </p>
+              </Link>
             </div>
           </div>
         </div>
