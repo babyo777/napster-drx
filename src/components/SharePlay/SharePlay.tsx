@@ -262,92 +262,96 @@ function SharePlay() {
 
   const bind = useDoubleTap(handleDbClick);
   return (
-    <div className="h-dvh pb-[17dvh] relative">
-      {dbClick && (
-        <div className=" z-10 pb-[17dvh]  absolute w-full h-full flex justify-center items-center text-9xl  text-red-500">
-          <FaHeart className=" animate-jump-in animate-once animate-ease-in-out" />
+    <div className=" fixed w-full">
+      <div className="h-dvh pb-[17dvh] relative">
+        {dbClick && (
+          <div className=" z-10 pb-[17dvh]  absolute w-full h-full flex justify-center items-center text-9xl  text-red-500">
+            <FaHeart className=" animate-jump-in animate-once animate-ease-in-out" />
+          </div>
+        )}
+        <div className=" absolute top-4 w-full flex items-center justify-center ">
+          <p className=" text-sm bg-zinc-800 rounded-xl px-4 animate-fade-down py-0.5">
+            Beta
+          </p>
         </div>
-      )}
-      <div className=" absolute top-4 w-full flex items-center justify-center ">
-        <p className=" text-sm bg-zinc-800 rounded-xl px-4 animate-fade-down py-0.5">
-          Beta
-        </p>
-      </div>
-      <div className=" z-10 absolute text-3xl bottom-40 space-y-2.5 flex flex-col items-center right-2">
-        <div className=" animate-fade-left">
-          {liked ? (
-            <IoMdHeart onClick={RemoveLike} className=" text-red-500" />
-          ) : (
-            <IoMdHeartEmpty onClick={handleLike} />
-          )}
-        </div>
-        <div className=" animate-fade-left text-zinc-500">
-          <IoAddSharp />
-        </div>
-        <div className=" animate-fade-left">
-          <ShareLyrics className="h-6 w-6" />
-        </div>
-        <div onClick={handleDownload} className=" animate-fade-left">
-          <LiaDownloadSolid />
-        </div>
-      </div>
-
-      <div className=" absolute animate-fade-right z-10 bottom-40 left-3.5">
-        <div className=" flex space-x-2 items-center">
-          <Avatar className=" h-11 w-11">
-            <AvatarFallback>CN</AvatarFallback>
-            <AvatarImage
-              src={
-                (data &&
-                  data.thumbnails[0]?.url.replace(
-                    "w540-h225",
-                    "w1080-h1080"
-                  )) ||
-                "/favicon.jpeg"
-              }
-            />
-          </Avatar>
-          <div>
-            <h1 className=" flex truncate w-[60dvw] text-base font-semibold">
-              {playlist[currentIndex]?.artists[0].name || "unknown"}
-              {playlist[currentIndex]?.artists[0].name && (
-                <div className="ml-1.5">
-                  <p className=" border px-2 py-1 rounded-lg text-xs  ">
-                    {isFavArtist ? (
-                      <span onClick={removeFromFav}>Following</span>
-                    ) : (
-                      <span onClick={addToFav}>Follow</span>
-                    )}
-                  </p>
-                </div>
-              )}
-            </h1>
-            <p className="  text-xs truncate w-[65dvw]">
-              {playlist[currentIndex]?.title || "unknown"}
-            </p>
+        <div className=" z-10 absolute text-3xl bottom-40 space-y-2.5 flex flex-col items-center right-2">
+          <div className=" animate-fade-left">
+            {liked ? (
+              <IoMdHeart onClick={RemoveLike} className=" text-red-500" />
+            ) : (
+              <IoMdHeartEmpty onClick={handleLike} />
+            )}
+          </div>
+          <div className=" animate-fade-left text-zinc-500">
+            <IoAddSharp />
+          </div>
+          <div className=" animate-fade-left">
+            <ShareLyrics className="h-6 w-6" />
+          </div>
+          <div onClick={handleDownload} className=" animate-fade-left">
+            <LiaDownloadSolid />
           </div>
         </div>
-      </div>
 
-      <div
-        {...bind}
-        {...swipeHandler}
-        className="max-h-full min-h-full pb-[17dvh] absolute w-full h-full px-14 flex justify-center items-center "
-      >
-        <div>
-          <LazyLoadImage
-            height="100%"
-            width="100%"
-            src={c || playlist[currentIndex]?.thumbnailUrl}
-            onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
-              (e.currentTarget.src = "/newfavicon.jpg")
-            }
-            alt="Image"
-            effect="blur"
-            className={`object-cover rounded-xl ${next && "animate-fade-up"}  ${
-              prev && "animate-fade-down"
-            }  transition-all duration-300 w-[100%] h-[100%] `}
-          />
+        <div className=" absolute animate-fade-right z-10 bottom-40 left-3.5">
+          <div className=" flex space-x-2 items-center">
+            <Avatar className=" h-11 w-11">
+              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage
+                src={
+                  (data &&
+                    data.thumbnails[0]?.url.replace(
+                      "w540-h225",
+                      "w1080-h1080"
+                    )) ||
+                  "/favicon.jpeg"
+                }
+              />
+            </Avatar>
+            <div>
+              <h1 className=" flex truncate w-[60dvw] text-base font-semibold">
+                {playlist[currentIndex]?.artists[0].name || "unknown"}
+                {playlist[currentIndex]?.artists[0].name && (
+                  <div className="ml-1.5">
+                    <p className=" border px-2 py-1 rounded-lg text-xs  ">
+                      {isFavArtist ? (
+                        <span onClick={removeFromFav}>Following</span>
+                      ) : (
+                        <span onClick={addToFav}>Follow</span>
+                      )}
+                    </p>
+                  </div>
+                )}
+              </h1>
+              <p className="  text-xs truncate w-[65dvw]">
+                {playlist[currentIndex]?.title || "unknown"}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          {...bind}
+          {...swipeHandler}
+          className="max-h-full min-h-full pb-[17dvh] absolute w-full h-full px-14 flex justify-center items-center "
+        >
+          <div>
+            <LazyLoadImage
+              height="100%"
+              width="100%"
+              src={c || playlist[currentIndex]?.thumbnailUrl}
+              onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                (e.currentTarget.src = "/newfavicon.jpg")
+              }
+              alt="Image"
+              effect="blur"
+              className={`object-cover rounded-xl ${
+                next && "animate-fade-up"
+              }  ${
+                prev && "animate-fade-down"
+              }  transition-all duration-300 w-[100%] h-[100%] `}
+            />
+          </div>
         </div>
       </div>
     </div>
