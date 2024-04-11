@@ -312,7 +312,7 @@ function SharePlay() {
               </Avatar>
             </Link>
             <div>
-              <h1 className=" flex truncate w-[60dvw] text-xl font-semibold">
+              <h1 className=" flex truncate w-[60dvw] text-lg font-semibold">
                 <Link to={`/artist/${data?.artistId}`}>
                   {playlist[currentIndex]?.artists[0].name || "unknown"}
                 </Link>
