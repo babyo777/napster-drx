@@ -277,7 +277,7 @@ function SharePlay() {
             </p>
           </div>
         </div>
-        <AudioPLayer />
+        {playlist && playlist.length > 0 && <AudioPLayer />}
         {dbClick && (
           <div className=" z-10 pb-[11dvh]  absolute w-full h-full flex justify-center items-center text-9xl  text-red-500">
             <FaHeart className=" animate-jump-in animate-once animate-ease-in-out" />
