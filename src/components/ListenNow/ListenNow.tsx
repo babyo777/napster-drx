@@ -248,7 +248,7 @@ export function ListenNowComp() {
                 </DropdownMenuLabel>
               </DropdownMenuTrigger>
               <DropdownMenuContent className=" -mt-[2.4rem] ml-44 flex text-sm  justify-center items-center rounded-xl bg-transparent py-2 font-normal text-zinc-300 border-none">
-                <p>Based on recent playing</p>
+                <p>Based on current playing</p>
               </DropdownMenuContent>
             </DropdownMenu>
           )}
