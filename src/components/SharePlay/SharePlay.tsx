@@ -323,21 +323,23 @@ function SharePlay() {
       <div
         {...bind}
         {...swipeHandler}
-        className="max-h-full min-h-full relative px-14 flex justify-center items-center "
+        className="max-h-full min-h-full pb-[17dvh] absolute w-full h-full px-14 flex justify-center items-center "
       >
-        <LazyLoadImage
-          height="100%"
-          width="100%"
-          src={c || playlist[currentIndex]?.thumbnailUrl}
-          onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
-            (e.currentTarget.src = "/newfavicon.jpg")
-          }
-          alt="Image"
-          effect="blur"
-          className={`object-cover rounded-xl ${next && "animate-fade-up"}  ${
-            prev && "animate-fade-down"
-          }  transition-all duration-300 w-[100%] h-[100%] `}
-        />
+        <div>
+          <LazyLoadImage
+            height="100%"
+            width="100%"
+            src={c || playlist[currentIndex]?.thumbnailUrl}
+            onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+              (e.currentTarget.src = "/newfavicon.jpg")
+            }
+            alt="Image"
+            effect="blur"
+            className={`object-cover rounded-xl ${next && "animate-fade-up"}  ${
+              prev && "animate-fade-down"
+            }  transition-all duration-300 w-[100%] h-[100%] `}
+          />
+        </div>
       </div>
     </div>
   );
