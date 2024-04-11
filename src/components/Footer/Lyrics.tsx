@@ -92,19 +92,13 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     return parsedLyrics as [{ time: number | string; lyrics: string }];
   }, [playlist, currentIndex, music, formatDuration, duration]);
 
-  const {
-    data: lyrics,
-    refetch,
-    isLoading,
-  } = useQuery<[{ time: number | string; lyrics: string }]>(
-    ["lyrics", playlist[currentIndex].youtubeId],
-    getLyrics,
-    {
-      refetchOnWindowFocus: false,
-      staleTime: 60 * 6000,
-      refetchOnMount: false,
-    }
-  );
+  const { data: lyrics, isLoading } = useQuery<
+    [{ time: number | string; lyrics: string }]
+  >(["lyrics", playlist[currentIndex].youtubeId], getLyrics, {
+    refetchOnWindowFocus: false,
+    staleTime: 60 * 6000,
+    refetchOnMount: false,
+  });
 
   const lyricsRef = useRef<HTMLDivElement>(null);
 
@@ -130,12 +124,6 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
       }
     }
   }, [progress]);
-
-  useEffect(() => {
-    if (duration) {
-      refetch();
-    }
-  }, [refetch, duration]);
 
   const handleClick: MouseEventHandler<HTMLParagraphElement> = useCallback(
     (t) => {

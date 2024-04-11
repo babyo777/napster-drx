@@ -32,6 +32,7 @@ import {
   ID,
   LAST_PLAYED,
   LIKE_SONG,
+  MOST_PLAYED,
   db,
 } from "@/appwrite/appwriteConfig";
 import { useQuery } from "react-query";
@@ -41,14 +42,15 @@ import { IoIosList } from "react-icons/io";
 import { AiFillStar } from "react-icons/ai";
 import Options from "./Options";
 import Lyrics from "./Lyrics";
+import axios from "axios";
 function AudioPLayerComp() {
   const [next, setNext] = useState<boolean>();
   const [prev, setPrev] = useState<boolean>();
   const [playEffect, setPlayEffect] = useState<boolean>();
   const dispatch = useDispatch();
-  const [duration, setDuration] = useState<number | "--:--">();
+  const [duration, setDuration] = useState<number>(0);
+  const [progress, setProgress] = useState<number>(0);
   const music = useSelector((state: RootState) => state.musicReducer.music);
-  const [progress, setProgress] = useState<number | "--:--">();
   const [liked, SetLiked] = useState<boolean>();
   const PlaylistOrAlbum = useSelector(
     (state: RootState) => state.musicReducer.PlaylistOrAlbum
@@ -219,14 +221,6 @@ function AudioPLayerComp() {
   //   }
   // }, [updateSeek, isPlaying]);
 
-  // const playingInsights = useCallback(() => {
-  //   db.createDocument(DATABASE_ID, MOST_PLAYED, ID.unique(), {
-  //     user: localStorage.getItem("uid"),
-  //     sname: playlist[currentIndex].title,
-  //     sid: playlist[currentIndex].youtubeId,
-  //     sartist: playlist[currentIndex].artists[0].name,
-  //   });
-  // }, [playlist, currentIndex]);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [online, setOnline] = useState<boolean>();
   useEffect(() => {
@@ -257,8 +251,8 @@ function AudioPLayerComp() {
       };
 
       const handleError = () => {
-        setDuration("--:--");
-        setProgress("--:--");
+        setDuration(0);
+        setProgress(0);
         dispatch(setIsLoading(false));
         sound.pause();
         dispatch(play(false));
@@ -346,6 +340,21 @@ function AudioPLayerComp() {
     saveLastPlayed,
   ]);
 
+  const playingInsights = useCallback(() => {
+    db.createDocument(DATABASE_ID, MOST_PLAYED, ID.unique(), {
+      user: localStorage.getItem("uid"),
+      sname: playlist[currentIndex].title,
+      sid: playlist[currentIndex].youtubeId,
+      sartist: playlist[currentIndex].artists[0].name,
+    });
+  }, [playlist, currentIndex]);
+
+  useEffect(() => {
+    if (Math.floor(progress) == 30) {
+      playingInsights();
+    }
+  }, [progress, playingInsights]);
+
   const handleLoop = useCallback(async () => {
     if (music && isPlaying) {
       if (music.loop) {
@@ -376,6 +385,29 @@ function AudioPLayerComp() {
     return `${formattedMinutes}:${formattedSeconds}`;
   }, []);
 
+  const image = async () => {
+    const response = await axios.get(
+      playlist[currentIndex]?.thumbnailUrl.replace("w120-h120", "w1080-h1080"),
+      {
+        responseType: "arraybuffer",
+      }
+    );
+    const blob = new Blob([response.data], {
+      type: response.headers["content-type"],
+    });
+    return URL.createObjectURL(blob);
+  };
+
+  const { data: c } = useQuery(
+    ["image", playlist[currentIndex]?.thumbnailUrl],
+    image,
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+    }
+  );
+
   return (
     <>
       <audio src="" hidden ref={audioRef}></audio>
@@ -389,9 +421,9 @@ function AudioPLayerComp() {
                 <LazyLoadImage
                   height="100%"
                   width="100%"
-                  src={
-                    playlist[currentIndex]?.thumbnailUrl ||
-                    "https://i.pinimg.com/564x/d4/40/76/d44076613b20dd92a8e4da29a8df538e.jpg"
+                  src={c || playlist[currentIndex]?.thumbnailUrl}
+                  onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                    (e.currentTarget.src = "/newfavicon.jpg")
                   }
                   alt="Image"
                   effect="blur"
@@ -420,10 +452,7 @@ function AudioPLayerComp() {
                 >
                   <div className="flex  justify-center items-center  h-[44dvh]">
                     <LazyLoadImage
-                      src={playlist[currentIndex]?.thumbnailUrl.replace(
-                        "w120-h120",
-                        "w1080-h1080"
-                      )}
+                      src={c || playlist[currentIndex]?.thumbnailUrl}
                       onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
                         (e.currentTarget.src = "/newfavicon.jpg")
                       }
@@ -504,10 +533,10 @@ function AudioPLayerComp() {
                 />
                 <div className="flex text-sm justify-between py-2 px-1">
                   <span className="text-zinc-400 transition-all duration-300 font-semibold">
-                    {formatDuration((progress as "--:--") || 0)}
+                    {formatDuration(progress || 0)}
                   </span>
                   <span className="text-zinc-400 transition-all duration-300 font-semibold">
-                    {formatDuration((duration as "--:--") || "--:--")}
+                    {formatDuration(duration || 0)}
                   </span>
                 </div>
               </div>
