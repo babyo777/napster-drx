@@ -29,7 +29,6 @@ import { useDoubleTap } from "use-double-tap";
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { LuMusic2 } from "react-icons/lu";
-import AudioPLayer from "../Footer/AudioPLayer";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.Feed);
@@ -287,7 +286,7 @@ function SharePlay() {
             </p>
           </div>
         </div>
-        {playlist && playlist.length > 0 && <AudioPLayer />}
+
         {dbClick && (
           <div className=" z-10 pb-[19dvh]  absolute w-full h-full flex justify-center items-center text-9xl  text-red-500">
             <FaHeart className=" animate-jump-in animate-once animate-ease-in-out" />

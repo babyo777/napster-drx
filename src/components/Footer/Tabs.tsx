@@ -19,7 +19,7 @@ function TabsComp() {
   const location = useLocation();
   return (
     <div className="fixed  fade-in w-screen right-0 left-0 bottom-0 flex flex-col justify-center items-center">
-      {location.pathname !== "/share-play" && <Player />}
+      <Player />
       <nav
         className={`py-3 pb-7  animate-fade-up backdrop-blur-md ${
           location.pathname !== "/share-play" ? "bg-neutral-900 pt-5" : "pt-0"
