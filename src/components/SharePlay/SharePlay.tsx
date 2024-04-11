@@ -294,9 +294,18 @@ function SharePlay() {
 
       <div className=" absolute animate-fade-right z-10 bottom-40 left-3.5">
         <div className=" flex space-x-2 items-center">
-          <Avatar>
+          <Avatar className=" h-11 w-11">
             <AvatarFallback>CN</AvatarFallback>
-            <AvatarImage src={playlist[currentIndex]?.thumbnailUrl} />
+            <AvatarImage
+              src={
+                (data &&
+                  data.thumbnails[0]?.url.replace(
+                    "w540-h225",
+                    "w1080-h1080"
+                  )) ||
+                "/favicon.jpeg"
+              }
+            />
           </Avatar>
           <div>
             <h1 className=" flex truncate w-[60dvw] text-base font-semibold">
