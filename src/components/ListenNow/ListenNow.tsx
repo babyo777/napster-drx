@@ -246,7 +246,7 @@ export function ListenNowComp() {
                 <IoMdInformationCircleOutline />
               </DropdownMenuLabel>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className=" -mt-10 ml-44 flex text-sm  justify-center items-center rounded-xl bg-transparent py-2 font-normal text-zinc-300 border-none">
+            <DropdownMenuContent className=" -mt-[2.4rem] ml-44 flex text-sm  justify-center items-center rounded-xl bg-transparent py-2 font-normal text-zinc-300 border-none">
               <p>Based on recent playing</p>
             </DropdownMenuContent>
           </DropdownMenu>
