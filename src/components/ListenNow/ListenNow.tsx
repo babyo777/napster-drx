@@ -190,12 +190,12 @@ export function ListenNowComp() {
           <Alert className=" fade-in bg-red-500 top-4 border-none">
             <AlertTitle>Playback Server is Down !</AlertTitle>
             <AlertDescription>
-              <span className="flex">
-                music will not play for a while{" "}
-                <p onClick={handleReport} className="ml-1">
+              <p>
+                restart app to connect to other server or music wait for a while{" "}
+                <span onClick={handleReport}>
                   {report ? "@check again" : "@send report"}
-                </p>
-              </span>
+                </span>
+              </p>
             </AlertDescription>
           </Alert>
         </div>
@@ -205,9 +205,9 @@ export function ListenNowComp() {
           <Alert className=" fade-in bg-red-500 top-4 border-none">
             <AlertTitle>Playback Server is Down !</AlertTitle>
             <AlertDescription>
-              <p className="flex">
-                music will not play for a while{" "}
-                <span onClick={handleReport} className="ml-1">
+              <p>
+                restart app to connect to other server or music wait for a while{" "}
+                <span onClick={handleReport}>
                   {report ? "@check again" : "@send report"}
                 </span>
               </p>

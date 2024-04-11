@@ -24,7 +24,7 @@ import {
 import { RootState } from "@/Store/Store";
 import { streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import {
@@ -407,38 +407,69 @@ function AudioPLayerComp() {
       staleTime: Infinity,
     }
   );
+  const location = useLocation();
 
   return (
     <>
       <audio src="" hidden ref={audioRef}></audio>
       {!isStandalone ? (
-        <p className="w-[68dvw]  px-4">app not installed</p>
+        <p
+          className={`w-[68dvw] ${
+            location.pathname == "/share-play" ? "hidden" : ""
+          }  px-4`}
+        >
+          app not installed
+        </p>
       ) : (
         <Drawer>
           <DrawerTrigger>
-            <div className="items-center  flex space-x-2 w-[68dvw]   px-2.5">
-              <div className=" h-11 w-11 overflow-hidden rounded-xl">
-                <LazyLoadImage
-                  height="100%"
-                  width="100%"
-                  src={c || playlist[currentIndex]?.thumbnailUrl}
-                  onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
-                    (e.currentTarget.src = "/newfavicon.jpg")
-                  }
-                  alt="Image"
-                  effect="blur"
-                  className="object-cover  transition-all duration-300 w-[100%] h-[100%] "
-                />
+            {location.pathname == "/share-play" ? (
+              <>
+                {isLoading ? (
+                  <div className="z-10  h-9 w-9 rounded-md justify-between absolute bottom-[5.8rem] space-y-2.5 flex  items-center right-2.5">
+                    <Loader size="30" loading={true} />
+                  </div>
+                ) : (
+                  <div className=" z-10  h-9 w-9 rounded-md justify-between absolute bottom-[5.8rem] space-y-2.5 flex  items-center right-2.5">
+                    <LazyLoadImage
+                      height="100%"
+                      width="100%"
+                      src={c || playlist[currentIndex]?.thumbnailUrl}
+                      onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                        (e.currentTarget.src = "/newfavicon.jpg")
+                      }
+                      alt="Image"
+                      effect="blur"
+                      className="object-cover rounded-md  transition-all duration-300 w-[100%] h-[100%] "
+                    />
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="items-center  flex space-x-2 w-[68dvw]   px-2.5">
+                <div className=" h-11 w-11 overflow-hidden rounded-xl">
+                  <LazyLoadImage
+                    height="100%"
+                    width="100%"
+                    src={c || playlist[currentIndex]?.thumbnailUrl}
+                    onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                      (e.currentTarget.src = "/newfavicon.jpg")
+                    }
+                    alt="Image"
+                    effect="blur"
+                    className="object-cover  transition-all duration-300 w-[100%] h-[100%] "
+                  />
+                </div>
+                <div className="flex flex-col text-start">
+                  <p className=" text-sm truncate animate-fade-up w-[50vw] ">
+                    {playlist[currentIndex]?.title}
+                  </p>
+                  <p className=" text-xs w-[30vw] animate-fade-up truncate">
+                    {playlist[currentIndex].artists[0]?.name || "Unknown"}
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-col text-start">
-                <p className=" text-sm truncate animate-fade-up w-[50vw] ">
-                  {playlist[currentIndex]?.title}
-                </p>
-                <p className=" text-xs w-[30vw] animate-fade-up truncate">
-                  {playlist[currentIndex].artists[0]?.name || "Unknown"}
-                </p>
-              </div>
-            </div>
+            )}
           </DrawerTrigger>
 
           <DrawerContent className=" h-[100dvh]  rounded-none bg-[#121212] ">

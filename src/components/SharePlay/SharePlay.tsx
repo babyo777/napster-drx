@@ -19,7 +19,12 @@ import { GetArtistDetails, downloadApi } from "@/API/api";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
-import { setNextPrev } from "@/Store/Player";
+import {
+  SetQueue,
+  setCurrentIndex,
+  setNextPrev,
+  setPlaylist,
+} from "@/Store/Player";
 import { useDoubleTap } from "use-double-tap";
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -27,7 +32,7 @@ import { LuMusic2 } from "react-icons/lu";
 import AudioPLayer from "../Footer/AudioPLayer";
 
 function SharePlay() {
-  const playlist = useSelector((state: RootState) => state.musicReducer.queue);
+  const playlist = useSelector((state: RootState) => state.musicReducer.Feed);
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
@@ -234,6 +239,11 @@ function SharePlay() {
     return () => clearTimeout(t);
   }, [dispatch, playlist.length]);
 
+  useEffect(() => {
+    dispatch(setCurrentIndex(0));
+    dispatch(SetQueue(playlist));
+    dispatch(setPlaylist(playlist));
+  }, [dispatch, playlist]);
   const handlePrev = useCallback(() => {
     setPrev(true);
     const t = setTimeout(() => {
@@ -266,12 +276,12 @@ function SharePlay() {
   const bind = useDoubleTap(handleDbClick);
   return (
     <div className=" fixed w-full ">
-      <div className="h-dvh pb-[11dvh] relative">
+      <div className="h-dvh pb-[19dvh] relative">
         <div className=" z-10  justify-between absolute bottom-[5.6rem] space-y-2.5 flex  items-center left-4">
           <div className=" text-xs bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-1 rounded-xl">
             <p className="flex items-center  text-start  space-x-1">
               <LuMusic2 />
-              <span className="w-[47vw] truncate">
+              <span className="max-w-[47vw] truncate">
                 {playlist[currentIndex]?.title}
               </span>
             </p>
@@ -279,7 +289,7 @@ function SharePlay() {
         </div>
         {playlist && playlist.length > 0 && <AudioPLayer />}
         {dbClick && (
-          <div className=" z-10 pb-[11dvh]  absolute w-full h-full flex justify-center items-center text-9xl  text-red-500">
+          <div className=" z-10 pb-[19dvh]  absolute w-full h-full flex justify-center items-center text-9xl  text-red-500">
             <FaHeart className=" animate-jump-in animate-once animate-ease-in-out" />
           </div>
         )}
@@ -365,7 +375,7 @@ function SharePlay() {
         <div
           {...bind}
           {...swipeHandler}
-          className="max-h-full min-h-full pb-[11dvh] absolute w-full h-full px-14 flex justify-center items-center "
+          className="max-h-full min-h-full pb-[19dvh] absolute w-full h-full px-14 flex justify-center items-center "
         >
           <div>
             <LazyLoadImage
