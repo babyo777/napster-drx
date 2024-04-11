@@ -386,7 +386,7 @@ function SharePlay() {
               }
               alt="Image"
               effect="blur"
-              className={`object-cover rounded-xl ${
+              className={` hidden object-cover rounded-xl ${
                 next && "animate-fade-up"
               }  ${
                 prev && "animate-fade-down"
