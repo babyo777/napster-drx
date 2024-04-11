@@ -318,13 +318,21 @@ function SharePlay() {
                 </Link>
                 {playlist[currentIndex]?.artists[0].name && (
                   <div className="ml-1.5 flex items-center">
-                    <p className=" border px-2 py-0.5  rounded-lg text-xs  ">
-                      {isFavArtist ? (
-                        <span onClick={removeFromFav}>Following</span>
-                      ) : (
-                        <span onClick={addToFav}>Follow</span>
-                      )}
-                    </p>
+                    {isFavArtist ? (
+                      <p
+                        onClick={removeFromFav}
+                        className=" border px-2 py-0.5 bg-white text-black rounded-lg text-xs   "
+                      >
+                        Following
+                      </p>
+                    ) : (
+                      <p
+                        onClick={addToFav}
+                        className=" border px-2 py-0.5 rounded-lg text-xs   "
+                      >
+                        Follow
+                      </p>
+                    )}
                   </div>
                 )}
               </h1>
