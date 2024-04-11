@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
 import { BiLibrary } from "react-icons/bi";
 // import { MdOutlineGridView } from "react-icons/md";
+import { useLocation } from "react-router-dom";
 import React, { useCallback, useEffect, useState } from "react";
 function TabsComp() {
   const [online, setOnline] = useState<boolean>();
@@ -15,10 +16,15 @@ function TabsComp() {
   const handleClick = useCallback(() => {
     window.scrollTo(0, 0);
   }, []);
+  const location = useLocation();
   return (
     <div className="fixed  fade-in w-screen right-0 left-0 bottom-0 flex flex-col justify-center items-center">
-      <Player />
-      <nav className="py-3 pb-7 pt-5 animate-fade-up backdrop-blur-md bg-neutral-900 w-full">
+      {location.pathname !== "/share-play" && <Player />}
+      <nav
+        className={`py-3 pb-7 pt-5 animate-fade-up backdrop-blur-md ${
+          location.pathname !== "/share-play" ? "bg-neutral-900" : ""
+        }  w-full transition-all duration-500`}
+      >
         <ul className="flex items-center text-zinc-500 space-x-14 justify-center">
           <li>
             <NavLink

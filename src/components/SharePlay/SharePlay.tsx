@@ -264,9 +264,9 @@ function SharePlay() {
   const bind = useDoubleTap(handleDbClick);
   return (
     <div className=" fixed w-full">
-      <div className="h-dvh pb-[17dvh] relative">
+      <div className="h-dvh pb-[11dvh] relative">
         {dbClick && (
-          <div className=" z-10 pb-[17dvh]  absolute w-full h-full flex justify-center items-center text-9xl  text-red-500">
+          <div className=" z-10 pb-[11dvh]  absolute w-full h-full flex justify-center items-center text-9xl  text-red-500">
             <FaHeart className=" animate-jump-in animate-once animate-ease-in-out" />
           </div>
         )}
@@ -275,7 +275,7 @@ function SharePlay() {
             Beta
           </p>
         </div>
-        <div className=" z-10 absolute text-3xl bottom-40 space-y-2.5 flex flex-col items-center right-2">
+        <div className=" z-10 absolute text-3xl bottom-24 space-y-2.5 flex flex-col items-center right-2">
           <div className=" animate-fade-left">
             {liked ? (
               <IoMdHeart onClick={RemoveLike} className=" text-red-500" />
@@ -294,7 +294,7 @@ function SharePlay() {
           </div>
         </div>
 
-        <div className=" absolute animate-fade-right z-10 bottom-40 left-3.5">
+        <div className=" absolute animate-fade-right z-10 bottom-24 left-3.5">
           <div className=" flex space-x-2 items-center">
             <Link to={`/artist/${data?.artistId}`}>
               <Avatar className=" h-11 w-11">
@@ -348,7 +348,7 @@ function SharePlay() {
         <div
           {...bind}
           {...swipeHandler}
-          className="max-h-full min-h-full pb-[17dvh] absolute w-full h-full px-14 flex justify-center items-center "
+          className="max-h-full min-h-full pb-[11dvh] absolute w-full h-full px-14 flex justify-center items-center "
         >
           <div>
             <LazyLoadImage
