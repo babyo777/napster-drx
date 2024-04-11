@@ -312,13 +312,13 @@ function SharePlay() {
               </Avatar>
             </Link>
             <div>
-              <h1 className=" flex truncate w-[60dvw] text-base font-semibold">
+              <h1 className=" flex truncate w-[60dvw] text-xl font-semibold">
                 <Link to={`/artist/${data?.artistId}`}>
                   {playlist[currentIndex]?.artists[0].name || "unknown"}
                 </Link>
                 {playlist[currentIndex]?.artists[0].name && (
-                  <div className="ml-1.5">
-                    <p className=" border px-2 py-1 rounded-lg text-xs  ">
+                  <div className="ml-1.5 flex items-center">
+                    <p className=" border px-2 py-0.5  rounded-lg text-xs  ">
                       {isFavArtist ? (
                         <span onClick={removeFromFav}>Following</span>
                       ) : (
