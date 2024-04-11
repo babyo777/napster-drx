@@ -288,8 +288,8 @@ function SharePlay() {
         </div>
 
         {dbClick && (
-          <div className=" z-10 pb-[19dvh]  absolute w-full h-full flex justify-center items-center text-9xl  text-red-500">
-            <FaHeart className=" animate-jump-in animate-once animate-ease-in-out" />
+          <div className=" z-10 pb-[6dvh]  absolute w-full h-full flex justify-center items-center text-9xl bg-gradient-to-r from-rose-400 to-red-500 bg-clip-text  ">
+            <FaHeart className=" fill-red-400 animate-jump-in animate-once animate-ease-in-out " />
           </div>
         )}
         <div className=" absolute top-4 w-full flex items-center justify-center ">
