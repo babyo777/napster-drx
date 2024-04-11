@@ -20,6 +20,8 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { setNextPrev } from "@/Store/Player";
+import { useDoubleTap } from "use-double-tap";
+import { FaHeart } from "react-icons/fa";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.queue);
@@ -131,8 +133,10 @@ function SharePlay() {
   const currentArtistId = useSelector(
     (state: RootState) => state.musicReducer.currentArtistId
   );
-  const handleLink = useCallback(() => {
+  const [once, setOnce] = useState<boolean>();
+  const handleLike = useCallback(() => {
     SetLiked(true);
+    setOnce(true);
     db.createDocument(DATABASE_ID, LIKE_SONG, ID.unique(), {
       youtubeId: playlist[currentIndex].youtubeId,
       title: playlist[currentIndex].title,
@@ -147,12 +151,14 @@ function SharePlay() {
         refetch();
       })
       .catch(() => {
+        setOnce(false);
         SetLiked(false);
       });
   }, [currentIndex, playlist, currentArtistId, refetch]);
 
   const RemoveLike = useCallback(async () => {
     SetLiked(false);
+    setOnce(false);
     if (isLiked) {
       try {
         await db.deleteDocument(
@@ -161,6 +167,7 @@ function SharePlay() {
           isLiked[0].$id || "default"
         );
       } catch (error) {
+        setOnce(true);
         console.error(error);
         SetLiked(true);
       }
@@ -240,8 +247,27 @@ function SharePlay() {
     onSwipedDown: handlePrev,
   });
 
+  const [dbClick, setDb] = useState<boolean>();
+
+  const handleDbClick = useCallback(() => {
+    setDb(true);
+    if (!once) {
+      handleLike();
+    }
+    const t = setTimeout(() => {
+      setDb(false);
+    }, 1000);
+    return () => clearTimeout(t);
+  }, [handleLike, once]);
+
+  const bind = useDoubleTap(handleDbClick);
   return (
     <div className="h-dvh pb-[17dvh] relative">
+      {dbClick && (
+        <div className=" z-10 pb-[17dvh]  absolute w-full h-full flex justify-center items-center text-9xl  text-red-500">
+          <FaHeart className=" animate-jump-in animate-once animate-ease-in-out" />
+        </div>
+      )}
       <div className=" absolute top-4 w-full flex items-center justify-center ">
         <p className=" text-sm bg-zinc-800 rounded-xl px-4 animate-fade-down py-0.5">
           Beta
@@ -252,7 +278,7 @@ function SharePlay() {
           {liked ? (
             <IoMdHeart onClick={RemoveLike} className=" text-red-500" />
           ) : (
-            <IoMdHeartEmpty onClick={handleLink} />
+            <IoMdHeartEmpty onClick={handleLike} />
           )}
         </div>
         <div className=" animate-fade-left text-zinc-500">
@@ -295,6 +321,7 @@ function SharePlay() {
       </div>
 
       <div
+        {...bind}
         {...swipeHandler}
         className="max-h-full min-h-full relative px-14 flex justify-center items-center "
       >
