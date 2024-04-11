@@ -27,6 +27,13 @@ import { SetFeed, SetFeedMode } from "@/Store/Player";
 import { useInView } from "react-intersection-observer";
 import ReactPullToRefresh from "react-simple-pull-to-refresh";
 import FeedSong from "./FeedSongs";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 export function ListenNowComp() {
   const checked = useSelector(
     (state: RootState) => state.musicReducer.feedMode
@@ -233,6 +240,16 @@ export function ListenNowComp() {
             className="animate-fade-left"
             onClick={() => dispatch(SetFeedMode(!checked))}
           />
+          <DropdownMenu>
+            <DropdownMenuTrigger className=" animate-fade-up ">
+              <DropdownMenuLabel className=" -ml-2 text-xl text-zinc-400">
+                <IoMdInformationCircleOutline />
+              </DropdownMenuLabel>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className=" -mt-10 ml-44 flex text-sm  justify-center items-center rounded-xl bg-transparent py-2 font-normal text-zinc-300 border-none">
+              <p>Based on recent playing</p>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       )}
       {checked && music && (
