@@ -240,16 +240,18 @@ export function ListenNowComp() {
             className="animate-fade-left"
             onClick={() => dispatch(SetFeedMode(!checked))}
           />
-          <DropdownMenu>
-            <DropdownMenuTrigger className=" animate-fade-up ">
-              <DropdownMenuLabel className=" -ml-2 text-xl text-zinc-400">
-                <IoMdInformationCircleOutline />
-              </DropdownMenuLabel>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className=" -mt-[2.4rem] ml-44 flex text-sm  justify-center items-center rounded-xl bg-transparent py-2 font-normal text-zinc-300 border-none">
-              <p>Based on recent playing</p>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {checked && (
+            <DropdownMenu>
+              <DropdownMenuTrigger className=" animate-fade-up ">
+                <DropdownMenuLabel className=" -ml-2 text-xl text-zinc-400">
+                  <IoMdInformationCircleOutline />
+                </DropdownMenuLabel>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className=" -mt-[2.4rem] ml-44 flex text-sm  justify-center items-center rounded-xl bg-transparent py-2 font-normal text-zinc-300 border-none">
+                <p>Based on recent playing</p>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       )}
       {checked && music && (
