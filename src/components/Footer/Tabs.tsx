@@ -21,8 +21,8 @@ function TabsComp() {
     <div className="fixed  fade-in w-screen right-0 left-0 bottom-0 flex flex-col justify-center items-center">
       {location.pathname !== "/share-play" && <Player />}
       <nav
-        className={`py-3 pb-7 pt-5 animate-fade-up backdrop-blur-md ${
-          location.pathname !== "/share-play" ? "bg-neutral-900" : ""
+        className={`py-3 pb-7  animate-fade-up backdrop-blur-md ${
+          location.pathname !== "/share-play" ? "bg-neutral-900 pt-5" : "pt-0"
         }  w-full transition-all duration-500`}
       >
         <ul className="flex items-center text-zinc-500 space-x-14 justify-center">

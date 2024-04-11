@@ -23,6 +23,8 @@ import { setNextPrev } from "@/Store/Player";
 import { useDoubleTap } from "use-double-tap";
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { LuMusic2 } from "react-icons/lu";
+import AudioPLayer from "../Footer/AudioPLayer";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.queue);
@@ -263,8 +265,19 @@ function SharePlay() {
 
   const bind = useDoubleTap(handleDbClick);
   return (
-    <div className=" fixed w-full">
+    <div className=" fixed w-full ">
       <div className="h-dvh pb-[11dvh] relative">
+        <div className=" z-10  justify-between absolute bottom-[5.6rem] space-y-2.5 flex  items-center left-4">
+          <div className=" text-xs bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-1 rounded-xl">
+            <p className="flex items-center  text-start  space-x-1">
+              <LuMusic2 />
+              <span className="w-[47vw] truncate">
+                {playlist[currentIndex]?.title}
+              </span>
+            </p>
+          </div>
+        </div>
+        <AudioPLayer />
         {dbClick && (
           <div className=" z-10 pb-[11dvh]  absolute w-full h-full flex justify-center items-center text-9xl  text-red-500">
             <FaHeart className=" animate-jump-in animate-once animate-ease-in-out" />
@@ -275,7 +288,8 @@ function SharePlay() {
             Beta
           </p>
         </div>
-        <div className=" z-10 absolute text-3xl bottom-24 space-y-2.5 flex flex-col items-center right-2">
+
+        <div className=" z-10 absolute text-3xl bottom-36 space-y-2.5 flex flex-col items-center right-2">
           <div className=" animate-fade-left">
             {liked ? (
               <IoMdHeart onClick={RemoveLike} className=" text-red-500" />
@@ -294,7 +308,7 @@ function SharePlay() {
           </div>
         </div>
 
-        <div className=" absolute animate-fade-right z-10 bottom-24 left-3.5">
+        <div className=" absolute animate-fade-right z-10 bottom-32 left-3.5">
           <div className=" flex space-x-2 items-center">
             <Link to={`/artist/${data?.artistId}`}>
               <Avatar className=" h-11 w-11">
@@ -340,7 +354,7 @@ function SharePlay() {
                 )}
               </h1>
               <Link to={`/artist/${data?.artistId}`}>
-                <p className="  text-xs truncate w-[65dvw]">
+                <p className="  text-xs truncate w-[60dvw]">
                   {playlist[currentIndex]?.title || "unknown"}
                 </p>
               </Link>
