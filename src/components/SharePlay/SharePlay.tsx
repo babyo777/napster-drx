@@ -31,6 +31,10 @@ function SharePlay() {
   const [next, setNext] = useState<boolean>();
   const [prev, setPrev] = useState<boolean>();
 
+  const animationRef = useRef<LottieRefCurrentProps>(null);
+  const [dur, setDuration] = useState<number>();
+  const [prog, setProgress] = useState<number>();
+
   const audioRef = useRef<HTMLAudioElement>(null);
   const [muted, setMuted] = useState<boolean>();
   const music = useSelector((state: RootState) => state.musicReducer.music);
@@ -260,6 +264,7 @@ function SharePlay() {
   }, [playlist, currentIndex]);
 
   const handleNext = useCallback(async () => {
+    setProgress(0);
     currentIndex == playlist.length - 1 && (await loadMoreReels());
     setOnce(false);
     setNext(true);
@@ -274,6 +279,7 @@ function SharePlay() {
   }, [dispatch, playlist.length, currentIndex, loadMoreReels]);
 
   const handlePrev = useCallback(() => {
+    setProgress(0);
     setOnce(false);
     setPrev(true);
     const t = setTimeout(() => {
@@ -322,10 +328,6 @@ function SharePlay() {
       music.pause();
     }
   }, [isPlaying, music]);
-
-  const animationRef = useRef<LottieRefCurrentProps>(null);
-  const [dur, setDuration] = useState<number>();
-  const [prog, setProgress] = useState<number>();
 
   useEffect(() => {
     if (playlist.length > 0) {
