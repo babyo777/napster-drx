@@ -454,7 +454,7 @@ function SharePlay() {
           </p>
         </div>
 
-        <div className=" z-10 absolute text-3xl bottom-36 space-y-2.5 flex flex-col items-center right-2">
+        <div className=" z-10 absolute text-4xl bottom-36 space-y-2.5 flex flex-col items-center right-2">
           <div className=" animate-fade-left">
             {liked ? (
               <IoMdHeart onClick={RemoveLike} className=" text-red-500" />
@@ -464,7 +464,7 @@ function SharePlay() {
           </div>
 
           <div className=" animate-fade-left">
-            <ShareLyrics className="h-6 w-6" />
+            <ShareLyrics className="h-7 w-7" />
           </div>
           <div onClick={handleDownload} className=" animate-fade-left">
             <LiaDownloadSolid />
@@ -477,7 +477,7 @@ function SharePlay() {
               <Skeleton className="w-11 rounded-full bg-zinc-800 h-11" />
             ) : (
               <Link to={`/artist/${data?.artistId}`}>
-                <Avatar className=" h-11 w-11">
+                <Avatar className=" h-12 w-12">
                   <AvatarFallback>CN</AvatarFallback>
                   <AvatarImage
                     src={
@@ -493,7 +493,7 @@ function SharePlay() {
               </Link>
             )}
             <div>
-              <h1 className=" flex truncate  text-lg font-semibold">
+              <h1 className=" flex truncate  text-xl font-semibold">
                 <Link
                   to={`/artist/${data?.artistId}`}
                   className="max-w-[47dvw] truncate"
