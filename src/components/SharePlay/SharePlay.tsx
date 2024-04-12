@@ -52,7 +52,11 @@ function SharePlay() {
   const getReels = useCallback(async () => {
     const rnDno = Math.floor(Math.random() * queue.length - 1);
     const r = await axios.get(
-      `${ReelsApi}${queue[rnDno]?.title + " " + queue[rnDno].artists[0]?.name}`
+      `${ReelsApi}${
+        queue[rnDno]?.title.replace("/", "") +
+        " " +
+        queue[rnDno].artists[0]?.name.replace("/", "")
+      }`
     );
 
     dispatch(SetReels(r.data));
@@ -63,10 +67,7 @@ function SharePlay() {
     ["reels"],
     getReels,
     {
-      onSuccess(data) {
-        data.length == 0 && loadMoreReels();
-        data[0].youtubeId == null && loadMoreReels();
-      },
+      retry: 1,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
     }
