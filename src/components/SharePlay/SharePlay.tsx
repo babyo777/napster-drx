@@ -341,6 +341,7 @@ function SharePlay() {
         //   setProgress(sound.currentTime);
         // };
         sound.addEventListener("play", handlePlay);
+        sound.addEventListener("ended", handleNext);
         sound.addEventListener("pause", handlePause);
         // sound.addEventListener("load", handleLoad);
         // sound.addEventListener("timeupdate", handleTimeUpdate);
@@ -349,6 +350,7 @@ function SharePlay() {
         return () => {
           sound.load();
           sound.pause();
+          sound.removeEventListener("ended", handleNext);
           sound.removeEventListener("pause", handlePause);
           sound.removeEventListener("play", handlePlay);
           // sound.removeEventListener("load", handleLoad);
@@ -356,7 +358,7 @@ function SharePlay() {
         };
       }
     }
-  }, [playlist, currentIndex]);
+  }, [playlist, currentIndex, handleNext]);
 
   const handlePlayPause = useCallback(() => {
     const sound = audioRef.current;
