@@ -51,6 +51,8 @@ function SharePlay() {
         queue[0]?.title + " " + queue[0].artists[0]?.name || "arijit singh"
       }`
     );
+    console.log("ok");
+
     dispatch(SetReels(playlist.concat(r.data)));
     return r.data as playlistSongs[];
   }, [dispatch, playlist, queue]);
@@ -240,6 +242,12 @@ function SharePlay() {
       staleTime: Infinity,
     }
   );
+
+  useEffect(() => {
+    if (playlist.length == 0) {
+      loadMoreReels();
+    }
+  }, [playlist, loadMoreReels]);
 
   const handleDownload = useCallback(() => {
     if (playlist.length == 0) return;
