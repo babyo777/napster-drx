@@ -565,13 +565,15 @@ function SharePlay() {
                 prev && "animate-fade-down"
               }  transition-all duration-300 w-[100%] h-[100%] `}
             />
-            <Lottie
-              onClick={handlePlayPause}
-              autoplay={false}
-              lottieRef={animationRef}
-              className=" animate-fade-down -mt-[1dvh] h-32 w-32"
-              animationData={musicData}
-            />
+            {playlist.length > 0 && (
+              <Lottie
+                onClick={handlePlayPause}
+                autoplay={false}
+                lottieRef={animationRef}
+                className=" animate-fade-down -mt-[1dvh] h-32 w-32"
+                animationData={musicData}
+              />
+            )}
           </div>
         </div>
       </div>
