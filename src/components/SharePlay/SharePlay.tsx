@@ -46,8 +46,12 @@ function SharePlay() {
   const [isFavArtist, setIsFavArtist] = useState<boolean>();
 
   const getReels = useCallback(async () => {
+    const rndNo = Math.floor(Math.random() * queue.length - 1);
     const r = await axios.get(
-      `${ReelsApi}${queue[0]?.title || "arijit singh"}`
+      `${ReelsApi}${
+        queue[rndNo]?.title + " " + queue[rndNo].artists[0]?.name ||
+        "arijit singh"
+      }`
     );
     dispatch(SetReels(playlist.concat(r.data)));
     return r.data as playlistSongs[];
@@ -315,8 +319,8 @@ function SharePlay() {
   }, [isPlaying, music]);
 
   const animationRef = useRef<LottieRefCurrentProps>(null);
-  const [duration, setDuration] = useState<number>();
-  const [progress, setProgress] = useState<number>();
+  // const [duration, setDuration] = useState<number>();
+  // const [progress, setProgress] = useState<number>();
 
   useEffect(() => {
     const sound = audioRef.current;
