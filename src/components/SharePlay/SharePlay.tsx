@@ -30,7 +30,9 @@ import { Link } from "react-router-dom";
 import { LuMusic2 } from "react-icons/lu";
 import { Skeleton } from "../ui/skeleton";
 import Lottie from "lottie-react";
-import musicData from "../../assets/like.json";
+import musicData from "../../assets/music.json";
+import likeData from "../../assets/like.json";
+import { GoMute, GoUnmute } from "react-icons/go";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.Feed);
@@ -231,6 +233,7 @@ function SharePlay() {
 
   const dispatch = useDispatch();
   const handleNext = useCallback(() => {
+    setOnce(false);
     setNext(true);
     const t = setTimeout(() => {
       setNext(false);
@@ -252,6 +255,7 @@ function SharePlay() {
     dispatch(setPlaylist(playlist));
   }, [dispatch, playlist]);
   const handlePrev = useCallback(() => {
+    setOnce(false);
     setPrev(true);
     const t = setTimeout(() => {
       setPrev(false);
@@ -283,6 +287,20 @@ function SharePlay() {
   }, [handleLike, once, playlist]);
 
   const bind = useDoubleTap(handleDbClick);
+  // const ref = useRef<LottieRefCurrentProps>(null);
+  const [muted, setMuted] = useState<boolean>();
+  const music = useSelector((state: RootState) => state.musicReducer.music);
+  const isPlaying = useSelector(
+    (state: RootState) => state.musicReducer.isPlaying
+  );
+  const handleMute = useCallback(() => {
+    console.log("ok");
+    if (music) {
+      setMuted(!music.muted);
+      music.muted = !music.muted;
+    }
+  }, [music]);
+
   return (
     <div className=" fixed w-full ">
       <div className="h-dvh pb-[19dvh] relative">
@@ -290,20 +308,32 @@ function SharePlay() {
           {playlist.length == 0 ? (
             <Skeleton className="w-28 bg-zinc-800 h-3 mb-2 ml-0.5" />
           ) : (
-            <div className=" text-xs  bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-1 rounded-xl">
-              <p className="flex items-center  text-start  space-x-1">
-                <LuMusic2 />
-                <span className="max-w-[47vw] truncate">
-                  {playlist[currentIndex]?.title}
-                </span>
-              </p>
-            </div>
+            <>
+              <div className=" z-10 flex items-center animate-fade-right space-x-1">
+                <div
+                  onClick={handleMute}
+                  className=" text-xs   bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-2 rounded-full"
+                >
+                  <p className="flex items-center  text-start  space-x-1">
+                    {muted ? <GoMute /> : <GoUnmute />}
+                  </p>
+                </div>
+                <div className=" text-xs  bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-1 rounded-xl">
+                  <p className="flex items-center  text-start  space-x-1">
+                    <LuMusic2 />
+                    <span className="max-w-[47vw] truncate">
+                      {playlist[currentIndex]?.title}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </>
           )}
         </div>
 
         {dbClick && (
           <div className=" z-10 pb-[4dvh]  absolute w-full h-full flex justify-center items-center text-9xl bg-gradient-to-r from-rose-400 to-red-500 bg-clip-text  ">
-            <Lottie animationData={musicData} className="h-56 w-56" />
+            <Lottie animationData={likeData} className="h-56 w-56" />
           </div>
         )}
         <div className=" absolute top-4 w-full flex items-center justify-center ">
@@ -399,6 +429,12 @@ function SharePlay() {
           className="max-h-full min-h-full  absolute w-full h-full px-14 flex justify-center items-center "
         >
           <div>
+            {isPlaying && (
+              <Lottie
+                className=" animate-fade-down"
+                animationData={musicData}
+              />
+            )}
             <LazyLoadImage
               height="100%"
               width="100%"
