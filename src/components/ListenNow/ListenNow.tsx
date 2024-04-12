@@ -169,6 +169,7 @@ export function ListenNowComp() {
       },
       onSuccess(data) {
         data.length == 0 && refetchFeed();
+        data[0].youtubeId == null && refetchFeed();
       },
     }
   );

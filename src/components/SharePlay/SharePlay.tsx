@@ -53,7 +53,6 @@ function SharePlay() {
     const r = await axios.get(
       `${ReelsApi}${queue[0]?.title + " " + queue[0].artists[0]?.name}`
     );
-    console.log("ok");
 
     dispatch(SetReels(playlist.concat(r.data)));
     return r.data as playlistSongs[];
@@ -63,6 +62,10 @@ function SharePlay() {
     ["reels"],
     getReels,
     {
+      onSuccess(data) {
+        data.length == 0 && loadMoreReels();
+        data[0].youtubeId == null && loadMoreReels();
+      },
       refetchOnMount: false,
       refetchOnWindowFocus: false,
     }
