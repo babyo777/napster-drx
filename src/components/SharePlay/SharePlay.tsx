@@ -394,7 +394,7 @@ function SharePlay() {
     <div className=" fixed w-full ">
       <audio src="" ref={audioRef} hidden preload="true" autoPlay></audio>
       <div className="h-dvh pb-[19dvh] relative">
-        <div className=" z-10 w-full absolute bottom-[5rem]">
+        <div className=" z-10 w-full absolute bottom-[5.3rem]">
           <ProgressBar
             className=" w-full border-none animate-fade-up"
             height="1.1px"
@@ -409,7 +409,7 @@ function SharePlay() {
             <Loader />
           </div>
         )}
-        <div className=" z-10 animate-fade-right  h-10 w-10 rounded-md justify-between absolute bottom-[5.7rem] space-y-2.5 flex  items-center right-2.5">
+        <div className=" z-10 animate-fade-right  h-10 w-10 rounded-md justify-between absolute bottom-[6.2rem] space-y-2.5 flex  items-center right-2.5">
           <LazyLoadImage
             height="100%"
             width="100%"
@@ -429,7 +429,7 @@ function SharePlay() {
           />
         </div>
 
-        <div className=" z-10  justify-between absolute bottom-[5.6rem] space-y-2.5 flex  items-center left-4">
+        <div className=" z-10  justify-between absolute bottom-[6rem] space-y-2.5 flex  items-center left-4">
           {playlist.length == 0 ? (
             <Skeleton className="w-28 bg-zinc-800 h-3 mb-2 ml-0.5" />
           ) : (
@@ -467,7 +467,7 @@ function SharePlay() {
           </p>
         </div>
 
-        <div className=" z-10 absolute text-4xl bottom-36 space-y-2.5 flex flex-col items-center right-2">
+        <div className=" z-10 absolute text-4xl bottom-40 space-y-2.5 flex flex-col items-center right-2">
           <div className=" animate-fade-left">
             {liked ? (
               <IoMdHeart onClick={RemoveLike} className=" text-red-500" />
@@ -484,7 +484,7 @@ function SharePlay() {
           </div>
         </div>
 
-        <div className=" absolute animate-fade-right z-10 bottom-32 left-3.5">
+        <div className=" absolute animate-fade-right z-10 bottom-[8.5rem] left-3.5">
           <div className=" flex space-x-2 items-center">
             {playlist.length == 0 ? (
               <Skeleton className="w-11 rounded-full bg-zinc-800 h-11" />
@@ -555,6 +555,7 @@ function SharePlay() {
         >
           <div className=" h-56 w-56 flex  flex-col items-center justify-center ">
             <LazyLoadImage
+              onClick={handlePlayPause}
               height="100%"
               width="100%"
               src={c || playlist[currentIndex]?.thumbnailUrl}
@@ -571,7 +572,6 @@ function SharePlay() {
             />
             {playlist.length > 0 && prog && prog > 0 ? (
               <Lottie
-                onClick={handlePlayPause}
                 autoplay={false}
                 lottieRef={animationRef}
                 className=" animate-fade-down -mt-[1dvh] h-32 w-32"
