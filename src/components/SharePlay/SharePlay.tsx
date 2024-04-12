@@ -61,7 +61,6 @@ function SharePlay() {
     ["reels"],
     getReels,
     {
-      staleTime: 1 * 60000,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
     }
