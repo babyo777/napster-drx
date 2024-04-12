@@ -411,7 +411,7 @@ function AudioPLayerComp() {
 
   return (
     <>
-      <audio src="" hidden ref={audioRef}></audio>
+      <audio src="" preload="true" hidden ref={audioRef}></audio>
       {!isStandalone ? (
         <p
           className={`w-[68dvw] ${
