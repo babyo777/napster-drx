@@ -253,7 +253,7 @@ function SavedEditsComp() {
         <div className="h-screen flex justify-center items-center">
           <GoBack />
           <NavLink to={"/share-play/"} className="underline underline-offset-2">
-            No Liked Edits.
+            No Saved Edits.
           </NavLink>
         </div>
       )}
