@@ -27,7 +27,7 @@ import Loader from "../Loaders/Loader";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.reels);
-  const queue = useSelector((state: RootState) => state.musicReducer.queue);
+  const queue = useSelector((state: RootState) => state.musicReducer.playlist);
   const [next, setNext] = useState<boolean>();
   const [prev, setPrev] = useState<boolean>();
 
@@ -46,11 +46,9 @@ function SharePlay() {
   const [isFavArtist, setIsFavArtist] = useState<boolean>();
 
   const getReels = useCallback(async () => {
-    const rndNo = Math.floor(Math.random() * queue.length - 1);
     const r = await axios.get(
       `${ReelsApi}${
-        queue[rndNo]?.title + " " + queue[rndNo].artists[0]?.name ||
-        "arijit singh"
+        queue[0]?.title + " " + queue[0].artists[0]?.name || "arijit singh"
       }`
     );
     dispatch(SetReels(playlist.concat(r.data)));
