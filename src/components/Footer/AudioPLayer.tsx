@@ -426,11 +426,11 @@ function AudioPLayerComp() {
             {location.pathname == "/share-play" ? (
               <>
                 {isLoading ? (
-                  <div className="z-10  h-9 w-9 rounded-md justify-between absolute bottom-[5.8rem] space-y-2.5 flex  items-center right-2.5">
-                    <Loader size="30" loading={true} />
+                  <div className="z-10  h-7 w-7 rounded-md justify-between absolute bottom-[6.1rem] space-y-2.5 flex  items-center right-2.5">
+                    <Loader size="27" stroke="3" loading={true} />
                   </div>
                 ) : (
-                  <div className=" z-10  h-9 w-9 rounded-md justify-between absolute bottom-[5.8rem] space-y-2.5 flex  items-center right-2.5">
+                  <div className=" z-10  h-10 w-10 rounded-md justify-between absolute bottom-[5.7rem] space-y-2.5 flex  items-center right-2.5">
                     <LazyLoadImage
                       height="100%"
                       width="100%"

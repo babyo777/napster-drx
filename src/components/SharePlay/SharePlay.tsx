@@ -29,6 +29,7 @@ import { useDoubleTap } from "use-double-tap";
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { LuMusic2 } from "react-icons/lu";
+import { Skeleton } from "../ui/skeleton";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.Feed);
@@ -142,6 +143,7 @@ function SharePlay() {
   );
   const [once, setOnce] = useState<boolean>();
   const handleLike = useCallback(() => {
+    if (playlist.length == 0) return;
     SetLiked(true);
     setOnce(true);
     db.createDocument(DATABASE_ID, LIKE_SONG, ID.unique(), {
@@ -164,6 +166,7 @@ function SharePlay() {
   }, [currentIndex, playlist, currentArtistId, refetch]);
 
   const RemoveLike = useCallback(async () => {
+    if (playlist.length == 0) return;
     SetLiked(false);
     setOnce(false);
     if (isLiked) {
@@ -179,7 +182,7 @@ function SharePlay() {
         SetLiked(true);
       }
     }
-  }, [isLiked]);
+  }, [isLiked, playlist]);
 
   useEffect(() => {
     if (playlist[currentIndex]?.artists[0].id) {
@@ -212,7 +215,7 @@ function SharePlay() {
   );
 
   const handleDownload = useCallback(() => {
-    if (!playlist) return;
+    if (playlist.length == 0) return;
     const link = document.createElement("a");
     link.style.display = "none";
     link.target = "_blank";
@@ -239,7 +242,11 @@ function SharePlay() {
   }, [dispatch, playlist.length]);
 
   useEffect(() => {
-    dispatch(setCurrentIndex(0));
+    if (currentIndex > playlist.length) {
+      dispatch(setCurrentIndex(0));
+    }
+  }, [dispatch, playlist, currentIndex]);
+  useEffect(() => {
     dispatch(SetQueue(playlist));
     dispatch(setPlaylist(playlist));
   }, [dispatch, playlist]);
@@ -277,14 +284,18 @@ function SharePlay() {
     <div className=" fixed w-full ">
       <div className="h-dvh pb-[19dvh] relative">
         <div className=" z-10  justify-between absolute bottom-[5.6rem] space-y-2.5 flex  items-center left-4">
-          <div className=" text-xs bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-1 rounded-xl">
-            <p className="flex items-center  text-start  space-x-1">
-              <LuMusic2 />
-              <span className="max-w-[47vw] truncate">
-                {playlist[currentIndex]?.title}
-              </span>
-            </p>
-          </div>
+          {playlist.length == 0 ? (
+            <Skeleton className="w-28 bg-zinc-800 h-3 mb-2 ml-0.5" />
+          ) : (
+            <div className=" text-xs bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-1 rounded-xl">
+              <p className="flex items-center  text-start  space-x-1">
+                <LuMusic2 />
+                <span className="max-w-[47vw] truncate">
+                  {playlist[currentIndex]?.title}
+                </span>
+              </p>
+            </div>
+          )}
         </div>
 
         {dbClick && (
@@ -319,28 +330,34 @@ function SharePlay() {
 
         <div className=" absolute animate-fade-right z-10 bottom-32 left-3.5">
           <div className=" flex space-x-2 items-center">
-            <Link to={`/artist/${data?.artistId}`}>
-              <Avatar className=" h-11 w-11">
-                <AvatarFallback>CN</AvatarFallback>
-                <AvatarImage
-                  src={
-                    (data &&
-                      data.thumbnails[0]?.url.replace(
-                        "w540-h225",
-                        "w1080-h1080"
-                      )) ||
-                    "/favicon.jpeg"
-                  }
-                />
-              </Avatar>
-            </Link>
+            {playlist.length == 0 ? (
+              <Skeleton className="w-11 rounded-full bg-zinc-800 h-11" />
+            ) : (
+              <Link to={`/artist/${data?.artistId}`}>
+                <Avatar className=" h-11 w-11">
+                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage
+                    src={
+                      (data &&
+                        data.thumbnails[0]?.url.replace(
+                          "w540-h225",
+                          "w1080-h1080"
+                        )) ||
+                      "/favicon.jpeg"
+                    }
+                  />
+                </Avatar>
+              </Link>
+            )}
             <div>
               <h1 className=" flex truncate  text-lg font-semibold">
                 <Link
                   to={`/artist/${data?.artistId}`}
                   className="max-w-[47dvw] truncate"
                 >
-                  {playlist[currentIndex]?.artists[0].name || "unknown"}
+                  {playlist[currentIndex]?.artists[0].name || (
+                    <Skeleton className="w-28 bg-zinc-800 h-3" />
+                  )}
                 </Link>
                 {playlist[currentIndex]?.artists[0].name && (
                   <div className="ml-1.5 flex items-center">
@@ -364,7 +381,9 @@ function SharePlay() {
               </h1>
               <Link to={`/artist/${data?.artistId}`}>
                 <p className="  text-xs truncate w-[60dvw]">
-                  {playlist[currentIndex]?.title || "unknown"}
+                  {playlist[currentIndex]?.title || (
+                    <Skeleton className="w-24 mt-1 bg-zinc-800 h-3" />
+                  )}
                 </p>
               </Link>
             </div>
