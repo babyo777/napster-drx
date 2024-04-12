@@ -50,13 +50,14 @@ function SharePlay() {
   const [isFavArtist, setIsFavArtist] = useState<boolean>();
 
   const getReels = useCallback(async () => {
+    const rnDno = Math.floor(Math.random() * queue.length - 1);
     const r = await axios.get(
-      `${ReelsApi}${queue[0]?.title + " " + queue[0].artists[0]?.name}`
+      `${ReelsApi}${queue[rnDno]?.title + " " + queue[rnDno].artists[0]?.name}`
     );
 
-    dispatch(SetReels(playlist.concat(r.data)));
+    dispatch(SetReels(r.data));
     return r.data as playlistSongs[];
-  }, [dispatch, playlist, queue]);
+  }, [dispatch, queue]);
 
   const { refetch: loadMoreReels, isRefetching } = useQuery<playlistSongs[]>(
     ["reels"],

@@ -22,7 +22,7 @@ function TabsComp() {
   }, []);
   const dispatch = useDispatch();
   const handleLoadMore = useCallback(async () => {
-    await q.refetchQueries(["reels"]);
+    await q.fetchQuery(["reels"]);
     dispatch(setReelsIndex(0));
   }, [q, dispatch]);
   const location = useLocation();
