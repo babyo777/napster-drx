@@ -26,10 +26,11 @@ import {
   setPlaylist,
 } from "@/Store/Player";
 import { useDoubleTap } from "use-double-tap";
-import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { LuMusic2 } from "react-icons/lu";
 import { Skeleton } from "../ui/skeleton";
+import Lottie from "lottie-react";
+import musicData from "../../assets/like.json";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.Feed);
@@ -271,13 +272,15 @@ function SharePlay() {
   const handleDbClick = useCallback(() => {
     setDb(true);
     if (!once) {
-      handleLike();
+      if (playlist.length > 0) {
+        handleLike();
+      }
     }
     const t = setTimeout(() => {
       setDb(false);
-    }, 1000);
+    }, 1290);
     return () => clearTimeout(t);
-  }, [handleLike, once]);
+  }, [handleLike, once, playlist]);
 
   const bind = useDoubleTap(handleDbClick);
   return (
@@ -287,7 +290,7 @@ function SharePlay() {
           {playlist.length == 0 ? (
             <Skeleton className="w-28 bg-zinc-800 h-3 mb-2 ml-0.5" />
           ) : (
-            <div className=" text-xs bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-1 rounded-xl">
+            <div className=" text-xs  bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-1 rounded-xl">
               <p className="flex items-center  text-start  space-x-1">
                 <LuMusic2 />
                 <span className="max-w-[47vw] truncate">
@@ -299,8 +302,8 @@ function SharePlay() {
         </div>
 
         {dbClick && (
-          <div className=" z-10 pb-[6dvh]  absolute w-full h-full flex justify-center items-center text-9xl bg-gradient-to-r from-rose-400 to-red-500 bg-clip-text  ">
-            <FaHeart className=" fill-red-400 animate-jump-in animate-once animate-ease-in-out " />
+          <div className=" z-10 pb-[4dvh]  absolute w-full h-full flex justify-center items-center text-9xl bg-gradient-to-r from-rose-400 to-red-500 bg-clip-text  ">
+            <Lottie animationData={musicData} className="h-56 w-56" />
           </div>
         )}
         <div className=" absolute top-4 w-full flex items-center justify-center ">
@@ -364,14 +367,14 @@ function SharePlay() {
                     {isFavArtist ? (
                       <p
                         onClick={removeFromFav}
-                        className=" border px-2 py-0.5 bg-white text-black rounded-lg text-xs   "
+                        className=" border px-2 py-0.5 bg-white text-black rounded-lg text-sm   "
                       >
                         Following
                       </p>
                     ) : (
                       <p
                         onClick={addToFav}
-                        className=" border px-2 py-0.5 rounded-lg text-xs   "
+                        className=" border px-2 py-0.5 rounded-lg text-sm   "
                       >
                         Follow
                       </p>
@@ -393,7 +396,7 @@ function SharePlay() {
         <div
           {...bind}
           {...swipeHandler}
-          className="max-h-full min-h-full pb-[19dvh] absolute w-full h-full px-14 flex justify-center items-center "
+          className="max-h-full min-h-full  absolute w-full h-full px-14 flex justify-center items-center "
         >
           <div>
             <LazyLoadImage
