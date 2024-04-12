@@ -323,36 +323,38 @@ function SharePlay() {
   // const [progress, setProgress] = useState<number>();
 
   useEffect(() => {
-    const sound = audioRef.current;
-    if (sound) {
-      sound.src = playlist[currentIndex].youtubeId;
-      console.log(playlist[currentIndex].thumbnailUrl);
-      const handlePlay = () => {
-        animationRef.current?.play();
-      };
-      const handlePause = () => {
-        animationRef.current?.pause();
-      };
-      // const handleLoad = () => {
-      //   setDuration(sound.duration);
-      // };
-      // const handleTimeUpdate = () => {
-      //   setProgress(sound.currentTime);
-      // };
-      sound.addEventListener("play", handlePlay);
-      sound.addEventListener("pause", handlePause);
-      // sound.addEventListener("load", handleLoad);
-      // sound.addEventListener("timeupdate", handleTimeUpdate);
-      sound.play();
+    if (playlist.length > 0) {
+      const sound = audioRef.current;
+      if (sound) {
+        sound.src = playlist[currentIndex].youtubeId;
+        console.log(playlist[currentIndex].thumbnailUrl);
+        const handlePlay = () => {
+          animationRef.current?.play();
+        };
+        const handlePause = () => {
+          animationRef.current?.pause();
+        };
+        // const handleLoad = () => {
+        //   setDuration(sound.duration);
+        // };
+        // const handleTimeUpdate = () => {
+        //   setProgress(sound.currentTime);
+        // };
+        sound.addEventListener("play", handlePlay);
+        sound.addEventListener("pause", handlePause);
+        // sound.addEventListener("load", handleLoad);
+        // sound.addEventListener("timeupdate", handleTimeUpdate);
+        sound.play();
 
-      return () => {
-        sound.load();
-        sound.pause();
-        sound.removeEventListener("pause", handlePause);
-        sound.removeEventListener("play", handlePlay);
-        // sound.removeEventListener("load", handleLoad);
-        // sound.removeEventListener("timeupdate", handleTimeUpdate);
-      };
+        return () => {
+          sound.load();
+          sound.pause();
+          sound.removeEventListener("pause", handlePause);
+          sound.removeEventListener("play", handlePlay);
+          // sound.removeEventListener("load", handleLoad);
+          // sound.removeEventListener("timeupdate", handleTimeUpdate);
+        };
+      }
     }
   }, [playlist, currentIndex]);
 
