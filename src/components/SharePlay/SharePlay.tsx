@@ -333,25 +333,25 @@ function SharePlay() {
       const handlePause = () => {
         animationRef.current?.pause();
       };
-      const handleLoad = () => {
-        setDuration(sound.duration);
-      };
-      const handleTimeUpdate = () => {
-        setProgress(sound.currentTime);
-      };
+      // const handleLoad = () => {
+      //   setDuration(sound.duration);
+      // };
+      // const handleTimeUpdate = () => {
+      //   setProgress(sound.currentTime);
+      // };
       sound.addEventListener("play", handlePlay);
       sound.addEventListener("pause", handlePause);
-      sound.addEventListener("load", handleLoad);
-      sound.addEventListener("timeupdate", handleTimeUpdate);
+      // sound.addEventListener("load", handleLoad);
+      // sound.addEventListener("timeupdate", handleTimeUpdate);
       sound.play();
 
       return () => {
         sound.load();
         sound.pause();
         sound.removeEventListener("pause", handlePause);
-        sound.removeEventListener("load", handleLoad);
         sound.removeEventListener("play", handlePlay);
-        sound.removeEventListener("timeupdate", handleTimeUpdate);
+        // sound.removeEventListener("load", handleLoad);
+        // sound.removeEventListener("timeupdate", handleTimeUpdate);
       };
     }
   }, [playlist, currentIndex]);
