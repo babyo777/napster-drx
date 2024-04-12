@@ -369,6 +369,14 @@ function SharePlay() {
     }
   }, []);
 
+  useEffect(() => {
+    const handleChange = () => {
+      document.hidden && audioRef.current?.pause();
+    };
+    document.addEventListener("visibilitychange", handleChange);
+    return () => document.removeEventListener("visibilitychange", handleChange);
+  }, []);
+
   return (
     <div className=" fixed w-full ">
       <audio src="" ref={audioRef} hidden preload="true" autoPlay></audio>
