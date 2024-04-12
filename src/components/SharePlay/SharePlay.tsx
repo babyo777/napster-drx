@@ -567,7 +567,7 @@ function SharePlay() {
               onClick={handlePlayPause}
               autoplay={false}
               lottieRef={animationRef}
-              className=" animate-fade-down -mt-1 h-32 w-32"
+              className=" animate-fade-down -mt-[1dvh] h-32 w-32"
               animationData={musicData}
             />
           </div>
