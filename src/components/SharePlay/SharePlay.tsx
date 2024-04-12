@@ -23,6 +23,7 @@ import musicData from "../../assets/music.json";
 import likeData from "../../assets/like.json";
 import { GoMute, GoUnmute } from "react-icons/go";
 import Loader from "../Loaders/Loader";
+// import ProgressBar from "@ramonak/react-progress-bar";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.reels);
@@ -56,6 +57,7 @@ function SharePlay() {
     ["reels"],
     getReels,
     {
+      staleTime: 1 * 60000,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
     }
@@ -248,8 +250,8 @@ function SharePlay() {
     document.body.removeChild(link);
   }, [playlist, currentIndex]);
 
-  const handleNext = useCallback(() => {
-    loadMoreReels();
+  const handleNext = useCallback(async () => {
+    currentIndex == playlist.length - 1 && (await loadMoreReels());
     setOnce(false);
     setNext(true);
     const t = setTimeout(() => {
@@ -313,29 +315,40 @@ function SharePlay() {
   }, [isPlaying, music]);
 
   const animationRef = useRef<LottieRefCurrentProps>(null);
-  useEffect(() => {
-    if (playlist.length > 0) {
-      const sound = audioRef.current;
-      if (sound) {
-        sound.src = playlist[currentIndex].youtubeId;
-        console.log(playlist[currentIndex].thumbnailUrl);
-        const handlePlay = () => {
-          animationRef.current?.play();
-        };
-        const handlePause = () => {
-          animationRef.current?.pause();
-        };
-        sound.addEventListener("play", handlePlay);
-        sound.addEventListener("pause", handlePause);
-        sound.play();
+  const [duration, setDuration] = useState<number>();
+  const [progress, setProgress] = useState<number>();
 
-        return () => {
-          sound.removeEventListener("pause", handlePause);
-          sound.removeEventListener("play", handlePlay);
-          sound.load();
-          sound.pause();
-        };
-      }
+  useEffect(() => {
+    const sound = audioRef.current;
+    if (sound) {
+      sound.src = playlist[currentIndex].youtubeId;
+      console.log(playlist[currentIndex].thumbnailUrl);
+      const handlePlay = () => {
+        animationRef.current?.play();
+      };
+      const handlePause = () => {
+        animationRef.current?.pause();
+      };
+      const handleLoad = () => {
+        setDuration(sound.duration);
+      };
+      const handleTimeUpdate = () => {
+        setProgress(sound.currentTime);
+      };
+      sound.addEventListener("play", handlePlay);
+      sound.addEventListener("pause", handlePause);
+      sound.addEventListener("load", handleLoad);
+      sound.addEventListener("timeupdate", handleTimeUpdate);
+      sound.play();
+
+      return () => {
+        sound.load();
+        sound.pause();
+        sound.removeEventListener("pause", handlePause);
+        sound.removeEventListener("load", handleLoad);
+        sound.removeEventListener("play", handlePlay);
+        sound.removeEventListener("timeupdate", handleTimeUpdate);
+      };
     }
   }, [playlist, currentIndex]);
 
@@ -352,6 +365,16 @@ function SharePlay() {
     <div className=" fixed w-full ">
       <audio src="" ref={audioRef} hidden preload="true" loop autoPlay></audio>
       <div className="h-dvh pb-[19dvh] relative">
+        {/* <div className=" z-10 w-full absolute bottom-[5rem]">
+          <ProgressBar
+            className=" w-full border-none animate-fade-up"
+            height="1.1px"
+            isLabelVisible={false}
+            bgColor="grey"
+            maxCompleted={duration}
+            completed={progress || 0}
+          />
+        </div> */}
         {isRefetching && (
           <div className=" animate-fade-down absolute top-14 flex items-center w-full justify-center">
             <Loader />
@@ -499,7 +522,7 @@ function SharePlay() {
         <div
           {...bind}
           {...swipeHandler}
-          className="max-h-full min-h-full pb-[15dvh] pt-[9dvh] absolute w-full h-full px-14 flex justify-center items-center "
+          className="max-h-full min-h-full pb-[15dvh] pt-[10dvh] absolute w-full h-full px-14 flex justify-center items-center "
         >
           <div>
             <Lottie
