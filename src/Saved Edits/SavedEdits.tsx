@@ -177,7 +177,7 @@ function SavedEditsComp() {
           <Loader />
         </div>
       )}
-      {pDetails && pDetails.length > 1 && (
+      {pDetails && pDetails.length > 1 ? (
         <>
           <div className="flex w-screen h-[25rem] justify-center pt-[6vh] relative ">
             <GoBack />
@@ -249,6 +249,13 @@ function SavedEditsComp() {
             ))}
           </div>
         </>
+      ) : (
+        <div className="h-screen flex justify-center items-center">
+          <GoBack />
+          <NavLink to={"/share-play/"} className="underline underline-offset-2">
+            No Liked Edits.
+          </NavLink>
+        </div>
       )}
     </div>
   );
