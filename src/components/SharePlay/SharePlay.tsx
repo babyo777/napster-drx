@@ -399,6 +399,7 @@ function SharePlay() {
           <ProgressBar
             className=" w-full border-none animate-fade-up"
             height="1.1px"
+            barContainerClassName="bg-zinc-900"
             isLabelVisible={false}
             bgColor="grey"
             maxCompleted={dur}
@@ -430,7 +431,7 @@ function SharePlay() {
           />
         </div>
 
-        <div className=" z-10  justify-between absolute bottom-[6rem] space-y-2.5 flex  items-center left-4">
+        <div className=" z-20  justify-between absolute bottom-[6rem] space-y-2.5 flex  items-center left-4">
           {playlist.length == 0 ? (
             <Skeleton className="w-28 bg-zinc-800 h-3 mb-2 ml-0.5" />
           ) : (
@@ -458,8 +459,8 @@ function SharePlay() {
         </div>
 
         {dbClick && (
-          <div className=" z-10  pb-[7dvh] absolute w-full h-full flex justify-center items-center text-9xl bg-gradient-to-r from-rose-400 to-red-500 bg-clip-text  ">
-            <Lottie animationData={likeData} className="h-56 w-56" />
+          <div className=" z-10  pb-[15dvh] absolute w-full h-full flex justify-center items-center text-9xl bg-gradient-to-r from-rose-400 to-red-500 bg-clip-text  ">
+            <Lottie animationData={likeData} className="h-80 w-80" />
           </div>
         )}
         <div className=" absolute top-4 w-full flex items-center justify-center ">
@@ -510,7 +511,7 @@ function SharePlay() {
               <h1 className=" flex truncate  text-xl font-semibold">
                 <Link
                   to={`/artist/${data?.artistId}`}
-                  className="max-w-[47dvw] truncate"
+                  className="max-w-[40dvw] truncate"
                 >
                   {playlist[currentIndex]?.artists[0].name || (
                     <Skeleton className="w-28 bg-zinc-800 h-3" />
@@ -538,7 +539,7 @@ function SharePlay() {
               </h1>
               <Link to={`/artist/${data?.artistId}`}>
                 {playlist[currentIndex]?.title ? (
-                  <p className="  text-xs truncate w-[60dvw]">
+                  <p className="  text-xs truncate w-[50dvw]">
                     {playlist[currentIndex]?.title || "unknown"}
                   </p>
                 ) : (
