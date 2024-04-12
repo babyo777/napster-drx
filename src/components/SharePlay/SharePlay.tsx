@@ -265,6 +265,7 @@ function SharePlay() {
   }, [playlist, currentIndex]);
 
   const handleNext = useCallback(async () => {
+    animationRef.current?.destroy();
     setProgress(0);
     currentIndex == playlist.length - 1 && (await loadMoreReels());
     setOnce(false);
@@ -344,8 +345,10 @@ function SharePlay() {
         };
         const handleLoad = () => {
           setDuration(sound.duration);
+          animationRef.current?.play();
         };
         const handleTimeUpdate = () => {
+          animationRef.current?.play();
           setProgress(sound.currentTime);
         };
         sound.addEventListener("play", handlePlay);
@@ -566,7 +569,7 @@ function SharePlay() {
                 prev && "animate-fade-down"
               }  transition-all duration-300 w-[100%] h-[100%] `}
             />
-            {playlist.length > 0 && (
+            {playlist.length > 0 && prog && prog > 0 ? (
               <Lottie
                 onClick={handlePlayPause}
                 autoplay={false}
@@ -574,6 +577,8 @@ function SharePlay() {
                 className=" animate-fade-down -mt-[1dvh] h-32 w-32"
                 animationData={musicData}
               />
+            ) : (
+              <div className="min-h-24 -mt-[1dvh] min-w-24"></div>
             )}
           </div>
         </div>
