@@ -516,7 +516,7 @@ function SharePlay() {
                   )}
                 </Link>
                 {playlist[currentIndex]?.artists[0].id && (
-                  <div className="ml-1.5 mb-1 flex items-center">
+                  <div className="ml-1.5 mb-0.5 flex items-center">
                     {isFavArtist ? (
                       <p
                         onClick={removeFromFav}
