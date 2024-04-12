@@ -371,7 +371,7 @@ function SharePlay() {
 
   return (
     <div className=" fixed w-full ">
-      <audio src="" ref={audioRef} hidden preload="true" loop autoPlay></audio>
+      <audio src="" ref={audioRef} hidden preload="true" autoPlay></audio>
       <div className="h-dvh pb-[19dvh] relative">
         {/* <div className=" z-10 w-full absolute bottom-[5rem]">
           <ProgressBar
