@@ -51,9 +51,7 @@ function SharePlay() {
 
   const getReels = useCallback(async () => {
     const r = await axios.get(
-      `${ReelsApi}${
-        queue[0]?.title + " " + queue[0].artists[0]?.name || "arijit singh"
-      }`
+      `${ReelsApi}${queue[0]?.title + " " + queue[0].artists[0]?.name}`
     );
     console.log("ok");
 
