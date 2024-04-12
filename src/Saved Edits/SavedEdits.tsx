@@ -250,12 +250,19 @@ function SavedEditsComp() {
           </div>
         </>
       ) : (
-        <div className="h-screen flex justify-center items-center">
-          <GoBack />
-          <NavLink to={"/share-play/"} className="underline underline-offset-2">
-            No Saved Edits.
-          </NavLink>
-        </div>
+        <>
+          {pDetails?.length == 1 && (
+            <div className="h-screen flex justify-center items-center">
+              <GoBack />
+              <NavLink
+                to={"/share-play/"}
+                className="underline underline-offset-2"
+              >
+                No Saved Edits.
+              </NavLink>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
