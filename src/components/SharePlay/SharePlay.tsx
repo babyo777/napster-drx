@@ -23,7 +23,7 @@ import musicData from "../../assets/music.json";
 import likeData from "../../assets/like.json";
 import { GoMute, GoUnmute } from "react-icons/go";
 import Loader from "../Loaders/Loader";
-// import ProgressBar from "@ramonak/react-progress-bar";
+import ProgressBar from "@ramonak/react-progress-bar";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.reels);
@@ -324,8 +324,8 @@ function SharePlay() {
   }, [isPlaying, music]);
 
   const animationRef = useRef<LottieRefCurrentProps>(null);
-  // const [duration, setDuration] = useState<number>();
-  // const [progress, setProgress] = useState<number>();
+  const [dur, setDuration] = useState<number>();
+  const [prog, setProgress] = useState<number>();
 
   useEffect(() => {
     if (playlist.length > 0) {
@@ -339,17 +339,17 @@ function SharePlay() {
         const handlePause = () => {
           animationRef.current?.pause();
         };
-        // const handleLoad = () => {
-        //   setDuration(sound.duration);
-        // };
-        // const handleTimeUpdate = () => {
-        //   setProgress(sound.currentTime);
-        // };
+        const handleLoad = () => {
+          setDuration(sound.duration);
+        };
+        const handleTimeUpdate = () => {
+          setProgress(sound.currentTime);
+        };
         sound.addEventListener("play", handlePlay);
         sound.addEventListener("ended", handleNext);
         sound.addEventListener("pause", handlePause);
-        // sound.addEventListener("load", handleLoad);
-        // sound.addEventListener("timeupdate", handleTimeUpdate);
+        sound.addEventListener("loadedmetadata", handleLoad);
+        sound.addEventListener("timeupdate", handleTimeUpdate);
         sound.play();
 
         return () => {
@@ -358,8 +358,8 @@ function SharePlay() {
           sound.removeEventListener("ended", handleNext);
           sound.removeEventListener("pause", handlePause);
           sound.removeEventListener("play", handlePlay);
-          // sound.removeEventListener("load", handleLoad);
-          // sound.removeEventListener("timeupdate", handleTimeUpdate);
+          sound.removeEventListener("loadedmetadata", handleLoad);
+          sound.removeEventListener("timeupdate", handleTimeUpdate);
         };
       }
     }
@@ -388,16 +388,16 @@ function SharePlay() {
     <div className=" fixed w-full ">
       <audio src="" ref={audioRef} hidden preload="true" autoPlay></audio>
       <div className="h-dvh pb-[19dvh] relative">
-        {/* <div className=" z-10 w-full absolute bottom-[5rem]">
+        <div className=" z-10 w-full absolute bottom-[5rem]">
           <ProgressBar
             className=" w-full border-none animate-fade-up"
             height="1.1px"
             isLabelVisible={false}
             bgColor="grey"
-            maxCompleted={duration}
-            completed={progress || 0}
+            maxCompleted={dur}
+            completed={prog || 0}
           />
-        </div> */}
+        </div>
         {isRefetching && (
           <div className=" animate-fade-down absolute top-14 flex items-center w-full justify-center">
             <Loader />
