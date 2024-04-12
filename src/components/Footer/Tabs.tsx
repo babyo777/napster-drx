@@ -8,6 +8,8 @@ import { BiLibrary } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
 import React, { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
+import { useDispatch } from "react-redux";
+import { setReelsIndex } from "@/Store/Player";
 function TabsComp() {
   const [online, setOnline] = useState<boolean>();
   const q = useQueryClient();
@@ -18,9 +20,11 @@ function TabsComp() {
   const handleClick = useCallback(() => {
     window.scrollTo(0, 0);
   }, []);
+  const dispatch = useDispatch();
   const handleLoadMore = useCallback(() => {
+    dispatch(setReelsIndex(0));
     q.refetchQueries(["reels"]);
-  }, []);
+  }, [q, dispatch]);
   const location = useLocation();
   return (
     <div className="fixed  fade-in w-screen right-0 left-0 bottom-0 flex flex-col justify-center items-center">

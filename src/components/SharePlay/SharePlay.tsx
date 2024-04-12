@@ -22,6 +22,7 @@ import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import musicData from "../../assets/music.json";
 import likeData from "../../assets/like.json";
 import { GoMute, GoUnmute } from "react-icons/go";
+import Loader from "../Loaders/Loader";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.reels);
@@ -51,7 +52,7 @@ function SharePlay() {
     return r.data as playlistSongs[];
   }, [dispatch, playlist, queue]);
 
-  const { refetch: loadMoreReels } = useQuery<playlistSongs[]>(
+  const { refetch: loadMoreReels, isRefetching } = useQuery<playlistSongs[]>(
     ["reels"],
     getReels,
     {
@@ -351,6 +352,11 @@ function SharePlay() {
     <div className=" fixed w-full ">
       <audio src="" ref={audioRef} hidden preload="true" loop autoPlay></audio>
       <div className="h-dvh pb-[19dvh] relative">
+        {isRefetching && (
+          <div className=" animate-fade-down absolute top-14 flex items-center w-full justify-center">
+            <Loader />
+          </div>
+        )}
         <div className=" z-10 animate-fade-right  h-10 w-10 rounded-md justify-between absolute bottom-[5.7rem] space-y-2.5 flex  items-center right-2.5">
           <LazyLoadImage
             height="100%"
@@ -493,7 +499,7 @@ function SharePlay() {
         <div
           {...bind}
           {...swipeHandler}
-          className="max-h-full min-h-full pt-[9dvh] absolute w-full h-full px-14 flex justify-center items-center "
+          className="max-h-full min-h-full pb-[15dvh] pt-[9dvh] absolute w-full h-full px-14 flex justify-center items-center "
         >
           <div>
             <Lottie
