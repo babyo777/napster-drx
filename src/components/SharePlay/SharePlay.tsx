@@ -332,7 +332,7 @@ function SharePlay() {
         </div>
 
         {dbClick && (
-          <div className=" z-10 pb-[4dvh]  pb-[5dvh] absolute w-full h-full flex justify-center items-center text-9xl bg-gradient-to-r from-rose-400 to-red-500 bg-clip-text  ">
+          <div className=" z-10  pb-[5dvh] absolute w-full h-full flex justify-center items-center text-9xl bg-gradient-to-r from-rose-400 to-red-500 bg-clip-text  ">
             <Lottie animationData={likeData} className="h-56 w-56" />
           </div>
         )}
