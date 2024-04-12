@@ -546,17 +546,9 @@ function SharePlay() {
         <div
           {...bind}
           {...swipeHandler}
-          className="max-h-full min-h-full pb-[15dvh] pt-[10dvh] absolute w-full h-full px-14 flex justify-center items-center "
+          className="max-h-full min-h-full pb-[17dvh] pt-[10dvh] absolute w-full h-full px-14 flex justify-center items-center "
         >
-          <div>
-            <Lottie
-              onClick={handlePlayPause}
-              autoplay={false}
-              lottieRef={animationRef}
-              className=" animate-fade-down"
-              animationData={musicData}
-            />
-
+          <div className=" h-56 w-56 flex  flex-col items-center justify-center ">
             <LazyLoadImage
               height="100%"
               width="100%"
@@ -566,11 +558,18 @@ function SharePlay() {
               }
               alt="Image"
               effect="blur"
-              className={` hidden object-cover rounded-xl ${
+              className={`  object-cover rounded-xl ${
                 next && "animate-fade-up"
               }  ${
                 prev && "animate-fade-down"
               }  transition-all duration-300 w-[100%] h-[100%] `}
+            />
+            <Lottie
+              onClick={handlePlayPause}
+              autoplay={false}
+              lottieRef={animationRef}
+              className=" animate-fade-down -mt-1 h-32 w-32"
+              animationData={musicData}
             />
           </div>
         </div>
