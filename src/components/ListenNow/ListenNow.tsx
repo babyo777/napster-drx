@@ -152,7 +152,7 @@ export function ListenNowComp() {
           : playlist[currentIndex].youtubeId
       }`
     );
-    dispatch(SetFeed(q.data.slice(1, 11)));
+    dispatch(SetFeed(q.data.slice(1, 7)));
     return q.data as playlistSongs[];
   };
 
@@ -175,6 +175,7 @@ export function ListenNowComp() {
 
   const { ref, inView } = useInView({
     threshold: 0,
+    rootMargin: "400px",
   });
 
   React.useEffect(() => {
@@ -182,7 +183,7 @@ export function ListenNowComp() {
       axios
         .get(`${SuggestionSearchApi}${music[music.length - 1].youtubeId}`)
         .then((q) => {
-          dispatch(SetFeed(music.concat(q.data.slice(1))));
+          dispatch(SetFeed(music.concat(q.data.slice(1, 7))));
         });
     }
   }, [inView, music, dispatch]);
