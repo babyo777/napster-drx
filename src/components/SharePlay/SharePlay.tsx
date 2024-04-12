@@ -61,12 +61,6 @@ function SharePlay() {
     }
   );
 
-  useEffect(() => {
-    if (currentIndex == playlist.length - 2) {
-      loadMoreReels;
-    }
-  }, [loadMoreReels, currentIndex, playlist]);
-
   const loadIsFav = async () => {
     const r = await db.listDocuments(DATABASE_ID, FAV_ARTIST, [
       Query.equal("for", [localStorage.getItem("uid") || "default"]),
@@ -255,6 +249,7 @@ function SharePlay() {
   }, [playlist, currentIndex]);
 
   const handleNext = useCallback(() => {
+    loadMoreReels();
     setOnce(false);
     setNext(true);
     const t = setTimeout(() => {
@@ -265,7 +260,7 @@ function SharePlay() {
       dispatch(setReelsIndex((currentIndex + 1) % playlist.length));
     }
     return () => clearTimeout(t);
-  }, [dispatch, playlist.length, currentIndex]);
+  }, [dispatch, playlist.length, currentIndex, loadMoreReels]);
 
   const handlePrev = useCallback(() => {
     setOnce(false);
