@@ -21,9 +21,9 @@ function TabsComp() {
     window.scrollTo(0, 0);
   }, []);
   const dispatch = useDispatch();
-  const handleLoadMore = useCallback(() => {
+  const handleLoadMore = useCallback(async () => {
+    await q.refetchQueries(["reels"]);
     dispatch(setReelsIndex(0));
-    q.refetchQueries(["reels"]);
   }, [q, dispatch]);
   const location = useLocation();
   return (
