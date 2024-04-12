@@ -371,7 +371,9 @@ function SharePlay() {
 
   useEffect(() => {
     const handleChange = () => {
-      document.hidden && audioRef.current?.pause();
+      document.hidden
+        ? audioRef.current?.pause()
+        : audioRef.current?.paused && audioRef.current.play();
     };
     document.addEventListener("visibilitychange", handleChange);
     return () => document.removeEventListener("visibilitychange", handleChange);
