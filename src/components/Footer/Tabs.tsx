@@ -7,14 +7,19 @@ import { BiLibrary } from "react-icons/bi";
 // import { MdOutlineGridView } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import React, { useCallback, useEffect, useState } from "react";
+import { useQueryClient } from "react-query";
 function TabsComp() {
   const [online, setOnline] = useState<boolean>();
+  const q = useQueryClient();
   useEffect(() => {
     const online = navigator.onLine;
     setOnline(online);
   }, []);
   const handleClick = useCallback(() => {
     window.scrollTo(0, 0);
+  }, []);
+  const handleLoadMore = useCallback(() => {
+    q.refetchQueries(["reels"]);
   }, []);
   const location = useLocation();
   return (
@@ -51,6 +56,7 @@ function TabsComp() {
           </li> */}
           <li>
             <NavLink
+              onClick={handleLoadMore}
               to={online ? "/share-play" : "/offline/"}
               className={({ isActive }) =>
                 `${isActive && "text-zinc-300"} flex flex-col mb-1 items-center`

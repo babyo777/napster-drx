@@ -22,7 +22,6 @@ import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import musicData from "../../assets/music.json";
 import likeData from "../../assets/like.json";
 import { GoMute, GoUnmute } from "react-icons/go";
-import ReactPullToRefresh from "react-simple-pull-to-refresh";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.reels);
@@ -348,10 +347,6 @@ function SharePlay() {
     }
   }, []);
 
-  const handleRefresh = useCallback(async () => {
-    await loadMoreReels();
-  }, [loadMoreReels]);
-
   return (
     <div className=" fixed w-full ">
       <audio src="" ref={audioRef} hidden preload="true" loop autoPlay></audio>
@@ -494,41 +489,38 @@ function SharePlay() {
             </div>
           </div>
         </div>
-        <ReactPullToRefresh pullingContent={""} onRefresh={handleRefresh}>
-          <>
-            <div
-              {...bind}
-              {...swipeHandler}
-              className="max-h-full min-h-full pt-[9dvh] absolute w-full h-full px-14 flex justify-center items-center "
-            >
-              <div>
-                <Lottie
-                  onClick={handlePlayPause}
-                  autoplay={false}
-                  lottieRef={animationRef}
-                  className=" animate-fade-down"
-                  animationData={musicData}
-                />
 
-                <LazyLoadImage
-                  height="100%"
-                  width="100%"
-                  src={c || playlist[currentIndex]?.thumbnailUrl}
-                  onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
-                    (e.currentTarget.src = "/newfavicon.jpg")
-                  }
-                  alt="Image"
-                  effect="blur"
-                  className={` hidden object-cover rounded-xl ${
-                    next && "animate-fade-up"
-                  }  ${
-                    prev && "animate-fade-down"
-                  }  transition-all duration-300 w-[100%] h-[100%] `}
-                />
-              </div>
-            </div>
-          </>
-        </ReactPullToRefresh>
+        <div
+          {...bind}
+          {...swipeHandler}
+          className="max-h-full min-h-full pt-[9dvh] absolute w-full h-full px-14 flex justify-center items-center "
+        >
+          <div>
+            <Lottie
+              onClick={handlePlayPause}
+              autoplay={false}
+              lottieRef={animationRef}
+              className=" animate-fade-down"
+              animationData={musicData}
+            />
+
+            <LazyLoadImage
+              height="100%"
+              width="100%"
+              src={c || playlist[currentIndex]?.thumbnailUrl}
+              onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                (e.currentTarget.src = "/newfavicon.jpg")
+              }
+              alt="Image"
+              effect="blur"
+              className={` hidden object-cover rounded-xl ${
+                next && "animate-fade-up"
+              }  ${
+                prev && "animate-fade-down"
+              }  transition-all duration-300 w-[100%] h-[100%] `}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
