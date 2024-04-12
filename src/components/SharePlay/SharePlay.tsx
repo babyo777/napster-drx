@@ -62,7 +62,7 @@ function SharePlay() {
   );
 
   useEffect(() => {
-    if (currentIndex == playlist.length - 4) {
+    if (currentIndex == playlist.length - 2) {
       loadMoreReels;
     }
   }, [loadMoreReels, currentIndex, playlist]);
