@@ -22,6 +22,8 @@ import { ReactLenis } from "@studio-freight/react-lenis";
 import Box from "./components/Tune Box/box.tsx";
 import TuneBox from "./components/Tune Box/tunebox.tsx";
 import Offline from "./Offline/offline.tsx";
+// import Test from "./text.tsx";
+import SavedEdits from "./Saved Edits/SavedEdits.tsx";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
@@ -77,6 +79,10 @@ const router = createBrowserRouter([
         element: <LikedSong />,
       },
       {
+        path: "/edits/:id",
+        element: <SavedEdits />,
+      },
+      {
         path: "/suggested",
         element: <Suggested />,
       },
@@ -102,6 +108,10 @@ const router = createBrowserRouter([
     path: "/docs/",
     element: <Docs />,
   },
+  // {
+  //   path: "/test/",
+  //   element: <Test />,
+  // },
   {
     path: "/box/:id",
     element: <Box />,

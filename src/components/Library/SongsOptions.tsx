@@ -20,6 +20,7 @@ import { v4 as uuidv4 } from "uuid";
 import {
   ADD_TO_LIBRARY,
   DATABASE_ID,
+  EDITS,
   ID,
   LIKE_SONG,
   PLAYLIST_COLLECTION_ID,
@@ -42,6 +43,7 @@ function SongsOptions({
   underline,
   music,
   like,
+  edits,
   id,
   reload,
 }: {
@@ -49,6 +51,7 @@ function SongsOptions({
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
   ) => Promise<QueryObserverResult<playlistSongs[], unknown>>;
   like?: boolean;
+  edits?: boolean;
   id?: string;
   music: playlistSongs;
   library?: boolean;
@@ -146,7 +149,9 @@ function SongsOptions({
     const link = document.createElement("a");
     link.style.display = "none";
     link.target = "_blank";
-    link.href = `${downloadApi}${music.youtubeId}&file=${music.title}`;
+    link.href = music.youtubeId.startsWith("http")
+      ? `${music.youtubeId}&file=${music.title}`
+      : `${downloadApi}${music.youtubeId}&file=${music.title}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -154,6 +159,11 @@ function SongsOptions({
   const handleDelete = useCallback(async () => {
     const ok = confirm("Are you sure you want to delete");
     if (ok && reload) {
+      if (edits) {
+        await db.deleteDocument(DATABASE_ID, EDITS, music.$id || "");
+        reload();
+        return;
+      }
       if (like) {
         await db.deleteDocument(DATABASE_ID, LIKE_SONG, music.$id || "");
         reload();
@@ -162,7 +172,7 @@ function SongsOptions({
         reload();
       }
     }
-  }, [music, like, reload]);
+  }, [music, like, reload, edits]);
 
   return (
     <DropdownMenu>

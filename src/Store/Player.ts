@@ -40,6 +40,8 @@ interface Player {
   savedAlbums: savedPlaylist[];
   savedArtists: suggestedArtists[];
   sharePlayConnected: boolean;
+  reels: playlistSongs[];
+  reelsIndex: number;
   shareLyrics:
     | [
         {
@@ -79,12 +81,14 @@ const initialState: Player = {
   isPlaying: false,
   currentPlaying: null,
   currentIndex: 0,
+  reelsIndex: 0,
   music: null,
   currentSongId: "",
   search: "",
   savedPlaylist: [],
   savedAlbums: [],
   savedArtists: [],
+  reels: [],
 };
 
 const MusicPlayer = createSlice({
@@ -114,6 +118,9 @@ const MusicPlayer = createSlice({
     },
     SetQueue: (state, action: PayloadAction<playlistSongs[]>) => {
       state.queue = action.payload;
+    },
+    SetReels: (state, action: PayloadAction<playlistSongs[]>) => {
+      state.reels = action.payload;
     },
     SetLastPlayed: (state, action: PayloadAction<boolean>) => {
       state.lastPlayed = action.payload;
@@ -204,6 +211,9 @@ const MusicPlayer = createSlice({
       state.queue = state.playlist;
       state.currentIndex = action.payload;
     },
+    setReelsIndex: (state, action: PayloadAction<number>) => {
+      state.reelsIndex = action.payload;
+    },
     setNextPrev: (state, action: PayloadAction<string>) => {
       state.queue = state.playlist;
       if (action.payload == "prev") {
@@ -251,6 +261,8 @@ export const {
   setNextQueue,
   SetFeed,
   setSearch,
+  setReelsIndex,
+  SetReels,
   SetSpotifyProgress,
   setSpotifyTrack,
   setPlaylistUrl,

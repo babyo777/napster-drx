@@ -1,45 +1,71 @@
 import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
-import { IoAddSharp } from "react-icons/io5";
-import ShareLyrics from "../Footer/Share";
+import ShareLyrics from "./reelShare";
 import { LiaDownloadSolid } from "react-icons/lia";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import {
-  DATABASE_ID,
-  FAV_ARTIST,
-  LIKE_SONG,
-  db,
-} from "@/appwrite/appwriteConfig";
+import { DATABASE_ID, FAV_ARTIST, EDITS, db } from "@/appwrite/appwriteConfig";
 import { ID, Query } from "appwrite";
-import { ArtistDetails, favArtist } from "@/Interface";
+import { ArtistDetails, favArtist, playlistSongs } from "@/Interface";
 import { useQuery } from "react-query";
-import { GetArtistDetails, downloadApi } from "@/API/api";
+import { GetArtistDetails, ReelsApi } from "@/API/api";
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSwipeable } from "react-swipeable";
-import {
-  SetQueue,
-  setCurrentIndex,
-  setNextPrev,
-  setPlaylist,
-} from "@/Store/Player";
+import { SetReels, setReelsIndex } from "@/Store/Player";
 import { useDoubleTap } from "use-double-tap";
 import { Link } from "react-router-dom";
 import { LuMusic2 } from "react-icons/lu";
 import { Skeleton } from "../ui/skeleton";
-import Lottie from "lottie-react";
+import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import musicData from "../../assets/music.json";
 import likeData from "../../assets/like.json";
 import { GoMute, GoUnmute } from "react-icons/go";
+import ReactPullToRefresh from "react-simple-pull-to-refresh";
 
 function SharePlay() {
-  const playlist = useSelector((state: RootState) => state.musicReducer.Feed);
+  const playlist = useSelector((state: RootState) => state.musicReducer.reels);
+  const queue = useSelector((state: RootState) => state.musicReducer.queue);
+  const [next, setNext] = useState<boolean>();
+  const [prev, setPrev] = useState<boolean>();
+
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [muted, setMuted] = useState<boolean>();
+  const music = useSelector((state: RootState) => state.musicReducer.music);
+
+  const isPlaying = useSelector(
+    (state: RootState) => state.musicReducer.isPlaying
+  );
+
+  const dispatch = useDispatch();
   const currentIndex = useSelector(
-    (state: RootState) => state.musicReducer.currentIndex
+    (state: RootState) => state.musicReducer.reelsIndex
   );
   const [isFavArtist, setIsFavArtist] = useState<boolean>();
+
+  const getReels = useCallback(async () => {
+    const r = await axios.get(
+      `${ReelsApi}${queue[0]?.title || "arijit singh"}`
+    );
+    dispatch(SetReels(playlist.concat(r.data)));
+    return r.data as playlistSongs[];
+  }, [dispatch, playlist, queue]);
+
+  const { refetch: loadMoreReels } = useQuery<playlistSongs[]>(
+    ["reels"],
+    getReels,
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  useEffect(() => {
+    if (currentIndex == playlist.length - 4) {
+      loadMoreReels;
+    }
+  }, [loadMoreReels, currentIndex, playlist]);
 
   const loadIsFav = async () => {
     const r = await db.listDocuments(DATABASE_ID, FAV_ARTIST, [
@@ -117,7 +143,7 @@ function SharePlay() {
   };
 
   const isLikedCheck = async () => {
-    const r = await db.listDocuments(DATABASE_ID, LIKE_SONG, [
+    const r = await db.listDocuments(DATABASE_ID, EDITS, [
       Query.equal("for", [localStorage.getItem("uid") || "default"]),
       Query.equal("youtubeId", [playlist[currentIndex].youtubeId]),
     ]);
@@ -149,7 +175,7 @@ function SharePlay() {
     if (playlist.length == 0) return;
     SetLiked(true);
     setOnce(true);
-    db.createDocument(DATABASE_ID, LIKE_SONG, ID.unique(), {
+    db.createDocument(DATABASE_ID, EDITS, ID.unique(), {
       youtubeId: playlist[currentIndex].youtubeId,
       title: playlist[currentIndex].title,
       artists: [
@@ -176,7 +202,7 @@ function SharePlay() {
       try {
         await db.deleteDocument(
           DATABASE_ID,
-          LIKE_SONG,
+          EDITS,
           isLiked[0].$id || "default"
         );
       } catch (error) {
@@ -222,16 +248,12 @@ function SharePlay() {
     const link = document.createElement("a");
     link.style.display = "none";
     link.target = "_blank";
-    link.href = `${downloadApi}${playlist[currentIndex].youtubeId}&file=${playlist[currentIndex].title}`;
+    link.href = `${playlist[currentIndex].youtubeId}&file=${playlist[currentIndex].title}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   }, [playlist, currentIndex]);
 
-  const [next, setNext] = useState<boolean>();
-  const [prev, setPrev] = useState<boolean>();
-
-  const dispatch = useDispatch();
   const handleNext = useCallback(() => {
     setOnce(false);
     setNext(true);
@@ -240,20 +262,11 @@ function SharePlay() {
     }, 200);
     SetLiked(false);
     if (playlist.length > 1) {
-      dispatch(setNextPrev("next"));
+      dispatch(setReelsIndex((currentIndex + 1) % playlist.length));
     }
     return () => clearTimeout(t);
-  }, [dispatch, playlist.length]);
+  }, [dispatch, playlist.length, currentIndex]);
 
-  useEffect(() => {
-    if (currentIndex > playlist.length) {
-      dispatch(setCurrentIndex(0));
-    }
-  }, [dispatch, playlist, currentIndex]);
-  useEffect(() => {
-    dispatch(SetQueue(playlist));
-    dispatch(setPlaylist(playlist));
-  }, [dispatch, playlist]);
   const handlePrev = useCallback(() => {
     setOnce(false);
     setPrev(true);
@@ -261,10 +274,12 @@ function SharePlay() {
       setPrev(false);
     }, 200);
     if (playlist.length > 1) {
-      dispatch(setNextPrev("prev"));
+      dispatch(
+        setReelsIndex((currentIndex - 1 + playlist.length) % playlist.length)
+      );
     }
     return () => clearTimeout(t);
-  }, [dispatch, playlist.length]);
+  }, [dispatch, playlist.length, currentIndex]);
 
   const swipeHandler = useSwipeable({
     onSwipedUp: handleNext,
@@ -287,23 +302,85 @@ function SharePlay() {
   }, [handleLike, once, playlist]);
 
   const bind = useDoubleTap(handleDbClick);
-  // const ref = useRef<LottieRefCurrentProps>(null);
-  const [muted, setMuted] = useState<boolean>();
-  const music = useSelector((state: RootState) => state.musicReducer.music);
-  const isPlaying = useSelector(
-    (state: RootState) => state.musicReducer.isPlaying
-  );
+
   const handleMute = useCallback(() => {
-    console.log("ok");
+    const music = audioRef.current;
     if (music) {
       setMuted(!music.muted);
       music.muted = !music.muted;
     }
-  }, [music]);
+  }, []);
+
+  useEffect(() => {
+    if (isPlaying && music) {
+      music.pause();
+    }
+  }, [isPlaying, music]);
+
+  const animationRef = useRef<LottieRefCurrentProps>(null);
+  useEffect(() => {
+    if (playlist.length > 0) {
+      const sound = audioRef.current;
+      if (sound) {
+        sound.src = playlist[currentIndex].youtubeId;
+        console.log(playlist[currentIndex].thumbnailUrl);
+        const handlePlay = () => {
+          animationRef.current?.play();
+        };
+        const handlePause = () => {
+          animationRef.current?.pause();
+        };
+        sound.addEventListener("play", handlePlay);
+        sound.addEventListener("pause", handlePause);
+        sound.play();
+
+        return () => {
+          sound.removeEventListener("pause", handlePause);
+          sound.removeEventListener("play", handlePlay);
+          sound.load();
+          sound.pause();
+        };
+      }
+    }
+  }, [playlist, currentIndex]);
+
+  const handlePlayPause = useCallback(() => {
+    const sound = audioRef.current;
+    if (sound && sound.paused) {
+      sound.play();
+    } else {
+      sound?.pause();
+    }
+  }, []);
+
+  const handleRefresh = useCallback(async () => {
+    await loadMoreReels();
+  }, [loadMoreReels]);
 
   return (
     <div className=" fixed w-full ">
+      <audio src="" ref={audioRef} hidden preload="true" loop autoPlay></audio>
       <div className="h-dvh pb-[19dvh] relative">
+        <div className=" z-10 animate-fade-right  h-10 w-10 rounded-md justify-between absolute bottom-[5.7rem] space-y-2.5 flex  items-center right-2.5">
+          <LazyLoadImage
+            height="100%"
+            width="100%"
+            src={
+              c ||
+              playlist[currentIndex]?.thumbnailUrl.replace(
+                "w120-h120",
+                "w1080-h1080"
+              )
+            }
+            onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+              (e.currentTarget.src = "/newfavicon.jpg")
+            }
+            alt="Image"
+            effect="blur"
+            className="object-cover rounded-md  transition-all duration-300 w-[100%] h-[100%] "
+          />
+        </div>
+
         <div className=" z-10  justify-between absolute bottom-[5.6rem] space-y-2.5 flex  items-center left-4">
           {playlist.length == 0 ? (
             <Skeleton className="w-28 bg-zinc-800 h-3 mb-2 ml-0.5" />
@@ -312,7 +389,7 @@ function SharePlay() {
               <div className=" z-10 flex items-center animate-fade-right space-x-1">
                 <div
                   onClick={handleMute}
-                  className=" text-xs   bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-2 rounded-full"
+                  className=" text-xs  bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-2 rounded-full"
                 >
                   <p className="flex items-center  text-start  space-x-1">
                     {muted ? <GoMute /> : <GoUnmute />}
@@ -350,9 +427,7 @@ function SharePlay() {
               <IoMdHeartEmpty onClick={handleLike} />
             )}
           </div>
-          <div className=" animate-fade-left text-zinc-500">
-            <IoAddSharp />
-          </div>
+
           <div className=" animate-fade-left">
             <ShareLyrics className="h-6 w-6" />
           </div>
@@ -392,7 +467,7 @@ function SharePlay() {
                     <Skeleton className="w-28 bg-zinc-800 h-3" />
                   )}
                 </Link>
-                {playlist[currentIndex]?.artists[0].name && (
+                {playlist[currentIndex]?.artists[0].id && (
                   <div className="ml-1.5 flex items-center">
                     {isFavArtist ? (
                       <p
@@ -413,45 +488,52 @@ function SharePlay() {
                 )}
               </h1>
               <Link to={`/artist/${data?.artistId}`}>
-                <p className="  text-xs truncate w-[60dvw]">
-                  {playlist[currentIndex]?.title || (
-                    <Skeleton className="w-24 mt-1 bg-zinc-800 h-3" />
-                  )}
-                </p>
+                {playlist[currentIndex]?.title ? (
+                  <p className="  text-xs truncate w-[60dvw]">
+                    {playlist[currentIndex]?.title || "unknown"}
+                  </p>
+                ) : (
+                  <Skeleton className="w-24 mt-1 bg-zinc-800 h-3" />
+                )}
               </Link>
             </div>
           </div>
         </div>
+        <ReactPullToRefresh pullingContent={""} onRefresh={handleRefresh}>
+          <>
+            <div
+              {...bind}
+              {...swipeHandler}
+              className="max-h-full min-h-full pt-[9dvh] absolute w-full h-full px-14 flex justify-center items-center "
+            >
+              <div>
+                <Lottie
+                  onClick={handlePlayPause}
+                  autoplay={false}
+                  lottieRef={animationRef}
+                  className=" animate-fade-down"
+                  animationData={musicData}
+                />
 
-        <div
-          {...bind}
-          {...swipeHandler}
-          className="max-h-full min-h-full pb-[5dvh] absolute w-full h-full px-14 flex justify-center items-center "
-        >
-          <div>
-            {isPlaying && (
-              <Lottie
-                className=" animate-fade-down"
-                animationData={musicData}
-              />
-            )}
-            <LazyLoadImage
-              height="100%"
-              width="100%"
-              src={c || playlist[currentIndex]?.thumbnailUrl}
-              onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
-                (e.currentTarget.src = "/newfavicon.jpg")
-              }
-              alt="Image"
-              effect="blur"
-              className={` hidden object-cover rounded-xl ${
-                next && "animate-fade-up"
-              }  ${
-                prev && "animate-fade-down"
-              }  transition-all duration-300 w-[100%] h-[100%] `}
-            />
-          </div>
-        </div>
+                <LazyLoadImage
+                  height="100%"
+                  width="100%"
+                  src={c || playlist[currentIndex]?.thumbnailUrl}
+                  onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                    (e.currentTarget.src = "/newfavicon.jpg")
+                  }
+                  alt="Image"
+                  effect="blur"
+                  className={` hidden object-cover rounded-xl ${
+                    next && "animate-fade-up"
+                  }  ${
+                    prev && "animate-fade-down"
+                  }  transition-all duration-300 w-[100%] h-[100%] `}
+                />
+              </div>
+            </div>
+          </>
+        </ReactPullToRefresh>
       </div>
     </div>
   );

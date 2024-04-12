@@ -232,9 +232,11 @@ function AudioPLayerComp() {
       dispatch(setIsLoading(true));
 
       const sound: HTMLAudioElement | null = audioRef.current;
-      sound.src = `${online ? streamApi : ""}${
-        playlist[currentIndex]?.youtubeId
-      }`;
+      sound.src = `${
+        online && !playlist[currentIndex]?.youtubeId.startsWith("http")
+          ? streamApi
+          : ""
+      }${playlist[currentIndex]?.youtubeId}`;
       const handlePlay = () => {
         if (isLooped) {
           sound.loop = true;
@@ -424,27 +426,7 @@ function AudioPLayerComp() {
         <Drawer>
           <DrawerTrigger>
             {location.pathname == "/share-play" ? (
-              <>
-                {isLoading ? (
-                  <div className="z-10  h-7 w-7 rounded-md justify-between absolute bottom-[6.1rem] space-y-2.5 flex  items-center right-2.5">
-                    <Loader size="27" stroke="3" loading={true} />
-                  </div>
-                ) : (
-                  <div className=" z-10  h-10 w-10 rounded-md justify-between absolute bottom-[5.7rem] space-y-2.5 flex  items-center right-2.5">
-                    <LazyLoadImage
-                      height="100%"
-                      width="100%"
-                      src={c || playlist[currentIndex]?.thumbnailUrl}
-                      onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
-                        (e.currentTarget.src = "/newfavicon.jpg")
-                      }
-                      alt="Image"
-                      effect="blur"
-                      className="object-cover rounded-md  transition-all duration-300 w-[100%] h-[100%] "
-                    />
-                  </div>
-                )}
-              </>
+              <></>
             ) : (
               <div className="items-center  flex space-x-2 w-[68dvw]   px-2.5">
                 <div className=" h-11 w-11 overflow-hidden rounded-xl">

@@ -100,7 +100,7 @@ function Settings() {
     <Drawer>
       <DrawerTrigger>
         {imSrc && imSrc.image.length > 0 ? (
-          <Avatar className="animate-fade-left p-0 m-0 -mr-0.5">
+          <Avatar className="animate-fade-left h-9 w-9 p-0 m-0 -mr-0.5">
             <AvatarImage src={imSrc.image}></AvatarImage>
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>

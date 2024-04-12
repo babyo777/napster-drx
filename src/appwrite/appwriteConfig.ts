@@ -11,6 +11,7 @@ export const ALBUM_COLLECTION_ID = "65e4ee1041c081071ca6";
 export const LISTEN_NOW_COLLECTION_ID = "65d0c650c240cf202af4";
 export const MOST_PLAYED = "65d0d537137bf0bb6237";
 export const LIKE_SONG = "65daaf724f49c4ea1039";
+export const EDITS = "6618ee6339ea5ba6ba3b";
 export const FAV_ARTIST = "65e4b48e1e6c04f9d893";
 export const INSIGHTS = "65d7e476ad0f598faa84";
 export const ARTIST_INSIGHTS = "65d8e6554ce945db433b";

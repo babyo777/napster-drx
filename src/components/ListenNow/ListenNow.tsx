@@ -143,7 +143,14 @@ export function ListenNowComp() {
   const query = async () => {
     const currentIndex = Math.floor(Math.random() * playlist.length);
     const q = await axios.get(
-      `${SuggestionSearchApi}${playlist[currentIndex].youtubeId}`
+      `${SuggestionSearchApi}${
+        playlist[currentIndex].youtubeId.startsWith("https")
+          ? "sem" +
+            playlist[currentIndex].title +
+            " " +
+            playlist[currentIndex].artists[0].name
+          : playlist[currentIndex].youtubeId
+      }`
     );
     dispatch(SetFeed(q.data.slice(1)));
     return q.data as playlistSongs[];

@@ -101,7 +101,9 @@ function Options({ music, id }: { id?: string; music: playlistSongs }) {
     const link = document.createElement("a");
     link.style.display = "none";
     link.target = "_blank";
-    link.href = `${downloadApi}${music.youtubeId}&file=${music.title}`;
+    link.href = music.youtubeId.startsWith("http")
+      ? `${music.youtubeId}&file=${music.title}`
+      : `${downloadApi}${music.youtubeId}&file=${music.title}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

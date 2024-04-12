@@ -77,8 +77,14 @@ function Songs({
   const queue = useSelector((state: RootState) => state.musicReducer.queue);
 
   const getSuggestedSongs = async () => {
-    const r = await axios.get(`${SuggestionSearchApi}${data[0].youtubeId}`);
-    return r.data as playlistSongs[];
+    const r = await axios.get(
+      `${SuggestionSearchApi}${
+        data[0].youtubeId.startsWith("http") ? data[0].title : data[0].youtubeId
+      }`
+    );
+    return data[0].youtubeId.startsWith("http")
+      ? [data[0], ...r.data]
+      : (r.data as playlistSongs[]);
   };
   const { data: isSingle } = useQuery<playlistSongs[]>(
     ["songsSuggestion", link],
@@ -200,6 +206,7 @@ function Songs({
         key={audio + cover + title}
         id={p}
         reload={reload}
+        edits={query == "editSongsDetails" && true}
         like={query == "likedSongsDetails" && true}
         music={{
           for: forId,
@@ -215,7 +222,9 @@ function Songs({
           ],
         }}
         library={
-          (query == "likedSongsDetails" && true) || (query == "custom" && true)
+          (query == "likedSongsDetails" && true) ||
+          (query == "editSongsDetails" && true) ||
+          (query == "custom" && true)
         }
       />
     </div>
