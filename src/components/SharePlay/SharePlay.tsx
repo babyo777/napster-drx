@@ -54,8 +54,8 @@ function SharePlay() {
     const r = await axios.get(
       `${ReelsApi}${
         queue[rnDno]?.title.replace("/", "") +
-        " " +
-        queue[rnDno].artists[0]?.name.replace("/", "")
+          " " +
+          queue[rnDno]?.artists[0]?.name.replace("/", "") || "husn"
       }`
     );
 
