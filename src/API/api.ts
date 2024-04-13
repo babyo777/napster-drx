@@ -4,14 +4,12 @@ const isIPhone = /iPhone/i.test(navigator.userAgent);
 const STREAM = [
   "https://exotic-cloe-babyo77.koyeb.app/?url=",
   "https://unconscious-elianora-babyo7.koyeb.app/?url=",
-  "https://occasional-clara-babyo777.koyeb.app/?url=",
   "https://architectural-consuela-krsna.koyeb.app/?url=",
 ];
 
 const DOWNLOAD = [
   "https://exotic-cloe-babyo77.koyeb.app/download?url=",
   "https://unconscious-elianora-babyo7.koyeb.app/download?url=",
-  "https://occasional-clara-babyo777.koyeb.app/download?url=",
   "https://architectural-consuela-krsna.koyeb.app/download/?url=",
 ];
 
