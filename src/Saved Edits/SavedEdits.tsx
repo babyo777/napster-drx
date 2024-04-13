@@ -255,7 +255,7 @@ function SavedEditsComp() {
             <div className="h-screen flex justify-center items-center">
               <GoBack />
               <NavLink
-                to={"/share-play/"}
+                to={"/share-play"}
                 className="underline underline-offset-2"
               >
                 No Saved Edits.
