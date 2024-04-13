@@ -282,7 +282,11 @@ function SharePlay() {
     return () => clearTimeout(t);
   }, [dispatch, playlist.length, currentIndex, loadMoreReels]);
 
-  const handlePrev = useCallback(() => {
+  const handlePrev = useCallback(async () => {
+    if (currentIndex === 0) {
+      await loadMoreReels();
+      return;
+    }
     setProgress(0);
     setOnce(false);
     setPrev(true);
@@ -295,7 +299,7 @@ function SharePlay() {
       );
     }
     return () => clearTimeout(t);
-  }, [dispatch, playlist.length, currentIndex]);
+  }, [dispatch, playlist.length, currentIndex, loadMoreReels]);
 
   const swipeHandler = useSwipeable({
     onSwipedUp: handleNext,
@@ -338,14 +342,43 @@ function SharePlay() {
       const sound = audioRef.current;
       if (sound) {
         sound.src = playlist[currentIndex].youtubeId;
-        console.log(playlist[currentIndex].thumbnailUrl);
+
         const handlePlay = () => {
           animationRef.current?.play();
         };
         const handlePause = () => {
           animationRef.current?.pause();
         };
+
+        const handleSeek = (seek: MediaSessionActionDetails) => {
+          if (sound.currentTime !== seek.seekTime) {
+            sound.currentTime = seek.seekTime ?? 0;
+            if (sound.paused) {
+              sound.play();
+            }
+          }
+        };
+
         const handleLoad = () => {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: playlist[currentIndex].title,
+            artist: playlist[currentIndex].artists[0]?.name,
+            album: "",
+            artwork: [
+              {
+                src: playlist[currentIndex].thumbnailUrl.replace(
+                  "w120-h120",
+                  "w1080-h1080"
+                ),
+              },
+            ],
+          });
+
+          navigator.mediaSession.setActionHandler("play", () => sound.play());
+          navigator.mediaSession.setActionHandler("pause", () => sound.pause());
+          navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+          navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+          navigator.mediaSession.setActionHandler("seekto", handleSeek);
           setDuration(sound.duration);
           animationRef.current?.play();
         };
@@ -371,7 +404,7 @@ function SharePlay() {
         };
       }
     }
-  }, [playlist, currentIndex, handleNext]);
+  }, [playlist, currentIndex, handleNext, handlePrev]);
 
   const handlePlayPause = useCallback(() => {
     const sound = audioRef.current;
@@ -380,16 +413,6 @@ function SharePlay() {
     } else {
       sound?.pause();
     }
-  }, []);
-
-  useEffect(() => {
-    const handleChange = () => {
-      document.hidden
-        ? audioRef.current?.pause()
-        : audioRef.current?.paused && audioRef.current.play();
-    };
-    document.addEventListener("visibilitychange", handleChange);
-    return () => document.removeEventListener("visibilitychange", handleChange);
   }, []);
 
   return (
