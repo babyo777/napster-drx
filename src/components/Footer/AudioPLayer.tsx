@@ -352,10 +352,10 @@ function AudioPLayerComp() {
   }, [playlist, currentIndex]);
 
   useEffect(() => {
-    if (Math.floor(progress) == 30) {
+    if (Math.floor(progress) == 30 && online) {
       playingInsights();
     }
-  }, [progress, playingInsights]);
+  }, [progress, playingInsights, online]);
 
   const handleLoop = useCallback(async () => {
     if (music && isPlaying) {
