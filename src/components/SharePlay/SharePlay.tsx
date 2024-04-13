@@ -336,14 +336,16 @@ function SharePlay() {
       music.pause();
     }
   }, [isPlaying, music]);
-
+  const [isLoading, setIsLoading] = useState<boolean>();
   useEffect(() => {
     if (playlist.length > 0) {
       const sound = audioRef.current;
+      setIsLoading(true);
       if (sound) {
         sound.src = playlist[currentIndex].youtubeId;
 
         const handlePlay = () => {
+          setIsLoading(false);
           animationRef.current?.play();
         };
         const handlePause = () => {
@@ -360,6 +362,7 @@ function SharePlay() {
         };
 
         const handleLoad = () => {
+          setIsLoading(false);
           navigator.mediaSession.metadata = new MediaMetadata({
             title: playlist[currentIndex].title,
             artist: playlist[currentIndex].artists[0]?.name,
@@ -442,23 +445,27 @@ function SharePlay() {
           </div>
         )}
         <div className=" z-10 animate-fade-right  h-10 w-10 rounded-md justify-between absolute bottom-[6.2rem] space-y-2.5 flex  items-center right-2.5">
-          <LazyLoadImage
-            height="100%"
-            width="100%"
-            src={
-              c ||
-              playlist[currentIndex]?.thumbnailUrl.replace(
-                "w120-h120",
-                "w1080-h1080"
-              )
-            }
-            onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
-              (e.currentTarget.src = "/newfavicon.jpg")
-            }
-            alt="Image"
-            effect="blur"
-            className="object-cover rounded-md  transition-all duration-300 w-[100%] h-[100%] "
-          />
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <LazyLoadImage
+              height="100%"
+              width="100%"
+              src={
+                c ||
+                playlist[currentIndex]?.thumbnailUrl.replace(
+                  "w120-h120",
+                  "w1080-h1080"
+                )
+              }
+              onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                (e.currentTarget.src = "/newfavicon.jpg")
+              }
+              alt="Image"
+              effect="blur"
+              className="object-cover rounded-md  transition-all duration-300 w-[100%] h-[100%] "
+            />
+          )}
         </div>
 
         <div className=" z-20  justify-between absolute bottom-[6rem] space-y-2.5 flex  items-center left-4">
