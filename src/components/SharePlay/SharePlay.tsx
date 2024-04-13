@@ -332,7 +332,7 @@ function SharePlay() {
       music.pause();
     }
   }, [isPlaying, music]);
-  const [isLoading, setIsLoading] = useState<boolean>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
     if (playlist.length > 0) {
       const sound = audioRef.current;
