@@ -30,7 +30,7 @@ function SharePlay() {
   const queue = useSelector((state: RootState) => state.musicReducer.playlist);
   const [next, setNext] = useState<boolean>();
   const [prev, setPrev] = useState<boolean>();
-
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const animationRef = useRef<LottieRefCurrentProps>(null);
   const [dur, setDuration] = useState<number>();
   const [prog, setProgress] = useState<number>();
@@ -263,6 +263,7 @@ function SharePlay() {
   }, [playlist, currentIndex]);
 
   const handleNext = useCallback(async () => {
+    setIsLoading(true);
     animationRef.current?.destroy();
     setProgress(0);
     currentIndex == playlist.length - 1 && (await loadMoreReels());
@@ -279,6 +280,7 @@ function SharePlay() {
   }, [dispatch, playlist.length, currentIndex, loadMoreReels]);
 
   const handlePrev = useCallback(async () => {
+    setIsLoading(true);
     if (currentIndex === 0) {
       await loadMoreReels();
       return;
@@ -332,7 +334,7 @@ function SharePlay() {
       music.pause();
     }
   }, [isPlaying, music]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   useEffect(() => {
     if (playlist.length > 0) {
       const sound = audioRef.current;
