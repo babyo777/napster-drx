@@ -430,7 +430,7 @@ function SharePlay() {
     <div className=" fixed w-full h-[90dvh] z-10 ">
       <audio src="" ref={audioRef} hidden preload="true" autoPlay></audio>
       <div className="h-[90dvh] pb-[19dvh] relative">
-        <div className=" z-10 w-full absolute top-4 left-3.5">
+        <div className=" z-10 w-full absolute top-4 left-3">
           <h1 className="text-xl animate-fade-right font-semibold">Edits</h1>
         </div>
         <div className=" z-10 w-full absolute bottom-[0rem]">
@@ -473,7 +473,7 @@ function SharePlay() {
           )}
         </div>
 
-        <div className=" z-20  justify-between absolute bottom-[1.4rem] space-y-2.5 flex  items-center left-4">
+        <div className=" z-20  justify-between absolute bottom-[1.4rem] space-y-2.5 flex  items-center left-3.5">
           {playlist.length == 0 ? (
             <Skeleton className="w-28 bg-zinc-800 h-3 mb-2 ml-0.5" />
           ) : (
@@ -523,7 +523,7 @@ function SharePlay() {
           </div>
         </div>
 
-        <div className=" absolute animate-fade-right z-10 bottom-[4rem] left-3.5">
+        <div className=" absolute animate-fade-right z-10 bottom-[4rem] left-3">
           <div className=" flex space-x-2 items-center">
             {playlist.length == 0 ? (
               <Skeleton className="w-11 rounded-full bg-zinc-800 h-11" />
