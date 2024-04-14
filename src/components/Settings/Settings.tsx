@@ -25,7 +25,7 @@ import axios from "axios";
 function Settings() {
   const close = useRef<HTMLButtonElement>(null);
   const handleReset = useCallback(() => {
-    const reset = confirm("Are you sure you want to logout?");
+    const reset = confirm("Save Your Token Before Logout?");
     if (reset) localStorage.clear(), location.reload();
   }, []);
   const handleLoad = useCallback(() => {
