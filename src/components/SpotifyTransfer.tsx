@@ -72,7 +72,7 @@ function SpotifyTransfer({
   }, [data, dispatch, close]);
   return (
     <Drawer>
-      <DrawerTrigger className=" w-full">
+      <DrawerTrigger className=" w-full animate-fade-up">
         <p
           className={` ${className} animate-fade-up rounded-xl  bg-green-600 py-2.5 mt-3  w-full text-base`}
         >

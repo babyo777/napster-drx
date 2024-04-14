@@ -168,7 +168,7 @@ function Account() {
 
   return (
     <Drawer>
-      <DrawerTrigger className=" w-full">
+      <DrawerTrigger className=" w-full animate-fade-up">
         <p className="rounded-xl py-2.5 animate-fade-up bg-neutral-900 flex justify-center text-base">
           Account
         </p>

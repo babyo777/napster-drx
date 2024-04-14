@@ -110,25 +110,29 @@ function Settings() {
         )}
       </DrawerTrigger>
       <DrawerContent className="px-5 h-dvh rounded-none">
-        <DrawerHeader>
+        <DrawerHeader className="animate-fade-up">
           <DrawerTitle className="text-zinc-400 animate-fade-up font-bold">
             Napster Settings
           </DrawerTitle>
         </DrawerHeader>
         <Account />
-        <p
-          onClick={handleLoad}
-          className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex justify-center  text-base"
-        >
-          Load From Token
-        </p>
-        {/iPhone/i.test(navigator.userAgent) && (
+        <div className="animate-fade-up">
           <p
-            onClick={handleLoadPlaylist}
+            onClick={handleLoad}
             className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex justify-center  text-base"
           >
-            Load Playlist
+            Load From Token
           </p>
+        </div>
+        {/iPhone/i.test(navigator.userAgent) && (
+          <div className="animate-fade-up">
+            <p
+              onClick={handleLoadPlaylist}
+              className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex justify-center  text-base"
+            >
+              Load Playlist
+            </p>
+          </div>
         )}
 
         {/* <p
@@ -139,16 +143,18 @@ function Settings() {
         </p> */}
         {/* <SponsorsComp /> */}
         {!track && <SpotifyTransfer close={close} />}
-        <p
-          onClick={() =>
-            (window.location.href = "mailto:yfw111realone@gmail.com")
-          }
-          className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex justify-center text-base "
-        >
-          Feedback
-        </p>
+        <div className="animate-fade-up">
+          <p
+            onClick={() =>
+              (window.location.href = "mailto:yfw111realone@gmail.com")
+            }
+            className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex justify-center text-base "
+          >
+            Feedback
+          </p>
+        </div>
         <DialogClose ref={close}></DialogClose>
-        <DrawerFooter className=" items-center w-full px-0">
+        <DrawerFooter className="animate-fade-up items-center w-full px-0">
           <div className="flex space-x-2 w-full items-center">
             <Token />
             <div className="w-full">
