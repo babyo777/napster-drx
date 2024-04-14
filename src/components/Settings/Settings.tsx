@@ -109,7 +109,7 @@ function Settings() {
           <FaUserCircle className="h-7 w-7 animate-fade-left text-zinc-100" />
         )}
       </DrawerTrigger>
-      <DrawerContent className="px-5 h-dvh ">
+      <DrawerContent className="px-5 h-dvh rounded-none">
         <DrawerHeader>
           <DrawerTitle className="text-zinc-400 animate-fade-up font-bold">
             Napster Settings

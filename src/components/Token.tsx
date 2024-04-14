@@ -33,7 +33,7 @@ export function Token() {
           Token
         </p>
       </DrawerTrigger>
-      <DrawerContent className="w-full h-dvh rounded-2xl px-5">
+      <DrawerContent className="w-full h-dvh rounded-2xl px-5 rounded-none">
         <DrawerHeader>
           <DrawerTitle className="animate-fade-down">
             Your access token
