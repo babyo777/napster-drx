@@ -427,9 +427,6 @@ function SharePlay() {
     <div className=" fixed w-full ">
       <audio src="" ref={audioRef} hidden preload="true" autoPlay></audio>
       <div className="h-dvh pb-[19dvh] relative">
-        <div className=" z-10 w-full absolute top-4 left-[90dvw]">
-          <Settings />
-        </div>
         <div className=" z-10 w-full absolute top-4 left-3">
           <h1 className="text-xl animate-fade-right font-semibold">Edits</h1>
         </div>
