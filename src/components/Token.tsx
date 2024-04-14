@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { useCallback } from "react";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
@@ -29,7 +28,7 @@ export function Token() {
   return (
     <Drawer>
       <DrawerTrigger className="w-full">
-        <p className=" animate-fade-up font-semibold  rounded-xl py-2.5 mt-3 bg-neutral-900  w-full text-base">
+        <p className=" animate-fade-up font-semibold  rounded-xl py-2.5 mt-3 bg-neutral-800  w-full text-base">
           Token
         </p>
       </DrawerTrigger>
@@ -40,41 +39,19 @@ export function Token() {
           </DrawerTitle>
         </DrawerHeader>
 
-        <div className="flex flex-col items-center space-y-2 h-full justify-center">
-          <Label htmlFor="link" className="sr-only">
-            Link
-          </Label>
-          <Input
-            className="animate-fade-up"
-            id="link"
-            disabled
-            defaultValue={localStorage.getItem("uid") || ""}
-            readOnly
-          />
-
+        <div className="flex flex-col items-center space-y-4 h-full justify-center">
+          <p className="text-2xl text-center font-semibold text-zinc-200">
+            {localStorage.getItem("uid")}
+          </p>
           <Button
-            type="submit"
             size="sm"
             variant={"secondary"}
-            className="px-3 w-full bg-zinc-800 animate-fade-up hover:bg-zinc-100/20 text-white"
+            className="px-3 w-full text-lg rounded-xl bg-zinc-800 animate-fade-up hover:bg-zinc-100/20 text-zinc-200 py-5"
           >
-            <span className="sr-only" onClick={handleCopy}>
-              Copy
-            </span>
-            <CopyIcon className="h-4 w-4 " onClick={handleCopy} />
+            <p onClick={handleCopy}>Copy To Clipboard</p>
           </Button>
         </div>
-        <DrawerFooter className="sm:justify-start px-0">
-          <DrawerClose asChild>
-            <Button
-              asChild
-              variant={"secondary"}
-              className=" py-5 w-full animate-fade-up rounded-xl"
-            >
-              <p>Close</p>
-            </Button>
-          </DrawerClose>
-        </DrawerFooter>
+        <DrawerFooter className="sm:justify-start px-0"></DrawerFooter>
       </DrawerContent>
     </Drawer>
   );
