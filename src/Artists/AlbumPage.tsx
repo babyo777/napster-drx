@@ -196,7 +196,7 @@ function AlbumPageComp() {
               )}
               <Share />
             </div>
-            <div className="h-[60vw] w-[60vw]">
+            <div className="h-56  w-56">
               <LazyLoadImage
                 effect="blur"
                 width="100%"
