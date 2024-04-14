@@ -436,12 +436,9 @@ function SharePlay() {
         <div className=" z-10 w-full absolute bottom-[0rem]">
           <input
             type="range"
-            value={prog}
-            max={dur}
+            value={prog || 0}
+            max={dur || 0}
             onChange={handleSeek}
-            min="0"
-            step=".01"
-            dir="ltr"
             className="w-full  h-[0.2rem] animate-fade-up bg-zinc-300/75 transition-all duration-300 overflow-hidden rounded-none appearance-none cursor-pointer"
           />
         </div>
