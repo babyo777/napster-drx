@@ -427,13 +427,13 @@ function SharePlay() {
     }
   }, []);
   return (
-    <div className=" fixed w-full ">
+    <div className=" fixed w-full h-[90dvh] z-10 ">
       <audio src="" ref={audioRef} hidden preload="true" autoPlay></audio>
-      <div className="h-dvh pb-[19dvh] relative">
+      <div className="h-[90dvh] pb-[19dvh] relative">
         <div className=" z-10 w-full absolute top-4 left-3">
           <h1 className="text-xl animate-fade-right font-semibold">Edits</h1>
         </div>
-        <div className=" z-10 w-full absolute bottom-[4.77rem]">
+        <div className=" z-10 w-full absolute bottom-[0rem]">
           <input
             type="range"
             value={prog}
@@ -450,7 +450,7 @@ function SharePlay() {
             <Loader />
           </div>
         )}
-        <div className=" z-10 animate-fade-right  h-10 w-10 rounded-md justify-between absolute bottom-[6.2rem] space-y-2.5 flex  items-center right-2.5">
+        <div className=" z-10 animate-fade-right  h-10 w-10 rounded-md justify-between absolute bottom-[1.6rem] space-y-2.5 flex  items-center right-2.5">
           {isLoading ? (
             <div className=" ml-2">
               <Loader />
@@ -476,7 +476,7 @@ function SharePlay() {
           )}
         </div>
 
-        <div className=" z-20  justify-between absolute bottom-[6rem] space-y-2.5 flex  items-center left-4">
+        <div className=" z-20  justify-between absolute bottom-[1.4rem] space-y-2.5 flex  items-center left-4">
           {playlist.length == 0 ? (
             <Skeleton className="w-28 bg-zinc-800 h-3 mb-2 ml-0.5" />
           ) : (
@@ -509,7 +509,7 @@ function SharePlay() {
           </div>
         )}
 
-        <div className=" z-10 absolute text-4xl bottom-40 space-y-2.5 flex flex-col items-center right-2">
+        <div className=" z-10 absolute text-4xl bottom-20 space-y-2.5 flex flex-col items-center right-2">
           <div className=" animate-fade-left">
             {liked ? (
               <IoMdHeart onClick={RemoveLike} className=" text-red-500" />
@@ -526,7 +526,7 @@ function SharePlay() {
           </div>
         </div>
 
-        <div className=" absolute animate-fade-right z-10 bottom-[8.5rem] left-3.5">
+        <div className=" absolute animate-fade-right z-10 bottom-[4rem] left-3.5">
           <div className=" flex space-x-2 items-center">
             {playlist.length == 0 ? (
               <Skeleton className="w-11 rounded-full bg-zinc-800 h-11" />
