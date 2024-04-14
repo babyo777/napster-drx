@@ -590,7 +590,7 @@ function SharePlay() {
         <div
           {...bind}
           {...swipeHandler}
-          className="max-h-full min-h-full pb-[8dvh] pt-[10dvh] absolute w-full h-full px-14 flex justify-center items-center "
+          className="max-h-full min-h-full pb-[7dvh] pt-[10dvh] absolute w-full h-full px-14 flex justify-center items-center "
         >
           <div className=" h-56 w-56 flex  flex-col items-center justify-center ">
             <LazyLoadImage
