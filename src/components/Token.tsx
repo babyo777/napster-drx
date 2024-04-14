@@ -1,19 +1,19 @@
 import { CopyIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCallback } from "react";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "./ui/drawer";
 
 export function Token() {
   const token = localStorage.getItem("uid") || "";
@@ -27,39 +27,36 @@ export function Token() {
   }, [token]);
 
   return (
-    <Dialog>
-      <DialogTrigger className="w-full">
+    <Drawer>
+      <DrawerTrigger className="w-full">
         <p className=" animate-fade-up font-semibold  rounded-xl py-2.5 mt-3 bg-neutral-900  w-full text-base">
           Token
         </p>
-      </DialogTrigger>
-      <DialogContent className="w-[87vw] rounded-2xl">
-        <DialogHeader>
-          <DialogTitle className="animate-fade-down">
+      </DrawerTrigger>
+      <DrawerContent className="w-full h-dvh rounded-2xl px-5">
+        <DrawerHeader>
+          <DrawerTitle className="animate-fade-down">
             Your access token
-          </DialogTitle>
-          <DialogDescription className="animate-fade-down">
-            Anyone who has this token will be able to change your playlists.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="flex items-center space-x-2">
-          <div className="grid flex-1 gap-2 ">
-            <Label htmlFor="link" className="sr-only">
-              Link
-            </Label>
-            <Input
-              className="animate-fade-right "
-              id="link"
-              disabled
-              defaultValue={localStorage.getItem("uid") || ""}
-              readOnly
-            />
-          </div>
+          </DrawerTitle>
+        </DrawerHeader>
+
+        <div className="flex flex-col items-center space-y-2 h-full justify-center">
+          <Label htmlFor="link" className="sr-only">
+            Link
+          </Label>
+          <Input
+            className="animate-fade-up"
+            id="link"
+            disabled
+            defaultValue={localStorage.getItem("uid") || ""}
+            readOnly
+          />
+
           <Button
             type="submit"
             size="sm"
             variant={"secondary"}
-            className="px-3 bg-zinc-800 animate-fade-left hover:bg-zinc-100/20 text-white"
+            className="px-3 w-full bg-zinc-800 animate-fade-up hover:bg-zinc-100/20 text-white"
           >
             <span className="sr-only" onClick={handleCopy}>
               Copy
@@ -67,8 +64,8 @@ export function Token() {
             <CopyIcon className="h-4 w-4 " onClick={handleCopy} />
           </Button>
         </div>
-        <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
+        <DrawerFooter className="sm:justify-start px-0">
+          <DrawerClose asChild>
             <Button
               asChild
               variant={"secondary"}
@@ -76,9 +73,9 @@ export function Token() {
             >
               <p>Close</p>
             </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   );
 }
