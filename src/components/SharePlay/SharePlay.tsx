@@ -24,6 +24,7 @@ import likeData from "../../assets/like.json";
 import { GoMute, GoUnmute } from "react-icons/go";
 import Loader from "../Loaders/Loader";
 import ProgressBar from "@ramonak/react-progress-bar";
+import Settings from "../Settings/Settings";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.reels);
@@ -426,6 +427,12 @@ function SharePlay() {
     <div className=" fixed w-full ">
       <audio src="" ref={audioRef} hidden preload="true" autoPlay></audio>
       <div className="h-dvh pb-[19dvh] relative">
+        <div className=" z-10 w-full absolute top-4 left-[21.9rem]">
+          <Settings />
+        </div>
+        <div className=" z-10 w-full absolute top-4 left-3">
+          <h1 className="text-xl animate-fade-right font-semibold">Edits</h1>
+        </div>
         <div className=" z-10 w-full absolute bottom-[5.3rem]">
           <ProgressBar
             className=" w-full border-none animate-fade-up"
