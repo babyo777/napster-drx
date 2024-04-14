@@ -24,7 +24,6 @@ import likeData from "../../assets/like.json";
 import { GoMute, GoUnmute } from "react-icons/go";
 import Loader from "../Loaders/Loader";
 import ProgressBar from "@ramonak/react-progress-bar";
-import Settings from "../Settings/Settings";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.reels);
