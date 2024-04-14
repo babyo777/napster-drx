@@ -19,8 +19,10 @@ import { ChangeLyrics } from "./ChangeLyrics";
 
 function ShareLyrics({
   lyrics,
+  size,
   className,
 }: {
+  size?: boolean;
   className?: string;
   lyrics?: [{ time: number | string; lyrics: string }];
 }) {
@@ -120,7 +122,11 @@ function ShareLyrics({
           className ? "" : "bg-zinc-900"
         }   rounded-full `}
       >
-        <IoShareOutline className={`h-6 w-6 text-white ${className}`} />
+        <IoShareOutline
+          className={` text-white ${
+            size ? "h-[1.1rem] w-[1.1rem]" : "h-6 w-6"
+          }`}
+        />
       </DrawerTrigger>
       <DrawerContent className="  h-[100dvh] rounded-none px-[4.5vw]">
         {!round && (
