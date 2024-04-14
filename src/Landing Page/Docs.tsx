@@ -24,6 +24,7 @@ export default function Docs() {
 
   const handleSignIn = () => {
     signInWithPopup(auth, googleAuthProvider).then(() => {
+      window.location.href = " https://napster-docs.vercel.app/docs";
       setLogged(true);
     });
   };
@@ -31,6 +32,7 @@ export default function Docs() {
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
       if (user) {
+        window.location.href = "https://napster-docs.vercel.app/docs";
         setLogged(true);
       } else {
         setLogged(false);
