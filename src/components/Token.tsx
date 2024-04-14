@@ -28,7 +28,7 @@ export function Token() {
 
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger className="w-full">
         <p className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900  w-full text-base">
           Token
         </p>

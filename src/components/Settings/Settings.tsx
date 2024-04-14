@@ -108,7 +108,7 @@ function Settings() {
           <FaUserCircle className="h-7 w-7 animate-fade-left text-zinc-100" />
         )}
       </DrawerTrigger>
-      <DrawerContent className="px-5 bg-neutral-950">
+      <DrawerContent className="px-5 h-dvh bg-neutral-950">
         <DrawerHeader>
           <DrawerTitle className="text-zinc-400 animate-fade-up font-bold">
             Napster Settings
@@ -129,15 +129,7 @@ function Settings() {
             Load Playlist
           </p>
         )}
-        <Token />
-        {/* <p
-          onClick={() =>
-            (window.location.href = "mailto:yfw111realone@gmail.com")
-          }
-          className=" rounded-xl py-2.5 mt-3 bg-neutral-900 flex justify-center text-base "
-        >
-          Report bug
-        </p> */}
+
         {/* <p
           onClick={() => window.open("https://tanmayo7.vercel.app")}
           className=" rounded-xl py-2.5 mt-3 bg-neutral-900 flex justify-center text-base "
@@ -147,13 +139,26 @@ function Settings() {
         {/* <SponsorsComp /> */}
         {!track && <SpotifyTransfer close={close} />}
         <p
-          onClick={handleReset}
-          className=" rounded-xl animate-fade-up  py-2.5 mt-3 flex justify-center bg-red-500 text-base "
+          onClick={() =>
+            (window.location.href = "mailto:yfw111realone@gmail.com")
+          }
+          className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex justify-center text-base "
         >
-          Reset
+          Feedback
         </p>
         <DialogClose ref={close}></DialogClose>
-        <DrawerFooter className=" items-center">
+        <DrawerFooter className=" items-center w-full px-0">
+          <div className="flex space-x-2 w-full items-center">
+            <Token />
+            <div className="w-full">
+              <p
+                onClick={handleReset}
+                className=" rounded-xl animate-fade-up  py-2.5 mt-3 flex justify-center bg-red-500 text-base "
+              >
+                Reset
+              </p>
+            </div>
+          </div>
           <span className="text-xs text-zinc-300 animate-fade-up">
             Version - 1.2.7 beta
           </span>
