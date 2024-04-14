@@ -25,9 +25,8 @@ import axios from "axios";
 function Settings() {
   const close = useRef<HTMLButtonElement>(null);
   const handleReset = useCallback(() => {
-    const reset = confirm("Are you sure you want to reset");
-    if (reset)
-      localStorage.clear(), alert("successfully reset"), location.reload();
+    const reset = confirm("Are you sure you want to logout?");
+    if (reset) localStorage.clear(), location.reload();
   }, []);
   const handleLoad = useCallback(() => {
     const uid = localStorage.getItem("uid");
@@ -153,9 +152,9 @@ function Settings() {
             <div className="w-full">
               <p
                 onClick={handleReset}
-                className=" rounded-xl animate-fade-up  py-2.5 mt-3 flex justify-center bg-red-500 text-base "
+                className=" font-semibold rounded-xl animate-fade-up  py-2.5 mt-3 flex justify-center bg-red-500 text-base "
               >
-                Reset
+                Log out
               </p>
             </div>
           </div>
