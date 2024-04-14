@@ -147,11 +147,11 @@ function SavedLibraryComp() {
                   </div>
                   <div className="flex flex-col  text-xl text-start">
                     <p className="w-[59vw] fade-in font-semibold text-lg truncate">
-                      Saved Edits
+                      Liked Tunes
                     </p>
                     <div className="flex -mt-0.5 text-zinc-400 items-center space-x-1">
                       <GiPin className="h-3 text-white w-3" />
-                      <p className="text-xs w-[50vw]truncate">Share-play</p>
+                      <p className="text-xs w-[50vw]truncate">Showcase</p>
                     </div>
                   </div>
                 </div>

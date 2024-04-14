@@ -1,15 +1,14 @@
-import { IoIosRadio } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { Player } from "./Player";
 import { NavLink } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
 import { BiLibrary } from "react-icons/bi";
-// import { MdOutlineGridView } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import React, { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { setReelsIndex } from "@/Store/Player";
+import { BsSoundwave } from "react-icons/bs";
 function TabsComp() {
   const [online, setOnline] = useState<boolean>();
   const q = useQueryClient();
@@ -68,8 +67,8 @@ function TabsComp() {
                 `${isActive && "text-zinc-300"} flex flex-col mb-1 items-center`
               }
             >
-              <IoIosRadio className="h-7 w-7" />
-              <span className="text-xs ">Share Play</span>
+              <BsSoundwave className="h-8 w-8" />
+              <span className="text-xs px-[3dvw] ">Tunes</span>
             </NavLink>
           </li>
           <li>

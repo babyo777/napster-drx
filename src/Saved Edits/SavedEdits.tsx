@@ -202,7 +202,7 @@ function SavedEditsComp() {
             </div>
             <div className=" absolute bottom-[1.5vh] px-4 left-0  right-0">
               <h1 className="text-center animate-fade-down   font-semibold py-[1vh] text-2xl capitalize">
-                Saved Edits
+                Tunes
               </h1>
               <div className="flex space-x-4 py-1 px-2 justify-center  items-center w-full">
                 <Button

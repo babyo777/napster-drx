@@ -431,7 +431,7 @@ function SharePlay() {
       <audio src="" ref={audioRef} hidden preload="true" autoPlay></audio>
       <div className="h-[90dvh] pb-[19dvh] relative">
         <div className=" z-10 w-full absolute top-4 left-3">
-          <h1 className="text-xl animate-fade-right font-semibold">Edits</h1>
+          <h1 className="text-xl animate-fade-right font-semibold">Tunes</h1>
         </div>
         <div className=" z-10 w-full absolute bottom-[0rem]">
           <input
