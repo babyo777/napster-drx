@@ -11,7 +11,7 @@ import { ArtistDetails, favArtist, playlistSongs } from "@/Interface";
 import { useQuery } from "react-query";
 import { GetArtistDetails, ReelsApi } from "@/API/api";
 import axios from "axios";
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { SetReels, setReelsIndex } from "@/Store/Player";
 import { useDoubleTap } from "use-double-tap";
@@ -23,7 +23,6 @@ import musicData from "../../assets/music.json";
 import likeData from "../../assets/like.json";
 import { GoMute, GoUnmute } from "react-icons/go";
 import Loader from "../Loaders/Loader";
-import ProgressBar from "@ramonak/react-progress-bar";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.reels);
@@ -421,7 +420,12 @@ function SharePlay() {
       sound?.pause();
     }
   }, []);
-
+  const handleSeek = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const sound = audioRef.current;
+    if (sound) {
+      sound.currentTime = parseInt(e.target.value);
+    }
+  }, []);
   return (
     <div className=" fixed w-full ">
       <audio src="" ref={audioRef} hidden preload="true" autoPlay></audio>
@@ -429,15 +433,16 @@ function SharePlay() {
         <div className=" z-10 w-full absolute top-4 left-3">
           <h1 className="text-xl animate-fade-right font-semibold">Edits</h1>
         </div>
-        <div className=" z-10 w-full absolute bottom-[5.3rem]">
-          <ProgressBar
-            className=" w-full border-none animate-fade-up"
-            height="1.1px"
-            barContainerClassName="bg-zinc-900"
-            isLabelVisible={false}
-            bgColor="grey"
-            maxCompleted={dur}
-            completed={prog || 0}
+        <div className=" z-10 w-full absolute bottom-[4.77rem]">
+          <input
+            type="range"
+            value={prog}
+            max={dur}
+            onChange={handleSeek}
+            min="0"
+            step=".01"
+            dir="ltr"
+            className="w-full  h-[0.2rem] animate-fade-up bg-zinc-300/75 transition-all duration-300 overflow-hidden rounded-none appearance-none cursor-pointer"
           />
         </div>
         {isRefetching && (
@@ -447,7 +452,9 @@ function SharePlay() {
         )}
         <div className=" z-10 animate-fade-right  h-10 w-10 rounded-md justify-between absolute bottom-[6.2rem] space-y-2.5 flex  items-center right-2.5">
           {isLoading ? (
-            <Loader />
+            <div className=" ml-2">
+              <Loader />
+            </div>
           ) : (
             <LazyLoadImage
               height="100%"
