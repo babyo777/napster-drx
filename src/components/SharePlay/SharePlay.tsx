@@ -427,7 +427,7 @@ function SharePlay() {
     <div className=" fixed w-full ">
       <audio src="" ref={audioRef} hidden preload="true" autoPlay></audio>
       <div className="h-dvh pb-[19dvh] relative">
-        <div className=" z-10 w-full absolute top-4 left-[21.9rem]">
+        <div className=" z-10 w-full absolute top-4 left-[90dvw]">
           <Settings />
         </div>
         <div className=" z-10 w-full absolute top-4 left-3">
@@ -505,11 +505,6 @@ function SharePlay() {
             <Lottie animationData={likeData} className="h-80 w-80" />
           </div>
         )}
-        <div className=" absolute top-4 w-full flex items-center justify-center ">
-          <p className=" text-sm bg-zinc-800 rounded-xl px-4 animate-fade-down py-0.5">
-            Beta
-          </p>
-        </div>
 
         <div className=" z-10 absolute text-4xl bottom-40 space-y-2.5 flex flex-col items-center right-2">
           <div className=" animate-fade-left">
