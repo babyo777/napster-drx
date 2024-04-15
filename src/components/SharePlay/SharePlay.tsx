@@ -494,7 +494,7 @@ function SharePlay() {
                 <div className=" text-xs  bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-1 rounded-xl">
                   <p className="flex items-center  text-start  space-x-1">
                     <LuMusic2 />
-                    <span className="max-w-[47vw] truncate">
+                    <span className="max-w-[70dvw] truncate">
                       {playlist[currentIndex]?.title}
                     </span>
                   </p>
@@ -580,7 +580,7 @@ function SharePlay() {
               </h1>
               <Link to={`/artist/${data?.artistId}`}>
                 {playlist[currentIndex]?.title ? (
-                  <p className="  text-xs truncate w-[50dvw]">
+                  <p className="  text-xs hidden truncate w-[50dvw]">
                     {playlist[currentIndex]?.title || "unknown"}
                   </p>
                 ) : (
