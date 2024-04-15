@@ -494,7 +494,7 @@ function SharePlay() {
                 <div className=" text-xs  bg-zinc-800/80 backdrop-blur-xl px-2.5 font-normal py-1 rounded-xl">
                   <p className="flex items-center  text-start  space-x-1">
                     <LuMusic2 />
-                    <span className="max-w-[70dvw] truncate">
+                    <span className="max-w-[60dvw] truncate">
                       {playlist[currentIndex]?.title}
                     </span>
                   </p>
