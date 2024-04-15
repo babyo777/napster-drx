@@ -115,6 +115,9 @@ function Check() {
       }));
 
       const s = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
+      if (data.index > modified.length) {
+        dispatch(setCurrentIndex(0));
+      }
       if (data?.index !== 0) {
         dispatch(setPlaylist(modified));
       } else {
@@ -211,7 +214,11 @@ function Check() {
       title: doc.title,
       thumbnailUrl: doc.thumbnailUrl,
     }));
+
     if (data) {
+      if (data.index > modified.length) {
+        dispatch(setCurrentIndex(0));
+      }
       if (data.index !== 0) {
         dispatch(setPlaylist(modified));
       } else {
@@ -246,6 +253,9 @@ function Check() {
       thumbnailUrl: doc.thumbnailUrl,
     }));
     if (data) {
+      if (data.index > modified.length) {
+        dispatch(setCurrentIndex(0));
+      }
       if (data.index !== 0) {
         dispatch(setPlaylist(modified));
       } else {
