@@ -24,7 +24,7 @@ import {
 import { Link } from "react-router-dom";
 import SongsOptions from "./SongsOptions";
 import axios from "axios";
-import { SuggestionSearchApi } from "@/API/api";
+import { GetImage, SuggestionSearchApi } from "@/API/api";
 import { Blurhash } from "react-blurhash";
 
 function Songs({
@@ -140,7 +140,25 @@ function Songs({
     data,
     isSingle,
   ]);
-  const [load, setLoad] = useState<boolean>(false);
+  const [load, setLoad] = useState<boolean>();
+
+  const image = async () => {
+    const response = await axios.get(GetImage + cover, {
+      responseType: "arraybuffer",
+    });
+    const blob = new Blob([response.data], {
+      type: response.headers["content-type"],
+    });
+    setLoad(true);
+    return URL.createObjectURL(blob);
+  };
+
+  const { data: c } = useQuery(["image", cover], image, {
+    refetchOnMount: false,
+    retry: 5,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
 
   return (
     <div
@@ -163,12 +181,11 @@ function Songs({
             ) : (
               <LazyLoadImage
                 onClick={handlePlay}
-                src={cover}
+                src={c}
                 width="100%"
                 height="100%"
                 effect="blur"
                 alt="Image"
-                onLoad={() => setLoad(true)}
                 loading="lazy"
                 onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
                   (e.currentTarget.src = "/liked.webp")
