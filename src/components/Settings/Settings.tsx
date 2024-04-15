@@ -13,7 +13,7 @@ import { Token } from "../Token";
 // import { SponsorsComp } from "../Sponsors";
 import { DialogClose } from "../ui/dialog";
 import { RootState } from "@/Store/Store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Account } from "./Account";
 import { DATABASE_ID, NEW_USER, db } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
@@ -21,6 +21,7 @@ import { useQuery } from "react-query";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getUserApi } from "@/API/api";
 import axios from "axios";
+import { setUser } from "@/Store/Player";
 
 function Settings() {
   const close = useRef<HTMLButtonElement>(null);
@@ -63,7 +64,7 @@ function Settings() {
     (state: RootState) => state.musicReducer.spotifyTrack
   );
   const uid = useSelector((state: RootState) => state.musicReducer.uid);
-
+  const dispatch = useDispatch();
   const handleImage = async () => {
     if (uid) {
       const result = await db.listDocuments(DATABASE_ID, NEW_USER, [
@@ -86,6 +87,9 @@ function Settings() {
             name: code.name,
           }
         );
+      }
+      if (result.documents[0].spotifyId) {
+        dispatch(setUser(true));
       }
 
       return result.documents[0];

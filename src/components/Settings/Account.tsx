@@ -11,7 +11,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import React, { useCallback, useRef, useState } from "react";
 import { DATABASE_ID, NEW_USER, db } from "@/appwrite/appwriteConfig";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { Models, Query } from "appwrite";
 import { useQuery, useQueryClient } from "react-query";
@@ -28,6 +28,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { IoMdInformationCircleOutline } from "react-icons/io";
+import { setUser } from "@/Store/Player";
 
 interface user extends Models.Document {
   user: string;
@@ -43,7 +44,7 @@ interface verify {
   playlists: string[];
 }
 
-function Account() {
+function Account({ tunebox }: { tunebox?: boolean }) {
   function ScreenSizeCheck() {
     const isIPhone = /iPhone/i.test(navigator.userAgent);
     return isIPhone;
@@ -124,7 +125,7 @@ function Account() {
   );
 
   const [loading, setLoading] = useState<boolean>(false);
-
+  const dispatch = useDispatch();
   const handleVerify = useCallback(async () => {
     setLoading(true);
     try {
@@ -137,6 +138,7 @@ function Account() {
           spotifyId: verify,
         });
         q.refetchQueries("dpImage");
+        dispatch(setUser(true));
         await refetch();
         setVerify("");
         setLoading(false);
@@ -148,7 +150,7 @@ function Account() {
       alert("verification failed or invalid Link");
       setLoading(false);
     }
-  }, [data, verify, refetch, q]);
+  }, [data, verify, refetch, q, dispatch]);
 
   const handleRemove = async () => {
     if (data) {
@@ -170,7 +172,7 @@ function Account() {
     <Drawer>
       <DrawerTrigger className=" w-full animate-fade-up">
         <p className="rounded-xl py-2.5 animate-fade-up bg-neutral-900 flex justify-center text-base">
-          Account
+          {tunebox ? "Setup Account to Continue " : "Account"}
         </p>
       </DrawerTrigger>
       <DrawerContent className="w-full border-none flex items-center flex-col justify-center h-dvh rounded-none">

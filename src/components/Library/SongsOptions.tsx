@@ -24,6 +24,7 @@ import {
   ID,
   LIKE_SONG,
   PLAYLIST_COLLECTION_ID,
+  TUNEBOX,
   db,
 } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
@@ -44,6 +45,7 @@ function SongsOptions({
   music,
   like,
   edits,
+  tunebox,
   id,
   reload,
 }: {
@@ -52,6 +54,7 @@ function SongsOptions({
   ) => Promise<QueryObserverResult<playlistSongs[], unknown>>;
   like?: boolean;
   edits?: boolean;
+  tunebox?: boolean;
   id?: string;
   music: playlistSongs;
   library?: boolean;
@@ -164,6 +167,11 @@ function SongsOptions({
         reload();
         return;
       }
+      if (tunebox) {
+        await db.deleteDocument(DATABASE_ID, TUNEBOX, music.$id || "");
+        reload();
+        return;
+      }
       if (like) {
         await db.deleteDocument(DATABASE_ID, LIKE_SONG, music.$id || "");
         reload();
@@ -172,7 +180,7 @@ function SongsOptions({
         reload();
       }
     }
-  }, [music, like, reload, edits]);
+  }, [music, like, reload, edits, tunebox]);
 
   return (
     <DropdownMenu>

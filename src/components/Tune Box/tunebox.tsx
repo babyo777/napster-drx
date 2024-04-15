@@ -22,12 +22,12 @@ import GoBack from "@/components/Goback";
 import { Button } from "@/components/ui/button";
 import Songs from "@/components/Library/Songs";
 import { RxShuffle } from "react-icons/rx";
-import { RiFocus3Line } from "react-icons/ri";
-import Share from "@/HandleShare/Share";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useInView } from "react-intersection-observer";
 import { FiShare } from "react-icons/fi";
+import { GoShare } from "react-icons/go";
+import { Account } from "../Settings/Account";
 function TuneBoxComp() {
   const { ref, inView } = useInView({
     threshold: 0,
@@ -36,16 +36,6 @@ function TuneBoxComp() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const currentIndex = useSelector(
-    (state: RootState) => state.musicReducer.currentIndex
-  );
-  const playingPlaylistUrl = useSelector(
-    (state: RootState) => state.musicReducer.playingPlaylistUrl
-  );
-
-  const playlist = useSelector(
-    (state: RootState) => state.musicReducer.playlist
-  );
   const uid = useSelector((state: RootState) => state.musicReducer.uid);
 
   const [offset, setOffset] = useState<string>();
@@ -87,7 +77,7 @@ function TuneBoxComp() {
     isLoading: pLoading,
     isError: pError,
     refetch: pRefetch,
-  } = useQuery<likedSongs[]>(["likedSongsDetails", id], getPlaylistDetails, {
+  } = useQuery<likedSongs[]>(["tuneboxSongsDetails", id], getPlaylistDetails, {
     retry: 0,
     staleTime: 1000,
     refetchOnWindowFocus: false,
@@ -97,7 +87,7 @@ function TuneBoxComp() {
       dispatch(shuffle(pDetails));
       dispatch(setCurrentIndex(0));
       dispatch(setPlayingPlaylistUrl(id || ""));
-      dispatch(SetPlaylistOrAlbum("liked"));
+      dispatch(SetPlaylistOrAlbum("tunebox"));
       if (pDetails.length == 1) {
         dispatch(isLoop(true));
       } else {
@@ -113,7 +103,7 @@ function TuneBoxComp() {
       dispatch(setPlaylist(pDetails));
       dispatch(setCurrentIndex(0));
       dispatch(setPlayingPlaylistUrl(id || ""));
-      dispatch(SetPlaylistOrAlbum("liked"));
+      dispatch(SetPlaylistOrAlbum("tunebox"));
       if (pDetails.length == 1) {
         dispatch(isLoop(true));
       } else {
@@ -124,11 +114,6 @@ function TuneBoxComp() {
       }
     }
   }, [dispatch, isPlaying, id, pDetails]);
-
-  const handleFocus = useCallback(() => {
-    const toFocus = document.getElementById(playlist[currentIndex].youtubeId);
-    toFocus?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [currentIndex, playlist]);
 
   useEffect(() => {
     if (inView) {
@@ -167,6 +152,7 @@ function TuneBoxComp() {
       url: `${window.location.origin}/box/${uid}`,
     });
   };
+  const isAccount = useSelector((state: RootState) => state.musicReducer.user);
   return (
     <div className=" flex flex-col items-center">
       {pError && pError && (
@@ -189,16 +175,19 @@ function TuneBoxComp() {
               automatically be updated with any songs people add to your
               tunebox.
             </p>
-            <Button
-              disabled
-              onClick={handleShare}
-              variant={"secondary"}
-              className=" rounded-xl animate-fade-up text-xl space-x-1 py-6 font-normal p-6"
-            >
-              <FiShare />
+            {isAccount ? (
+              <Button
+                onClick={handleShare}
+                variant={"secondary"}
+                className=" rounded-xl animate-fade-up text-xl space-x-1 py-6 font-normal p-6"
+              >
+                <FiShare />
 
-              <p>Soon</p>
-            </Button>
+                <p>Share</p>
+              </Button>
+            ) : (
+              <Account tunebox />
+            )}
           </div>
           <NavLink to={"/library/"}>
             <IoIosArrowBack className="animate-fade-right  my-5 mx-4  backdrop-blur-md  bg-black/30 rounded-full p-1  h-8 w-8 text-white " />
@@ -211,19 +200,19 @@ function TuneBoxComp() {
         </div>
       )}
 
-      {pDetails && (
+      {pDetails && pDetails.length > 0 && !pError && (
         <>
           <div className="flex w-screen h-[25rem] justify-center pt-[6vh] relative ">
             <GoBack />
             <div className="absolute top-4 z-10 right-3 flex-col space-y-0.5">
-              {playingPlaylistUrl == id && (
-                <div className="" onClick={handleFocus}>
-                  <RiFocus3Line className="h-8 w-8 fade-in mb-2  backdrop-blur-md text-white bg-black/30 rounded-full p-1.5" />
-                </div>
-              )}
-              <Share />
+              <div className="">
+                <GoShare
+                  onClick={handleShare}
+                  className="h-8 w-8 animate-fade-left backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
+                />
+              </div>
             </div>
-            <div className="h-[60vw] w-[60vw]">
+            <div className="h-56 w-56">
               <LazyLoadImage
                 effect="blur"
                 width="100%"
@@ -266,15 +255,14 @@ function TuneBoxComp() {
                 <Songs
                   data={pDetails}
                   p={id || ""}
-                  liked={true}
                   forId={data.for}
                   delId={data.$id}
-                  query="likedSongsDetails"
+                  query="tuneboxSongsDetails"
                   artistId={data.artists[0].id}
                   audio={data.youtubeId}
                   key={data.youtubeId + i}
                   id={i}
-                  where="liked"
+                  where="tunebox"
                   title={data.title}
                   artist={data.artists[0].name}
                   cover={data.thumbnailUrl}

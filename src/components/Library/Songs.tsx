@@ -107,7 +107,9 @@ function Songs({
       if (data.length > 1) {
         dispatch(setPlaylist(data));
       } else {
-        if (isSingle) {
+        if (isSingle && isSingle.length > 0) {
+          console.log(isSingle);
+
           dispatch(setPlaylist(isSingle));
         } else {
           dispatch(setPlaylist(data));
@@ -209,6 +211,7 @@ function Songs({
         key={audio + cover + title}
         id={p}
         reload={reload}
+        tunebox={query == "tuneboxSongsDetails" && true}
         edits={query == "editSongsDetails" && true}
         like={query == "likedSongsDetails" && true}
         music={{
@@ -227,6 +230,7 @@ function Songs({
         library={
           (query == "likedSongsDetails" && true) ||
           (query == "editSongsDetails" && true) ||
+          (query == "tuneboxSongsDetails" && true) ||
           (query == "custom" && true)
         }
       />

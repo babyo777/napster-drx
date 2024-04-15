@@ -4,9 +4,11 @@ import {
   suggestedArtists,
   spotifyTransfer,
 } from "@/Interface";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "./Store";
 
 interface Player {
+  user: boolean;
   playlistUrl: string;
   playingPlaylistUrl: string;
   playlist: playlistSongs[];
@@ -54,6 +56,7 @@ interface Player {
 
 const initialState: Player = {
   isLikedSong: false,
+  user: false,
   sharePlayCode: "",
   lastPlayed: false,
   uid: localStorage.getItem("uid"),
@@ -62,8 +65,8 @@ const initialState: Player = {
   spotifyTrack: null,
   PlaylistOrAlbum: "",
   playingPlaylistUrl: "",
-  progress: "--:--",
-  duration: "--:--",
+  progress: 0,
+  duration: 0,
   SpotifyProgress: 0,
   isLoop: false,
   seek: 0,
@@ -236,11 +239,23 @@ const MusicPlayer = createSlice({
     setSpotifyTrack: (state, action: PayloadAction<spotifyTransfer | null>) => {
       state.spotifyTrack = action.payload;
     },
+    setUser: (state, action: PayloadAction<boolean>) => {
+      state.user = action.payload;
+    },
   },
 });
 
+export const selectLyricsProgress = (state: RootState) =>
+  state.musicReducer.progress;
+
+export const selectMemoizedLyricsProgress = createSelector(
+  [selectLyricsProgress],
+  (progress) => progress
+);
+
 export const {
   shuffle,
+  setUser,
   play,
   SetFeedMode,
   SetLastPlayed,
@@ -270,9 +285,9 @@ export const {
   setIsLikedSong,
   setIsLoading,
   isLoop,
+  setProgressLyrics,
   setNextPrev,
   SetCurrentSongId,
-  setProgressLyrics,
   setIsIphone,
   setCurrentArtistId,
   setDurationLyrics,

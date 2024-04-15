@@ -270,6 +270,43 @@ function Check() {
     }
     return modified as unknown as likedSongs[];
   };
+  const getTuneBoxDetails = async () => {
+    const r = await db.listDocuments(DATABASE_ID, EDITS, [
+      Query.orderDesc("$createdAt"),
+      Query.equal("for", [localStorage.getItem("uid") || ""]),
+      Query.limit(999),
+    ]);
+    const s = await axios.get(`${SuggestionSearchApi}${data?.curentsongid}`);
+    const modified = r.documents.map((doc) => ({
+      for: doc.for,
+      youtubeId: doc.youtubeId,
+      artists: [
+        {
+          id: doc.artists[0],
+          name: doc.artists[1],
+        },
+      ],
+      title: doc.title,
+      thumbnailUrl: doc.thumbnailUrl,
+    }));
+    if (data) {
+      if (data.index > modified.length) {
+        dispatch(setCurrentIndex(0));
+      }
+      if (data.index !== 0) {
+        dispatch(setPlaylist(modified));
+      } else {
+        if (s.data[0].youtubeId == data.curentsongid) {
+          const n = modified.slice(1);
+
+          dispatch(setPlaylist([s.data[0], ...n]));
+        } else {
+          dispatch(setPlaylist([s.data[0], ...modified]));
+        }
+      }
+    }
+    return modified as unknown as likedSongs[];
+  };
 
   const { refetch: likedSong } = useQuery<likedSongs[]>(
     ["likedSongsDetailsP", data?.playlisturl],
@@ -285,6 +322,17 @@ function Check() {
   const { refetch: editSong } = useQuery<likedSongs[]>(
     ["editSongsDetailsM", data?.playlisturl],
     getEditDetails,
+    {
+      retry: 5,
+      enabled: false,
+      refetchOnMount: false,
+      staleTime: 1000,
+      refetchOnWindowFocus: false,
+    }
+  );
+  const { refetch: tuneboxSong } = useQuery<likedSongs[]>(
+    ["tuneboxSongsDetailsM", data?.playlisturl],
+    getTuneBoxDetails,
     {
       retry: 5,
       enabled: false,
@@ -336,6 +384,9 @@ function Check() {
       if (data.navigator == "edits") {
         editSong();
       }
+      if (data.navigator == "tunebox") {
+        tuneboxSong();
+      }
       if (data.navigator == "suggested") {
         dispatch(setCurrentIndex(0));
         suggested();
@@ -359,6 +410,7 @@ function Check() {
     refetch,
     likedSong,
     suggested,
+    tuneboxSong,
     album,
     music,
     uid,
