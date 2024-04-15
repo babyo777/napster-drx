@@ -50,7 +50,14 @@ function Check() {
     const isIPhone = /iPhone/i.test(navigator.userAgent);
     const isDesktop = window.innerWidth > 786;
     const isiPad = navigator.userAgent.match(/iPad/i) !== null;
+    const isInStandaloneMode = () =>
+      "standalone" in window.navigator && window.navigator.standalone;
+
     const online = navigator.onLine;
+    if (isIPhone && isInStandaloneMode()) {
+      //@ts-expect-error:checked
+      this.setState({ showInstallMessage: true });
+    }
     setIsIpad(isiPad);
     setOnline(online);
     setDesktop(isDesktop);
