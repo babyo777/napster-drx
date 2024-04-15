@@ -21,6 +21,7 @@ import {
   EDITS,
   LAST_PLAYED,
   LIKE_SONG,
+  TUNEBOX,
   db,
 } from "@/appwrite/appwriteConfig";
 import { useQuery } from "react-query";
@@ -271,7 +272,7 @@ function Check() {
     return modified as unknown as likedSongs[];
   };
   const getTuneBoxDetails = async () => {
-    const r = await db.listDocuments(DATABASE_ID, EDITS, [
+    const r = await db.listDocuments(DATABASE_ID, TUNEBOX, [
       Query.orderDesc("$createdAt"),
       Query.equal("for", [localStorage.getItem("uid") || ""]),
       Query.limit(999),
