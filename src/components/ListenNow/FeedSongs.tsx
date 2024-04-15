@@ -1,5 +1,5 @@
 import { AspectRatio } from "../ui/aspect-ratio";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,7 @@ import axios from "axios";
 import { SuggestionSearchApi } from "@/API/api";
 import { useQuery } from "react-query";
 import SongsOptions from "../Library/SongsOptions";
-import { Blurhash } from "react-blurhash";
+
 function FeedSong({
   title,
   artist,
@@ -108,14 +108,12 @@ function FeedSong({
     (state: RootState) => state.musicReducer.playlist
   );
 
-  const [load, setLoad] = useState<boolean>(false);
-
   const image = async () => {
     const response = await axios.get(cover, { responseType: "arraybuffer" });
     const blob = new Blob([response.data], {
       type: response.headers["content-type"],
     });
-    setLoad(true);
+
     return URL.createObjectURL(blob);
   };
 
@@ -129,32 +127,19 @@ function FeedSong({
     <div className="flex  animate-fade-up flex-col py-2 space-y-2 ">
       <div className="overflow-hidden  space-y-2">
         <AspectRatio ratio={4 / 5} className=" rounded-xl overflow-hidden">
-          {!load ? (
-            <Blurhash
-              hash={"LeP$^2-5+aR7}hFvNM$yNFw]ilWX"}
-              width={"100%"}
-              height={"100%"}
-              resolutionX={32}
-              className=" rounded-xl"
-              resolutionY={32}
-              punch={1}
-            />
-          ) : (
-            <LazyLoadImage
-              onClick={handlePlay}
-              src={c || cover}
-              width="100%"
-              height="100%"
-              effect="blur"
-              onLoad={() => setLoad(true)}
-              alt="Image"
-              loading="lazy"
-              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
-                (e.currentTarget.src = "/liked.webp")
-              }
-              className="rounded-xl object-cover object-center h-[100%] w-[100%]"
-            />
-          )}
+          <LazyLoadImage
+            onClick={handlePlay}
+            src={c ? c : "/cache.jpg"}
+            width="100%"
+            height="100%"
+            effect="blur"
+            alt="Image"
+            loading="lazy"
+            onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
+              (e.currentTarget.src = "/liked.webp")
+            }
+            className="rounded-xl object-cover object-center h-[100%] w-[100%]"
+          />
         </AspectRatio>
       </div>
       <div className=" flex justify-between">
