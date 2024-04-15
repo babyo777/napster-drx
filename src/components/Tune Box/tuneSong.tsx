@@ -8,31 +8,39 @@ import { useParams } from "react-router-dom";
 import { DATABASE_ID, ID, TUNEBOX, db } from "@/appwrite/appwriteConfig";
 import { useQuery } from "react-query";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/Store/Store";
+import { setLimit } from "@/Store/Player";
 
 function TuneSongComp({ item }: { item: playlistSongs }) {
   const { id } = useParams();
   const [send, setSend] = useState<boolean>(false);
+  const limit = useSelector((state: RootState) => state.musicReducer.limit);
+  const dispatch = useDispatch();
   const handleSend = useCallback(() => {
     if (id) {
       setSend(true);
-      db.createDocument(DATABASE_ID, TUNEBOX, ID.unique(), {
-        youtubeId: item.youtubeId,
-        title: item.title,
-        artists: [
-          item.artists[0]?.id || "unknown",
-          item.artists[0]?.name || "unknown",
-        ],
-        thumbnailUrl: item.thumbnailUrl,
-        for: id,
-      })
-        .then(() => {
-          setSend(true);
+      if (limit !== 5) {
+        dispatch(setLimit(limit + 1));
+        db.createDocument(DATABASE_ID, TUNEBOX, ID.unique(), {
+          youtubeId: item.youtubeId,
+          title: item.title,
+          artists: [
+            item.artists[0]?.id || "unknown",
+            item.artists[0]?.name || "unknown",
+          ],
+          thumbnailUrl: item.thumbnailUrl,
+          for: id,
         })
-        .catch(() => {
-          setSend(false);
-        });
+          .then(() => {
+            setSend(true);
+          })
+          .catch(() => {
+            setSend(false);
+          });
+      }
     }
-  }, [id, item]);
+  }, [id, item, limit, dispatch]);
 
   const image = async () => {
     const response = await axios.get(GetImage + item.thumbnailUrl, {

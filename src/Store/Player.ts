@@ -44,6 +44,7 @@ interface Player {
   sharePlayConnected: boolean;
   reels: playlistSongs[];
   reelsIndex: number;
+  limit: number;
   shareLyrics:
     | [
         {
@@ -88,6 +89,7 @@ const initialState: Player = {
   music: null,
   currentSongId: "",
   search: "",
+  limit: 0,
   savedPlaylist: [],
   savedAlbums: [],
   savedArtists: [],
@@ -217,6 +219,9 @@ const MusicPlayer = createSlice({
     setReelsIndex: (state, action: PayloadAction<number>) => {
       state.reelsIndex = action.payload;
     },
+    setLimit: (state, action: PayloadAction<number>) => {
+      state.limit = action.payload;
+    },
     setNextPrev: (state, action: PayloadAction<string>) => {
       state.queue = state.playlist;
       if (action.payload == "prev") {
@@ -272,6 +277,7 @@ export const {
   SetQueue,
   SetCurrentPlaying,
   setPlayer,
+  setLimit,
   setSearchToggle,
   setNextQueue,
   SetFeed,
