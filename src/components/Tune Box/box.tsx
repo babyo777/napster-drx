@@ -39,8 +39,11 @@ function Box() {
       refetchOnMount: false,
     }
   );
-
+  const audioRef = useRef<HTMLAudioElement>(null);
   const handleChange = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.src = "";
+    }
     const t = setTimeout(() => {
       if (searchQuery.current && searchQuery.current.value.length > 0) {
         setData([]);
@@ -71,6 +74,7 @@ function Box() {
 
   return (
     <div className=" max-md:px-4 py-11 flex px-[35dvw] flex-col justify-center space-y-1.5 items-center">
+      <audio src="" hidden ref={audioRef} autoPlay></audio>
       {userLoading && !data ? (
         <div className=" h-dvh flex items-center justify-center">
           <Loader />
@@ -117,6 +121,7 @@ function Box() {
                     .slice(0, 7)
                     .map((item) => (
                       <TuneSong
+                        audioRef={audioRef}
                         key={item.youtubeId + item.thumbnailUrl}
                         item={item}
                       />

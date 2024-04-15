@@ -29,6 +29,8 @@ const GetPlaylistSongsApi = `${mainApi}/ps/`;
 
 const GetPlaylistHundredSongsApi = `${mainApi}/psh/`;
 
+const GetTrack = `${mainApi}/track?t=`;
+
 const getArtistsDetailsByName = `${mainApi}/gabyname/`;
 
 const SearchPlaylistApi = `${mainApi}/p/`;
@@ -74,6 +76,7 @@ export {
   GetPlaylistHundredSongsApi,
   SearchPlaylistApi,
   SearchArtist,
+  GetTrack,
   GetArtistDetails,
   SearchAlbum,
   downloadApi,

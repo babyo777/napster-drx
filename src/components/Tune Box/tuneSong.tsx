@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { GetImage } from "@/API/api";
+import { GetImage, GetTrack } from "@/API/api";
 import { playlistSongs } from "@/Interface";
 import { FiSend } from "react-icons/fi";
 import { useParams } from "react-router-dom";
@@ -11,8 +11,15 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { setLimit } from "@/Store/Player";
+import Loader from "../Loaders/Loader";
 
-function TuneSongComp({ item }: { item: playlistSongs }) {
+function TuneSongComp({
+  item,
+  audioRef,
+}: {
+  item: playlistSongs;
+  audioRef: React.RefObject<HTMLAudioElement>;
+}) {
   const { id } = useParams();
   const [send, setSend] = useState<boolean>(false);
   const limit = useSelector((state: RootState) => state.musicReducer.limit);
@@ -58,9 +65,27 @@ function TuneSongComp({ item }: { item: playlistSongs }) {
     staleTime: Infinity,
   });
 
+  const [loader, setLoader] = useState<boolean>(false);
+  const handlePlay = useCallback(async () => {
+    setLoader(true);
+    const res = await axios.get(
+      `${GetTrack}${item?.title} ${item?.artists[0]?.name}`
+    );
+    if (res.status == 404) {
+      setLoader(false);
+      return;
+    }
+    if (audioRef.current) {
+      audioRef.current.src = res.data;
+      audioRef.current.play();
+      audioRef.current.onloadeddata = () => {
+        setLoader(false);
+      };
+    }
+  }, [item, audioRef]);
   return (
     <div className="flex animate-fade-right py-2 px-[35dvw]  max-md:px-5 w-[100dvw] justify-between items-center">
-      <div className=" flex space-x-2">
+      <div onClick={handlePlay} className="  flex space-x-2">
         <div className="h-14 w-14 space-y-2">
           <AspectRatio ratio={1 / 1}>
             <LazyLoadImage
@@ -73,8 +98,13 @@ function TuneSongComp({ item }: { item: playlistSongs }) {
               onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
                 (e.currentTarget.src = "/liked.webp")
               }
-              className="rounded-md object-cover h-[100%] w-[100%]"
+              className="rounded-md relative object-cover h-[100%] w-[100%]"
             />
+            {loader && (
+              <div className=" bg-black/40 w-full h-full top-0 flex  items-center justify-center absolute">
+                <Loader />
+              </div>
+            )}
           </AspectRatio>
         </div>
         <div className="flex space-y-0.5 flex-col pl-1 text-start  ">
