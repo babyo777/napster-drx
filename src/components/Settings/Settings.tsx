@@ -157,6 +157,14 @@ function Settings() {
             Feedback
           </p>
         </div>
+        <div className="animate-fade-up">
+          <p
+            onClick={() => window.open("https://ngl-drx.vercel.app/")}
+            className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex justify-center text-base "
+          >
+            Contact
+          </p>
+        </div>
         <DialogClose ref={close}></DialogClose>
         <DrawerFooter className="animate-fade-up items-center w-full px-0">
           <div className="flex space-x-2 w-full items-center">
