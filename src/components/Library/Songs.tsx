@@ -1,5 +1,5 @@
 import { AspectRatio } from "../ui/aspect-ratio";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +25,6 @@ import { Link } from "react-router-dom";
 import SongsOptions from "./SongsOptions";
 import axios from "axios";
 import { GetImage, SuggestionSearchApi } from "@/API/api";
-import { Blurhash } from "react-blurhash";
 
 function Songs({
   title,
@@ -140,7 +139,6 @@ function Songs({
     data,
     isSingle,
   ]);
-  const [load, setLoad] = useState<boolean>();
 
   const image = async () => {
     const response = await axios.get(GetImage + cover, {
@@ -149,13 +147,11 @@ function Songs({
     const blob = new Blob([response.data], {
       type: response.headers["content-type"],
     });
-    setLoad(true);
     return URL.createObjectURL(blob);
   };
 
   const { data: c } = useQuery(["image", cover], image, {
     refetchOnMount: false,
-    retry: 5,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
@@ -168,31 +164,19 @@ function Songs({
       {!album ? (
         <div className="overflow-hidden  h-12 w-12 space-y-2">
           <AspectRatio ratio={1 / 1} className=" rounded-md overflow-hidden">
-            {!load ? (
-              <Blurhash
-                hash={"LeP$^2-5+aR7}hFvNM$yNFw]ilWX"}
-                width={"100%"}
-                height={"100%"}
-                resolutionX={32}
-                className=" rounded-md"
-                resolutionY={32}
-                punch={1}
-              />
-            ) : (
-              <LazyLoadImage
-                onClick={handlePlay}
-                src={c}
-                width="100%"
-                height="100%"
-                effect="blur"
-                alt="Image"
-                loading="lazy"
-                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
-                  (e.currentTarget.src = "/liked.webp")
-                }
-                className="rounded-md object-cover h-[100%] w-[100%]"
-              />
-            )}
+            <LazyLoadImage
+              onClick={handlePlay}
+              src={c ? c : "/cache.jpg"}
+              width="100%"
+              height="100%"
+              effect="blur"
+              alt="Image"
+              loading="lazy"
+              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
+                (e.currentTarget.src = "/liked.webp")
+              }
+              className="rounded-md object-cover h-[100%] w-[100%]"
+            />
           </AspectRatio>
         </div>
       ) : (
