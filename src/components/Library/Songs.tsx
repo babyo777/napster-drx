@@ -142,21 +142,6 @@ function Songs({
   ]);
   const [load, setLoad] = useState<boolean>(false);
 
-  const image = async () => {
-    const response = await axios.get(cover, { responseType: "arraybuffer" });
-    const blob = new Blob([response.data], {
-      type: response.headers["content-type"],
-    });
-    setLoad(true);
-    return URL.createObjectURL(blob);
-  };
-
-  const { data: c } = useQuery(["image", cover], image, {
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    staleTime: Infinity,
-  });
-
   return (
     <div
       id={audio}
@@ -178,7 +163,7 @@ function Songs({
             ) : (
               <LazyLoadImage
                 onClick={handlePlay}
-                src={c || cover}
+                src={cover}
                 width="100%"
                 height="100%"
                 effect="blur"
