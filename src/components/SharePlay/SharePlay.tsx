@@ -175,6 +175,7 @@ function SharePlay() {
   );
   const [once, setOnce] = useState<boolean>();
   const handleLike = useCallback(() => {
+    if (liked) return;
     if (playlist.length == 0) return;
     SetLiked(true);
     setOnce(true);
@@ -195,7 +196,7 @@ function SharePlay() {
         setOnce(false);
         SetLiked(false);
       });
-  }, [currentIndex, playlist, currentArtistId, refetch]);
+  }, [currentIndex, playlist, currentArtistId, refetch, liked]);
 
   const RemoveLike = useCallback(async () => {
     if (playlist.length == 0) return;
@@ -311,7 +312,6 @@ function SharePlay() {
     setDb(true);
     if (!once) {
       if (playlist.length > 0) {
-        if (liked) return;
         handleLike();
       }
     }
@@ -319,7 +319,7 @@ function SharePlay() {
       setDb(false);
     }, 1290);
     return () => clearTimeout(t);
-  }, [handleLike, once, playlist, liked]);
+  }, [handleLike, once, playlist]);
 
   const bind = useDoubleTap(handleDbClick);
 
