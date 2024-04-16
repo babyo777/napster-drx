@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { ThemeProvider } from "./components/theme-provider.tsx";
@@ -20,7 +20,7 @@ import Suggested from "./Suggested/Suggested.tsx";
 import Docs from "./Landing Page/Docs.tsx";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import Box from "./components/Tune Box/box.tsx";
-import TuneBox from "./components/Tune Box/tunebox.tsx";
+const TuneBox = lazy(() => import("./components/Tune Box/tunebox.tsx"));
 import Offline from "./Offline/offline.tsx";
 // import Test from "./text.tsx";
 import SavedEdits from "./Saved Edits/SavedEdits.tsx";
@@ -76,7 +76,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/tunebox/:id",
-        element: <TuneBox />,
+        element: (
+          <Suspense>
+            <TuneBox />
+          </Suspense>
+        ),
       },
       {
         path: "/suggested/:id",
