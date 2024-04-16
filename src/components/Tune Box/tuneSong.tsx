@@ -84,9 +84,7 @@ function TuneSongComp({
     if (audioRef.current) {
       audioRef.current.src = res.data;
       audioRef.current.play();
-      audioRef.current.onloadeddata = () => {
-        setLoader(false);
-      };
+      setLoader(false);
     }
   }, [item, audioRef]);
   return (
