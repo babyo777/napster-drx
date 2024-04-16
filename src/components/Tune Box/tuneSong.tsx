@@ -90,7 +90,7 @@ function TuneSongComp({
     }
   }, [item, audioRef]);
   return (
-    <div className="flex animate-fade-right py-2 px-[35dvw]  max-md:px-5 w-[100dvw] justify-between items-center">
+    <div className="flex animate-fade-right py-1 px-[35dvw]  max-md:px-5 w-[100dvw] justify-between items-center">
       <div onClick={handlePlay} className="  flex space-x-2">
         <div className="h-14 w-14 space-y-2">
           <AspectRatio ratio={1 / 1}>
