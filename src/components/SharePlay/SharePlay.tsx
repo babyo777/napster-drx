@@ -155,7 +155,6 @@ function SharePlay() {
     if (r.documents.length == 0) {
       SetLiked(false);
     } else {
-      setOnce(true);
       SetLiked(true);
     }
     return r.documents;
@@ -309,6 +308,7 @@ function SharePlay() {
   const [dbClick, setDb] = useState<boolean>();
 
   const handleDbClick = useCallback(() => {
+    if (isLiked) return;
     setDb(true);
     if (!once) {
       if (playlist.length > 0) {
@@ -319,7 +319,7 @@ function SharePlay() {
       setDb(false);
     }, 1290);
     return () => clearTimeout(t);
-  }, [handleLike, once, playlist]);
+  }, [handleLike, once, playlist, isLiked]);
 
   const bind = useDoubleTap(handleDbClick);
 
