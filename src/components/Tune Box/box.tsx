@@ -115,7 +115,7 @@ function Box() {
               </div>
               <LazyLoadImage
                 src={user[0].image || "/cache.jpg"}
-                className=" rounded-full border-white border-4 animate-fade-down object-cover object-center h-28 w-28"
+                className=" rounded-full border-white border-4 animate-fade-down object-cover object-center h-24 w-24"
               />
               <div className="animate-fade-down">
                 <p className="text-base text-center font-semibold -mb-1.5 text-zinc-200 truncate w-[50dvw]">
