@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { GetImage, GetTrack } from "@/API/api";
+import { GetImage, GetTrack, sendNotificationApi } from "@/API/api";
 import { playlistSongs } from "@/Interface";
 import { FiSend } from "react-icons/fi";
 import { useParams } from "react-router-dom";
@@ -16,7 +16,9 @@ import Loader from "../Loaders/Loader";
 function TuneSongComp({
   item,
   audioRef,
+  notifyId,
 }: {
+  notifyId: string | undefined | null;
   item: playlistSongs;
   audioRef: React.RefObject<HTMLAudioElement>;
 }) {
@@ -41,7 +43,10 @@ function TuneSongComp({
           thumbnailUrl: item.thumbnailUrl,
           for: id,
         })
-          .then(() => {
+          .then(async () => {
+            if (notifyId) {
+              await axios.post(`${sendNotificationApi}${notifyId}`);
+            }
             setSent(true);
             setSend(true);
             dispatch(SetSentQue([...sentQue, item.youtubeId]));
@@ -52,7 +57,7 @@ function TuneSongComp({
           });
       }
     }
-  }, [id, item, limit, dispatch, sentQue]);
+  }, [id, item, limit, dispatch, sentQue, notifyId]);
 
   const image = async () => {
     const response = await axios.get(GetImage + item.thumbnailUrl, {

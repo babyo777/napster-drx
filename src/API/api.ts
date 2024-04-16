@@ -59,7 +59,10 @@ const getUserApi = `${mainApi}/user/`;
 
 const ReelsApi = `${mainApi}/reels/`;
 
+const sendNotificationApi = `${mainApi}/notify/`;
+
 export {
+  sendNotificationApi,
   ReelsApi,
   getUserApi,
   SharePlayApi,

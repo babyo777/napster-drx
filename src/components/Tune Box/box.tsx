@@ -14,6 +14,7 @@ import { Models, Query } from "appwrite";
 interface User extends Models.Document {
   name: string;
   image: string;
+  notify: string;
 }
 function Box() {
   const searchQuery = useRef<HTMLInputElement>(null);
@@ -151,6 +152,7 @@ function Box() {
                     .slice(0, 5)
                     .map((item) => (
                       <TuneSong
+                        notifyId={user[0]?.notify || null}
                         audioRef={audioRef}
                         key={item.youtubeId + item.thumbnailUrl}
                         item={item}

@@ -1,5 +1,5 @@
 import { FaPlay } from "react-icons/fa6";
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack, IoMdNotificationsOutline } from "react-icons/io";
 import { NavLink, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,7 @@ import {
 } from "@/Store/Player";
 import React, { useCallback, useEffect, useState } from "react";
 import { RootState } from "@/Store/Store";
-import { DATABASE_ID, TUNEBOX, db } from "@/appwrite/appwriteConfig";
+import { DATABASE_ID, NEW_USER, TUNEBOX, db } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
 import { likedSongs, playlistSongs } from "@/Interface";
 import Loader from "@/components/Loaders/Loader";
@@ -28,6 +28,8 @@ import { useInView } from "react-intersection-observer";
 import { FiShare } from "react-icons/fi";
 import { GoShare } from "react-icons/go";
 import { Account } from "../Settings/Account";
+import { getToken } from "firebase/messaging";
+import { messaging } from "@/Landing Page/firebase";
 function TuneBoxComp() {
   const { ref, inView } = useInView({
     threshold: 0,
@@ -82,6 +84,51 @@ function TuneBoxComp() {
     staleTime: 1000,
     refetchOnWindowFocus: false,
   });
+  const [notification, setNotification] = useState<boolean>(true);
+  const getKey = useCallback(async () => {
+    if (uid) {
+      const token = await getToken(messaging, {
+        vapidKey:
+          "BKClLMyaVIbmLst3qE2nUH8P295K_8ZinQ7uM4ap7F-ZyvkG8_eaXi7BTNQDrc39UzXcLGtXd-Ved6cNpWNXiyk",
+      });
+      const res = await db.listDocuments(DATABASE_ID, NEW_USER, [
+        Query.equal("user", uid),
+        Query.limit(1),
+      ]);
+      await db.updateDocument(DATABASE_ID, NEW_USER, res.documents[0].$id, {
+        notify: token,
+      });
+      setNotification(true);
+    }
+  }, [uid]);
+
+  const enableNotifications = async () => {
+    if ("Notification" in window) {
+      const permission = await Notification.requestPermission();
+
+      if (permission === "granted") {
+        setNotification(true);
+        getKey();
+      } else {
+        alert("Enable from you settings");
+        setNotification(false);
+      }
+    } else {
+      alert("Not supported! Please install NGLdrx. from account settings");
+      setNotification(false);
+    }
+  };
+
+  useEffect(() => {
+    if ("Notification" in window) {
+      if (Notification.permission === "granted") {
+        getKey();
+      } else {
+        setNotification(false);
+      }
+    }
+  }, [getKey]);
+
   const handleShufflePlay = useCallback(async () => {
     if (pDetails) {
       dispatch(shuffle(pDetails));
@@ -211,6 +258,14 @@ function TuneBoxComp() {
                   className="h-8 w-8 animate-fade-left backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
                 />
               </div>
+              {!notification && (
+                <div className="">
+                  <IoMdNotificationsOutline
+                    onClick={enableNotifications}
+                    className="h-8 w-8 animate-fade-left backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
+                  />
+                </div>
+              )}
             </div>
             <div className="h-56 w-56">
               <LazyLoadImage
