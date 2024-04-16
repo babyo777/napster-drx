@@ -554,11 +554,11 @@ function SharePlay() {
                   to={`/artist/${data?.artistId}`}
                   className="max-w-[40dvw] truncate"
                 >
-                  {playlist[currentIndex]?.artists[0].name || (
+                  {playlist[currentIndex]?.artists[0]?.name || (
                     <Skeleton className="w-28 bg-zinc-800 h-3" />
                   )}
                 </Link>
-                {playlist[currentIndex]?.artists[0].id && (
+                {playlist[currentIndex]?.artists[0]?.id && (
                   <div className="ml-1.5 mb-0.5 flex items-center">
                     {isFavArtist ? (
                       <p

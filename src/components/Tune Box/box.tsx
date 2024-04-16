@@ -83,7 +83,7 @@ function Box() {
         <>
           {user && user[0] ? (
             <>
-              <div className=" absolute top-2.5 left-2.5 text-xs  text-zinc-400 font-semibold">
+              <div className=" absolute top-2.5 animate-fade-right left-2.5 text-xs  text-zinc-400 font-semibold">
                 <Link
                   to={`${window.location.origin}/tunebox/${localStorage.getItem(
                     "uid"
