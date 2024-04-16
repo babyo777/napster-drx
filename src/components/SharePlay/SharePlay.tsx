@@ -166,9 +166,7 @@ function SharePlay() {
     isLikedCheck,
     {
       enabled: false,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      staleTime: Infinity,
+      staleTime: 0,
     }
   );
 
@@ -226,9 +224,6 @@ function SharePlay() {
     }
   }, [playlist, currentIndex, followRefetch, refetch]);
 
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
   const image = async () => {
     const response = await axios.get(
       playlist[currentIndex]?.thumbnailUrl.replace("w120-h120", "w1080-h1080"),
