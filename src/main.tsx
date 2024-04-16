@@ -25,6 +25,7 @@ import Offline from "./Offline/offline.tsx";
 // import Test from "./text.tsx";
 import SavedEdits from "./Saved Edits/SavedEdits.tsx";
 import ErrorElement from "./error.tsx";
+import Loader from "./components/Loaders/Loader.tsx";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
@@ -111,7 +112,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={client}>
         <ThemeProvider>
           <ReactLenis root>
-            <Suspense>
+            <Suspense
+              fallback={
+                <div className=" h-dvh flex items-center justify-center">
+                  <Loader color="white" />
+                </div>
+              }
+            >
               <RouterProvider router={router} />
             </Suspense>
           </ReactLenis>
