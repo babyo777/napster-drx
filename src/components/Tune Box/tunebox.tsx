@@ -86,7 +86,7 @@ function TuneBoxComp() {
   });
   const [notification, setNotification] = useState<boolean>(true);
   const getKey = useCallback(async () => {
-    if (uid) {
+    if (uid && messaging) {
       const token = await getToken(messaging, {
         vapidKey:
           "BKClLMyaVIbmLst3qE2nUH8P295K_8ZinQ7uM4ap7F-ZyvkG8_eaXi7BTNQDrc39UzXcLGtXd-Ved6cNpWNXiyk",
@@ -258,7 +258,7 @@ function TuneBoxComp() {
                   className="h-8 w-8 animate-fade-left backdrop-blur-md text-white bg-black/30 rounded-full p-1.5"
                 />
               </div>
-              {!notification && (
+              {!notification && messaging && (
                 <div className="">
                   <IoMdNotificationsOutline
                     onClick={enableNotifications}

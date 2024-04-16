@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth } from "firebase/auth";
-import { getMessaging } from "firebase/messaging";
+import { Messaging, getMessaging } from "firebase/messaging";
 const firebaseConfig = {
   apiKey: "AIzaSyC3UYt7dxYgR-8T1DgdZT86pwi5JmKLF2Y",
   authDomain: "ngl-drx-prod.firebaseapp.com",
@@ -10,9 +10,16 @@ const firebaseConfig = {
   appId: "1:162610520917:web:e039ca4f4c659eeafa05dc",
   measurementId: "G-C7VFF3RJ2P",
 };
+let messaging: Messaging | null = null;
 
 const app = initializeApp(firebaseConfig);
-export const messaging = getMessaging(app);
+if ("serviceWorker" in navigator) {
+  messaging = getMessaging(app);
+} else {
+  console.error("Service workers are not supported in this environment.");
+}
+
+export { messaging };
 export const auth = getAuth();
 export const googleAuthProvider = new GoogleAuthProvider();
 
