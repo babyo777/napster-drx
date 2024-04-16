@@ -308,10 +308,10 @@ function SharePlay() {
   const [dbClick, setDb] = useState<boolean>();
 
   const handleDbClick = useCallback(() => {
-    if (liked) return;
     setDb(true);
     if (!once) {
       if (playlist.length > 0) {
+        if (liked) return;
         handleLike();
       }
     }
