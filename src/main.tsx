@@ -17,7 +17,7 @@ import ArtistPage from "./Artists/ArtistPage.tsx";
 import ListenNow from "./components/ListenNow/ListenNow.tsx";
 import LikedSong from "./LikedSongs/likedSongs.tsx";
 import Suggested from "./Suggested/Suggested.tsx";
-import Docs from "./Landing Page/Docs.tsx";
+const Docs = lazy(() => import("./Landing Page/Docs.tsx"));
 import { ReactLenis } from "@studio-freight/react-lenis";
 import Box from "./components/Tune Box/box.tsx";
 const TuneBox = lazy(() => import("./components/Tune Box/tunebox.tsx"));
