@@ -155,6 +155,7 @@ function SharePlay() {
     if (r.documents.length == 0) {
       SetLiked(false);
     } else {
+      setOnce(true);
       SetLiked(true);
     }
     return r.documents;
