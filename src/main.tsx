@@ -76,11 +76,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/tunebox/:id",
-        element: (
-          <Suspense>
-            <TuneBox />
-          </Suspense>
-        ),
+        element: <TuneBox />,
       },
       {
         path: "/suggested/:id",
@@ -115,7 +111,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={client}>
         <ThemeProvider>
           <ReactLenis root>
-            <RouterProvider router={router} />
+            <Suspense>
+              <RouterProvider router={router} />
+            </Suspense>
           </ReactLenis>
         </ThemeProvider>
       </QueryClientProvider>
