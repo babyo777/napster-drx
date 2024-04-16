@@ -308,7 +308,7 @@ function SharePlay() {
   const [dbClick, setDb] = useState<boolean>();
 
   const handleDbClick = useCallback(() => {
-    if (isLiked) return;
+    if (liked) return;
     setDb(true);
     if (!once) {
       if (playlist.length > 0) {
@@ -319,7 +319,7 @@ function SharePlay() {
       setDb(false);
     }, 1290);
     return () => clearTimeout(t);
-  }, [handleLike, once, playlist, isLiked]);
+  }, [handleLike, once, playlist, liked]);
 
   const bind = useDoubleTap(handleDbClick);
 
