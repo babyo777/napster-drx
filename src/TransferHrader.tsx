@@ -74,7 +74,7 @@ export default function TransferHeader({ data }: { data: spotifyTransfer }) {
 
   return (
     <>
-      <div className=" fixed w-full px-2.5 z-10 animate-fade-down">
+      <div className=" fixed w-full px-2.5 z-40 animate-fade-down">
         <Alert className=" fade-in bg-zinc-900 top-3.5 border-none">
           <AlertDescription>
             <div className="flex w-full flex-col space-y-1.5 items-start">
