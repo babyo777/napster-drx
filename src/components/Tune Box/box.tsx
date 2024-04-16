@@ -140,7 +140,7 @@ function Box() {
               </div>
               <div key={user[0].$id}>
                 {isLoading && (
-                  <div className=" h-[60dvh] flex items-center justify-center">
+                  <div className=" h-[41dvh] flex items-center justify-center">
                     <Loader color="white" />
                   </div>
                 )}
