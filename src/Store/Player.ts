@@ -45,6 +45,7 @@ interface Player {
   reels: playlistSongs[];
   reelsIndex: number;
   limit: number;
+  sentQue: string[];
   shareLyrics:
     | [
         {
@@ -72,6 +73,7 @@ const initialState: Player = {
   isLoop: false,
   seek: 0,
   feedMode: true,
+  sentQue: [],
   Feed: [],
   sharePlayConnected: false,
   currentToggle: "Playlists",
@@ -114,6 +116,9 @@ const MusicPlayer = createSlice({
     },
     SetPlaylistOrAlbum: (state, action: PayloadAction<string>) => {
       state.PlaylistOrAlbum = action.payload;
+    },
+    SetSentQue: (state, action: PayloadAction<string[]>) => {
+      state.sentQue = action.payload;
     },
     SetCurrentPlaying: (state, action: PayloadAction<playlistSongs>) => {
       state.currentPlaying = action.payload;
@@ -271,6 +276,7 @@ export const {
   setSavedAlbums,
   SetSharePlayCode,
   setCurrentToggle,
+  SetSentQue,
   SetPlaylistOrAlbum,
   setPlaylist,
   setCurrentIndex,

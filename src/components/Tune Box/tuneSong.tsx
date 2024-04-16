@@ -10,7 +10,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
-import { setLimit } from "@/Store/Player";
+import { SetSentQue, setLimit } from "@/Store/Player";
 import Loader from "../Loaders/Loader";
 
 function TuneSongComp({
@@ -21,8 +21,10 @@ function TuneSongComp({
   audioRef: React.RefObject<HTMLAudioElement>;
 }) {
   const { id } = useParams();
+  const [sent, setSent] = useState<boolean>(false);
   const [send, setSend] = useState<boolean>(false);
   const limit = useSelector((state: RootState) => state.musicReducer.limit);
+  const sentQue = useSelector((state: RootState) => state.musicReducer.sentQue);
   const dispatch = useDispatch();
   const handleSend = useCallback(() => {
     if (id) {
@@ -40,14 +42,17 @@ function TuneSongComp({
           for: id,
         })
           .then(() => {
+            setSent(true);
             setSend(true);
+            dispatch(SetSentQue([...sentQue, item.youtubeId]));
+            console.log(sentQue);
           })
           .catch(() => {
             setSend(false);
           });
       }
     }
-  }, [id, item, limit, dispatch]);
+  }, [id, item, limit, dispatch, sentQue]);
 
   const image = async () => {
     const response = await axios.get(GetImage + item.thumbnailUrl, {
@@ -66,6 +71,7 @@ function TuneSongComp({
   });
 
   const [loader, setLoader] = useState<boolean>(false);
+
   const handlePlay = useCallback(async () => {
     setLoader(true);
     const res = await axios.get(
@@ -120,10 +126,22 @@ function TuneSongComp({
         </div>
       </div>
       <div className=" -ml-1 text-xl">
-        {send ? (
-          <FiSend className="text-zinc-400" />
+        {sentQue.includes(item.youtubeId) ? (
+          <p className="text-zinc-400">Sent!</p>
         ) : (
-          <FiSend onClick={handleSend} />
+          <>
+            {send ? (
+              <>
+                {sent ? (
+                  <p className=" text-zinc-400">Sent</p>
+                ) : (
+                  <FiSend className="text-zinc-400" />
+                )}
+              </>
+            ) : (
+              <FiSend onClick={handleSend} />
+            )}
+          </>
         )}
       </div>
     </div>
