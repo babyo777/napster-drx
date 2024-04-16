@@ -345,6 +345,8 @@ function SharePlay() {
         sound.src = playlist[currentIndex].youtubeId;
 
         const handlePlay = () => {
+          refetch();
+          refetchFav();
           setIsLoading(false);
           animationRef.current?.play();
         };
@@ -413,7 +415,7 @@ function SharePlay() {
         };
       }
     }
-  }, [playlist, currentIndex, handleNext, handlePrev]);
+  }, [playlist, currentIndex, handleNext, handlePrev, refetch, refetchFav]);
 
   const handlePlayPause = useCallback(() => {
     const sound = audioRef.current;
