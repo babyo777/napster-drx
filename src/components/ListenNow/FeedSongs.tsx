@@ -15,7 +15,7 @@ import { artists, playlistSongs } from "@/Interface";
 import { Link } from "react-router-dom";
 import { DATABASE_ID, ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 import axios from "axios";
-import { SuggestionSearchApi } from "@/API/api";
+import { GetImage, SuggestionSearchApi } from "@/API/api";
 import { useQuery } from "react-query";
 import SongsOptions from "../Library/SongsOptions";
 
@@ -109,7 +109,9 @@ function FeedSong({
   );
 
   const image = async () => {
-    const response = await axios.get(cover, { responseType: "arraybuffer" });
+    const response = await axios.get(GetImage + cover, {
+      responseType: "arraybuffer",
+    });
     const blob = new Blob([response.data], {
       type: response.headers["content-type"],
     });
