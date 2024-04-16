@@ -83,6 +83,15 @@ function Box() {
         <>
           {user && user[0] ? (
             <>
+              <div className=" absolute top-2.5 left-2.5 text-xs  text-zinc-400 font-semibold">
+                <Link
+                  to={`${window.location.origin}/tunebox/${localStorage.getItem(
+                    "uid"
+                  )}`}
+                >
+                  Get Your Own
+                </Link>
+              </div>
               <LazyLoadImage
                 src={user[0].image || "/cache.jpg"}
                 className=" rounded-full animate-fade-down object-cover object-center h-28 w-28"
