@@ -1,7 +1,7 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Input } from "../ui/input";
 import { IoSearchOutline } from "react-icons/io5";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { playlistSongs } from "@/Interface";
 import { SearchApi } from "@/API/api";
@@ -72,19 +72,40 @@ function Box() {
     }
   );
 
+  const [randomGradient, setRandomGradient] = useState<string>(
+    "bg-gradient-to-br from-blue-500 to-purple-800"
+  );
+
+  const randomBg = () => {
+    const random = Math.floor(Math.random() * 3);
+    const gradient = [
+      "bg-gradient-to-br from-blue-500 to-purple-800",
+      "bg-gradient-to-br from-[#EC1187] to-[#FF8D10]",
+      "bg-gradient-to-br from-pink-500 via-purple-600 to-purple-900",
+    ];
+    setRandomGradient(gradient[random]);
+  };
+
+  useEffect(() => {
+    randomBg();
+  }, []);
+
   return (
-    <div className=" max-md:px-4 py-11 flex px-[35dvw] flex-col justify-center space-y-1.5 items-center">
+    <div
+      className={`${randomGradient}  max-md:px-4 py-11 flex px-[35dvw] flex-col h-dvh justify-center space-y-1.5 items-center`}
+    >
       <audio src="" hidden ref={audioRef} autoPlay></audio>
       {userLoading && !data ? (
         <div className=" h-dvh flex items-center justify-center">
-          <Loader />
+          <Loader color="white" />
         </div>
       ) : (
         <>
           {user && user[0] ? (
             <>
-              <div className=" absolute top-2.5 animate-fade-right left-2.5 text-xs  text-zinc-400 font-semibold">
+              <div className=" absolute top-4 animate-fade-right left-2.5 text-xs  text-zinc-400 font-bold">
                 <Link
+                  className=" bg-white px-4 rounded-xl py-1 text-black"
                   to={`${window.location.origin}/tunebox/${localStorage.getItem(
                     "uid"
                   )}`}
@@ -94,10 +115,10 @@ function Box() {
               </div>
               <LazyLoadImage
                 src={user[0].image || "/cache.jpg"}
-                className=" rounded-full animate-fade-down object-cover object-center h-28 w-28"
+                className=" rounded-full border-white border-4 animate-fade-down object-cover object-center h-28 w-28"
               />
               <div className="animate-fade-down">
-                <p className="text-base text-center font-semibold -mb-1.5 text-zinc-300 truncate w-[50dvw]">
+                <p className="text-base text-center font-semibold -mb-1.5 text-zinc-200 truncate w-[50dvw]">
                   {user[0].name}
                 </p>
               </div>
@@ -106,28 +127,28 @@ function Box() {
               </div>
 
               <div className="flex w-full  -space-x-2 animate-fade-up">
-                <div className="border rounded-lg rounded-r-none border-r-0 px-2 border-zinc-800">
-                  <IoSearchOutline className=" text-white   eft-6 mt-2 h-5 w-5" />
+                <div className="border bg-white text-black rounded-lg rounded-r-none border-r-0 px-2 border-white">
+                  <IoSearchOutline className="    eft-6 mt-2 h-5 w-5" />
                 </div>
                 <Input
                   type="text"
                   ref={searchQuery}
                   onChange={handleChange}
                   placeholder="Search track and send"
-                  className="  px-2 relative  shadow-none rounded-lg rounded-l-none border-l-0 "
+                  className="  px-2 relative text-black font-semibold bg-white placeholder:text-zinc-500 border-white shadow-none rounded-lg rounded-l-none border-l-0 "
                 />
               </div>
               <div key={user[0].$id}>
                 {isLoading && (
                   <div className=" h-[60dvh] flex items-center justify-center">
-                    <Loader />
+                    <Loader color="white" />
                   </div>
                 )}
                 {data &&
                   !isLoading &&
                   data.length > 0 &&
                   data
-                    .slice(0, 7)
+                    .slice(0, 5)
                     .map((item) => (
                       <TuneSong
                         audioRef={audioRef}

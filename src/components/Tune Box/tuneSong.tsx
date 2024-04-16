@@ -120,14 +120,14 @@ function TuneSongComp({
             {item?.title}
           </p>
 
-          <p className="-mt-0.5 text-zinc-400 text-sm max-md:w-[50dvw] w-[17dvw]  truncate">
+          <p className="-mt-0.5 text-zinc-200 text-sm max-md:w-[50dvw] w-[17dvw]  truncate">
             {item.artists[0].name || "Unknown Artist"}
           </p>
         </div>
       </div>
       <div className=" -ml-1 text-xl">
         {sentQue.includes(item.youtubeId) ? (
-          <p className="text-zinc-400">Sent!</p>
+          <p className="text-zinc-200">Sent!</p>
         ) : (
           <>
             {send ? (
