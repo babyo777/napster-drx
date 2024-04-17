@@ -15,6 +15,7 @@ import {
   MdOutlineSpatialAudioOff,
   MdOutlineSpatialTracking,
 } from "react-icons/md";
+import { BsMusicPlayerFill } from "react-icons/bs";
 
 interface User extends Models.Document {
   name: string;
@@ -145,7 +146,7 @@ function Box() {
                         Send me Tacks
                       </h1>
                       <div>
-                        <MdOutlineSpatialAudioOff />
+                        <BsMusicPlayerFill />
                       </div>
                     </div>
                   </div>
