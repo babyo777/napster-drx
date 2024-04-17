@@ -11,10 +11,7 @@ import TuneSong from "./tuneSong";
 import { Link, useParams } from "react-router-dom";
 import { DATABASE_ID, NEW_USER, db } from "@/appwrite/appwriteConfig";
 import { Models, Query } from "appwrite";
-import {
-  MdOutlineSpatialAudioOff,
-  MdOutlineSpatialTracking,
-} from "react-icons/md";
+import { MdOutlineSpatialTracking } from "react-icons/md";
 import { IoMdMusicalNote } from "react-icons/io";
 
 interface User extends Models.Document {
