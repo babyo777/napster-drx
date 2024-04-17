@@ -11,6 +11,7 @@ import TuneSong from "./tuneSong";
 import { Link, useParams } from "react-router-dom";
 import { DATABASE_ID, NEW_USER, db } from "@/appwrite/appwriteConfig";
 import { Models, Query } from "appwrite";
+import { MdOutlineSpatialTracking } from "react-icons/md";
 interface User extends Models.Document {
   name: string;
   image: string;
@@ -104,9 +105,8 @@ function Box() {
         <>
           {user && user[0] ? (
             <>
-              <div className=" absolute bottom-4 animate-fade-up flex justify-center text-xs  text-zinc-400 font-bold">
+              <div className="flex items-center space-x-1 absolute bottom-12 text-lg bg-black/15 font-semibold   animated-button animate-fade-up tracking-tight justify-center px-4 py-1.5 rounded-full">
                 <Link
-                  className=" bg-white px-4 rounded-xl py-1 text-black"
                   to={`${window.location.origin}/tunebox/${localStorage.getItem(
                     "uid"
                   )}`}
@@ -114,29 +114,42 @@ function Box() {
                   Get Your Own
                 </Link>
               </div>
-              <LazyLoadImage
-                src={user[0].image || "/cache.jpg"}
-                className=" rounded-full border-white border-4 animate-fade-down object-cover object-center h-24 w-24"
-              />
-              <div className="animate-fade-down">
-                <p className="text-base text-center font-semibold -mb-1.5 text-zinc-200 truncate w-[50dvw]">
-                  {user[0].name}
-                </p>
-              </div>
-              <div className="animate-fade-down pb-1 text-2xl text-center font-semibold">
-                <h2>Send me anonymous tracks!</h2>
+              <div className="flex animate-fade-down w-full  bg-black/15 rounded-2xl  justify-between items-center p-2.5 space-x-1.5 pr-3">
+                <div className=" flex items-center space-x-1.5">
+                  <div>
+                    <LazyLoadImage
+                      alt="user"
+                      className=" rounded-full"
+                      src={user[0].image}
+                      width={50}
+                      height={50}
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className=" flex flex-col items-start">
+                    <h2 className="font-semibold capitalize tracking-tight leading-tight max-md:max-w-[30dvw] truncate ">
+                      {user[0].name}
+                    </h2>
+                    <div className="flex text-sm space-x-1 leading-tight tracking-tight items-center">
+                      <h1>Send me Tacks!</h1>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex text-xl space-x-1.5 items-center">
+                  <MdOutlineSpatialTracking className="h-7 w-7" />
+                </div>
               </div>
 
               <div className="flex w-full  -space-x-2 animate-fade-up">
-                <div className="border bg-white text-black rounded-lg rounded-r-none border-r-0 px-2 border-white">
-                  <IoSearchOutline className="    eft-6 mt-2 h-5 w-5" />
+                <div className="border  bg-none rounded-lg rounded-r-none border-r-0 px-2 border-zinc-400">
+                  <IoSearchOutline className=" mt-2 h-5 w-5" />
                 </div>
                 <Input
                   type="text"
                   ref={searchQuery}
                   onChange={handleChange}
                   placeholder="Search track and send"
-                  className="  px-2 relative text-black font-semibold bg-white placeholder:text-zinc-500 border-white shadow-none rounded-lg rounded-l-none border-l-0 "
+                  className="  px-2 relative text-black font-semibold bg-none placeholder:text-white/70   border-zinc-400 shadow-none rounded-lg rounded-l-none border-l-0 "
                 />
               </div>
               <div key={user[0].$id}>
