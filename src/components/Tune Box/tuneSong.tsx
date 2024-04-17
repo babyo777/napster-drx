@@ -45,7 +45,7 @@ function TuneSongComp({
         })
           .then(async () => {
             if (notifyId) {
-              await axios.post(`${sendNotificationApi}${notifyId}`);
+              await axios.get(`${sendNotificationApi}${notifyId}`);
             }
             setSent(true);
             setSend(true);
