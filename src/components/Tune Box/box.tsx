@@ -48,6 +48,9 @@ function Box() {
     if (audioRef.current) {
       audioRef.current.src = "";
     }
+    if (searchQuery.current?.value.length == 0) {
+      setData([]);
+    }
     const t = setTimeout(() => {
       if (searchQuery.current && searchQuery.current.value.length > 0) {
         setData([]);
@@ -121,7 +124,7 @@ function Box() {
         <>
           {user && user[0] ? (
             <>
-              {searchQuery.current && searchQuery.current.value.length == 0 && (
+              {!data && (
                 <div className="flex items-center space-x-1 absolute bottom-12 text-lg bg-black/15 font-semibold   animated-button animate-fade-up animated-button tracking-tight justify-center px-4 py-1.5 rounded-full">
                   <Link
                     className=" animate-fade-up"
@@ -189,7 +192,7 @@ function Box() {
                     .slice(0, 5)
                     .map((item) => (
                       <TuneSong
-                        notifyId={notify ? notify[0].notify : null}
+                        notifyId={notify ? notify[0]?.notify : null}
                         audioRef={audioRef}
                         key={item.youtubeId + item.thumbnailUrl}
                         item={item}
