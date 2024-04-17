@@ -124,7 +124,7 @@ function Box() {
         <>
           {user && user[0] ? (
             <>
-              {!data && (
+              {data?.length == 0 && (
                 <div className="flex items-center space-x-1 absolute bottom-12 text-lg bg-black/15 font-semibold   animated-button animate-fade-up animated-button tracking-tight justify-center px-4 py-1.5 rounded-full">
                   <Link
                     className=" animate-fade-up"
