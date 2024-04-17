@@ -152,7 +152,7 @@ export function ListenNowComp() {
           : playlist[currentIndex].youtubeId
       }`
     );
-    dispatch(SetFeed(q.data.slice(1, 7)));
+    dispatch(SetFeed(q.data));
     return q.data as playlistSongs[];
   };
 
