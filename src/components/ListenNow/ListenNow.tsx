@@ -200,7 +200,8 @@ export function ListenNowComp() {
             <AlertTitle>Playback Server is Down !</AlertTitle>
             <AlertDescription>
               <p>
-                restart app to connect to other server or music wait for a while{" "}
+                Restart the app to connect to another server, or wait until it's
+                back online.{" "}
                 <span onClick={handleReport}>
                   {report ? "@check again" : "@send report"}
                 </span>
@@ -215,7 +216,8 @@ export function ListenNowComp() {
             <AlertTitle>Playback Server is Down !</AlertTitle>
             <AlertDescription>
               <p>
-                restart app to connect to other server or music wait for a while{" "}
+                Restart the app to connect to another server, or wait until it's
+                back online.{" "}
                 <span onClick={handleReport}>
                   {report ? "@check again" : "@send report"}
                 </span>

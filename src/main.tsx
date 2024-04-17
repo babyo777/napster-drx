@@ -20,7 +20,7 @@ import Suggested from "./Suggested/Suggested.tsx";
 const Docs = lazy(() => import("./Landing Page/Docs.tsx"));
 import { ReactLenis } from "@studio-freight/react-lenis";
 import Box from "./components/Tune Box/box.tsx";
-const TuneBox = lazy(() => import("./components/Tune Box/tunebox.tsx"));
+import TuneBox from "./components/Tune Box/tunebox.tsx";
 import Offline from "./Offline/offline.tsx";
 // import Test from "./text.tsx";
 import SavedEdits from "./Saved Edits/SavedEdits.tsx";

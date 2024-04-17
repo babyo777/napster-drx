@@ -14,7 +14,7 @@ import {
 } from "@/Store/Player";
 import React, { useCallback, useEffect, useState } from "react";
 import { RootState } from "@/Store/Store";
-import { DATABASE_ID, NEW_USER, TUNEBOX, db } from "@/appwrite/appwriteConfig";
+import { DATABASE_ID, TUNEBOX, db } from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
 import { likedSongs, playlistSongs } from "@/Interface";
 import Loader from "@/components/Loaders/Loader";
@@ -91,14 +91,27 @@ function TuneBoxComp() {
         vapidKey:
           "BKClLMyaVIbmLst3qE2nUH8P295K_8ZinQ7uM4ap7F-ZyvkG8_eaXi7BTNQDrc39UzXcLGtXd-Ved6cNpWNXiyk",
       });
-      const res = await db.listDocuments(DATABASE_ID, NEW_USER, [
-        Query.equal("user", uid),
+      const res = await db.listDocuments(DATABASE_ID, "65da232e478bcf5bbbad", [
+        Query.equal("for", uid),
         Query.limit(1),
       ]);
-      await db.updateDocument(DATABASE_ID, NEW_USER, res.documents[0].$id, {
-        notify: token,
-      });
-      setNotification(true);
+      if (res.documents.length > 0) {
+        await db.updateDocument(
+          DATABASE_ID,
+          "65da232e478bcf5bbbad",
+          res.documents[0].$id,
+          {
+            notify: token,
+          }
+        );
+        setNotification(true);
+      } else {
+        await db.createDocument(DATABASE_ID, "65da232e478bcf5bbbad", uid, {
+          for: uid,
+          notify: token,
+        });
+        setNotification(true);
+      }
     }
   }, [uid]);
 
