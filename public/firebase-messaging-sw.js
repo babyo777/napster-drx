@@ -21,7 +21,7 @@ messaging.onBackgroundMessage((payload) => {
     "[firebase-messaging-sw.js] Received background message ",
     payload
   );
-  const notificationTitle = "You have new Tune Ready to Listen?";
+  const notificationTitle = "You have a new Tune Ready to Listen?";
   const notificationOptions = {
     body: "",
     icon: "https://napster-drx.vercel.app/newfavicon.jpg",
