@@ -121,16 +121,18 @@ function Box() {
         <>
           {user && user[0] ? (
             <>
-              <div className="flex items-center space-x-1 absolute bottom-12 text-lg bg-black/15 font-semibold   animated-button animate-fade-up animated-button tracking-tight justify-center px-4 py-1.5 rounded-full">
-                <Link
-                  className=" animate-fade-up"
-                  to={`${window.location.origin}/tunebox/${localStorage.getItem(
-                    "uid"
-                  )}`}
-                >
-                  Get Your Own
-                </Link>
-              </div>
+              {searchQuery.current && searchQuery.current.value.length == 0 && (
+                <div className="flex items-center space-x-1 absolute bottom-12 text-lg bg-black/15 font-semibold   animated-button animate-fade-up animated-button tracking-tight justify-center px-4 py-1.5 rounded-full">
+                  <Link
+                    className=" animate-fade-up"
+                    to={`${
+                      window.location.origin
+                    }/tunebox/${localStorage.getItem("uid")}`}
+                  >
+                    Get Your Own
+                  </Link>
+                </div>
+              )}
               <div className="flex animate-fade-down w-full  bg-black/15 rounded-2xl  justify-between items-center p-2.5 space-x-1.5 pr-3">
                 <div className=" flex items-center space-x-1.5">
                   <div>
