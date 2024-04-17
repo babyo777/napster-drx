@@ -103,7 +103,7 @@ function Box() {
       Query.limit(1),
     ]);
     return res.documents;
-  }, []);
+  }, [id]);
   const { data: notify } = useQuery("notify", getKey, {
     refetchOnWindowFocus: false,
   });
