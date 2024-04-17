@@ -154,7 +154,7 @@ function Settings() {
             }
             className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex justify-center text-base "
           >
-            Feedback
+            Feedback & Suggestion
           </p>
         </div>
         <div className="animate-fade-up">

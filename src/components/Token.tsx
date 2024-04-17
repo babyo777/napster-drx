@@ -42,7 +42,7 @@ export function Token() {
           <Button
             size="sm"
             variant={"secondary"}
-            className="px-3 w-full text-lg rounded-base bg-zinc-800 animate-fade-up hover:bg-zinc-100/20 text-zinc-200 py-5"
+            className="px-3 w-full text-base font-medium rounded-2xl bg-zinc-800 animate-fade-up hover:bg-zinc-100/20 text-zinc-200 py-5"
           >
             <p onClick={handleCopy}>Copy To Clipboard</p>
           </Button>
