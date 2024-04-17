@@ -79,12 +79,17 @@ function Box() {
   );
 
   const randomBg = () => {
-    const random = Math.floor(Math.random() * 3);
     const gradient = [
-      "bg-gradient-to-br from-blue-500 to-purple-800",
-      "bg-gradient-to-br from-[#EC1187] to-[#FF8D10]",
-      "bg-gradient-to-br from-pink-500 via-purple-600 to-purple-900",
+      "bg-gradient-to-r from-red-500 to-orange-500",
+      "bg-gradient-to-r from-rose-400 to-red-500",
+      "bg-gradient-to-r from-pink-500 to-rose-500",
+      "bg-gradient-to-r from-fuchsia-500 to-pink-500",
+      "bg-gradient-to-r from-fuchsia-600 to-purple-600",
+      "bg-gradient-to-r from-amber-500 to-pink-500",
+      "bg-gradient-to-r from-violet-600 to-indigo-600",
+      "bg-gradient-to-r from-blue-600 to-violet-600",
     ];
+    const random = Math.floor(Math.random() * gradient.length);
     setRandomGradient(gradient[random]);
   };
 
@@ -149,7 +154,7 @@ function Box() {
                   ref={searchQuery}
                   onChange={handleChange}
                   placeholder="Search track and send"
-                  className="  px-2 relative text-black font-semibold bg-none placeholder:text-white/70   border-zinc-400 shadow-none rounded-lg rounded-l-none border-l-0 "
+                  className="  px-2 relative text-zinc-100 font-semibold bg-none placeholder:text-white/70   border-zinc-400 shadow-none rounded-lg rounded-l-none border-l-0 "
                 />
               </div>
               <div key={user[0].$id}>
