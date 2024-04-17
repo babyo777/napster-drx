@@ -116,7 +116,7 @@ function Box() {
       className={`${randomGradient}  max-md:px-4 py-11 flex px-[35dvw] flex-col h-dvh justify-center space-y-1.5 items-center`}
     >
       <audio src="" hidden ref={audioRef} autoPlay></audio>
-      {userLoading && !data ? (
+      {userLoading && data.length == 0 ? (
         <div className=" h-dvh flex items-center justify-center">
           <Loader color="white" />
         </div>
