@@ -11,7 +11,11 @@ import TuneSong from "./tuneSong";
 import { Link, useParams } from "react-router-dom";
 import { DATABASE_ID, NEW_USER, db } from "@/appwrite/appwriteConfig";
 import { Models, Query } from "appwrite";
-import { MdOutlineSpatialTracking } from "react-icons/md";
+import {
+  MdOutlineSpatialAudioOff,
+  MdOutlineSpatialTracking,
+} from "react-icons/md";
+
 interface User extends Models.Document {
   name: string;
   image: string;
@@ -137,9 +141,12 @@ function Box() {
                       {user[0].name}
                     </h2>
                     <div className="flex text-sm space-x-1 leading-tight tracking-tight items-center">
-                      <h1 className="font-semibold leading-tight tracking-tight">
-                        Send me Tacks!
+                      <h1 className="font-medium leading-tight tracking-tight">
+                        Send me Tacks
                       </h1>
+                      <div>
+                        <MdOutlineSpatialAudioOff />
+                      </div>
                     </div>
                   </div>
                 </div>
