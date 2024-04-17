@@ -147,7 +147,7 @@ function Box() {
               </div>
 
               <div className="flex w-full  -space-x-2 animate-fade-up">
-                <div className="border  bg-none rounded-lg rounded-r-none border-r-0 px-2 border-zinc-400">
+                <div className="border  bg-none rounded-xl rounded-r-none border-r-0 px-2 border-zinc-300/80">
                   <IoSearchOutline className=" mt-2 h-5 w-5" />
                 </div>
                 <Input
@@ -155,7 +155,7 @@ function Box() {
                   ref={searchQuery}
                   onChange={handleChange}
                   placeholder="Search track and send"
-                  className="  px-2 relative text-zinc-100 font-semibold bg-none placeholder:text-white/70   border-zinc-400 shadow-none rounded-lg rounded-l-none border-l-0 "
+                  className="  px-2 relative text-zinc-100 font-semibold bg-none placeholder:text-white/70   border-zinc-300/80 shadow-none rounded-xl rounded-l-none border-l-0 "
                 />
               </div>
               <div key={user[0].$id}>
