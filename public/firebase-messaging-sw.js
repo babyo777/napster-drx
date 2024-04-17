@@ -23,7 +23,7 @@ messaging.onBackgroundMessage((payload) => {
   );
   const notificationTitle = "You have new Tune";
   const notificationOptions = {
-    body: "Tap to view",
+    body: "",
     icon: "https://napster-drx.vercel.app/newfavicon.jpg",
   };
 
