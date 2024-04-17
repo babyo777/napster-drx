@@ -1,16 +1,24 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useRouteError } from "react-router-dom";
+import { useLocation, useRouteError } from "react-router-dom";
 
 function ErrorElement() {
+  const location = useLocation();
   const error = useRouteError();
   useEffect(() => {
     if (error) {
       try {
         axios.get(
           `https://api.telegram.org/bot6178294062:AAEi72UVOgyEm_RhZqilO_ANsKcRcW06C-0/sendMessage?chat_id=5356614395&text=${encodeURIComponent(
-            //@ts-expect-error:route error
-            "user" + " " + localStorage.getItem("uid") + " " + error.message ||
+            "user" +
+              " " +
+              localStorage.getItem("uid") +
+              " " +
+              location.pathname +
+              " " +
+              error ||
+              //@ts-expect-error:route error
+              error.message ||
               //@ts-expect-error:route error
               error.data
           )}"
@@ -20,7 +28,7 @@ function ErrorElement() {
         console.log(error);
       }
     }
-  }, [error]);
+  }, [error, location]);
   return (
     <div className="flex text-center px-7 h-screen justify-center items-center">
       <p>
