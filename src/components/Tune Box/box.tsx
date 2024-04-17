@@ -99,7 +99,7 @@ function Box() {
   };
   const getKey = useCallback(async () => {
     const res = await db.listDocuments(DATABASE_ID, "65da232e478bcf5bbbad", [
-      Query.equal("for", [localStorage.getItem("uid") || ""]),
+      Query.equal("for", [id || ""]),
       Query.limit(1),
     ]);
     return res.documents;
