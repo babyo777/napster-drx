@@ -140,7 +140,7 @@ function Box() {
                     </h2>
                     <div className="flex text-sm space-x-1 leading-tight tracking-tight items-center">
                       <h1 className="font-medium leading-tight tracking-tight">
-                        Send me Tacks
+                        Send me Tracks
                       </h1>
                       <div>
                         <IoMdMusicalNote />
