@@ -137,7 +137,9 @@ function Box() {
                       {user[0].name}
                     </h2>
                     <div className="flex text-sm space-x-1 leading-tight tracking-tight items-center">
-                      <h1>Send me Tacks!</h1>
+                      <h1 className="font-semibold leading-tight tracking-tight">
+                        Send me Tacks!
+                      </h1>
                     </div>
                   </div>
                 </div>
