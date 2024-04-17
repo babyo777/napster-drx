@@ -6,6 +6,8 @@ import { DATABASE_ID, ID, NEW_USER, db } from "./appwrite/appwriteConfig";
 import TransferHeader from "./TransferHrader";
 import { useSelector } from "react-redux";
 import { RootState } from "./Store/Store";
+import { io } from "socket.io-client";
+import { SharePlayApi } from "./API/api";
 
 function AppComp() {
   function ScreenSizeCheck() {
@@ -13,6 +15,9 @@ function AppComp() {
     return isIPhone;
   }
 
+  useEffect(() => {
+    io(SharePlayApi);
+  }, []);
   useEffect(() => {
     if (!localStorage.getItem("uid")) {
       localStorage.setItem("uid", uuidv4());
