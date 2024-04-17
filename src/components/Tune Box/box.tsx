@@ -94,7 +94,16 @@ function Box() {
     const random = Math.floor(Math.random() * gradient.length);
     setRandomGradient(gradient[random]);
   };
-
+  const getKey = useCallback(async () => {
+    const res = await db.listDocuments(DATABASE_ID, "65da232e478bcf5bbbad", [
+      Query.equal("for", [localStorage.getItem("uid") || ""]),
+      Query.limit(1),
+    ]);
+    return res.documents;
+  }, []);
+  const { data: notify } = useQuery("notify", getKey, {
+    refetchOnWindowFocus: false,
+  });
   useEffect(() => {
     randomBg();
   }, []);
@@ -178,7 +187,7 @@ function Box() {
                     .slice(0, 5)
                     .map((item) => (
                       <TuneSong
-                        notifyId={user[0]?.notify || null}
+                        notifyId={notify ? notify[0].notify : null}
                         audioRef={audioRef}
                         key={item.youtubeId + item.thumbnailUrl}
                         item={item}
