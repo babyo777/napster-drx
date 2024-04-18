@@ -116,7 +116,7 @@ function Settings() {
       <DrawerContent className="px-5 h-dvh rounded-none">
         <DrawerHeader className="animate-fade-up">
           <DrawerTitle className="text-zinc-400 animate-fade-up font-bold">
-            Napster Settings
+            Settings
           </DrawerTitle>
         </DrawerHeader>
         <Account className="text-start px-4" />
