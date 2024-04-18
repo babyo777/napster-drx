@@ -100,7 +100,6 @@ function TuneBoxComp() {
         !res.documents[0].notify.includes(token)
       ) {
         const tkn = [...res.documents[0].notify, token].filter((r) => r !== "");
-        console.log(tkn);
 
         await db.updateDocument(
           DATABASE_ID,
