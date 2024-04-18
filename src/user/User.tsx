@@ -70,7 +70,7 @@ function User() {
       </div>
       <div
         style={{ backgroundImage: `linear-gradient(to top, #121212, ${color}` }}
-        className={`w-full  flex justify-start items-center px-5 pt-16 pb-2 transition-all duration-300`}
+        className={`w-full  flex justify-start items-center px-5 pt-16 transition-all duration-300`}
       >
         <div className=" flex flex-col items-start space-y-1.5 justify-start text-start">
           {userLoading ? (
