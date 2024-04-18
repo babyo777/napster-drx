@@ -60,7 +60,7 @@ function User() {
       <div className="absolute top-4 z-10 right-3  flex-col space-y-0.5">
         <Share />
       </div>
-      <div className="w-full flex justify-start items-center px-5 pt-16">
+      <div className="w-full flex justify-start items-center px-5 pt-[4.7rem]">
         <div className=" flex flex-col items-start space-y-1.5 justify-start text-start">
           {userLoading ? (
             <Skeleton className="h-24 w-24 object-cover rounded-full" />
