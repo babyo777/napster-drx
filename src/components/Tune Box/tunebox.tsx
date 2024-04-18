@@ -96,19 +96,22 @@ function TuneBoxComp() {
         Query.limit(1),
       ]);
       if (res.documents.length > 0) {
+        const tkn = [res.documents[0].notify, token];
+        console.log(tkn);
+
         await db.updateDocument(
           DATABASE_ID,
           "65da232e478bcf5bbbad",
           res.documents[0].$id,
           {
-            notify: token,
+            notify: tkn,
           }
         );
         setNotification(true);
       } else {
         await db.createDocument(DATABASE_ID, "65da232e478bcf5bbbad", uid, {
           for: uid,
-          notify: token,
+          notify: [token],
         });
         setNotification(true);
       }

@@ -18,7 +18,7 @@ function TuneSongComp({
   audioRef,
   notifyId,
 }: {
-  notifyId: string | undefined | null;
+  notifyId: [] | undefined | null;
   item: playlistSongs;
   audioRef: React.RefObject<HTMLAudioElement>;
 }) {
@@ -45,7 +45,9 @@ function TuneSongComp({
         })
           .then(async () => {
             if (notifyId) {
-              await axios.get(`${sendNotificationApi}${notifyId}`);
+              notifyId.forEach(async (id) => {
+                await axios.get(`${sendNotificationApi}${id}`);
+              });
             }
             setSent(true);
             setSend(true);
