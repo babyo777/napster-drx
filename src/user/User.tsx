@@ -41,7 +41,7 @@ function User() {
   const loadSavedPlaylist = async () => {
     const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
       Query.orderDesc("$createdAt"),
-      Query.equal("for", [localStorage.getItem("uid") || "default"]),
+      Query.equal("for", [id || ""]),
     ]);
     const p = r.documents as unknown as savedPlaylist[];
     return p;
@@ -119,9 +119,11 @@ function User() {
         <div></div>
       ) : (
         <>
-          <h2 className="px-5 mb-2.5 animate-fade-right font-medium leading-tight text-xl">
-            Playlists
-          </h2>
+          {savedPlaylist && savedPlaylist.length > 0 && (
+            <h2 className="px-5 mb-2.5 animate-fade-right font-medium leading-tight text-xl">
+              Playlists
+            </h2>
+          )}
           <div className="flex fade-in flex-col px-5">
             <div className=" space-y-3">
               {savedPlaylist &&
