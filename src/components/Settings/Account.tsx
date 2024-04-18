@@ -43,7 +43,13 @@ interface verify {
   playlists: string[];
 }
 
-function Account({ tunebox }: { tunebox?: boolean }) {
+function Account({
+  tunebox,
+  className,
+}: {
+  tunebox?: boolean;
+  className?: string;
+}) {
   function ScreenSizeCheck() {
     const isIPhone = /iPhone/i.test(navigator.userAgent);
     return isIPhone;
@@ -177,7 +183,9 @@ function Account({ tunebox }: { tunebox?: boolean }) {
   return (
     <Drawer>
       <DrawerTrigger className=" w-full animate-fade-up">
-        <p className="rounded-xl py-2.5 animate-fade-up bg-neutral-900 flex justify-center text-base">
+        <p
+          className={`rounded-xl py-2.5 animate-fade-up bg-neutral-900 flex  text-base ${className}`}
+        >
           {tunebox ? "Setup Account to Continue " : "Account"}
         </p>
       </DrawerTrigger>

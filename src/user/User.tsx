@@ -47,7 +47,7 @@ function User() {
     return p;
   };
   const { data: savedPlaylist, isLoading } = useQuery(
-    "savedPlaylist",
+    "savedPublicPlaylists",
     loadSavedPlaylist,
     {
       refetchOnWindowFocus: false,

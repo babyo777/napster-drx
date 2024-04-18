@@ -251,7 +251,7 @@ function TuneBoxComp() {
                 <p>Share</p>
               </Button>
             ) : (
-              <Account tunebox />
+              <Account tunebox className=" justify-center" />
             )}
           </div>
           <NavLink to={"/library/"}>

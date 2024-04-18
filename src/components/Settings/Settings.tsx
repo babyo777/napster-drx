@@ -119,11 +119,11 @@ function Settings() {
             Napster Settings
           </DrawerTitle>
         </DrawerHeader>
-        <Account />
+        <Account className="text-start px-4" />
         <div className="animate-fade-up">
           <p
             onClick={handleLoad}
-            className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex justify-center  text-base"
+            className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex text-start   px-4  text-base "
           >
             Load From Token
           </p>
@@ -132,7 +132,7 @@ function Settings() {
           <div className="animate-fade-up">
             <p
               onClick={handleLoadPlaylist}
-              className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex justify-center  text-base"
+              className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex text-start   px-4  text-base "
             >
               Load Playlist
             </p>
@@ -146,23 +146,25 @@ function Settings() {
           More by babyo7_
         </p> */}
         {/* <SponsorsComp /> */}
-        {!track && <SpotifyTransfer close={close} />}
+        {!track && (
+          <SpotifyTransfer close={close} className="text-start px-4" />
+        )}
         <div className="animate-fade-up">
           <p
             onClick={() =>
               (window.location.href = "mailto:yfw111realone@gmail.com")
             }
-            className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex justify-center text-base "
+            className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex px-4 text-base "
           >
             Feedback & Suggestion
           </p>
         </div>
         <div className="animate-fade-up">
           <p
-            onClick={() => window.open("https://ngl-drx.vercel.app/")}
-            className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex justify-center text-base "
+            onClick={() => window.open("https://tanmay-seven.vercel.app/")}
+            className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex px-4 text-base "
           >
-            Contact
+            Connect with Me
           </p>
         </div>
         <DialogClose ref={close}></DialogClose>
