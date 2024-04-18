@@ -15,6 +15,8 @@ import { GiPin } from "react-icons/gi";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
+import { prominent } from "color.js";
+import { useState } from "react";
 interface User extends Models.Document {
   name: string;
   image: string;
@@ -22,11 +24,17 @@ interface User extends Models.Document {
 }
 function User() {
   const { id } = useParams();
+  const [color, setColor] = useState<string>("");
   const getUser = async () => {
     const user = await db.listDocuments(DATABASE_ID, NEW_USER, [
       Query.equal("user", [id ? id : ""]),
       Query.limit(1),
     ]);
+    const color = await prominent(user.documents[0].image, {
+      amount: 12,
+      format: "hex",
+    });
+    setColor(color[3] as string);
     return user.documents as User[];
   };
   const { data: user, isLoading: userLoading } = useQuery<User[]>(
@@ -60,7 +68,10 @@ function User() {
       <div className="absolute top-4 z-10 right-3  flex-col space-y-0.5">
         <Share />
       </div>
-      <div className="w-full flex justify-start items-center px-5 pt-16">
+      <div
+        style={{ backgroundImage: `linear-gradient(to top, #121212, ${color}` }}
+        className={`w-full  flex justify-start items-center px-5 pt-16 pb-2 transition-all duration-300`}
+      >
         <div className=" flex flex-col items-start space-y-1.5 justify-start text-start">
           {userLoading ? (
             <Skeleton className="h-24 w-24 object-cover rounded-full" />
