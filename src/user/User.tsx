@@ -70,7 +70,7 @@ function User() {
       </div>
       <div
         style={{ backgroundImage: `linear-gradient(to top, #121212, ${color}` }}
-        className={`w-full  flex justify-start items-center px-5 pt-16 transition-all duration-300`}
+        className={`w-full  flex justify-start items-center px-5 pt-20 transition-all duration-300`}
       >
         <div className=" flex flex-col items-start space-y-1.5 justify-start text-start">
           {userLoading ? (
@@ -87,7 +87,7 @@ function User() {
             {userLoading ? (
               <div></div>
             ) : (
-              <h1 className=" truncate animate-fade-right max-w-[80dvw] px-1  font-semibold text-xl">
+              <h1 className=" truncate -mb-1 animate-fade-right max-w-[80dvw] px-1  font-semibold text-xl">
                 {user ? user[0]?.name : ""}
               </h1>
             )}
@@ -131,7 +131,7 @@ function User() {
       ) : (
         <>
           {savedPlaylist && savedPlaylist.length > 0 && (
-            <h2 className="px-5 mb-2.5 animate-fade-right font-semibold leading-tight text-xl">
+            <h2 className="px-5 -mt-0.5 mb-2.5 animate-fade-right font-semibold leading-tight text-xl">
               Playlists
             </h2>
           )}
