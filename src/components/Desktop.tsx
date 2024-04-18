@@ -34,7 +34,7 @@ function Desktop() {
           <div className=" bg-white backdrop-blur-xl -z-10 blur-[50px] h-[27vw] w-[27vw] rounded-full opacity-5 border-none shadow-none absolute"></div>
           <div className="flex flex-col max-md:text-center max-md:items-center text-start justify-start items-start space-y-7 max-md:space-y-2.5 max-md:pt-[9dvh] pb-[11dvh]">
             <div>
-              <p className="">Enjoy Music Without Interruptions</p>
+              <p className="">Enhance Your Music Experience.</p>
             </div>
             <div className="flex space-x-2 ml-1 max-md:ml-0">
               <Download />
