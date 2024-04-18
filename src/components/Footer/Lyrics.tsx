@@ -15,7 +15,7 @@ import Loader from "../Loaders/Loader";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
 import { transliterate as tr } from "transliteration";
-import {
+import React, {
   MouseEventHandler,
   RefObject,
   useCallback,
@@ -27,7 +27,7 @@ import {
 import ShareLyrics from "./Share";
 // import { prominent } from "color.js";
 
-function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
+function LyricsComp({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
   );
@@ -288,5 +288,5 @@ function Lyrics({ closeRef }: { closeRef: RefObject<HTMLButtonElement> }) {
     </Drawer>
   );
 }
-
+const Lyrics = React.memo(LyricsComp);
 export default Lyrics;
