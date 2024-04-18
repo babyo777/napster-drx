@@ -183,7 +183,10 @@ function SongsOptions({
   }, [music, like, reload, edits, tunebox]);
   const handleShare = useCallback(() => {
     navigator.share({
-      url: `${window.location.origin}/track/${music.youtubeId}`,
+      url: `${window.location.origin}/track/${music.youtubeId.replace(
+        "https://occasional-clara-babyo777.koyeb.app/?url=",
+        ""
+      )}`,
     });
   }, [music]);
 
