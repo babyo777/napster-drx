@@ -24,7 +24,7 @@ import {
 import { Link } from "react-router-dom";
 import SongsOptions from "./SongsOptions";
 import axios from "axios";
-import { GetImage, SuggestionSearchApi } from "@/API/api";
+import { SuggestionSearchApi } from "@/API/api";
 
 function Songs({
   title,
@@ -143,7 +143,7 @@ function Songs({
   ]);
 
   const image = async () => {
-    const response = await axios.get(GetImage + cover, {
+    const response = await axios.get(cover, {
       responseType: "arraybuffer",
     });
     const blob = new Blob([response.data], {
