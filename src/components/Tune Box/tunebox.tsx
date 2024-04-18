@@ -96,7 +96,7 @@ function TuneBoxComp() {
         Query.limit(1),
       ]);
       if (res.documents.length > 0) {
-        const tkn = [res.documents[0].notify, token];
+        const tkn = [...res.documents[0].notify, token].filter((r) => r !== "");
         console.log(tkn);
 
         await db.updateDocument(
