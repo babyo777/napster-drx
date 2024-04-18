@@ -441,7 +441,7 @@ function Check() {
         suggested();
       }
     } else {
-      dispatch(SetFeedMode(false));
+      dispatch(SetFeedMode(true));
     }
     const isStandalone = window.matchMedia(
       "(display-mode: standalone)"

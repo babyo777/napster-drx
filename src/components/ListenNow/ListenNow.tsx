@@ -19,28 +19,19 @@ import Header from "../Header/Header";
 import NapsterSuggested from "./NapsterSuggested";
 import { SuggestionSearchApi, streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
-import { Label } from "../ui/label";
-import { Switch } from "../ui/switch";
+
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
-import { SetFeed, SetFeedMode } from "@/Store/Player";
+import { SetFeed } from "@/Store/Player";
 import { useInView } from "react-intersection-observer";
 import ReactPullToRefresh from "react-simple-pull-to-refresh";
 import FeedSong from "./FeedSongs";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { IoMdInformationCircleOutline } from "react-icons/io";
+
 export function ListenNowComp() {
   const checked = useSelector(
     (state: RootState) => state.musicReducer.feedMode
   );
-  const lastPlayed = useSelector(
-    (state: RootState) => state.musicReducer.lastPlayed
-  );
+
   const music = useSelector((state: RootState) => state.musicReducer.Feed);
 
   const [report, setReport] = React.useState<boolean>();
@@ -176,7 +167,7 @@ export function ListenNowComp() {
 
   const { ref, inView } = useInView({
     threshold: 0,
-    rootMargin: "400px",
+    rootMargin: "500px",
   });
 
   React.useEffect(() => {
@@ -238,34 +229,7 @@ export function ListenNowComp() {
           <Loader />
         </div>
       )}
-      {lastPlayed && (
-        <div className=" rounded-xl fade-in -mt-4  py-2.5  items-center space-x-2 flex px-5">
-          <Label
-            htmlFor="airplane-mode"
-            className="text-base animate-fade-right"
-          >
-            Feed mode
-          </Label>
-          <Switch
-            checked={checked}
-            id="airplane-mode"
-            className="animate-fade-left"
-            onClick={() => dispatch(SetFeedMode(!checked))}
-          />
-          {checked && (
-            <DropdownMenu>
-              <DropdownMenuTrigger className=" animate-fade-up ">
-                <DropdownMenuLabel className=" -ml-2 text-xl text-zinc-400">
-                  <IoMdInformationCircleOutline />
-                </DropdownMenuLabel>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className=" -mt-[2.4rem] ml-44 flex text-sm  justify-center items-center rounded-xl bg-transparent py-2 font-normal text-zinc-300 border-none">
-                <p>Based on current playing</p>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-        </div>
-      )}
+
       {checked && music && (
         <ReactPullToRefresh
           pullingContent={""}
