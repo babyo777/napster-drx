@@ -405,7 +405,6 @@ function Check() {
   }, [dispatch, playlist]);
 
   const { status } = useQuery<playlistSongs[]>(["reels"], getReels, {
-    retry: 1,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
