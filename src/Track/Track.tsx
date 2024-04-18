@@ -6,7 +6,7 @@ import axios from "axios";
 import { playlistSongs } from "@/Interface";
 import { RxShuffle } from "react-icons/rx";
 import { RiFocus3Line } from "react-icons/ri";
-import { SuggestionSearchApi } from "@/API/api";
+import { SearchApi, SuggestionSearchApi } from "@/API/api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   SetPlaylistOrAlbum,
@@ -57,6 +57,10 @@ function TrackComp() {
   const [data, setData] = useState<playlistSongs[]>();
   const getPlaylist = async () => {
     const list = await axios.get(`${SuggestionSearchApi}${id}`);
+    if (list.data.length == 0) {
+      const search = await axios.get(`${SearchApi}${id}`);
+      return search.data;
+    }
     setData(list.data);
     return list.data as playlistSongs[];
   };
