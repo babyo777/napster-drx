@@ -7,15 +7,14 @@ import { RootState } from "@/Store/Store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DATABASE_ID, EDITS, db } from "@/appwrite/appwriteConfig";
 import { ID, Query } from "appwrite";
-import { ArtistDetails, playlistSongs } from "@/Interface";
+import { playlistSongs } from "@/Interface";
 import { useQuery } from "react-query";
-import { GetArtistDetails, ReelsApi } from "@/API/api";
+import { ReelsApi } from "@/API/api";
 import axios from "axios";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { SetReels, setReelsIndex } from "@/Store/Player";
 import { useDoubleTap } from "use-double-tap";
-import { Link } from "react-router-dom";
 import { LuMusic2 } from "react-icons/lu";
 import { Skeleton } from "../ui/skeleton";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
@@ -68,28 +67,6 @@ function SharePlay() {
       retry: 1,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
-    }
-  );
-
-  const getArtistDetails = async () => {
-    const list = await axios.get(
-      `${GetArtistDetails}${playlist[currentIndex]?.artists[0].id}`
-    );
-    return list.data as ArtistDetails;
-  };
-
-  const { data, refetch: followRefetch } = useQuery<ArtistDetails>(
-    ["artist", playlist[currentIndex]?.artists[0].id],
-    getArtistDetails,
-    {
-      retry: 5,
-      enabled: false,
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      staleTime: 60 * 60000,
-      onSuccess(d) {
-        d == null && followRefetch();
-      },
     }
   );
 
@@ -165,10 +142,9 @@ function SharePlay() {
 
   useEffect(() => {
     if (playlist[currentIndex]?.artists[0].id) {
-      followRefetch();
       refetch();
     }
-  }, [playlist, currentIndex, followRefetch, refetch]);
+  }, [playlist, currentIndex, refetch]);
 
   const image = async () => {
     const response = await axios.get(
@@ -479,7 +455,7 @@ function SharePlay() {
             {playlist.length == 0 ? (
               <Skeleton className="w-11 rounded-full bg-zinc-800 h-11" />
             ) : (
-              <Link to={`/artist/${data?.artistId}`}>
+              <div>
                 <Avatar className=" h-12 w-12">
                   <AvatarFallback>CN</AvatarFallback>
                   <AvatarImage
@@ -489,12 +465,12 @@ function SharePlay() {
                     }
                   />
                 </Avatar>
-              </Link>
+              </div>
             )}
             <div>
               <h1 className=" flex truncate  text-xl font-semibold">
-                <div className="max-w-[40dvw] truncate">
-                  {playlist[currentIndex]?.artists[0]?.name || (
+                <div className="max-w-[60dvw]  truncate">
+                  {(playlist[currentIndex]?.artists as unknown as string) || (
                     <Skeleton className="w-28 bg-zinc-800 h-3" />
                   )}
                 </div>
