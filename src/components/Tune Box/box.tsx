@@ -1,7 +1,7 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Input } from "../ui/input";
 import { IoSearchOutline } from "react-icons/io5";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import axios from "axios";
 import { playlistSongs } from "@/Interface";
 import { SearchApi } from "@/API/api";
@@ -13,6 +13,7 @@ import { DATABASE_ID, NEW_USER, db } from "@/appwrite/appwriteConfig";
 import { Models, Query } from "appwrite";
 import { MdOutlineSpatialTracking } from "react-icons/md";
 import { IoMdMusicalNote } from "react-icons/io";
+import { prominent } from "color.js";
 
 interface User extends Models.Document {
   name: string;
@@ -23,6 +24,7 @@ function Box() {
   const searchQuery = useRef<HTMLInputElement>(null);
   const { id } = useParams();
   const [data, setData] = useState<playlistSongs[]>([]);
+  const [color, setColor] = useState<string[]>([]);
   const query = async () => {
     const query = searchQuery.current;
     if (query && query.value.length > 0) {
@@ -67,6 +69,11 @@ function Box() {
       Query.equal("user", [id ? id : ""]),
       Query.limit(1),
     ]);
+    const color = await prominent(user.documents[0].image, {
+      amount: 17,
+      format: "hex",
+    });
+    setColor(color as string[]);
     return user.documents as User[];
   };
   const { data: user, isLoading: userLoading } = useQuery<User[]>(
@@ -79,24 +86,6 @@ function Box() {
     }
   );
 
-  const [randomGradient, setRandomGradient] = useState<string>(
-    "bg-gradient-to-br from-blue-500 to-purple-800"
-  );
-
-  const randomBg = () => {
-    const gradient = [
-      "bg-gradient-to-r from-red-500 to-orange-500",
-      "bg-gradient-to-r from-rose-400 to-red-500",
-      "bg-gradient-to-r from-pink-500 to-rose-500",
-      "bg-gradient-to-r from-fuchsia-500 to-pink-500",
-      "bg-gradient-to-r from-fuchsia-600 to-purple-600",
-      "bg-gradient-to-r from-amber-500 to-pink-500",
-      "bg-gradient-to-r from-violet-600 to-indigo-600",
-      "bg-gradient-to-r from-blue-600 to-violet-600",
-    ];
-    const random = Math.floor(Math.random() * gradient.length);
-    setRandomGradient(gradient[random]);
-  };
   const getKey = useCallback(async () => {
     const res = await db.listDocuments(DATABASE_ID, "65da232e478bcf5bbbad", [
       Query.equal("for", [id || ""]),
@@ -107,13 +96,15 @@ function Box() {
   const { data: notify } = useQuery("notify", getKey, {
     refetchOnWindowFocus: false,
   });
-  useEffect(() => {
-    randomBg();
-  }, []);
 
   return (
     <div
-      className={`${randomGradient}  max-md:px-4 py-11 flex px-[35dvw] flex-col h-dvh justify-center space-y-1.5 items-center`}
+      style={{
+        backgroundImage: `linear-gradient(to top, ${
+          color[Math.floor(Math.random() * color.length)]
+        }, ${color[Math.floor(Math.random() * color.length)]}`,
+      }}
+      className={`  max-md:px-4 py-11 flex px-[35dvw] flex-col h-dvh justify-center space-y-1.5 items-center`}
     >
       <audio src="" hidden ref={audioRef} autoPlay></audio>
       {userLoading && data.length == 0 ? (
