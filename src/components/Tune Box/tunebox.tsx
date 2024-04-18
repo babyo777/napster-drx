@@ -95,7 +95,10 @@ function TuneBoxComp() {
         Query.equal("for", uid),
         Query.limit(1),
       ]);
-      if (res.documents.length > 0) {
+      if (
+        res.documents.length > 0 &&
+        !res.documents[0].notify.includes(token)
+      ) {
         const tkn = [...res.documents[0].notify, token].filter((r) => r !== "");
         console.log(tkn);
 
