@@ -184,7 +184,7 @@ function SongsOptions({
   const handleShare = useCallback(() => {
     navigator.share({
       url: `${window.location.origin}/track/${music.youtubeId.replace(
-        "https://occasional-clara-babyo777.koyeb.app/?url=",
+        "https://occasional-clara-babyo777.koyeb.app/?url=https://soundcloud.com/",
         ""
       )}`,
     });
