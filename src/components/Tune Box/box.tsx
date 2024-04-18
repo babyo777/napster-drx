@@ -141,7 +141,7 @@ function Box() {
                   <div>
                     <LazyLoadImage
                       alt="user"
-                      className=" rounded-full"
+                      className=" rounded-full object-cover h-12 w-12"
                       src={user[0].image}
                       width={50}
                       height={50}

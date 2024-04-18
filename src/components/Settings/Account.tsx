@@ -78,6 +78,7 @@ function Account({ tunebox }: { tunebox?: boolean }) {
             `${getUserApi}${result.documents[0].spotifyId}`
           );
           const code: verify = res.data;
+
           await db.updateDocument(
             DATABASE_ID,
             NEW_USER,
@@ -186,7 +187,7 @@ function Account({ tunebox }: { tunebox?: boolean }) {
                   <LazyLoadImage
                     effect="blur"
                     src={data.image}
-                    className=" rounded-full object-cover"
+                    className=" rounded-full object-cover h-[100%] w-[100%]"
                   />
                 </Avatar>
                 <h1 className=" font-semibold break-all text-center animate-fade-up text-4xl mt-2">
