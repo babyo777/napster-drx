@@ -57,6 +57,7 @@ function FeedSong({
   );
 
   const handlePlay = useCallback(async () => {
+    if (!id) return;
     if (!fromSearch) {
       try {
         db.createDocument(DATABASE_ID, INSIGHTS, ID.unique(), {

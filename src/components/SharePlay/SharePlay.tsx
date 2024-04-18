@@ -22,6 +22,7 @@ import musicData from "../../assets/music.json";
 import likeData from "../../assets/like.json";
 import { GoMute, GoUnmute } from "react-icons/go";
 import Loader from "../Loaders/Loader";
+import { SiGooglegemini } from "react-icons/si";
 
 function SharePlay() {
   const playlist = useSelector((state: RootState) => state.musicReducer.reels);
@@ -356,9 +357,15 @@ function SharePlay() {
   return (
     <div className=" fixed w-full h-[90dvh] z-10 ">
       <audio src="" ref={audioRef} hidden preload="true" autoPlay></audio>
-      <div className="h-[90dvh] pb-[19dvh] relative">
+      <div className="h-[90dvh] pb-[19dvh] w-full relative">
         <div className=" z-10 w-full absolute top-4 left-3">
           <h1 className="text-2xl animate-fade-right font-semibold">Tunes</h1>
+        </div>
+        <div className=" absolute z-10 top-5 right-3">
+          <SiGooglegemini
+            onClick={() => alert("Ai Coming Soon...")}
+            className="h-7 w-7"
+          />
         </div>
         <div className=" z-10 w-full absolute bottom-[0rem]">
           <input

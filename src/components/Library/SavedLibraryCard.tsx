@@ -74,7 +74,7 @@ function SavedLibraryCard({
               </p>
             </div>
           </Link>
-          <EditInfo id={id} f={f} />
+          {localStorage.getItem("uid") == f && <EditInfo id={id} f={f} />}
         </>
       ) : (
         <>
@@ -105,7 +105,9 @@ function SavedLibraryCard({
                   </p>
                 </div>
               </Link>
-              <EditInfo id={data.$id || ""} f={f} />
+              {localStorage.getItem("uid") == f && (
+                <EditInfo id={data.$id || ""} f={f} />
+              )}
             </>
           )}
         </>

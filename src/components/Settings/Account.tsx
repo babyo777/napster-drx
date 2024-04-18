@@ -23,12 +23,11 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Avatar } from "../ui/avatar";
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { IoMdInformationCircleOutline } from "react-icons/io";
 import { setUser } from "@/Store/Player";
+import { RiLinkM } from "react-icons/ri";
 
 interface user extends Models.Document {
   user: string;
@@ -169,6 +168,12 @@ function Account({ tunebox }: { tunebox?: boolean }) {
     }
   };
 
+  const handleShare = useCallback(() => {
+    navigator.share({
+      url: `${window.location.origin}/user/${uid}`,
+    });
+  }, [uid]);
+
   return (
     <Drawer>
       <DrawerTrigger className=" w-full animate-fade-up">
@@ -195,13 +200,10 @@ function Account({ tunebox }: { tunebox?: boolean }) {
                 </h1>
                 <DropdownMenu>
                   <DropdownMenuTrigger className=" animate-fade-up ">
-                    <DropdownMenuLabel className="mt-2 text-xl text-zinc-400">
-                      <IoMdInformationCircleOutline />
+                    <DropdownMenuLabel className="mt-2 animate-fade-up text-xl text-zinc-400">
+                      <RiLinkM onClick={handleShare} />
                     </DropdownMenuLabel>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className=" -mt-3.5 flex text-sm  justify-center items-center rounded-xl bg-transparent py-2 font-normal text-zinc-300 border-none">
-                    <p>Automatic sync enabled</p>
-                  </DropdownMenuContent>
                 </DropdownMenu>
               </>
             )}
