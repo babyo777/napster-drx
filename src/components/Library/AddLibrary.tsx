@@ -169,7 +169,7 @@ const AddLibrary: React.FC<{ clone?: boolean; id?: string }> = ({
                   <FormItem>
                     <FormControl>
                       <Input
-                        className=" py-5 animate-fade-up"
+                        className=" py-5 animate-fade-up rounded-lg"
                         placeholder="Give a name..."
                         {...field}
                       ></Input>
