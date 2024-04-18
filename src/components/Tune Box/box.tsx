@@ -139,28 +139,32 @@ function Box() {
               <div className="flex animate-fade-down w-full  bg-black/15 rounded-2xl  justify-between items-center p-2.5 space-x-1.5 pr-3">
                 <div className=" flex items-center space-x-1.5">
                   <div>
-                    <LazyLoadImage
-                      alt="user"
-                      className=" rounded-full object-cover h-12 w-12"
-                      src={user[0].image || "/newfavicon.jpg"}
-                      width={50}
-                      height={50}
-                      loading="lazy"
-                    />
+                    <Link to={`/user/${id}`}>
+                      <LazyLoadImage
+                        alt="user"
+                        className=" rounded-full object-cover h-12 w-12"
+                        src={user[0].image || "/newfavicon.jpg"}
+                        width={50}
+                        height={50}
+                        loading="lazy"
+                      />
+                    </Link>
                   </div>
-                  <div className=" flex flex-col items-start">
-                    <h2 className="font-semibold capitalize tracking-tight leading-tight max-md:max-w-[30dvw] truncate ">
-                      {user[0].name}
-                    </h2>
-                    <div className="flex text-sm space-x-1 leading-tight tracking-tight items-center">
-                      <h1 className="font-medium leading-tight tracking-tight">
-                        Send me Tracks
-                      </h1>
-                      <div>
-                        <IoMdMusicalNote />
+                  <Link to={`/user/${id}`}>
+                    <div className=" flex flex-col items-start">
+                      <h2 className="font-semibold capitalize tracking-tight leading-tight max-md:max-w-[30dvw] truncate ">
+                        {user[0].name}
+                      </h2>
+                      <div className="flex text-sm space-x-1 leading-tight tracking-tight items-center">
+                        <h1 className="font-medium leading-tight tracking-tight">
+                          Send me Tracks
+                        </h1>
+                        <div>
+                          <IoMdMusicalNote />
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
                 <div className="flex text-xl space-x-1.5 items-center">
                   <MdOutlineSpatialTracking className="h-7 w-7" />

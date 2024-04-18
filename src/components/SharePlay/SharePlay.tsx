@@ -367,15 +367,17 @@ function SharePlay() {
             className="h-7 w-7"
           />
         </div>
-        <div className=" z-10 w-full absolute bottom-[0rem]">
-          <input
-            type="range"
-            value={prog || 0}
-            max={dur || 0}
-            onChange={handleSeek}
-            className="w-full  h-[0.2rem] animate-fade-up bg-zinc-300/75 transition-all duration-300 overflow-hidden rounded-none appearance-none cursor-pointer"
-          />
-        </div>
+        {window.matchMedia("(display-mode:standalone)").matches && (
+          <div className=" z-10 w-full absolute bottom-[0rem]">
+            <input
+              type="range"
+              value={prog || 0}
+              max={dur || 0}
+              onChange={handleSeek}
+              className="w-full  h-[0.2rem] animate-fade-up bg-zinc-300/75 transition-all duration-300 overflow-hidden rounded-none appearance-none cursor-pointer"
+            />
+          </div>
+        )}
         {isRefetching && (
           <div className=" animate-fade-down absolute top-14 flex items-center w-full justify-center">
             <Loader />
