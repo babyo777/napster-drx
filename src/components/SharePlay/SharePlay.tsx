@@ -5,9 +5,9 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { DATABASE_ID, FAV_ARTIST, EDITS, db } from "@/appwrite/appwriteConfig";
+import { DATABASE_ID, EDITS, db } from "@/appwrite/appwriteConfig";
 import { ID, Query } from "appwrite";
-import { ArtistDetails, favArtist, playlistSongs } from "@/Interface";
+import { ArtistDetails, playlistSongs } from "@/Interface";
 import { useQuery } from "react-query";
 import { GetArtistDetails, ReelsApi } from "@/API/api";
 import axios from "axios";
@@ -46,7 +46,6 @@ function SharePlay() {
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.reelsIndex
   );
-  const [isFavArtist, setIsFavArtist] = useState<boolean>();
 
   const getReels = useCallback(async () => {
     const rnDno = Math.floor(Math.random() * queue.length - 1);
@@ -72,42 +71,6 @@ function SharePlay() {
     }
   );
 
-  const loadIsFav = async () => {
-    const r = await db.listDocuments(DATABASE_ID, FAV_ARTIST, [
-      Query.equal("for", [localStorage.getItem("uid") || "default"]),
-      Query.equal("artistId", [
-        playlist[currentIndex]?.artists[0].id || "none",
-      ]),
-    ]);
-    const p = r.documents as unknown as favArtist[];
-    if (p.length == 0) {
-      setIsFavArtist(false);
-    } else {
-      setIsFavArtist(true);
-    }
-    return p;
-  };
-
-  const { data: isFav, refetch: refetchFav } = useQuery<favArtist[]>(
-    ["checkFavArtist", playlist[currentIndex]?.artists[0].id],
-    loadIsFav,
-    {
-      refetchOnWindowFocus: false,
-      keepPreviousData: true,
-    }
-  );
-
-  const removeFromFav = async () => {
-    if (isFav) {
-      setIsFavArtist(false);
-
-      await db
-        .deleteDocument(DATABASE_ID, FAV_ARTIST, isFav[0].$id)
-        .catch(() => setIsFavArtist(false));
-      refetchFav();
-    }
-  };
-
   const getArtistDetails = async () => {
     const list = await axios.get(
       `${GetArtistDetails}${playlist[currentIndex]?.artists[0].id}`
@@ -129,23 +92,6 @@ function SharePlay() {
       },
     }
   );
-
-  const addToFav = async () => {
-    if (!playlist[currentIndex].artists[0].id) return;
-    setIsFavArtist(true);
-    await db
-      .createDocument(DATABASE_ID, FAV_ARTIST, ID.unique(), {
-        artistId: playlist[currentIndex]?.artists[0].id,
-        name: data?.name,
-        thumbnailUrl: data?.thumbnails[0].url.replace(
-          "w540-h225",
-          "w1080-h1080"
-        ),
-        for: localStorage.getItem("uid"),
-      })
-      .catch(() => setIsFavArtist(true));
-    refetchFav();
-  };
 
   const isLikedCheck = async () => {
     const r = await db.listDocuments(DATABASE_ID, EDITS, [
@@ -346,7 +292,7 @@ function SharePlay() {
 
         const handlePlay = () => {
           refetch();
-          refetchFav();
+
           setIsLoading(false);
           animationRef.current?.play();
         };
@@ -415,7 +361,7 @@ function SharePlay() {
         };
       }
     }
-  }, [playlist, currentIndex, handleNext, handlePrev, refetch, refetchFav]);
+  }, [playlist, currentIndex, handleNext, handlePrev, refetch]);
 
   const handlePlayPause = useCallback(() => {
     const sound = audioRef.current;
@@ -538,12 +484,8 @@ function SharePlay() {
                   <AvatarFallback>CN</AvatarFallback>
                   <AvatarImage
                     src={
-                      (data &&
-                        data.thumbnails[0]?.url.replace(
-                          "w540-h225",
-                          "w1080-h1080"
-                        )) ||
-                      "/favicon.jpeg"
+                      //@ts-expect-error:additional added
+                      playlist[currentIndex]?.avatar || "/favicon.jpeg"
                     }
                   />
                 </Avatar>
@@ -551,35 +493,13 @@ function SharePlay() {
             )}
             <div>
               <h1 className=" flex truncate  text-xl font-semibold">
-                <Link
-                  to={`/artist/${data?.artistId}`}
-                  className="max-w-[40dvw] truncate"
-                >
+                <div className="max-w-[40dvw] truncate">
                   {playlist[currentIndex]?.artists[0]?.name || (
                     <Skeleton className="w-28 bg-zinc-800 h-3" />
                   )}
-                </Link>
-                {playlist[currentIndex]?.artists[0]?.id && (
-                  <div className="ml-1.5 mb-0.5 flex items-center">
-                    {isFavArtist ? (
-                      <p
-                        onClick={removeFromFav}
-                        className=" border px-2 py-0.5 bg-white text-black rounded-lg text-sm   "
-                      >
-                        Following
-                      </p>
-                    ) : (
-                      <p
-                        onClick={addToFav}
-                        className=" border px-2 py-0.5 rounded-lg text-sm   "
-                      >
-                        Follow
-                      </p>
-                    )}
-                  </div>
-                )}
+                </div>
               </h1>
-              <Link to={`/artist/${data?.artistId}`}>
+              <div>
                 {playlist[currentIndex]?.title ? (
                   <p className="  text-xs hidden truncate w-[50dvw]">
                     {playlist[currentIndex]?.title || "unknown"}
@@ -587,7 +507,7 @@ function SharePlay() {
                 ) : (
                   <Skeleton className="w-24 mt-1 bg-zinc-800 h-3" />
                 )}
-              </Link>
+              </div>
             </div>
           </div>
         </div>
