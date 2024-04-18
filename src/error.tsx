@@ -30,7 +30,7 @@ function ErrorElement() {
     }
   }, [error, location]);
   return (
-    <div className="flex text-center px-7 h-screen justify-center items-center">
+    <div className="flex text-start text-base px-7 h-screen justify-center items-center">
       <p>
         Something went wrong restart app to fix <br /> {""}
         <a

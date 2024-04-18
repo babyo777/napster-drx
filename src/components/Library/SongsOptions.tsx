@@ -15,7 +15,7 @@ import { playlistSongs, savedPlaylist } from "@/Interface";
 import { useDispatch, useSelector } from "react-redux";
 import { setNextQueue, setPlaylist } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
-import { IoAddSharp } from "react-icons/io5";
+import { IoAddSharp, IoShareOutline } from "react-icons/io5";
 import { v4 as uuidv4 } from "uuid";
 import {
   ADD_TO_LIBRARY,
@@ -181,6 +181,11 @@ function SongsOptions({
       }
     }
   }, [music, like, reload, edits, tunebox]);
+  const handleShare = useCallback(() => {
+    navigator.share({
+      url: `${window.location.origin}/track/${music.youtubeId}`,
+    });
+  }, [music]);
 
   return (
     <DropdownMenu>
@@ -251,6 +256,14 @@ function SongsOptions({
         >
           <p className="text-base">Add to queue</p>
           <PiQueue className="h-5 w-5" />
+        </DropdownMenuItem>
+        <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>
+        <DropdownMenuItem
+          onClick={handleShare}
+          className="flex items-center justify-between space-x-2"
+        >
+          <p className="text-base">Share</p>
+          <IoShareOutline className="h-5 w-5" />
         </DropdownMenuItem>
 
         <div className="h-[.05rem] w-full bg-zinc-300/10 "></div>

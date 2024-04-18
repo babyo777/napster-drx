@@ -142,7 +142,7 @@ function Box() {
                     <LazyLoadImage
                       alt="user"
                       className=" rounded-full object-cover h-12 w-12"
-                      src={user[0].image}
+                      src={user[0].image || "/newfavicon.jpg"}
                       width={50}
                       height={50}
                       loading="lazy"

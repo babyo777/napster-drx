@@ -26,6 +26,8 @@ import Offline from "./Offline/offline.tsx";
 import SavedEdits from "./Saved Edits/SavedEdits.tsx";
 import ErrorElement from "./error.tsx";
 import Loader from "./components/Loaders/Loader.tsx";
+import User from "./user/User.tsx";
+import Track from "./Track/Track.tsx";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
@@ -86,6 +88,18 @@ const router = createBrowserRouter([
       {
         path: "/offline/",
         element: <Offline />,
+      },
+      {
+        path: "/user/:id",
+        element: <User />,
+      },
+      {
+        path: "/track/:id",
+        element: <Track />,
+      },
+      {
+        path: "/track/:id",
+        element: <User />,
       },
       {
         path: "*",
