@@ -20,13 +20,13 @@ function TabsComp() {
     window.scrollTo(0, 0);
   }, []);
   const dispatch = useDispatch();
+  const location = useLocation();
   const handleLoadMore = useCallback(async () => {
-    if (q.getQueryData(["reels"])) {
+    if (q.getQueryData(["reels"]) && location.pathname == "/share-play") {
       await q.fetchQuery(["reels"]);
       dispatch(setReelsIndex(0));
     }
-  }, [q, dispatch]);
-  const location = useLocation();
+  }, [q, dispatch, location]);
   return (
     <div className="fixed  fade-in w-screen right-0 left-0 bottom-0 flex flex-col justify-center items-center">
       <Player />

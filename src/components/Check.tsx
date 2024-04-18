@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import App from "@/App";
 import { Desktop } from "./Desktop";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  SetFeed,
   SetFeedMode,
   SetLastPlayed,
   SetPlaylistOrAlbum,
   SetQueue,
+  SetReels,
   SetSeek,
   setCurrentIndex,
   setIsIphone,
@@ -30,6 +32,7 @@ import axios from "axios";
 import {
   GetAlbumSongs,
   GetPlaylistHundredSongsApi,
+  ReelsApi,
   SuggestionSearchApi,
 } from "@/API/api";
 import { Query } from "appwrite";
@@ -355,6 +358,57 @@ function Check() {
       refetchOnWindowFocus: false,
     }
   );
+  const playlist = useSelector((state: RootState) => state.musicReducer.queue);
+
+  const query = async () => {
+    const currentIndex = Math.floor(Math.random() * playlist.length);
+    const q = await axios.get(
+      `${SuggestionSearchApi}${
+        playlist[currentIndex]?.youtubeId.startsWith("https")
+          ? "sem" +
+            playlist[currentIndex].title +
+            " " +
+            playlist[currentIndex].artists[0].name
+          : playlist[currentIndex]?.youtubeId || "rnd"
+      }`
+    );
+    dispatch(SetFeed(q.data));
+    return q.data as playlistSongs[];
+  };
+
+  const { refetch: refetchFeed } = useQuery<playlistSongs[]>(["Feed"], query, {
+    refetchOnWindowFocus: false,
+    staleTime: 60 * 60000,
+    refetchOnMount: false,
+
+    onError() {
+      refetchFeed();
+    },
+    onSuccess(data) {
+      data.length == 0 && refetchFeed();
+      data[0].youtubeId == null && refetchFeed();
+    },
+  });
+
+  const getReels = useCallback(async () => {
+    const rnDno = Math.floor(Math.random() * playlist.length - 1);
+    const r = await axios.get(
+      `${ReelsApi}${
+        playlist[rnDno]?.title.replace("/", "") +
+        " " +
+        playlist[rnDno]?.artists[0]?.name.replace("/", "")
+      }`
+    );
+
+    dispatch(SetReels(r.data));
+    return r.data as playlistSongs[];
+  }, [dispatch, playlist]);
+
+  const { status } = useQuery<playlistSongs[]>(["reels"], getReels, {
+    retry: 1,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 
   const music = useSelector((state: RootState) => state.musicReducer.music);
 
@@ -412,7 +466,9 @@ function Check() {
     online,
   ]);
 
-  const playlist = useSelector((state: RootState) => state.musicReducer.queue);
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
 
   useEffect(() => {
     if (playlist.length == 1 && online) {
