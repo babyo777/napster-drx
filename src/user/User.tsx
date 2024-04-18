@@ -60,7 +60,7 @@ function User() {
       <div className="absolute top-4 z-10 right-3  flex-col space-y-0.5">
         <Share />
       </div>
-      <div className="w-full flex justify-start items-center px-5 pt-16">
+      <div className="w-full flex justify-start items-center px-5 pt-20">
         <div className=" flex flex-col items-start space-y-1.5 justify-start text-start">
           {userLoading ? (
             <Skeleton className="h-24 w-24 object-cover rounded-full" />
@@ -76,7 +76,7 @@ function User() {
             {userLoading ? (
               <div></div>
             ) : (
-              <h1 className=" truncate animate-fade-right max-w-[80dvw] px-1  font-medium text-2xl">
+              <h1 className=" truncate animate-fade-right max-w-[80dvw] px-1  font-semibold text-xl">
                 {user ? user[0]?.name : ""}
               </h1>
             )}
@@ -120,7 +120,7 @@ function User() {
       ) : (
         <>
           {savedPlaylist && savedPlaylist.length > 0 && (
-            <h2 className="px-5 mb-2.5 animate-fade-right font-medium leading-tight text-xl">
+            <h2 className="px-5 mb-2.5 animate-fade-right font-semibold leading-tight text-xl">
               Playlists
             </h2>
           )}

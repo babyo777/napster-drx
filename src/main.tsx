@@ -89,10 +89,7 @@ const router = createBrowserRouter([
         path: "/offline/",
         element: <Offline />,
       },
-      {
-        path: "/user/:id",
-        element: <User />,
-      },
+
       {
         path: "/track/:id",
         element: <Track />,
@@ -111,10 +108,10 @@ const router = createBrowserRouter([
     path: "/docs/",
     element: <Docs />,
   },
-  // {
-  //   path: "/test/",
-  //   element: <Test />,
-  // },
+  {
+    path: "/user/:id",
+    element: <User />,
+  },
   {
     path: "/box/:id",
     element: <Box />,
