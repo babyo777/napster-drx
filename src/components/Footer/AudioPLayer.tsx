@@ -231,13 +231,15 @@ function AudioPLayerComp() {
   useEffect(() => {
     function handleNew() {
       socket.emit("message", { id: uid, ...playlist[currentIndex] });
+      socket.emit("duration", { id: uid, duration: duration });
+      socket.emit("progress", { id: uid, duration: progress });
     }
     socket.on("new", handleNew);
 
     return () => {
       socket.off("new", handleNew);
     };
-  }, [playlist, currentIndex, uid]);
+  }, [playlist, currentIndex, uid, duration, progress]);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [online, setOnline] = useState<boolean>();
   useEffect(() => {
@@ -327,9 +329,9 @@ function AudioPLayerComp() {
         navigator.mediaSession.setActionHandler("nexttrack", handleNext);
         navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
         navigator.mediaSession.setActionHandler("seekto", handleSeek);
+        socket.emit("message", { id: uid, ...playlist[currentIndex] });
         dispatch(setIsLoading(false));
         setDuration(sound.duration);
-        socket.emit("duration", { id: uid, duration: sound.duration });
         setProgress(sound.currentTime);
         dispatch(setDurationLyrics(sound.duration));
         refetch();
@@ -338,7 +340,6 @@ function AudioPLayerComp() {
       const handleTimeUpdate = () => {
         const time = sound.currentTime;
         setProgress(time);
-        socket.emit("progress", { id: uid, progress: time });
         dispatch(setProgressLyrics(time));
       };
 

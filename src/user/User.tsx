@@ -95,12 +95,13 @@ function User() {
 
     function setValue(data: playlistSongs) {
       if (data !== null) {
-        console.log(data);
         setListening(data);
       }
     }
 
     function handleDuration(data: { id: string; duration: number }) {
+      console.log("ok");
+
       setDuration(data.duration);
     }
     function handleProgress(data: { id: string; progress: number }) {
@@ -108,7 +109,6 @@ function User() {
     }
 
     socket.on("connect", onConnect);
-
     socket.on("message", setValue);
     socket.on("duration", handleDuration);
     socket.on("progress", handleProgress);
