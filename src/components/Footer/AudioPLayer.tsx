@@ -222,6 +222,26 @@ function AudioPLayerComp() {
   //   }
   // }, [updateSeek, isPlaying]);
 
+  useEffect(() => {
+    socket.connect();
+    if (playlist.length > 0 && uid !== null) {
+      socket.emit("join", { $id: uid });
+    }
+  }, [playlist, uid]);
+
+  useEffect(() => {
+    socket.on("joined", () => {
+      socket.emit("message", { $id: uid, ...playlist[currentIndex] });
+    });
+    return () => {
+      socket.off("joined");
+    };
+  }, [currentIndex, playlist, uid]);
+
+  useEffect(() => {
+    socket.emit("message", { $id: uid, ...playlist[currentIndex] });
+  }, [uid, playlist, currentIndex]);
+
   const audioRef = useRef<HTMLAudioElement>(null);
   const [online, setOnline] = useState<boolean>();
   useEffect(() => {
