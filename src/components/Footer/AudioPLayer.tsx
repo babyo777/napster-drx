@@ -234,7 +234,7 @@ function AudioPLayerComp() {
     });
 
     return () => {
-      socket.off("joined");
+      socket.off("join");
     };
   }, [playlist, currentIndex, uid]);
   const audioRef = useRef<HTMLAudioElement>(null);
