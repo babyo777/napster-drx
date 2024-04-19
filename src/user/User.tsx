@@ -223,7 +223,7 @@ function User() {
                     />
                   ))}
             </div>
-            {savedPlaylist && savedPlaylist.length > 3 && (
+            {savedPlaylist && savedPlaylist.length > 0 && (
               <div className="w-full flex justify-center items-center font-normal">
                 <Link to={`/playlists/${id}`}>
                   <Button
