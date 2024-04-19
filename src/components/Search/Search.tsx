@@ -227,7 +227,7 @@ function SearchComp() {
                 Artist={(artistsData && artistsData.length > 0) || false}
                 Music={(music && music.length > 0) || false}
                 Albums={(albumData && albumData.length > 0) || false}
-                Playlists={(playlists && playlists.length > 0) || false}
+                Playlists={(playlistsData && playlistsData.length > 0) || false}
               />
               <div className="h-[63vh] pb-7 overflow-y-scroll overflow-hidden flex flex-col items-center">
                 {searchToggle === "Music" &&
