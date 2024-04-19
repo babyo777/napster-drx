@@ -19,7 +19,7 @@ import Loader from "../Loaders/Loader";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
-import { setSearch } from "@/Store/Player";
+import { setSearch, setSearchToggle } from "@/Store/Player";
 import { DATABASE_ID, INSIGHTS, db } from "@/appwrite/appwriteConfig";
 import SearchSong from "./SearchSong";
 import { Query } from "appwrite";
@@ -137,7 +137,9 @@ function SearchComp() {
 
   const search = useCallback(
     (time: number) => {
-      s.current?.value.trim() == "" && dispatch(setSearch(""));
+      s.current?.value.trim() == "" &&
+        dispatch(setSearch("")) &&
+        dispatch(setSearchToggle("Music"));
       const q = setTimeout(() => {
         if (s.current?.value) {
           s.current.value.length > 1 &&
@@ -221,7 +223,12 @@ function SearchComp() {
 
           {music && !isLoading && searchQuery.length > 0 && (
             <>
-              <SearchToggle />
+              <SearchToggle
+                Artist={(artistsData && artistsData.length > 0) || false}
+                Music={(music && music.length > 0) || false}
+                Albums={(albumData && albumData.length > 0) || false}
+                Playlists={(playlists && playlists.length > 0) || false}
+              />
               <div className="h-[63vh] pb-7 overflow-y-scroll overflow-hidden flex flex-col items-center">
                 {searchToggle === "Music" &&
                   music

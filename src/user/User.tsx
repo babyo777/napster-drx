@@ -150,7 +150,7 @@ function User() {
       {user && (
         <>
           {savedPlaylist && savedPlaylist.length > 0 && (
-            <h2 className="px-5 -mb-2 mt-2.5 animate-fade-right font-medium leading-tight text-lg">
+            <h2 className="px-5 -mb-2 mt-2.5 animate-fade-right font-semibold leading-tight text-lg">
               Tunebox
             </h2>
           )}
@@ -158,7 +158,7 @@ function User() {
             <Link to={`/box/${id}`}>
               <div className="flex space-x-2 px-5 mb-3 animate-fade-right items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <div className="overflow-hidden h-14  w-14 ">
+                  <div className="overflow-hidden h-12  w-12 ">
                     <AspectRatio ratio={1 / 1}>
                       <LazyLoadImage
                         height="100%"
@@ -171,7 +171,7 @@ function User() {
                     </AspectRatio>
                   </div>
                   <div className="flex flex-col  text-xl text-start">
-                    <p className="w-[59vw] fade-in font-semibold text-xl truncate">
+                    <p className="w-[59vw] fade-in font-medium text-base truncate">
                       Send Tracks to {(user && user[0]?.name) || ""}
                     </p>
                     <div className="flex  text-zinc-400 items-center space-x-1">
@@ -191,7 +191,7 @@ function User() {
       ) : (
         <>
           {savedPlaylist && savedPlaylist.length > 0 && (
-            <h2 className="px-5 -mt-0.5 mb-2.5 animate-fade-right font-medium leading-tight text-lg">
+            <h2 className="px-5 -mt-0.5 mb-2.5 animate-fade-right font-semibold leading-tight text-lg">
               Playlists
             </h2>
           )}
@@ -202,6 +202,7 @@ function User() {
                   .slice(0, 3)
                   .map((saved, id) => (
                     <SavedLibraryCard
+                      className
                       key={saved.link + id}
                       id={saved.$id || ""}
                       data={saved}

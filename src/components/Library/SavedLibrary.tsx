@@ -120,7 +120,7 @@ function SavedLibraryComp() {
                     </AspectRatio>
                   </div>
                   <div className="flex flex-col  text-xl text-start">
-                    <p className="w-[59vw] fade-in font-semibold text-lg truncate">
+                    <p className="w-[59vw] fade-in font-medium text-lg truncate">
                       Liked Songs
                     </p>
                     <div className="flex -mt-0.5 text-zinc-400 items-center space-x-1">
@@ -146,7 +146,7 @@ function SavedLibraryComp() {
                     </AspectRatio>
                   </div>
                   <div className="flex flex-col  text-xl text-start">
-                    <p className="w-[59vw] fade-in font-semibold text-lg truncate">
+                    <p className="w-[59vw] fade-in font-medium text-lg truncate">
                       Liked Tunes
                     </p>
                     <div className="flex -mt-0.5 text-zinc-400 items-center space-x-1">
@@ -175,7 +175,7 @@ function SavedLibraryComp() {
                     </AspectRatio>
                   </div>
                   <div className="flex flex-col  text-xl text-start">
-                    <p className="w-[59vw] fade-in font-semibold text-lg truncate">
+                    <p className="w-[59vw] fade-in font-medium text-lg truncate">
                       Tune Box
                     </p>
                     <div className="flex -mt-0.5 text-zinc-400 items-center space-x-1">

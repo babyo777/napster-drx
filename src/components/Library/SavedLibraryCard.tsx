@@ -14,7 +14,9 @@ function SavedLibraryCard({
   f,
   id,
   data,
+  className,
 }: {
+  className?: boolean;
   data: savedPlaylist;
   id: string;
   author?: string;
@@ -49,7 +51,11 @@ function SavedLibraryCard({
             }`}
             className="flex space-x-2.5 items-center justify-between"
           >
-            <div className="overflow-hidden h-14  w-14 space-y-2">
+            <div
+              className={`overflow-hidden  space-y-2 ${
+                className ? "h-12 w-12" : "h-14 w-14"
+              }`}
+            >
               <AspectRatio ratio={1 / 1}>
                 <LazyLoadImage
                   height="100%"
@@ -66,7 +72,11 @@ function SavedLibraryCard({
               </AspectRatio>
             </div>
             <div className="flex flex-col   text-start">
-              <p className="w-[59vw]  text-lg font-medium fade-in truncate">
+              <p
+                className={`w-[59vw] ${
+                  className ? "text-base" : "text-lg"
+                } font-medium fade-in truncate`}
+              >
                 {author || data.creator || "NapsterDrx."}
               </p>
               <p className="-mt-0.5  text-xs w-[50vw] text-zinc-400 truncate">
