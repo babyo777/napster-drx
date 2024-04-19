@@ -339,9 +339,9 @@ function User() {
           )}
           <div className="pt-4">
             <Link to={`/box/${id}`}>
-              <div className="flex space-x-2 px-5 mb-3 animate-fade-right items-center justify-between">
+              <div className="flex space-x-2 bg-zinc-100/5 mx-3.5  px-2.5 py-2.5 rounded-xl mb-3 animate-fade-right items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <div className="overflow-hidden h-14  w-14 ">
+                  <div className="overflow-hidden h-16  w-16 ">
                     <AspectRatio ratio={1 / 1}>
                       <LazyLoadImage
                         height="100%"
@@ -354,12 +354,16 @@ function User() {
                     </AspectRatio>
                   </div>
                   <div className="flex flex-col  text-xl text-start">
-                    <p className="w-[59vw] fade-in font-medium text-base truncate">
+                    <p className="w-[59vw] fade-in font-medium text-xl truncate">
                       Send Tracks to {(user && user[0]?.name) || ""}
                     </p>
-                    <div className="flex  text-zinc-400 items-center space-x-1">
+                    <div className="flex  text-zinc-200 font-medium items-center space-x-1">
                       <GiPin className="h-3 text-white w-3" />
-                      <p className="text-xs w-[50vw]truncate">Showcase</p>
+                      <p className="text-xs w-[50vw]truncate">Music</p>
+                    </div>
+                    <div className="flex  text-zinc-200 font-medium items-center space-x-1">
+                      <GiPin className="h-3 text-white w-3" />
+                      <p className="text-xs w-[50vw]truncate">Recommendation</p>
                     </div>
                   </div>
                 </div>
