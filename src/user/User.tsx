@@ -84,18 +84,24 @@ function User() {
     setIsFavArtist(true);
   }, []);
 
-  useEffect(() => {
-    socket.connect();
-    socket.emit("join", { $id: id });
-  }, [id]);
-
   const [listening, setListening] = useState<playlistSongs>();
   const [color2, setColor2] = useState<string[]>([]);
   const [duration, setDuration] = useState<number>(0);
   const [Progress, setProgress] = useState<number>(0);
+
   useEffect(() => {
+    socket.connect();
+    function onConnect() {
+      socket.emit("join", { $id: id });
+      console.log(socket.connected);
+    }
+
+    function onDisconnect() {
+      console.log(socket.connected);
+    }
     function setValue(data: playlistSongs) {
       if (data !== null) {
+        console.log(data);
         setListening(data);
         prominent(GetImage + data.thumbnailUrl, {
           amount: 50,
@@ -113,6 +119,9 @@ function User() {
       setProgress(data.progress);
     }
 
+    socket.on("disconnect", onDisconnect);
+    socket.on("connect", onConnect);
+
     socket.on("message", setValue);
     socket.on("duration", handleDuration);
     socket.on("progress", handleProgress);
@@ -120,8 +129,11 @@ function User() {
       socket.off("progress", handleProgress);
       socket.off("duration", handleDuration);
       socket.off("message", setValue);
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
     };
-  }, []);
+  }, [id]);
+
   return (
     <>
       {/* <GoBack /> */}

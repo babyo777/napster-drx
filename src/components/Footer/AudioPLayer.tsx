@@ -222,26 +222,6 @@ function AudioPLayerComp() {
   //   }
   // }, [updateSeek, isPlaying]);
 
-  useEffect(() => {
-    socket.connect();
-    if (playlist.length > 0 && uid !== null) {
-      socket.emit("join", { $id: uid });
-    }
-  }, [playlist, uid]);
-
-  useEffect(() => {
-    socket.on("joined", () => {
-      socket.emit("message", { $id: uid, ...playlist[currentIndex] });
-    });
-    return () => {
-      socket.off("joined");
-    };
-  }, [currentIndex, playlist, uid]);
-
-  useEffect(() => {
-    socket.emit("message", { $id: uid, ...playlist[currentIndex] });
-  }, [uid, playlist, currentIndex]);
-
   const audioRef = useRef<HTMLAudioElement>(null);
   const [online, setOnline] = useState<boolean>();
   useEffect(() => {
@@ -312,7 +292,6 @@ function AudioPLayerComp() {
       };
 
       const handleLoad = () => {
-        socket.emit("message", { $id: uid, ...playlist[currentIndex] });
         navigator.mediaSession.metadata = new MediaMetadata({
           title: playlist[currentIndex].title,
           artist: playlist[currentIndex].artists[0]?.name,
@@ -334,9 +313,7 @@ function AudioPLayerComp() {
         navigator.mediaSession.setActionHandler("seekto", handleSeek);
         dispatch(setIsLoading(false));
         setDuration(sound.duration);
-
         socket.emit("duration", { $id: uid, duration: sound.duration });
-
         setProgress(sound.currentTime);
         dispatch(setDurationLyrics(sound.duration));
         refetch();
@@ -345,9 +322,7 @@ function AudioPLayerComp() {
       const handleTimeUpdate = () => {
         const time = sound.currentTime;
         setProgress(time);
-
-        socket.emit("progress", { $id: uid, progress: sound.currentTime });
-
+        socket.emit("progress", { $id: uid, progress: time });
         dispatch(setProgressLyrics(time));
       };
 

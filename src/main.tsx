@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { ThemeProvider } from "./components/theme-provider.tsx";
@@ -17,15 +17,13 @@ import ArtistPage from "./Artists/ArtistPage.tsx";
 import ListenNow from "./components/ListenNow/ListenNow.tsx";
 import LikedSong from "./LikedSongs/likedSongs.tsx";
 import Suggested from "./Suggested/Suggested.tsx";
-const Docs = lazy(() => import("./Landing Page/Docs.tsx"));
+import Docs from "./Landing Page/Docs.tsx";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import Box from "./components/Tune Box/box.tsx";
 import TuneBox from "./components/Tune Box/tunebox.tsx";
 import Offline from "./Offline/offline.tsx";
-// import Test from "./text.tsx";
 import SavedEdits from "./Saved Edits/SavedEdits.tsx";
 import ErrorElement from "./error.tsx";
-import Loader from "./components/Loaders/Loader.tsx";
 import User from "./user/User.tsx";
 import Track from "./Track/Track.tsx";
 import Playlists from "./user/Playlists.tsx";
@@ -128,15 +126,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={client}>
         <ThemeProvider>
           <ReactLenis root>
-            <Suspense
-              fallback={
-                <div className=" h-dvh flex items-center justify-center">
-                  <Loader color="white" />
-                </div>
-              }
-            >
-              <RouterProvider router={router} />
-            </Suspense>
+            <RouterProvider router={router} />
           </ReactLenis>
         </ThemeProvider>
       </QueryClientProvider>
