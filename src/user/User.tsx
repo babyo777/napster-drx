@@ -80,7 +80,7 @@ function User() {
         style={{ backgroundImage: `linear-gradient(to top, #121212, ${color}` }}
         className={`w-full  flex justify-start items-center px-5 pt-[10vh] transition-all duration-300`}
       >
-        <div className=" flex flex-col items-start space-y-1.5 justify-start text-start">
+        <div className=" flex  items-center space-x-1.5 justify-start text-start">
           {userLoading ? (
             <Skeleton className="h-24 w-24 object-cover rounded-full" />
           ) : (
@@ -95,43 +95,75 @@ function User() {
             {userLoading ? (
               <div></div>
             ) : (
-              <h1 className=" truncate -mb-1 animate-fade-right max-w-[80dvw] px-1  font-semibold text-xl">
-                {user ? user[0]?.name : ""}
-              </h1>
+              <>
+                <div className=" flex flex-col space-y-1.5">
+                  <div>
+                    <h1 className=" truncate -mb-1 animate-fade-right max-w-[50dvw] px-1  font-semibold text-xl">
+                      {user ? user[0]?.name : ""}
+                    </h1>
+                  </div>
+                  <div className=" animate-fade-right text-xs text-zinc-400 ml-1">
+                    <p>
+                      <span
+                        className="text-white mr-0.5
+                      "
+                      >
+                        1M
+                      </span>{" "}
+                      followers <span className="text-white ml-0.5">7</span>{" "}
+                      following
+                    </p>
+                  </div>
+                  {/* <div className="flex space-x-1.5 text-sm ml-1">
+                    <IoLogoInstagram />
+                    <RiTwitterXFill />
+                    <FaSnapchat />
+                    <BsGlobeAmericas />
+                  </div> */}
+                </div>
+              </>
             )}
           </div>
         </div>
       </div>
+
       {user && (
-        <div className="pt-4">
-          <Link to={`/box/${id}`}>
-            <div className="flex space-x-2 px-5 mb-3 animate-fade-right items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <div className="overflow-hidden h-14  w-14 ">
-                  <AspectRatio ratio={1 / 1}>
-                    <LazyLoadImage
-                      height="100%"
-                      width="100%"
-                      effect="blur"
-                      src="/tunebox.jpg"
-                      alt="Image"
-                      className="rounded-md object-cover w-[100%] h-[100%]"
-                    />
-                  </AspectRatio>
-                </div>
-                <div className="flex flex-col  text-xl text-start">
-                  <p className="w-[59vw] fade-in font-semibold text-xl truncate">
-                    Send Tracks to {(user && user[0]?.name) || ""}
-                  </p>
-                  <div className="flex  text-zinc-400 items-center space-x-1">
-                    <GiPin className="h-3 text-white w-3" />
-                    <p className="text-xs w-[50vw]truncate">TuneBox</p>
+        <>
+          {savedPlaylist && savedPlaylist.length > 0 && (
+            <h2 className="px-5 -mb-2 mt-2.5 animate-fade-right font-semibold leading-tight text-xl">
+              Tunebox
+            </h2>
+          )}
+          <div className="pt-4">
+            <Link to={`/box/${id}`}>
+              <div className="flex space-x-2 px-5 mb-3 animate-fade-right items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div className="overflow-hidden h-14  w-14 ">
+                    <AspectRatio ratio={1 / 1}>
+                      <LazyLoadImage
+                        height="100%"
+                        width="100%"
+                        effect="blur"
+                        src="/tunebox.jpg"
+                        alt="Image"
+                        className="rounded-md object-cover w-[100%] h-[100%]"
+                      />
+                    </AspectRatio>
+                  </div>
+                  <div className="flex flex-col  text-xl text-start">
+                    <p className="w-[59vw] fade-in font-semibold text-xl truncate">
+                      Send Tracks to {(user && user[0]?.name) || ""}
+                    </p>
+                    <div className="flex  text-zinc-400 items-center space-x-1">
+                      <GiPin className="h-3 text-white w-3" />
+                      <p className="text-xs w-[50vw]truncate">Showcase</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Link>
-        </div>
+            </Link>
+          </div>
+        </>
       )}
 
       {isLoading ? (
@@ -173,6 +205,11 @@ function User() {
             )}
           </div>
         </>
+      )}
+      {savedPlaylist && savedPlaylist.length > 0 && (
+        <h2 className="px-5 -mt-0.5 mb-2.5 animate-fade-right font-semibold leading-tight text-xl">
+          listening
+        </h2>
       )}
     </>
   );
