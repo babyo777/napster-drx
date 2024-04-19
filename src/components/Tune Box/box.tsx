@@ -24,7 +24,8 @@ function Box() {
   const searchQuery = useRef<HTMLInputElement>(null);
   const { id } = useParams();
   const [data, setData] = useState<playlistSongs[]>([]);
-  const [color, setColor] = useState<string[]>([]);
+  const [color, setColor] = useState<string>("");
+  const [color2, setColor2] = useState<string>("");
   const query = async () => {
     const query = searchQuery.current;
     if (query && query.value.length > 0) {
@@ -87,7 +88,8 @@ function Box() {
         amount: 17,
         format: "hex",
       }).then((c) => {
-        setColor(c as string[]);
+        setColor2(c[Math.floor(Math.random() * c.length)] as string);
+        setColor(c[Math.floor(Math.random() * c.length)] as string);
       });
     }
   }, [user]);
@@ -106,11 +108,9 @@ function Box() {
   return (
     <div
       style={{
-        backgroundImage: `linear-gradient(to top, ${
-          color[Math.floor(Math.random() * color.length)]
-        }, ${color[Math.floor(Math.random() * color.length)]}`,
+        backgroundImage: `linear-gradient(to top, ${color2}, ${color}`,
       }}
-      className={`  max-md:px-4 py-11 flex px-[35dvw] flex-col h-dvh justify-center space-y-1.5 items-center`}
+      className={`  max-md:px-4 py-11 flex transition-all duration-300 px-[35dvw] flex-col h-dvh justify-center space-y-1.5 items-center`}
     >
       <audio src="" hidden ref={audioRef} autoPlay></audio>
       {userLoading && data.length == 0 ? (
