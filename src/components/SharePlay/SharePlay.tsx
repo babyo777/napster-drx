@@ -361,7 +361,7 @@ function SharePlay() {
         <div className=" z-10 w-full absolute top-4 left-3">
           <h1 className="text-2xl animate-fade-right font-semibold">Tunes</h1>
         </div>
-        <div className=" absolute z-10 top-5 right-3">
+        <div className=" absolute z-10 top-4 right-3">
           <SiGooglegemini
             onClick={() => alert("Ai Coming Soon...")}
             className="h-7 w-7"
