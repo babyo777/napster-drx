@@ -28,6 +28,7 @@ import ErrorElement from "./error.tsx";
 import Loader from "./components/Loaders/Loader.tsx";
 import User from "./user/User.tsx";
 import Track from "./Track/Track.tsx";
+import Playlists from "./user/Playlists.tsx";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
   {
     path: "/user/:id",
     element: <User />,
+  },
+  {
+    path: "/playlists/:id",
+    element: <Playlists />,
   },
   {
     path: "/box/:id",

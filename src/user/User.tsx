@@ -17,6 +17,7 @@ import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import { prominent } from "color.js";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 interface User extends Models.Document {
   name: string;
   image: string;
@@ -145,17 +146,31 @@ function User() {
           <div className="flex fade-in flex-col px-5">
             <div className=" space-y-3">
               {savedPlaylist &&
-                savedPlaylist.map((saved, id) => (
-                  <SavedLibraryCard
-                    key={saved.link + id}
-                    id={saved.$id || ""}
-                    data={saved}
-                    author={saved.creator}
-                    link={saved.link}
-                    f={saved.for}
-                  />
-                ))}
+                savedPlaylist
+                  .slice(0, 3)
+                  .map((saved, id) => (
+                    <SavedLibraryCard
+                      key={saved.link + id}
+                      id={saved.$id || ""}
+                      data={saved}
+                      author={saved.creator}
+                      link={saved.link}
+                      f={saved.for}
+                    />
+                  ))}
             </div>
+            {savedPlaylist && savedPlaylist.length > 3 && (
+              <div className="w-full flex justify-center items-center font-normal">
+                <Link to={`/playlists/${id}`}>
+                  <Button
+                    variant={"outline"}
+                    className=" animate-fade-right mt-4 text-sm rounded-full"
+                  >
+                    See all Playlists
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         </>
       )}
