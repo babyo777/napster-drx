@@ -334,9 +334,9 @@ function AudioPLayerComp() {
         navigator.mediaSession.setActionHandler("seekto", handleSeek);
         dispatch(setIsLoading(false));
         setDuration(sound.duration);
-        setTimeout(() => {
-          socket.emit("duration", { $id: uid, duration: sound.duration });
-        }, 1000);
+
+        socket.emit("duration", { $id: uid, duration: sound.duration });
+
         setProgress(sound.currentTime);
         dispatch(setDurationLyrics(sound.duration));
         refetch();
@@ -345,9 +345,9 @@ function AudioPLayerComp() {
       const handleTimeUpdate = () => {
         const time = sound.currentTime;
         setProgress(time);
-        setTimeout(() => {
-          socket.emit("progress", { $id: uid, progress: sound.currentTime });
-        }, 1000);
+
+        socket.emit("progress", { $id: uid, progress: sound.currentTime });
+
         dispatch(setProgressLyrics(time));
       };
 
