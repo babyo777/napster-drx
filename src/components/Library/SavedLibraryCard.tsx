@@ -66,7 +66,7 @@ function SavedLibraryCard({
               </AspectRatio>
             </div>
             <div className="flex flex-col   text-start">
-              <p className="w-[59vw]  text-lg font-semibold fade-in truncate">
+              <p className="w-[59vw]  text-lg font-medium fade-in truncate">
                 {author || data.creator || "NapsterDrx."}
               </p>
               <p className="-mt-0.5  text-xs w-[50vw] text-zinc-400 truncate">

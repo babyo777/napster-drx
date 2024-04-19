@@ -18,7 +18,8 @@ import { Link, useParams } from "react-router-dom";
 import { prominent } from "color.js";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { FaRegStar, FaStar } from "react-icons/fa";
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { RiUserUnfollowFill } from "react-icons/ri";
 interface User extends Models.Document {
   name: string;
   image: string;
@@ -83,12 +84,12 @@ function User() {
       <GoBack />
       <div className="absolute top-4 z-10 right-3  flex-col space-y-0.5">
         {isFavArtist ? (
-          <FaStar
+          <RiUserUnfollowFill
             onClick={removeFromFav}
             className="h-8 w-8  backdrop-blur-md mb-2 fade-in  bg-black/30 rounded-full p-1.5"
           />
         ) : (
-          <FaRegStar
+          <AiOutlineUserAdd
             onClick={addToFav}
             className="h-8 w-8 mb-2 backdrop-blur-md fade-in  bg-black/30 rounded-full p-1.5"
           />
@@ -97,7 +98,7 @@ function User() {
       </div>
       <div
         style={{ backgroundImage: `linear-gradient(to top, #121212, ${color}` }}
-        className={`w-full  flex justify-start items-center px-5 pt-[10vh] transition-all duration-300`}
+        className={`w-full  flex justify-start items-center px-5 pt-[8vh] pb-0.5 transition-all duration-300`}
       >
         <div className=" flex  items-center space-x-1.5 justify-start text-start">
           {userLoading ? (
@@ -124,7 +125,7 @@ function User() {
                   <div className=" animate-fade-right text-xs text-zinc-400 ml-1">
                     <p>
                       <span
-                        className="text-white mr-0.5
+                        className="text-white ml-0.5
                       "
                       >
                         1M
@@ -149,7 +150,7 @@ function User() {
       {user && (
         <>
           {savedPlaylist && savedPlaylist.length > 0 && (
-            <h2 className="px-5 -mb-2 mt-2.5 animate-fade-right font-semibold leading-tight text-xl">
+            <h2 className="px-5 -mb-2 mt-2.5 animate-fade-right font-medium leading-tight text-lg">
               Tunebox
             </h2>
           )}
@@ -190,7 +191,7 @@ function User() {
       ) : (
         <>
           {savedPlaylist && savedPlaylist.length > 0 && (
-            <h2 className="px-5 -mt-0.5 mb-2.5 animate-fade-right font-semibold leading-tight text-xl">
+            <h2 className="px-5 -mt-0.5 mb-2.5 animate-fade-right font-medium leading-tight text-lg">
               Playlists
             </h2>
           )}
@@ -215,7 +216,7 @@ function User() {
                 <Link to={`/playlists/${id}`}>
                   <Button
                     variant={"outline"}
-                    className=" animate-fade-right mt-4 text-sm rounded-full"
+                    className=" animate-fade-right mt-4 text-xs font-normal rounded-full"
                   >
                     See all Playlists
                   </Button>
@@ -226,7 +227,7 @@ function User() {
         </>
       )}
       {savedPlaylist && savedPlaylist.length > 0 && (
-        <h2 className="px-5 -mt-0.5 mb-2.5 animate-fade-right font-semibold leading-tight text-xl">
+        <h2 className="px-5 -mt-0.5 mb-2.5 animate-fade-right font-medium leading-tight text-lg">
           listening
         </h2>
       )}

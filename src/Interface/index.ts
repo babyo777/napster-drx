@@ -95,6 +95,8 @@ interface ArtistDetails {
   name: string;
   albums: albums[];
   singles: albums[];
+  subscribers?: string;
+
   suggestedArtists: suggestedArtists[];
   thumbnails: thumbnails[];
   songsPlaylistId: string;

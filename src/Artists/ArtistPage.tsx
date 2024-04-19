@@ -1,4 +1,8 @@
-import { GetArtistDetails, GetPlaylistHundredSongsApi } from "@/API/api";
+import {
+  GetArtistDetails,
+  GetImage,
+  GetPlaylistHundredSongsApi,
+} from "@/API/api";
 import { ArtistDetails, favArtist, playlistSongs } from "@/Interface";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
@@ -28,6 +32,7 @@ import Share from "@/HandleShare/Share";
 import { IoPlay } from "react-icons/io5";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { LuDot } from "react-icons/lu";
 
 function ArtistPageComp() {
   const dispatch = useDispatch();
@@ -195,7 +200,8 @@ function ArtistPageComp() {
               width="100%"
               height="100%"
               src={
-                data.thumbnails[0]?.url.replace("w540-h225", "w1080-h1080") ||
+                GetImage +
+                  data.thumbnails[0]?.url.replace("w540-h225", "w1080-h1080") ||
                 "/favicon.jpeg"
               }
               alt="Image"
@@ -205,9 +211,19 @@ function ArtistPageComp() {
           </div>
 
           <div className=" absolute flex bottom-2 px-4  left-0 items-center justify-between right-0">
-            <h1 className="text-center animate-fade-right  font-semibold py-2 text-3xl capitalize">
-              {data?.name}
-            </h1>
+            <div className=" flex items-center max-[70dvw] truncate  font-medium">
+              <h1 className="text-center text-zinc-100 animate-fade-right  py-2 text-3xl ">
+                {data?.name}
+              </h1>
+              {data.subscribers && (
+                <>
+                  <LuDot className="h-10 animate-fade-right   w-10 mt-2 -mx-2" />
+                  <p className="text-2xl animate-fade-right  text-zinc-100 mt-1">
+                    {data?.subscribers}
+                  </p>
+                </>
+              )}
+            </div>
             <div className="flex space-x-4 py-1">
               <Button
                 type="button"
