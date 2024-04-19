@@ -84,7 +84,6 @@ function User() {
   }, []);
 
   const [listening, setListening] = useState<playlistSongs>();
-  const [color2, setColor2] = useState<string[]>([]);
   const [duration, setDuration] = useState<number>(0);
   const [Progress, setProgress] = useState<number>(0);
 
@@ -98,12 +97,6 @@ function User() {
       if (data !== null) {
         console.log(data);
         setListening(data);
-        prominent(GetImage + data.thumbnailUrl, {
-          amount: 50,
-          format: "hex",
-        }).then((c) => {
-          setColor2(c as string[]);
-        });
       }
     }
 
@@ -217,7 +210,7 @@ function User() {
             <div className=" space-y-3">
               {savedPlaylist &&
                 savedPlaylist
-                  .slice(0, 3)
+                  .slice(0, 4)
                   .map((saved, id) => (
                     <SavedLibraryCard
                       className
@@ -288,7 +281,7 @@ function User() {
                   )
                 }`}
               >
-                <p className="w-[69dvw]  fade-in font-semibold text-lg truncate">
+                <p className="w-[69dvw] leading-tight  fade-in font-semibold text-lg truncate">
                   {listening?.title || "Unknown"}
                 </p>
               </Link>
@@ -301,7 +294,7 @@ function User() {
                     listening.artists && listening.artists[0]?.id
                   }`}
                 >
-                  <p className="text-xs -mt-0.5  w-[50vw]truncate font-medium">
+                  <p className="text-xs  leading-tight  w-[50vw]truncate font-normal  text-zinc-200">
                     {(listening.artists && listening.artists[0]?.name) ||
                       "Unknown"}
                   </p>
@@ -311,14 +304,14 @@ function User() {
                 style={{ color: "white" }}
                 className="flex  items-center space-x-1"
               >
-                <p className="text-xs -mt-0.5  w-[50vw]truncate font-medium">
+                <p className="text-xs  leading-tight w-[50vw]truncate font-normal text-zinc-200">
                   on napster
                 </p>
               </div>
               <div className="w-full ">
                 <ProgressBar
                   className=" mt-1.5 w-full rounded-md border-none "
-                  height="2px"
+                  height="2.4px"
                   isLabelVisible={false}
                   bgColor={color[8]}
                   maxCompleted={duration}
