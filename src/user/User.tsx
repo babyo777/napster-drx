@@ -292,7 +292,7 @@ function User() {
       {user && listening && (
         <div
           style={{
-            backgroundImage: `linear-gradient(to bottom, ${color2[21]}, ${color2[21]}`,
+            backgroundImage: `linear-gradient(to bottom, ${color2[10]}, ${color2[10]}`,
           }}
           className="flex space-x-2  overflow-hidden mb-3 animate-fade-right items-center justify-between  px-2.5 py-2.5 mx-3.5 rounded-xl"
         >
