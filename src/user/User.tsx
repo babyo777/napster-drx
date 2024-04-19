@@ -290,12 +290,7 @@ function User() {
         </h2>
       )}
       {user && listening && (
-        <div
-          style={{
-            backgroundImage: `linear-gradient(to bottom, ${color2[10]}, ${color2[10]}`,
-          }}
-          className="flex space-x-2  overflow-hidden mb-3 animate-fade-right items-center justify-between  px-2.5 py-2.5 mx-3.5 rounded-xl"
-        >
+        <div className="flex bg-zinc-100/5 space-x-2  overflow-hidden mb-3 animate-fade-right items-center justify-between  px-2.5 py-2.5 mx-3.5 rounded-xl">
           <div className="flex w-full animate-fade-right items-center space-x-2">
             <Link
               to={`/track/${
@@ -320,7 +315,7 @@ function User() {
               </div>
             </Link>
             <div
-              style={{ color: color2[48] }}
+              style={{ color: "white" }}
               className="flex flex-col w-full  text-xl text-start"
             >
               <Link
@@ -337,7 +332,7 @@ function User() {
                 </p>
               </Link>
               <div
-                style={{ color: color2[48] }}
+                style={{ color: "white" }}
                 className="flex  items-center space-x-1"
               >
                 <Link
@@ -352,7 +347,7 @@ function User() {
                 </Link>
               </div>
               <div
-                style={{ color: color2[48] }}
+                style={{ color: "white" }}
                 className="flex  items-center space-x-1"
               >
                 <p className="text-xs -mt-0.5  w-[50vw]truncate font-medium">
@@ -364,7 +359,7 @@ function User() {
                   className=" mt-1.5 w-full rounded-md border-none "
                   height="2px"
                   isLabelVisible={false}
-                  bgColor={color2[40]}
+                  bgColor={color2[4]}
                   maxCompleted={duration}
                   completed={Progress}
                 />
