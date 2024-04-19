@@ -229,12 +229,13 @@ function AudioPLayerComp() {
     };
   }, []);
   useEffect(() => {
-    socket.on("join", () => {
+    function handleNew() {
       socket.emit("message", { id: uid, ...playlist[currentIndex] });
-    });
+    }
+    socket.on("new", handleNew);
 
     return () => {
-      socket.off("join");
+      socket.off("new", handleNew);
     };
   }, [playlist, currentIndex, uid]);
   const audioRef = useRef<HTMLAudioElement>(null);
