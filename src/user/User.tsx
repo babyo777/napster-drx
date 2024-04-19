@@ -82,7 +82,7 @@ function User() {
   return (
     <>
       {/* <GoBack /> */}
-      <div className="absolute top-4 z-10 right-3  flex-col space-y-0.5">
+      <div className="absolute top-4 z-10 right-3 animate-fade-left flex-col space-y-0.5">
         {isFavArtist ? (
           <RiUserUnfollowFill
             onClick={removeFromFav}
