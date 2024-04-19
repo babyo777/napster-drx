@@ -6,7 +6,7 @@ import {
   PLAYLIST_COLLECTION_ID,
   db,
 } from "@/appwrite/appwriteConfig";
-import GoBack from "@/components/Goback";
+// import GoBack from "@/components/Goback";
 import SavedLibraryCard from "@/components/Library/SavedLibraryCard";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -81,7 +81,7 @@ function User() {
   }, []);
   return (
     <>
-      <GoBack />
+      {/* <GoBack /> */}
       <div className="absolute top-4 z-10 right-3  flex-col space-y-0.5">
         {isFavArtist ? (
           <RiUserUnfollowFill
@@ -98,7 +98,7 @@ function User() {
       </div>
       <div
         style={{ backgroundImage: `linear-gradient(to top, #121212, ${color}` }}
-        className={`w-full  flex justify-start items-center px-5 pt-[8vh] pb-0.5 transition-all duration-300`}
+        className={`w-full  flex justify-start items-center px-5 pt-[5vh] pb-0.5 transition-all duration-300`}
       >
         <div className=" flex  items-center space-x-1.5 justify-start text-start">
           {userLoading ? (
@@ -228,7 +228,7 @@ function User() {
         </>
       )}
       {savedPlaylist && savedPlaylist.length > 0 && (
-        <h2 className="px-5 -mt-0.5 mb-2.5 animate-fade-right font-medium leading-tight text-lg">
+        <h2 className="px-5 -mt-0.5 mb-2.5 animate-fade-right font-semibold leading-tight text-lg">
           listening
         </h2>
       )}
