@@ -92,13 +92,11 @@ function User() {
   useEffect(() => {
     socket.connect();
     function onConnect() {
+      console.log("ok");
+
       socket.emit("join", { $id: id });
-      console.log(socket.connected);
     }
 
-    function onDisconnect() {
-      console.log(socket.connected);
-    }
     function setValue(data: playlistSongs) {
       if (data !== null) {
         console.log(data);
@@ -112,14 +110,13 @@ function User() {
       }
     }
 
-    function handleDuration(data: { $id: string; duration: number }) {
+    function handleDuration(data: { id: string; duration: number }) {
       setDuration(data.duration);
     }
-    function handleProgress(data: { $id: string; progress: number }) {
+    function handleProgress(data: { id: string; progress: number }) {
       setProgress(data.progress);
     }
 
-    socket.on("disconnect", onDisconnect);
     socket.on("connect", onConnect);
 
     socket.on("message", setValue);
@@ -130,7 +127,6 @@ function User() {
       socket.off("duration", handleDuration);
       socket.off("message", setValue);
       socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
     };
   }, [id]);
 
