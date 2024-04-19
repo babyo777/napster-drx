@@ -16,8 +16,9 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import { prominent } from "color.js";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { FaRegStar, FaStar } from "react-icons/fa";
 interface User extends Models.Document {
   name: string;
   image: string;
@@ -70,10 +71,28 @@ function User() {
       keepPreviousData: true,
     }
   );
+  const [isFavArtist, setIsFavArtist] = useState<boolean>();
+  const removeFromFav = useCallback(() => {
+    setIsFavArtist(false);
+  }, []);
+  const addToFav = useCallback(() => {
+    setIsFavArtist(true);
+  }, []);
   return (
     <>
       <GoBack />
       <div className="absolute top-4 z-10 right-3  flex-col space-y-0.5">
+        {isFavArtist ? (
+          <FaStar
+            onClick={removeFromFav}
+            className="h-8 w-8  backdrop-blur-md mb-2 fade-in  bg-black/30 rounded-full p-1.5"
+          />
+        ) : (
+          <FaRegStar
+            onClick={addToFav}
+            className="h-8 w-8 mb-2 backdrop-blur-md fade-in  bg-black/30 rounded-full p-1.5"
+          />
+        )}
         <Share />
       </div>
       <div

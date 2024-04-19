@@ -61,7 +61,18 @@ function ArtistPageComp() {
     }
   );
 
-  const addToFav = async () => {
+  const { data, isLoading, isError, refetch, isRefetching } =
+    useQuery<ArtistDetails>(["artist", id], getArtistDetails, {
+      retry: 5,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: 60 * 60000,
+      onSuccess(d) {
+        d == null && refetch();
+      },
+    });
+
+  const addToFav = useCallback(async () => {
     setIsFavArtist(true);
     await db
       .createDocument(DATABASE_ID, FAV_ARTIST, ID.unique(), {
@@ -75,9 +86,9 @@ function ArtistPageComp() {
       })
       .catch(() => setIsFavArtist(true));
     refetchFav();
-  };
+  }, [data, id, refetchFav]);
 
-  const removeFromFav = async () => {
+  const removeFromFav = useCallback(async () => {
     if (isFav) {
       setIsFavArtist(false);
 
@@ -86,18 +97,7 @@ function ArtistPageComp() {
         .catch(() => setIsFavArtist(false));
       refetchFav();
     }
-  };
-
-  const { data, isLoading, isError, refetch, isRefetching } =
-    useQuery<ArtistDetails>(["artist", id], getArtistDetails, {
-      retry: 5,
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      staleTime: 60 * 60000,
-      onSuccess(d) {
-        d == null && refetch();
-      },
-    });
+  }, [refetchFav, isFav]);
 
   const getPlaylist = async () => {
     const list = await axios.get(
