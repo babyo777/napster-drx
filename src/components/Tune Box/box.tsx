@@ -1,7 +1,7 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Input } from "../ui/input";
 import { IoSearchOutline } from "react-icons/io5";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { playlistSongs } from "@/Interface";
 import { SearchApi } from "@/API/api";
@@ -69,11 +69,7 @@ function Box() {
       Query.equal("user", [id ? id : ""]),
       Query.limit(1),
     ]);
-    const color = await prominent(user.documents[0].image, {
-      amount: 17,
-      format: "hex",
-    });
-    setColor(color as string[]);
+
     return user.documents as User[];
   };
   const { data: user, isLoading: userLoading } = useQuery<User[]>(
@@ -85,6 +81,16 @@ function Box() {
       refetchOnWindowFocus: false,
     }
   );
+  useEffect(() => {
+    if (user) {
+      prominent(user[0].image, {
+        amount: 17,
+        format: "hex",
+      }).then((c) => {
+        setColor(c as string[]);
+      });
+    }
+  }, [user]);
 
   const getKey = useCallback(async () => {
     const res = await db.listDocuments(DATABASE_ID, "65da232e478bcf5bbbad", [

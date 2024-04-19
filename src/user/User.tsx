@@ -16,7 +16,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import { prominent } from "color.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 interface User extends Models.Document {
   name: string;
   image: string;
@@ -30,11 +30,7 @@ function User() {
       Query.equal("user", [id ? id : ""]),
       Query.limit(1),
     ]);
-    const color = await prominent(user.documents[0].image, {
-      amount: 12,
-      format: "hex",
-    });
-    setColor(color[3] as string);
+
     return user.documents as User[];
   };
   const { data: user, isLoading: userLoading } = useQuery<User[]>(
@@ -46,6 +42,17 @@ function User() {
       refetchOnWindowFocus: false,
     }
   );
+
+  useEffect(() => {
+    if (user) {
+      prominent(user[0].image, {
+        amount: 12,
+        format: "hex",
+      }).then((c) => {
+        setColor(c[3] as string);
+      });
+    }
+  }, [user]);
   const loadSavedPlaylist = async () => {
     const r = await db.listDocuments(DATABASE_ID, PLAYLIST_COLLECTION_ID, [
       Query.orderDesc("$createdAt"),
@@ -70,7 +77,7 @@ function User() {
       </div>
       <div
         style={{ backgroundImage: `linear-gradient(to top, #121212, ${color}` }}
-        className={`w-full  flex justify-start items-center px-5 pt-[4.5rem] transition-all duration-300`}
+        className={`w-full  flex justify-start items-center px-5 pt-[10vh] transition-all duration-300`}
       >
         <div className=" flex flex-col items-start space-y-1.5 justify-start text-start">
           {userLoading ? (
