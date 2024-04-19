@@ -131,12 +131,12 @@ function User() {
             {isFavArtist ? (
               <RiUserUnfollowFill
                 onClick={removeFromFav}
-                className="h-8 w-8  backdrop-blur-md mb-2 fade-in  bg-black/30 rounded-full p-1.5"
+                className="h-8 w-8 hidden backdrop-blur-md mb-2 fade-in  bg-black/30 rounded-full p-1.5"
               />
             ) : (
               <AiOutlineUserAdd
                 onClick={addToFav}
-                className="h-8 w-8 mb-2 backdrop-blur-md fade-in  bg-black/30 rounded-full p-1.5"
+                className="h-8 w-8 mb-2 hidden backdrop-blur-md fade-in  bg-black/30 rounded-full p-1.5"
               />
             )}
             <Share />
