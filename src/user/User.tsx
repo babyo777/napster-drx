@@ -150,7 +150,7 @@ function User() {
       {user && (
         <>
           {savedPlaylist && savedPlaylist.length > 0 && (
-            <h2 className="px-5 -mb-2 mt-2.5 animate-fade-right font-semibold leading-tight text-lg">
+            <h2 className="px-5 -mb-2 mt-4 animate-fade-right font-semibold leading-tight text-lg">
               Tunebox
             </h2>
           )}
