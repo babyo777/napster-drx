@@ -92,9 +92,7 @@ function User() {
   useEffect(() => {
     socket.connect();
     function onConnect() {
-      console.log("ok");
-
-      socket.emit("join", { $id: id });
+      socket.emit("join", { id: id });
     }
 
     function setValue(data: playlistSongs) {
@@ -123,6 +121,8 @@ function User() {
     socket.on("duration", handleDuration);
     socket.on("progress", handleProgress);
     return () => {
+      socket.disconnect();
+
       socket.off("progress", handleProgress);
       socket.off("duration", handleDuration);
       socket.off("message", setValue);

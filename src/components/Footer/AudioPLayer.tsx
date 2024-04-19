@@ -224,10 +224,12 @@ function AudioPLayerComp() {
 
   useEffect(() => {
     socket.connect();
+    return () => {
+      socket.disconnect();
+    };
   }, []);
   useEffect(() => {
-    socket.on("join", (data) => {
-      console.log(data);
+    socket.on("join", () => {
       socket.emit("message", { id: uid, ...playlist[currentIndex] });
     });
 
