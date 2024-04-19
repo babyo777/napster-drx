@@ -274,7 +274,7 @@ function User() {
       )}
       {user && listening && (
         <h2 className="px-5 mt-1 mb-2.5 animate-fade-right font-semibold leading-tight text-lg">
-          Listening Now
+          Listening
         </h2>
       )}
       {user && listening && (
