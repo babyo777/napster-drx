@@ -288,7 +288,7 @@ function User() {
                   )
                 }`}
               >
-                <p className="w-[69dvw]  fade-in font-semibold text-xl truncate">
+                <p className="w-[69dvw]  fade-in font-semibold text-lg truncate">
                   {listening?.title || "Unknown"}
                 </p>
               </Link>
@@ -320,7 +320,7 @@ function User() {
                   className=" mt-1.5 w-full rounded-md border-none "
                   height="2px"
                   isLabelVisible={false}
-                  bgColor={color2[4]}
+                  bgColor={color[8]}
                   maxCompleted={duration}
                   completed={Progress}
                 />
