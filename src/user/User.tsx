@@ -11,7 +11,6 @@ import SavedLibraryCard from "@/components/Library/SavedLibraryCard";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Query, Models } from "appwrite";
-import { GiPin } from "react-icons/gi";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
@@ -204,54 +203,13 @@ function User() {
           </div>
         </div>
       </div>
-      {user && user.length > 0 && (
-        <>
-          {savedPlaylist && savedPlaylist.length > 0 && (
-            <h2 className="px-5 -mb-2 mt-4 animate-fade-right font-semibold leading-tight text-lg">
-              Tunebox
-            </h2>
-          )}
-          <div className="pt-4">
-            <Link to={`/box/${id}`}>
-              <div className="flex space-x-2 bg-zinc-100/5 mx-3.5  px-2.5 py-2.5 rounded-xl mb-3 animate-fade-right items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <div className="overflow-hidden h-16  w-16 ">
-                    <AspectRatio ratio={1 / 1}>
-                      <LazyLoadImage
-                        height="100%"
-                        width="100%"
-                        effect="blur"
-                        src="/tunebox.jpg"
-                        alt="Image"
-                        className="rounded-md object-cover w-[100%] h-[100%]"
-                      />
-                    </AspectRatio>
-                  </div>
-                  <div className="flex flex-col  text-xl text-start">
-                    <p className="w-[59vw] fade-in font-medium text-xl truncate">
-                      Send Tracks to {(user && user[0]?.name) || ""}
-                    </p>
-                    <div className="flex  text-zinc-200 font-medium items-center space-x-1">
-                      <GiPin className="h-3 text-white w-3" />
-                      <p className="text-xs w-[50vw]truncate">Music</p>
-                    </div>
-                    <div className="flex  text-zinc-200 font-medium items-center space-x-1">
-                      <GiPin className="h-3 text-white w-3" />
-                      <p className="text-xs w-[50vw]truncate">Recommendation</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </div>
-        </>
-      )}
+
       {isLoading ? (
         <div></div>
       ) : (
         <>
           {savedPlaylist && savedPlaylist.length > 0 && (
-            <h2 className="px-5 mt-0 mb-2.5 animate-fade-right font-semibold leading-tight text-lg">
+            <h2 className="px-5 mt-7 mb-2.5 animate-fade-right font-semibold leading-tight text-lg">
               Playlists
             </h2>
           )}
