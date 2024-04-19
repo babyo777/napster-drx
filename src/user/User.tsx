@@ -158,7 +158,7 @@ function User() {
             <Link to={`/box/${id}`}>
               <div className="flex space-x-2 px-5 mb-3 animate-fade-right items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <div className="overflow-hidden h-12  w-12 ">
+                  <div className="overflow-hidden h-14  w-14 ">
                     <AspectRatio ratio={1 / 1}>
                       <LazyLoadImage
                         height="100%"

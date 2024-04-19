@@ -53,7 +53,7 @@ function SavedLibraryCard({
           >
             <div
               className={`overflow-hidden  space-y-2 ${
-                className ? "h-12 w-12" : "h-14 w-14"
+                className ? "h-14 w-14" : "h-14 w-14"
               }`}
             >
               <AspectRatio ratio={1 / 1}>
@@ -74,7 +74,7 @@ function SavedLibraryCard({
             <div className="flex flex-col   text-start">
               <p
                 className={`w-[59vw] ${
-                  className ? "text-base" : "text-lg"
+                  className ? "text-lg" : "text-lg"
                 } font-medium fade-in truncate`}
               >
                 {author || data.creator || "NapsterDrx."}
