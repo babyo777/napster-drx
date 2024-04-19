@@ -1,5 +1,5 @@
 import Share from "@/HandleShare/Share";
-import { savedPlaylist } from "@/Interface";
+import { playlistSongs, savedPlaylist } from "@/Interface";
 import {
   DATABASE_ID,
   NEW_USER,
@@ -20,6 +20,10 @@ import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { RiUserUnfollowFill } from "react-icons/ri";
+import socket from "@/socket";
+import { GetImage } from "@/API/api";
+import ProgressBar from "@ramonak/react-progress-bar";
+
 interface User extends Models.Document {
   name: string;
   image: string;
@@ -27,7 +31,7 @@ interface User extends Models.Document {
 }
 function User() {
   const { id } = useParams();
-  const [color, setColor] = useState<string>("");
+  const [color, setColor] = useState<string[]>([]);
   const getUser = async () => {
     const user = await db.listDocuments(DATABASE_ID, NEW_USER, [
       Query.equal("user", [id ? id : ""]),
@@ -52,7 +56,7 @@ function User() {
         amount: 12,
         format: "hex",
       }).then((c) => {
-        setColor(c[3] as string);
+        setColor(c as string[]);
       });
     }
   }, [user]);
@@ -79,6 +83,45 @@ function User() {
   const addToFav = useCallback(() => {
     setIsFavArtist(true);
   }, []);
+
+  useEffect(() => {
+    socket.connect();
+    socket.emit("join", { $id: id });
+  }, [id]);
+
+  const [listening, setListening] = useState<playlistSongs>();
+  const [color2, setColor2] = useState<string[]>([]);
+  const [duration, setDuration] = useState<number>(0);
+  const [Progress, setProgress] = useState<number>(0);
+  useEffect(() => {
+    function setValue(data: playlistSongs) {
+      if (data !== null) {
+        setListening(data);
+        prominent(GetImage + data.thumbnailUrl, {
+          amount: 50,
+          format: "hex",
+        }).then((c) => {
+          setColor2(c as string[]);
+        });
+      }
+    }
+
+    function handleDuration(data: { $id: string; duration: number }) {
+      setDuration(data.duration);
+    }
+    function handleProgress(data: { $id: string; progress: number }) {
+      setProgress(data.progress);
+    }
+
+    socket.on("message", setValue);
+    socket.on("duration", handleDuration);
+    socket.on("progress", handleProgress);
+    return () => {
+      socket.off("progress", handleProgress);
+      socket.off("duration", handleDuration);
+      socket.off("message", setValue);
+    };
+  }, []);
   return (
     <>
       {/* <GoBack /> */}
@@ -97,7 +140,9 @@ function User() {
         <Share />
       </div>
       <div
-        style={{ backgroundImage: `linear-gradient(to top, #121212, ${color}` }}
+        style={{
+          backgroundImage: `linear-gradient(to top, #121212, ${color[3]}`,
+        }}
         className={`w-full  flex justify-start items-center px-5 pt-[5vh] pb-0.5 transition-all duration-300`}
       >
         <div className=" flex  items-center space-x-1.5 justify-start text-start">
@@ -227,10 +272,94 @@ function User() {
           </div>
         </>
       )}
-      {savedPlaylist && savedPlaylist.length > 0 && (
-        <h2 className="px-5 -mt-0.5 mb-2.5 animate-fade-right font-semibold leading-tight text-lg">
-          listening
+      {user && listening && (
+        <h2 className="px-5 mt-1 mb-2.5 animate-fade-right font-semibold leading-tight text-lg">
+          Listening Now
         </h2>
+      )}
+      {user && listening && (
+        <div
+          style={{
+            backgroundImage: `linear-gradient(to bottom, ${color2[21]}, ${color2[21]}`,
+          }}
+          className="flex space-x-2  overflow-hidden mb-3 animate-fade-right items-center justify-between  px-2.5 py-2.5 mx-3.5 rounded-xl"
+        >
+          <div className="flex w-full animate-fade-right items-center space-x-2">
+            <Link
+              to={`/track/${
+                listening.youtubeId &&
+                listening.youtubeId?.replace(
+                  "https://occasional-clara-babyo777.koyeb.app/?url=https://soundcloud.com/",
+                  ""
+                )
+              }`}
+            >
+              <div className="overflow-hidden h-16  w-16 ">
+                <AspectRatio ratio={1 / 1}>
+                  <LazyLoadImage
+                    height="100%"
+                    width="100%"
+                    effect="blur"
+                    src={GetImage + listening.thumbnailUrl || "/cache.jpg"}
+                    alt="Image"
+                    className="rounded-md object-cover w-[100%] h-[100%]"
+                  />
+                </AspectRatio>
+              </div>
+            </Link>
+            <div
+              style={{ color: color2[48] }}
+              className="flex flex-col w-full  text-xl text-start"
+            >
+              <Link
+                to={`/track/${
+                  listening.youtubeId &&
+                  listening?.youtubeId.replace(
+                    "https://occasional-clara-babyo777.koyeb.app/?url=https://soundcloud.com/",
+                    ""
+                  )
+                }`}
+              >
+                <p className="w-[69dvw]  fade-in font-semibold text-xl truncate">
+                  {listening?.title || "Unknown"}
+                </p>
+              </Link>
+              <div
+                style={{ color: color2[48] }}
+                className="flex  items-center space-x-1"
+              >
+                <Link
+                  to={`/artist/${
+                    listening.artists && listening.artists[0]?.id
+                  }`}
+                >
+                  <p className="text-xs -mt-0.5  w-[50vw]truncate font-medium">
+                    {(listening.artists && listening.artists[0]?.name) ||
+                      "Unknown"}
+                  </p>
+                </Link>
+              </div>
+              <div
+                style={{ color: color2[48] }}
+                className="flex  items-center space-x-1"
+              >
+                <p className="text-xs -mt-0.5  w-[50vw]truncate font-medium">
+                  on napster
+                </p>
+              </div>
+              <div className="w-full ">
+                <ProgressBar
+                  className=" mt-1.5 w-full rounded-md border-none "
+                  height="2px"
+                  isLabelVisible={false}
+                  bgColor={color2[40]}
+                  maxCompleted={duration}
+                  completed={Progress}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

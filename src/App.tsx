@@ -6,6 +6,7 @@ import { DATABASE_ID, ID, NEW_USER, db } from "./appwrite/appwriteConfig";
 import TransferHeader from "./TransferHrader";
 import { useSelector } from "react-redux";
 import { RootState } from "./Store/Store";
+import socket from "./socket";
 
 function AppComp() {
   function ScreenSizeCheck() {
@@ -29,6 +30,31 @@ function AppComp() {
   const data = useSelector(
     (state: RootState) => state.musicReducer.spotifyTrack
   );
+  const uid = useSelector((state: RootState) => state.musicReducer.uid);
+
+  const currentIndex = useSelector(
+    (state: RootState) => state.musicReducer.currentIndex
+  );
+  const playlist = useSelector((state: RootState) => state.musicReducer.queue);
+  useEffect(() => {
+    socket.connect();
+    if (playlist.length > 0 && uid !== null) {
+      socket.emit("join", { $id: uid });
+    }
+  }, [playlist, uid]);
+
+  useEffect(() => {
+    socket.on("joined", () => {
+      socket.emit("message", { $id: uid, ...playlist[currentIndex] });
+    });
+    return () => {
+      socket.off("joined");
+    };
+  }, [currentIndex, playlist, uid]);
+
+  useEffect(() => {
+    socket.emit("message", { $id: uid, ...playlist[currentIndex] });
+  }, [uid, playlist, currentIndex]);
   return (
     <>
       {data && <TransferHeader data={data} />}

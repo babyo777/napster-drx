@@ -41,10 +41,7 @@ function Check() {
   const dispatch = useDispatch();
   const [check, setCheck] = useState<boolean>(true);
   const [isStandalone, setIsStandalone] = useState<boolean>();
-  const [graphic, setGraphic] = useState<boolean>();
-  const [hardwareConcurrency, setHardwareConcurrency] = useState<number | null>(
-    null
-  );
+
   const [online, setOnline] = useState<boolean>();
   const [isiPad, setIsIpad] = useState<boolean>();
   const [isIPhone, setIphone] = useState<boolean>();
@@ -65,22 +62,6 @@ function Check() {
     (state: RootState) => state.musicReducer.isIphone
   );
   const uid = useSelector((state: RootState) => state.musicReducer.uid);
-
-  const checkGpuCapabilities = () => {
-    const canvas = document.createElement("canvas");
-    const gl = canvas.getContext("webgl");
-
-    if (gl) {
-      const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
-      const renderer = debugInfo
-        ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
-        : null;
-
-      return renderer;
-    }
-
-    return null;
-  };
 
   const getLastPlayed = async () => {
     const lastPlayed = await db.getDocument(
@@ -445,11 +426,9 @@ function Check() {
     const isStandalone = window.matchMedia(
       "(display-mode: standalone)"
     ).matches;
-    const hardwareConcurrency = navigator.hardwareConcurrency || null;
     dispatch(setIsIphone(isStandalone));
-    setHardwareConcurrency(hardwareConcurrency);
     setIsStandalone(isStandalone);
-    setGraphic(checkGpuCapabilities());
+
     setCheck(false);
   }, [
     dispatch,
@@ -484,12 +463,7 @@ function Check() {
   if (isStandalone) {
     return <App />;
   }
-  if (
-    !isStandaloneWep &&
-    hardwareConcurrency &&
-    hardwareConcurrency >= 4 &&
-    graphic
-  ) {
+  if (!isStandaloneWep) {
     return <App />;
   }
 

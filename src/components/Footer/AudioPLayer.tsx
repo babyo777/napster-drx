@@ -43,6 +43,7 @@ import { AiFillStar } from "react-icons/ai";
 import Options from "./Options";
 import Lyrics from "./Lyrics";
 import axios from "axios";
+import socket from "@/socket";
 function AudioPLayerComp() {
   const [next, setNext] = useState<boolean>();
   const [prev, setPrev] = useState<boolean>();
@@ -238,6 +239,7 @@ function AudioPLayerComp() {
           : ""
       }${playlist[currentIndex]?.youtubeId}`;
       const handlePlay = () => {
+        socket.emit("message", { $id: uid, ...playlist[currentIndex] });
         navigator.mediaSession.metadata = new MediaMetadata({
           title: playlist[currentIndex].title,
           artist: playlist[currentIndex].artists[0]?.name,
@@ -261,6 +263,7 @@ function AudioPLayerComp() {
           sound.loop = true;
         }
         dispatch(play(true));
+
         dispatch(setDurationLyrics(sound.duration));
         if (online) {
           saveLastPlayed();
@@ -289,6 +292,7 @@ function AudioPLayerComp() {
       };
 
       const handleLoad = () => {
+        socket.emit("message", { $id: uid, ...playlist[currentIndex] });
         navigator.mediaSession.metadata = new MediaMetadata({
           title: playlist[currentIndex].title,
           artist: playlist[currentIndex].artists[0]?.name,
@@ -310,6 +314,9 @@ function AudioPLayerComp() {
         navigator.mediaSession.setActionHandler("seekto", handleSeek);
         dispatch(setIsLoading(false));
         setDuration(sound.duration);
+        setTimeout(() => {
+          socket.emit("duration", { $id: uid, duration: sound.duration });
+        }, 1000);
         setProgress(sound.currentTime);
         dispatch(setDurationLyrics(sound.duration));
         refetch();
@@ -318,6 +325,9 @@ function AudioPLayerComp() {
       const handleTimeUpdate = () => {
         const time = sound.currentTime;
         setProgress(time);
+        setTimeout(() => {
+          socket.emit("progress", { $id: uid, progress: sound.currentTime });
+        }, 1000);
         dispatch(setProgressLyrics(time));
       };
 
@@ -358,6 +368,7 @@ function AudioPLayerComp() {
     refetch,
     isLooped,
     online,
+    uid,
     saveLastPlayed,
   ]);
 
