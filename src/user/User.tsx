@@ -312,6 +312,8 @@ function User() {
                 <ProgressBar
                   className=" mt-1.5 w-full rounded-md border-none "
                   height="2.4px"
+                  animateOnRender={false}
+                  transitionDuration="0"
                   isLabelVisible={false}
                   bgColor={color[8]}
                   maxCompleted={duration}
