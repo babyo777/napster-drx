@@ -10,7 +10,6 @@ import {
 import { SpotifyTransfer } from "../SpotifyTransfer";
 import { useCallback, useRef } from "react";
 import { Token } from "../Token";
-// import { SponsorsComp } from "../Sponsors";
 import { DialogClose } from "../ui/dialog";
 import { RootState } from "@/Store/Store";
 import { useDispatch, useSelector } from "react-redux";
@@ -125,7 +124,7 @@ function Settings() {
         <div className="animate-fade-up">
           <p
             onClick={handleLoad}
-            className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex text-start   px-4  text-base "
+            className=" hidden rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex text-start   px-4  text-base "
           >
             Load From Token
           </p>
