@@ -95,8 +95,8 @@ function SuggestedComp() {
               onClick={handleEdit}
               className="absolute top-3 z-10 right-14 flex-col space-y-0.5"
             >
-              <div className="w-fit">
-                <p className=" mb-2 text-zinc-100 animate-fade-left  backdrop-blur-md bg-black/10 rounded-xl p-1.5 px-2 w-fit">
+              <div className="w-fit -mr-2">
+                <p className=" mb-2 text-zinc-100 animate-fade-left  backdrop-blur-md bg-black/0 rounded-xl p-1.5 px-2 w-fit">
                   {editQue ? "Cancel" : "Edit"}
                 </p>
               </div>
