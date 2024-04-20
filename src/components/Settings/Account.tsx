@@ -207,13 +207,15 @@ function Account({
                 <h1 className=" font-semibold break-all text-center animate-fade-up text-4xl mt-2">
                   {data.name}
                 </h1>
-                <DropdownMenu>
-                  <DropdownMenuTrigger className=" animate-fade-up ">
-                    <DropdownMenuLabel className="mt-2 animate-fade-up text-xl text-zinc-400">
-                      <RiLinkM onClick={handleShare} />
-                    </DropdownMenuLabel>
-                  </DropdownMenuTrigger>
-                </DropdownMenu>
+                <div className=" absolute top-5 right-1">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className=" animate-fade-up ">
+                      <DropdownMenuLabel className="mt-2 animate-fade-up text-xl text-zinc-400">
+                        <RiLinkM onClick={handleShare} />
+                      </DropdownMenuLabel>
+                    </DropdownMenuTrigger>
+                  </DropdownMenu>
+                </div>
               </>
             )}
             {data &&
