@@ -26,13 +26,13 @@ import ErrorElement from "./error.tsx";
 import User from "./user/User.tsx";
 import Track from "./Track/Track.tsx";
 import Playlists from "./user/Playlists.tsx";
-import Auth from "./Auth.tsx";
+import Check from "./components/Check.tsx";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Auth />,
+    element: <Check />,
     errorElement: <ErrorElement />,
     children: [
       {
