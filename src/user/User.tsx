@@ -144,11 +144,13 @@ function User() {
           </>
         )}
       </div>
-      <div className="absolute top-14 z-10 right-3 animate-fade-left flex-col space-y-0.5">
-        <Link to={`/box/${id}`}>
-          <RxCodesandboxLogo className="h-8 w-8 animate-fade-left backdrop-blur-md text-zinc-300 bg-black/30 rounded-full p-1.5" />
-        </Link>
-      </div>
+      {user && user.length > 0 && (
+        <div className="absolute top-14 z-10 right-3 animate-fade-left flex-col space-y-0.5">
+          <Link to={`/box/${id}`}>
+            <RxCodesandboxLogo className="h-8 w-8 animate-fade-left backdrop-blur-md text-zinc-300 bg-black/30 rounded-full p-1.5" />
+          </Link>
+        </div>
+      )}
 
       <div
         style={{
