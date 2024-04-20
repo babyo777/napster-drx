@@ -22,6 +22,7 @@ import { RiUserUnfollowFill } from "react-icons/ri";
 import socket from "@/socket";
 import { GetImage } from "@/API/api";
 import ProgressBar from "@ramonak/react-progress-bar";
+import { RxCodesandboxLogo } from "react-icons/rx";
 
 interface User extends Models.Document {
   name: string;
@@ -143,6 +144,11 @@ function User() {
           </>
         )}
       </div>
+      <div className="absolute top-14 z-10 right-3 animate-fade-left flex-col space-y-0.5">
+        <Link to={`/box/${id}`}>
+          <RxCodesandboxLogo className="h-8 w-8 animate-fade-left backdrop-blur-md text-zinc-300 bg-black/30 rounded-full p-1.5" />
+        </Link>
+      </div>
 
       <div
         style={{
@@ -243,7 +249,7 @@ function User() {
           Listening
         </h2>
       )}
-      {user && listening && (
+      {user && listening ? (
         <div className="flex bg-zinc-100/5 space-x-2  overflow-hidden mb-3 animate-fade-right items-center justify-between  px-2.5 py-2.5 mx-3.5 rounded-xl">
           <div className="flex w-full animate-fade-right items-center space-x-2">
             <Link
@@ -294,7 +300,7 @@ function User() {
                     listening.artists && listening.artists[0]?.id
                   }`}
                 >
-                  <p className="text-xs  leading-tight  w-[50vw]truncate font-normal  text-zinc-200">
+                  <p className="text-xs  leading-tight truncate  max-w-[50vw]  font-normal  text-zinc-200">
                     {(listening.artists && listening.artists[0]?.name) ||
                       "Unknown"}
                   </p>
@@ -323,6 +329,14 @@ function User() {
             </div>
           </div>
         </div>
+      ) : (
+        <>
+          {user && user.length > 0 && (
+            <h2 className="px-5 mt-4 mb-2.5 animate-fade-right font-semibold leading-tight text-lg">
+              {user && user[0].name} is currently Offline
+            </h2>
+          )}
+        </>
       )}
     </>
   );
