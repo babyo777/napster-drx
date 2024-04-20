@@ -487,7 +487,7 @@ function AudioPLayerComp() {
   return (
     <>
       <audio src="" preload="true" hidden ref={audioRef}></audio>
-      {isStandalone ? (
+      {!isStandalone ? (
         <p
           className={`w-[68dvw] ${
             location.pathname == "/share-play" ? "hidden" : ""
