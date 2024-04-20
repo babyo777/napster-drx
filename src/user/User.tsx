@@ -335,7 +335,7 @@ function User() {
         <>
           {user && user.length > 0 && (
             <h2 className="px-5 mt-4 mb-2.5 animate-fade-right font-semibold leading-tight text-lg">
-              {user && user[0].name} is currently Offline
+              {user && user[0].name} is currently offline.
             </h2>
           )}
         </>

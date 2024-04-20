@@ -14,7 +14,7 @@ import Loader from "@/components/Loaders/Loader";
 import GoBack from "@/components/Goback";
 import React, { useCallback, useEffect, useState } from "react";
 import { DATABASE_ID, FAV_ARTIST, db } from "@/appwrite/appwriteConfig";
-import { ID, Query } from "appwrite";
+import { ID, Permission, Query, Role } from "appwrite";
 import { FaRegStar } from "react-icons/fa";
 import {
   SetPlaylistOrAlbum,
@@ -79,18 +79,27 @@ function ArtistPageComp() {
 
   const addToFav = useCallback(async () => {
     setIsFavArtist(true);
-    await db
-      .createDocument(DATABASE_ID, FAV_ARTIST, ID.unique(), {
-        artistId: id,
-        name: data?.name,
-        thumbnailUrl: data?.thumbnails[0].url.replace(
-          "w540-h225",
-          "w1080-h1080"
-        ),
-        for: localStorage.getItem("uid"),
-      })
-      .catch(() => setIsFavArtist(true));
-    refetchFav();
+    const uid = localStorage.getItem("uid");
+    if (uid) {
+      await db
+        .createDocument(
+          DATABASE_ID,
+          FAV_ARTIST,
+          ID.unique(),
+          {
+            artistId: id,
+            name: data?.name,
+            thumbnailUrl: data?.thumbnails[0].url.replace(
+              "w540-h225",
+              "w1080-h1080"
+            ),
+            for: uid,
+          },
+          [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
+        )
+        .catch(() => setIsFavArtist(true));
+      refetchFav();
+    }
   }, [data, id, refetchFav]);
 
   const removeFromFav = useCallback(async () => {

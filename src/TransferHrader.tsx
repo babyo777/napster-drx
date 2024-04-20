@@ -23,14 +23,21 @@ export default function TransferHeader({ data }: { data: spotifyTransfer }) {
   const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
-    if (data && data.tracks.length > 0) {
-      db.createDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, ID.unique(), {
-        name: data.creator,
-        creator: data.name,
-        link: "custom" + v4(),
-        image: data.image,
-        for: localStorage.getItem("uid"),
-      }).then(async (m) => {
+    const uid = localStorage.getItem("uid");
+    if (data && data.tracks.length > 0 && uid) {
+      db.createDocument(
+        DATABASE_ID,
+        PLAYLIST_COLLECTION_ID,
+        ID.unique(),
+        {
+          name: data.creator,
+          creator: data.name,
+          link: "custom" + v4(),
+          image: data.image,
+          for: uid,
+        },
+        [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
+      ).then(async (m) => {
         let i = 0;
         const processTrack = async () => {
           if (i < data.tracks.length) {
@@ -39,7 +46,6 @@ export default function TransferHeader({ data }: { data: spotifyTransfer }) {
                 `${SearchOneTrackApi}${data.tracks[i].track}`
               );
               const track = res.data as playlistSongs;
-              const uid = localStorage.getItem("uid");
               if (uid) {
                 await db.createDocument(
                   DATABASE_ID,
