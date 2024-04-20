@@ -47,8 +47,6 @@ export class AuthService {
         if (account) {
           return true;
         }
-      } else {
-        return userAccount;
       }
     } catch (error) {
       //@ts-expect-error:appwrite response on error
@@ -64,10 +62,8 @@ export class AuthService {
 
   async login(email: string, password: string) {
     try {
-      const r = await this.account.createEmailSession(email, password);
-      console.log(r);
-
-      return r;
+      await this.account.createEmailSession(email, password);
+      return true;
     } catch (error) {
       throw error;
     }

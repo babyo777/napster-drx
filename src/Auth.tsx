@@ -43,7 +43,7 @@ function Auth() {
         if (email && password && uid) {
           const account = await authService.createAccount(uid, email, password);
           if (account) {
-            SetLoggedIn(true);
+            dispatch(SetLoggedIn(true));
           }
         }
       }
