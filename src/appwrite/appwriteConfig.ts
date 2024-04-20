@@ -1,4 +1,5 @@
-import { Client, Databases, Storage } from "appwrite";
+/* eslint-disable no-useless-catch */
+import { Client, Databases, Storage, Account } from "appwrite";
 export const client = new Client();
 
 client
@@ -29,5 +30,53 @@ export const LYRICS = "65fb85530b93d2da4a16";
 export const TUNEBOX = "6613ec4e44f69b37f90c";
 
 export const db = new Databases(client);
+
+export class AuthService {
+  client = client;
+  account;
+  constructor() {
+    this.client;
+    this.account = new Account(this.client);
+  }
+
+  async createAccount(email: string, password: string) {
+    try {
+      const userAccount = await this.account.create(password, email, password);
+      if (userAccount) {
+        this.login(email, password);
+      } else {
+        return userAccount;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async login(email: string, password: string) {
+    try {
+      return await this.account.createEmailSession(email, password);
+    } catch (error) {
+      throw error;
+    }
+  }
+  async getUser() {
+    try {
+      await this.account.get();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async logout() {
+    try {
+      await this.account.deleteSessions();
+    } catch (error) {
+      throw error;
+    }
+  }
+}
+
+const authService = new AuthService();
+export default authService;
 
 export { ID } from "appwrite";

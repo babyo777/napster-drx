@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { SetSentQue, setLimit } from "@/Store/Player";
 import Loader from "../Loaders/Loader";
+import { Permission, Role } from "appwrite";
 
 function TuneSongComp({
   item,
@@ -33,16 +34,22 @@ function TuneSongComp({
       setSend(true);
       if (limit !== 5) {
         dispatch(setLimit(limit + 1));
-        db.createDocument(DATABASE_ID, TUNEBOX, ID.unique(), {
-          youtubeId: item.youtubeId,
-          title: item.title,
-          artists: [
-            item.artists[0]?.id || "unknown",
-            item.artists[0]?.name || "unknown",
-          ],
-          thumbnailUrl: item.thumbnailUrl,
-          for: id,
-        })
+        db.createDocument(
+          DATABASE_ID,
+          TUNEBOX,
+          ID.unique(),
+          {
+            youtubeId: item.youtubeId,
+            title: item.title,
+            artists: [
+              item.artists[0]?.id || "unknown",
+              item.artists[0]?.name || "unknown",
+            ],
+            thumbnailUrl: item.thumbnailUrl,
+            for: id,
+          },
+          [Permission.update(Role.user(id)), Permission.delete(Role.user(id))]
+        )
           .then(async () => {
             if (notifyId) {
               notifyId.forEach(async (id) => {

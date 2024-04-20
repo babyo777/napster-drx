@@ -16,7 +16,7 @@ import {
   db,
   ID,
 } from "@/appwrite/appwriteConfig";
-import { Query } from "appwrite";
+import { Permission, Query, Role } from "appwrite";
 import {
   Form,
   FormControl,
@@ -68,33 +68,38 @@ const AddAlbum: React.FC<{
   }, [clone, form, id, name]);
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsSubmit(true);
-
+    const uid = localStorage.getItem("uid");
     try {
-      const payload: savedPlaylist = {
-        name: album,
-        image: image,
-        creator: data.creator,
-        link: data.link,
-        for: localStorage.getItem("uid") || "default",
-      };
-      db.createDocument(DATABASE_ID, ALBUM_COLLECTION_ID, ID.unique(), payload)
-        .then(async () => {
-          form.reset();
-          const r = await db.listDocuments(DATABASE_ID, ALBUM_COLLECTION_ID, [
-            Query.orderDesc("$createdAt"),
-            Query.equal("for", [
-              localStorage.getItem("uid") || "default",
-              "default",
-            ]),
-          ]);
-          const p = r.documents as unknown as savedPlaylist[];
-          dispatch(setCurrentToggle("Albums"));
-          dispatch(setSavedPlaylist(p)), close.current?.click();
-          clone && n("/library/");
-        })
-        .catch((error) => {
-          throw new Error(error);
-        });
+      if (uid) {
+        const payload: savedPlaylist = {
+          name: album,
+          image: image,
+          creator: data.creator,
+          link: data.link,
+          for: uid || "default",
+        };
+        db.createDocument(
+          DATABASE_ID,
+          ALBUM_COLLECTION_ID,
+          ID.unique(),
+          payload,
+          [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
+        )
+          .then(async () => {
+            form.reset();
+            const r = await db.listDocuments(DATABASE_ID, ALBUM_COLLECTION_ID, [
+              Query.orderDesc("$createdAt"),
+              Query.equal("for", [uid || "default", "default"]),
+            ]);
+            const p = r.documents as unknown as savedPlaylist[];
+            dispatch(setCurrentToggle("Albums"));
+            dispatch(setSavedPlaylist(p)), close.current?.click();
+            clone && n("/library/");
+          })
+          .catch((error) => {
+            throw new Error(error);
+          });
+      }
     } catch (error) {
       setIsSubmit(false);
       setError(true);

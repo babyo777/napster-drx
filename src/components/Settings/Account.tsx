@@ -13,7 +13,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { DATABASE_ID, NEW_USER, db } from "@/appwrite/appwriteConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
-import { Models, Query } from "appwrite";
+import { Models, Permission, Query, Role } from "appwrite";
 import { useQuery, useQueryClient } from "react-query";
 import Loader from "../Loaders/Loader";
 import { DialogTitle } from "../ui/dialog";
@@ -70,7 +70,8 @@ function Account({
           {
             user: uid,
             ios: ScreenSizeCheck(),
-          }
+          },
+          [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
         );
 
         return newUserResult;

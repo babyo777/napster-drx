@@ -38,7 +38,7 @@ import {
   PLAYLIST_COLLECTION_ID,
   db,
 } from "@/appwrite/appwriteConfig";
-import { Query } from "appwrite";
+import { Permission, Query, Role } from "appwrite";
 import { EditCustomPlaylist } from "./EditCustomPlaylist";
 import PlaylistShare from "./playlistShare";
 import Share from "@/HandleShare/Share";
@@ -326,7 +326,8 @@ function LibraryComp() {
           link: isSaved[0].link,
           for: uid,
           image: isSaved[0].image,
-        }
+        },
+        [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
       );
       isSavedRefetch();
     }

@@ -15,6 +15,7 @@ import { SearchOneTrackApi } from "./API/api";
 import axios from "axios";
 import { setSpotifyTrack } from "./Store/Player";
 import { useQueryClient } from "react-query";
+import { Permission, Role } from "appwrite";
 
 export default function TransferHeader({ data }: { data: spotifyTransfer }) {
   const query = useQueryClient();
@@ -38,20 +39,27 @@ export default function TransferHeader({ data }: { data: spotifyTransfer }) {
                 `${SearchOneTrackApi}${data.tracks[i].track}`
               );
               const track = res.data as playlistSongs;
-              await db.createDocument(
-                DATABASE_ID,
-                ADD_TO_LIBRARY,
-                ID.unique(),
-                {
-                  index: i,
-                  for: localStorage.getItem("uid"),
-                  youtubeId: track.youtubeId,
-                  artists: [track.artists[0].id, track.artists[0].name],
-                  title: track.title,
-                  thumbnailUrl: track.thumbnailUrl,
-                  playlistId: m.$id,
-                }
-              );
+              const uid = localStorage.getItem("uid");
+              if (uid) {
+                await db.createDocument(
+                  DATABASE_ID,
+                  ADD_TO_LIBRARY,
+                  ID.unique(),
+                  {
+                    index: i,
+                    for: uid,
+                    youtubeId: track.youtubeId,
+                    artists: [track.artists[0].id, track.artists[0].name],
+                    title: track.title,
+                    thumbnailUrl: track.thumbnailUrl,
+                    playlistId: m.$id,
+                  },
+                  [
+                    Permission.update(Role.user(uid)),
+                    Permission.delete(Role.user(uid)),
+                  ]
+                );
+              }
             } catch (error) {
               console.log(error);
             }

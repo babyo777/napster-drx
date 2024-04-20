@@ -36,7 +36,7 @@ import {
   db,
 } from "@/appwrite/appwriteConfig";
 import { useQuery } from "react-query";
-import { Query } from "appwrite";
+import { Permission, Query, Role } from "appwrite";
 import { useSwipeable } from "react-swipeable";
 import { IoIosList } from "react-icons/io";
 import { AiFillStar } from "react-icons/ai";
@@ -102,24 +102,34 @@ function AudioPLayerComp() {
   );
 
   const handleLink = useCallback(() => {
-    SetLiked(true);
-    db.createDocument(DATABASE_ID, LIKE_SONG, ID.unique(), {
-      youtubeId: playlist[currentIndex].youtubeId,
-      title: playlist[currentIndex].title,
-      artists: [
-        playlist[currentIndex].artists[0]?.id || currentArtistId || "unknown",
-        playlist[currentIndex].artists[0]?.name || "unknown",
-      ],
-      thumbnailUrl: playlist[currentIndex].thumbnailUrl,
-      for: localStorage.getItem("uid") || "default",
-    })
-      .then(() => {
-        refetch();
-      })
-      .catch(() => {
-        SetLiked(false);
-      });
-  }, [currentIndex, playlist, currentArtistId, refetch]);
+    if (uid) {
+      SetLiked(true);
+      db.createDocument(
+        DATABASE_ID,
+        LIKE_SONG,
+        ID.unique(),
+        {
+          youtubeId: playlist[currentIndex].youtubeId,
+          title: playlist[currentIndex].title,
+          artists: [
+            playlist[currentIndex].artists[0]?.id ||
+              currentArtistId ||
+              "unknown",
+            playlist[currentIndex].artists[0]?.name || "unknown",
+          ],
+          thumbnailUrl: playlist[currentIndex].thumbnailUrl,
+          for: uid,
+        },
+        [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
+      )
+        .then(() => {
+          refetch();
+        })
+        .catch(() => {
+          SetLiked(false);
+        });
+    }
+  }, [currentIndex, playlist, currentArtistId, refetch, uid]);
 
   const RemoveLike = useCallback(async () => {
     SetLiked(false);
@@ -187,20 +197,32 @@ function AudioPLayerComp() {
 
   const saveLastPlayed = useCallback(() => {
     if (uid) {
-      db.createDocument(DATABASE_ID, LAST_PLAYED, uid, {
-        user: uid,
-        playlisturl: playingPlaylistUrl,
-        navigator: PlaylistOrAlbum,
-        curentsongid: playlist[currentIndex].youtubeId,
-        index: currentIndex,
-      }).catch(() => {
-        db.updateDocument(DATABASE_ID, LAST_PLAYED, uid, {
+      db.createDocument(
+        DATABASE_ID,
+        LAST_PLAYED,
+        uid,
+        {
           user: uid,
           playlisturl: playingPlaylistUrl,
           navigator: PlaylistOrAlbum,
           curentsongid: playlist[currentIndex].youtubeId,
           index: currentIndex,
-        });
+        },
+        [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
+      ).catch(() => {
+        db.updateDocument(
+          DATABASE_ID,
+          LAST_PLAYED,
+          uid,
+          {
+            user: uid,
+            playlisturl: playingPlaylistUrl,
+            navigator: PlaylistOrAlbum,
+            curentsongid: playlist[currentIndex].youtubeId,
+            index: currentIndex,
+          },
+          [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
+        );
       });
     }
   }, [playlist, currentIndex, PlaylistOrAlbum, uid, playingPlaylistUrl]);
@@ -386,13 +408,21 @@ function AudioPLayerComp() {
   ]);
 
   const playingInsights = useCallback(() => {
-    db.createDocument(DATABASE_ID, MOST_PLAYED, ID.unique(), {
-      user: localStorage.getItem("uid"),
-      sname: playlist[currentIndex].title,
-      sid: playlist[currentIndex].youtubeId,
-      sartist: playlist[currentIndex].artists[0].name,
-    });
-  }, [playlist, currentIndex]);
+    if (uid) {
+      db.createDocument(
+        DATABASE_ID,
+        MOST_PLAYED,
+        ID.unique(),
+        {
+          user: uid,
+          sname: playlist[currentIndex].title,
+          sid: playlist[currentIndex].youtubeId,
+          sartist: playlist[currentIndex].artists[0].name,
+        },
+        [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
+      );
+    }
+  }, [playlist, currentIndex, uid]);
 
   useEffect(() => {
     if (Math.floor(progress) == 30 && online) {
@@ -457,7 +487,7 @@ function AudioPLayerComp() {
   return (
     <>
       <audio src="" preload="true" hidden ref={audioRef}></audio>
-      {!isStandalone ? (
+      {isStandalone ? (
         <p
           className={`w-[68dvw] ${
             location.pathname == "/share-play" ? "hidden" : ""

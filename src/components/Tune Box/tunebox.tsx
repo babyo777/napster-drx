@@ -15,7 +15,7 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import { RootState } from "@/Store/Store";
 import { DATABASE_ID, TUNEBOX, db } from "@/appwrite/appwriteConfig";
-import { Query } from "appwrite";
+import { Permission, Query, Role } from "appwrite";
 import { likedSongs, playlistSongs } from "@/Interface";
 import Loader from "@/components/Loaders/Loader";
 import GoBack from "@/components/Goback";
@@ -111,10 +111,17 @@ function TuneBoxComp() {
         );
         setNotification(true);
       } else {
-        await db.createDocument(DATABASE_ID, "65da232e478bcf5bbbad", uid, {
-          for: uid,
-          notify: [token],
-        });
+        await db.createDocument(
+          DATABASE_ID,
+          "65da232e478bcf5bbbad",
+          uid,
+          {
+            for: uid,
+
+            notify: [token],
+          },
+          [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
+        );
         setNotification(true);
       }
     }

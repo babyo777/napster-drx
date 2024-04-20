@@ -11,7 +11,6 @@ import { Provider } from "react-redux";
 import { store } from "./Store/Store.ts";
 import { RememberLib } from "./components/Library/RememberLib.tsx";
 import NotFound from "./components/404.tsx";
-import Check from "./components/Check.tsx";
 import AlbumPage from "./Artists/AlbumPage.tsx";
 import ArtistPage from "./Artists/ArtistPage.tsx";
 import ListenNow from "./components/ListenNow/ListenNow.tsx";
@@ -27,12 +26,13 @@ import ErrorElement from "./error.tsx";
 import User from "./user/User.tsx";
 import Track from "./Track/Track.tsx";
 import Playlists from "./user/Playlists.tsx";
+import Auth from "./Auth.tsx";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Check />,
+    element: <Auth />,
     errorElement: <ErrorElement />,
     children: [
       {

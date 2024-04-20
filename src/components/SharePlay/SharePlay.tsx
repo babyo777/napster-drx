@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DATABASE_ID, EDITS, db } from "@/appwrite/appwriteConfig";
-import { ID, Query } from "appwrite";
+import { ID, Permission, Query, Role } from "appwrite";
 import { playlistSongs } from "@/Interface";
 import { useQuery } from "react-query";
 import { ReelsApi } from "@/API/api";
@@ -103,23 +103,35 @@ function SharePlay() {
     if (playlist.length == 0) return;
     SetLiked(true);
     setOnce(true);
-    db.createDocument(DATABASE_ID, EDITS, ID.unique(), {
-      youtubeId: playlist[currentIndex].youtubeId,
-      title: playlist[currentIndex].title,
-      artists: [
-        playlist[currentIndex].artists[0]?.id || currentArtistId || "unknown",
-        playlist[currentIndex].artists[0]?.name || "unknown",
-      ],
-      thumbnailUrl: playlist[currentIndex].thumbnailUrl,
-      for: localStorage.getItem("uid") || "default",
-    })
-      .then(() => {
-        refetch();
-      })
-      .catch(() => {
-        setOnce(false);
-        SetLiked(false);
-      });
+    const uid = localStorage.getItem("uid");
+    if (uid) {
+      db.createDocument(
+        DATABASE_ID,
+        EDITS,
+        ID.unique(),
+        {
+          youtubeId: playlist[currentIndex].youtubeId,
+          title: playlist[currentIndex].title,
+          artists: [
+            playlist[currentIndex].artists[0]?.id ||
+              currentArtistId ||
+              "unknown",
+            //@ts-expect-error:additional name
+            playlist[currentIndex].artists?.name || "unknown",
+          ],
+          thumbnailUrl: playlist[currentIndex].thumbnailUrl,
+          for: uid,
+        },
+        [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
+      )
+        .then(() => {
+          refetch();
+        })
+        .catch(() => {
+          setOnce(false);
+          SetLiked(false);
+        });
+    }
   }, [currentIndex, playlist, currentArtistId, refetch, liked]);
 
   const RemoveLike = useCallback(async () => {
@@ -290,7 +302,8 @@ function SharePlay() {
           setIsLoading(false);
           navigator.mediaSession.metadata = new MediaMetadata({
             title: playlist[currentIndex].title,
-            artist: playlist[currentIndex].artists[0]?.name,
+            //@ts-expect-error:additional added for reels
+            artist: playlist[currentIndex].artists?.name,
             album: "",
             artwork: [
               {

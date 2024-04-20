@@ -11,15 +11,25 @@ import {
   ID,
   db,
 } from "@/appwrite/appwriteConfig";
+import { Permission, Role } from "appwrite";
 
 function ArtistSearch({ name, artistId, thumbnailUrl }: suggestedArtists) {
   const handleClick = useCallback(() => {
+    const uid = localStorage.getItem("uid");
     try {
-      db.createDocument(DATABASE_ID, ARTIST_INSIGHTS, ID.unique(), {
-        id: artistId,
-        name: name,
-        user: localStorage.getItem("uid") || "error",
-      });
+      if (uid) {
+        db.createDocument(
+          DATABASE_ID,
+          ARTIST_INSIGHTS,
+          ID.unique(),
+          {
+            id: artistId,
+            name: name,
+            user: uid || "error",
+          },
+          [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
+        );
+      }
     } catch (error) {
       console.log(error);
     }

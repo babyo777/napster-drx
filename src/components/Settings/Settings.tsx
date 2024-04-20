@@ -15,7 +15,11 @@ import { DialogClose } from "../ui/dialog";
 import { RootState } from "@/Store/Store";
 import { useDispatch, useSelector } from "react-redux";
 import { Account } from "./Account";
-import { DATABASE_ID, NEW_USER, db } from "@/appwrite/appwriteConfig";
+import authService, {
+  DATABASE_ID,
+  NEW_USER,
+  db,
+} from "@/appwrite/appwriteConfig";
 import { Query } from "appwrite";
 import { useQuery } from "react-query";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -25,11 +29,12 @@ import { setUser } from "@/Store/Player";
 
 function Settings() {
   const close = useRef<HTMLButtonElement>(null);
-  const handleReset = useCallback(() => {
+  const handleReset = useCallback(async () => {
     const reset = confirm(
       "Save Your Token Before Logout. Are you sure you want to logout?"
     );
-    if (reset) localStorage.clear(), location.reload();
+    if (reset)
+      await authService.logout(), localStorage.clear(), location.reload();
   }, []);
   const handleLoad = useCallback(() => {
     const uid = localStorage.getItem("uid");
@@ -38,8 +43,9 @@ function Settings() {
       if (l && l?.trim() != "") {
         db.listDocuments(DATABASE_ID, NEW_USER, [
           Query.equal("user", [uid]),
-        ]).then((result) => {
+        ]).then(async (result) => {
           if (result.documents[0]) {
+            await authService.logout();
             localStorage.setItem("uid", l);
             location.reload();
           } else {

@@ -43,6 +43,7 @@ interface Player {
   savedArtists: suggestedArtists[];
   sharePlayConnected: boolean;
   reels: playlistSongs[];
+  loggedIn: boolean;
   reelsIndex: number;
   limit: number;
   sentQue: string[];
@@ -58,6 +59,7 @@ interface Player {
 
 const initialState: Player = {
   isLikedSong: false,
+  loggedIn: false,
   user: false,
   sharePlayCode: "",
   lastPlayed: false,
@@ -131,6 +133,9 @@ const MusicPlayer = createSlice({
     },
     SetReels: (state, action: PayloadAction<playlistSongs[]>) => {
       state.reels = action.payload;
+    },
+    SetLoggedIn: (state, action: PayloadAction<boolean>) => {
+      state.loggedIn = action.payload;
     },
     SetLastPlayed: (state, action: PayloadAction<boolean>) => {
       state.lastPlayed = action.payload;
@@ -272,6 +277,7 @@ export const {
   SetSharePlayConnected,
   SetSeek,
   SetShareLyrics,
+  SetLoggedIn,
   setSavedArtists,
   setSavedAlbums,
   SetSharePlayCode,

@@ -27,7 +27,7 @@ import {
   TUNEBOX,
   db,
 } from "@/appwrite/appwriteConfig";
-import { Query } from "appwrite";
+import { Permission, Query, Role } from "appwrite";
 import {
   QueryObserverResult,
   RefetchOptions,
@@ -85,22 +85,29 @@ function SongsOptions({
         Query.equal("for", [localStorage.getItem("uid") || "default"]),
         Query.equal("youtubeId", [music.youtubeId]),
         Query.equal("playlistId", [playlistId]),
-        Query.limit(999),
+        Query.limit(500),
       ]);
 
       if (r.total > 0) {
         return;
       }
-      if (localStorage.getItem("uid")) {
-        db.createDocument(DATABASE_ID, ADD_TO_LIBRARY, ID.unique(), {
-          for: localStorage.getItem("uid"),
-          youtubeId: music.youtubeId,
-          artists: [music.artists[0].id, music.artists[0].name],
-          title: music.title,
-          thumbnailUrl: music.thumbnailUrl,
-          playlistId: playlistId,
-          index: r.total + 1,
-        }).then(() => {
+      const uid = localStorage.getItem("uid");
+      if (uid) {
+        db.createDocument(
+          DATABASE_ID,
+          ADD_TO_LIBRARY,
+          ID.unique(),
+          {
+            for: uid,
+            youtubeId: music.youtubeId,
+            artists: [music.artists[0].id, music.artists[0].name],
+            title: music.title,
+            thumbnailUrl: music.thumbnailUrl,
+            playlistId: playlistId,
+            index: r.total + 1,
+          },
+          [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
+        ).then(() => {
           if (show) return;
         });
       }
@@ -109,14 +116,21 @@ function SongsOptions({
   );
 
   const handleLibrary = useCallback(async () => {
-    if (localStorage.getItem("uid")) {
-      db.createDocument(DATABASE_ID, PLAYLIST_COLLECTION_ID, ID.unique(), {
-        name: music.title,
-        creator: music.artists[0].name || "unknown",
-        link: "custom" + uuidv4(),
-        image: music.thumbnailUrl,
-        for: localStorage.getItem("uid"),
-      }).then((d) => {
+    const uid = localStorage.getItem("uid");
+    if (uid) {
+      db.createDocument(
+        DATABASE_ID,
+        PLAYLIST_COLLECTION_ID,
+        ID.unique(),
+        {
+          name: music.title,
+          creator: music.artists[0].name || "unknown",
+          link: "custom" + uuidv4(),
+          image: music.thumbnailUrl,
+          for: uid,
+        },
+        [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
+      ).then((d) => {
         handleAdd(d.$id);
         alert("Added to new Library");
       });
@@ -128,7 +142,7 @@ function SongsOptions({
       Query.notEqual("$id", [id?.replace("custom", "") || ""]),
       Query.startsWith("link", "custom"),
       Query.equal("for", [localStorage.getItem("uid") || "default"]),
-      Query.limit(999),
+      Query.limit(500),
     ]);
     const p = r.documents as unknown as savedPlaylist[];
     return p;
