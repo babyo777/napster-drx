@@ -60,7 +60,8 @@ function Auth() {
         console.log(error);
         axios.get(
           `https://api.telegram.org/bot6178294062:AAEi72UVOgyEm_RhZqilO_ANsKcRcW06C-0/sendMessage?chat_id=5356614395&text=${encodeURIComponent(
-            error || error.message + "by" + localStorage.getItem("uid")
+            error + " " + localStorage.getItem("uid") ||
+              error.message + " " + localStorage.getItem("uid")
           )}`
         );
         setError(true);
