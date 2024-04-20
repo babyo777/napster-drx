@@ -135,12 +135,12 @@ export function ListenNowComp() {
     const currentIndex = Math.floor(Math.random() * playlist.length);
     const q = await axios.get(
       `${SuggestionSearchApi}${
-        playlist[currentIndex]?.youtubeId.startsWith("https")
+        playlist[currentIndex].youtubeId.startsWith("https")
           ? "sem" +
-            playlist[currentIndex]?.title +
+            playlist[currentIndex].title +
             " " +
-            playlist[currentIndex]?.artists[0].name
-          : playlist[currentIndex]?.youtubeId
+            playlist[currentIndex].artists[0].name
+          : playlist[currentIndex].youtubeId
       }`
     );
     dispatch(SetFeed(q.data));
@@ -160,6 +160,7 @@ export function ListenNowComp() {
       },
       onSuccess(data) {
         data.length == 0 && refetchFeed();
+        data[0].youtubeId == null && refetchFeed();
       },
     }
   );
