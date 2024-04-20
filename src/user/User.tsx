@@ -237,7 +237,7 @@ function User() {
         <>
           {savedPlaylist && savedPlaylist.length > 0 && (
             <h2 className="px-5 mt-6 mb-2.5 animate-fade-right font-semibold leading-tight text-lg">
-              Playlists
+              Library
             </h2>
           )}
           <div className="flex fade-in flex-col px-5">
