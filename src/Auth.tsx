@@ -89,10 +89,8 @@ function Auth() {
         <Check />
       ) : (
         <div className=" w-full flex flex-col  leading-tight tracking-tight justify-center items-center h-dvh transition-all duration-500 space-y-3 font-medium text-2xl capitalize">
-          <div className="animate-fade-down">
-            <Loader2 />
-          </div>
-          <p className=" animate-fade-up">{status}</p>
+          <Loader2 />
+          <p>{status}</p>
         </div>
       )}
     </>
