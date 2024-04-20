@@ -302,7 +302,7 @@ function User() {
                     listening.artists && listening.artists[0]?.id
                   }`}
                 >
-                  <p className="text-xs  leading-tight truncate  max-w-[50vw]  font-normal  text-zinc-200">
+                  <p className="text-xs  leading-tight truncate  max-w-[65vw]  font-normal  text-zinc-200">
                     {(listening.artists && listening.artists[0]?.name) ||
                       "Unknown"}
                   </p>
