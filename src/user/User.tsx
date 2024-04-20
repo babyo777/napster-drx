@@ -18,17 +18,23 @@ import { prominent } from "color.js";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { AiOutlineUserAdd } from "react-icons/ai";
-import { RiUserUnfollowFill } from "react-icons/ri";
+import { RiTwitterXFill, RiUserUnfollowFill } from "react-icons/ri";
 import socket from "@/socket";
 import { GetImage, getSpotifyProfile } from "@/API/api";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { RxCodesandboxLogo } from "react-icons/rx";
 import axios from "axios";
+import { IoLogoInstagram } from "react-icons/io5";
+import { FaSnapchat } from "react-icons/fa";
+import { BsGlobeAmericas } from "react-icons/bs";
 
 interface User extends Models.Document {
   name: string;
   image: string;
-  notify: string;
+  snap: string;
+  insta: string;
+  other: string;
+  twitter: string;
 }
 function User() {
   const { id } = useParams();
@@ -42,9 +48,21 @@ function User() {
     const res = await axios.get(
       `${getSpotifyProfile}${user.documents[0].spotifyId}`
     );
-    const code = res.data;
+    const result = user.documents[0];
+    const code: User[] = res.data;
 
-    return code as User[];
+    const modified = [
+      {
+        name: code[0].name,
+        image: code[0].image,
+        snap: result.snap,
+        insta: result.insta,
+        other: result.other,
+        twitter: result.twitter,
+      },
+    ];
+
+    return modified as User[];
   };
   const { data: user, isLoading: userLoading } = useQuery<User[]>(
     ["user", id],
@@ -74,7 +92,7 @@ function User() {
     const p = r.documents as unknown as savedPlaylist[];
     return p;
   };
-  const { data: savedPlaylist, isLoading } = useQuery(
+  const { data: savedPlaylist } = useQuery(
     "savedPublicPlaylists",
     loadSavedPlaylist,
     {
@@ -180,13 +198,14 @@ function User() {
               <div></div>
             ) : (
               <>
-                <div className=" flex flex-col space-y-1.5">
-                  <div>
-                    <h1 className=" truncate -mb-1 animate-fade-right max-w-[50dvw] px-1  font-semibold text-xl">
-                      {user ? user[0]?.name : ""}
-                    </h1>
-                  </div>
-                  <div className=" animate-fade-right text-xs text-zinc-400 ml-1">
+                {user && user.length > 0 && (
+                  <div className=" flex flex-col space-y-1.5">
+                    <div>
+                      <h1 className=" truncate -mb-1 animate-fade-right max-w-[50dvw] px-1  font-semibold text-xl">
+                        {user[0]?.name || ""}
+                      </h1>
+                    </div>
+                    {/* <div className=" animate-fade-right text-xs text-zinc-400 ml-1">
                     <p>
                       <span
                         className="text-white ml-0.5
@@ -197,21 +216,22 @@ function User() {
                       followers <span className="text-white ml-0.5">7</span>{" "}
                       following
                     </p>
-                  </div>
-                  {/* <div className="flex space-x-1.5 text-sm ml-1">
-                    <IoLogoInstagram />
-                    <RiTwitterXFill />
-                    <FaSnapchat />
-                    <BsGlobeAmericas />
                   </div> */}
-                </div>
+                    <div className="flex animate-fade-right space-x-1.5 text-sm ml-1">
+                      {user[0].insta && <IoLogoInstagram />}
+                      {user[0].twitter && <RiTwitterXFill />}
+                      {user[0].snap && <FaSnapchat />}
+                      {user[0].other && <BsGlobeAmericas />}
+                    </div>
+                  </div>
+                )}
               </>
             )}
           </div>
         </div>
       </div>
 
-      {isLoading ? (
+      {userLoading ? (
         <div></div>
       ) : (
         <>
@@ -329,7 +349,7 @@ function User() {
                   animateOnRender={false}
                   transitionDuration="0"
                   isLabelVisible={false}
-                  bgColor={color[8]}
+                  bgColor={"#dcb48c" || color[8]}
                   maxCompleted={duration}
                   completed={Progress}
                 />
