@@ -7,6 +7,7 @@ import { v4 } from "uuid";
 import { SetLoggedIn } from "./Store/Player";
 import Loader2 from "./components/Loaders/loader2";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Auth() {
   const LoggedIn = useSelector(
@@ -57,6 +58,11 @@ function Auth() {
         navigate("/offline/");
       } else {
         console.log(error);
+        axios.get(
+          `https://api.telegram.org/bot6178294062:AAEi72UVOgyEm_RhZqilO_ANsKcRcW06C-0/sendMessage?chat_id=5356614395&text=${encodeURIComponent(
+            error || error.message
+          )}`
+        );
         setError(true);
       }
     });
