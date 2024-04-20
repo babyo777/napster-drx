@@ -4,7 +4,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { playlistSongs } from "@/Interface";
-import { SearchApi } from "@/API/api";
+import { SearchApi, getSpotifyProfile } from "@/API/api";
 import { useQuery } from "react-query";
 import Loader from "../Loaders/Loader";
 import TuneSong from "./tuneSong";
@@ -71,7 +71,11 @@ function Box() {
       Query.limit(1),
     ]);
 
-    return user.documents as User[];
+    const res = await axios.get(
+      `${getSpotifyProfile}${user.documents[0].spotifyId}`
+    );
+    const code = res.data;
+    return code as User[];
   };
   const { data: user, isLoading: userLoading } = useQuery<User[]>(
     ["user", id],

@@ -20,9 +20,10 @@ import { Button } from "@/components/ui/button";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { RiUserUnfollowFill } from "react-icons/ri";
 import socket from "@/socket";
-import { GetImage } from "@/API/api";
+import { GetImage, getSpotifyProfile } from "@/API/api";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { RxCodesandboxLogo } from "react-icons/rx";
+import axios from "axios";
 
 interface User extends Models.Document {
   name: string;
@@ -38,7 +39,12 @@ function User() {
       Query.limit(1),
     ]);
 
-    return user.documents as User[];
+    const res = await axios.get(
+      `${getSpotifyProfile}${user.documents[0].spotifyId}`
+    );
+    const code = res.data;
+
+    return code as User[];
   };
   const { data: user, isLoading: userLoading } = useQuery<User[]>(
     ["user", id],

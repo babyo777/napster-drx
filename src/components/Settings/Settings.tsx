@@ -23,7 +23,7 @@ import authService, {
 import { Query } from "appwrite";
 import { useQuery } from "react-query";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { getUserApi } from "@/API/api";
+import { getSpotifyProfile } from "@/API/api";
 import axios from "axios";
 import { setUser } from "@/Store/Player";
 
@@ -81,24 +81,17 @@ function Settings() {
         result.documents[0].name.length > 0
       ) {
         const res = await axios.get(
-          `${getUserApi}${result.documents[0].spotifyId}`
+          `${getSpotifyProfile}${result.documents[0].spotifyId}`
         );
         const code = res.data;
-        await db.updateDocument(
-          DATABASE_ID,
-          NEW_USER,
-          result.documents[0].$id,
-          {
-            image: code.image,
-            name: code.name,
-          }
-        );
-      }
-      if (result.documents[0].spotifyId) {
-        dispatch(setUser(true));
-      }
 
-      return result.documents[0];
+        if (result.documents[0].spotifyId) {
+          dispatch(setUser(true));
+        }
+        console.log(code);
+
+        return code;
+      }
     }
   };
 
@@ -110,9 +103,12 @@ function Settings() {
   return (
     <Drawer>
       <DrawerTrigger>
-        {imSrc && imSrc.image.length > 0 ? (
+        {imSrc && imSrc[0].image.length > 0 ? (
           <Avatar className="animate-fade-left h-9 w-9 p-0 m-0 -mr-0.5">
-            <AvatarImage src={imSrc.image}></AvatarImage>
+            <AvatarImage
+              className="rounded-full object-cover h-[100%] w-[100%]"
+              src={imSrc[0].image}
+            ></AvatarImage>
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         ) : (

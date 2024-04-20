@@ -109,7 +109,7 @@ function Account({
     {
       refetchOnMount: false,
       refetchOnWindowFocus: false,
-      staleTime: Infinity,
+      staleTime: 1 * 60000,
       onSuccess(data) {
         data == undefined && refetch();
       },

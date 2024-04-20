@@ -6,7 +6,6 @@ const STREAM = [
   "https://unconscious-elianora-babyo7.koyeb.app/?url=",
   "https://architectural-consuela-krsna.koyeb.app/?url=",
 ];
-
 const DOWNLOAD = [
   "https://exotic-cloe-babyo77.koyeb.app/download?url=",
   "https://unconscious-elianora-babyo7.koyeb.app/download?url=",
@@ -53,7 +52,9 @@ const TransferFromSpotifyApi = `${mainApi}/get/?id=`;
 
 const SearchOneTrackApi = `${mainApi}/one/?t=`;
 
-const SharePlayApi = `https://napster-share-play.onrender.com/`;
+const SharePlayApi = "https://napster-share-play.onrender.com/";
+
+const getSpotifyProfile = `${mainApi}/spotifyProfile/`;
 
 const getUserApi = `${mainApi}/user/`;
 
@@ -62,6 +63,7 @@ const ReelsApi = `${mainApi}/reels/`;
 const sendNotificationApi = `${mainApi}/notify/`;
 
 export {
+  getSpotifyProfile,
   sendNotificationApi,
   ReelsApi,
   getUserApi,
