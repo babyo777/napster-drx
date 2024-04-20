@@ -506,7 +506,7 @@ function AudioPLayerComp() {
                   <LazyLoadImage
                     height="100%"
                     width="100%"
-                    src={c || playlist[currentIndex]?.thumbnailUrl}
+                    src={c ? c : "/cache.jpg"}
                     onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
                       (e.currentTarget.src = "/newfavicon.jpg")
                     }
@@ -538,7 +538,7 @@ function AudioPLayerComp() {
                 >
                   <div className="flex  justify-center items-center  h-[44dvh]">
                     <LazyLoadImage
-                      src={c || playlist[currentIndex]?.thumbnailUrl}
+                      src={c ? c : "/cache.jpg"}
                       onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
                         (e.currentTarget.src = "/newfavicon.jpg")
                       }
