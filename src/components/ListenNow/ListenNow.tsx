@@ -9,14 +9,11 @@ import { useNavigate } from "react-router-dom";
 
 import { homePagePlaylist, playlistSongs } from "@/Interface";
 import { useQuery } from "react-query";
-import Artist from "./Artist";
-import Charts from "./Charts";
-import NewCharts from "./neewChart";
+
 import { Query } from "appwrite";
 import axios from "axios";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import Header from "../Header/Header";
-import NapsterSuggested from "./NapsterSuggested";
 import { SuggestionSearchApi, streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
 
@@ -28,9 +25,7 @@ import ReactPullToRefresh from "react-simple-pull-to-refresh";
 import FeedSong from "./FeedSongs";
 
 export function ListenNowComp() {
-  const checked = useSelector(
-    (state: RootState) => state.musicReducer.feedMode
-  );
+  const feed = useSelector((state: RootState) => state.musicReducer.Feed);
 
   const music = useSelector((state: RootState) => state.musicReducer.Feed);
 
@@ -135,12 +130,14 @@ export function ListenNowComp() {
     const currentIndex = Math.floor(Math.random() * playlist.length);
     const q = await axios.get(
       `${SuggestionSearchApi}${
-        playlist[currentIndex].youtubeId.startsWith("https")
-          ? "sem" +
-            playlist[currentIndex].title +
-            " " +
-            playlist[currentIndex].artists[0].name
-          : playlist[currentIndex].youtubeId
+        playlist.length > 0
+          ? playlist[currentIndex].youtubeId.startsWith("https")
+            ? "sem" +
+              playlist[currentIndex].title +
+              " " +
+              playlist[currentIndex].artists[0].name
+            : playlist[currentIndex].youtubeId
+          : "rnd"
       }`
     );
     dispatch(SetFeed(q.data));
@@ -161,6 +158,7 @@ export function ListenNowComp() {
       onSuccess(data) {
         data.length == 0 && refetchFeed();
         data[0].youtubeId == null && refetchFeed();
+        dispatch(SetFeed(data));
       },
     }
   );
@@ -219,18 +217,18 @@ export function ListenNowComp() {
       )}
       <Header title="Home" />
 
-      {!chart && !artist && !suggested && !checked && (
+      {!chart && !artist && !suggested && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex   items-center space-x-2">
           <Loader />
         </div>
       )}
-      {isLoading && checked && (
+      {isLoading && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex   items-center space-x-2">
           <Loader />
         </div>
       )}
 
-      {checked && music && (
+      {feed && (
         <ReactPullToRefresh
           pullingContent={""}
           onRefresh={handleRefresh}
@@ -258,23 +256,6 @@ export function ListenNowComp() {
               ))}
           </>
         </ReactPullToRefresh>
-      )}
-      {!checked && (
-        <div className="h-[80dvh] pb-28 overflow-scroll">
-          {suggested && suggested.length > 0 && (
-            <NapsterSuggested data={suggested} />
-          )}
-          {chart && artist && suggested && (
-            <>
-              <div className="">
-                <Artist data={artist} />
-                <Charts data={chart} />
-
-                <NewCharts data={chart} />
-              </div>
-            </>
-          )}
-        </div>
       )}
     </>
   );

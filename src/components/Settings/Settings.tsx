@@ -124,7 +124,7 @@ function Settings() {
         <div className="animate-fade-up">
           <p
             onClick={handleLoad}
-            className=" hidden rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900  text-start   px-4  text-base "
+            className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex text-start   px-4  text-base "
           >
             Load From Token
           </p>

@@ -39,15 +39,25 @@ export class AuthService {
     this.account = new Account(this.client);
   }
 
-  async createAccount(email: string, password: string) {
+  async createAccount(uid: string, email: string, password: string) {
     try {
-      const userAccount = await this.account.create(password, email, password);
+      const userAccount = await this.account.create(uid, email, password);
       if (userAccount) {
-        this.login(email, password);
+        const account = await this.login(email, password);
+        if (account) {
+          return true;
+        }
       } else {
         return userAccount;
       }
     } catch (error) {
+      //@ts-expect-error:appwrite response on error
+      if (error.type === "user_already_exists") {
+        const account = await this.login(email, password);
+        if (account) {
+          return true;
+        }
+      }
       throw error;
     }
   }
@@ -55,19 +65,33 @@ export class AuthService {
   async login(email: string, password: string) {
     try {
       const r = await this.account.createEmailSession(email, password);
+      console.log(r);
+
       return r;
     } catch (error) {
       throw error;
     }
   }
-  async getUser() {
+  async isUserLoggedIn() {
     try {
-      await this.account.get();
+      const account = await this.account.get();
+      if (account) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async getSession() {
+    try {
+      return await this.account.listSessions();
     } catch (error) {
       throw error;
     }
   }
-
   async logout() {
     try {
       await this.account.deleteSession("current");
