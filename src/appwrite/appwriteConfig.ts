@@ -54,7 +54,8 @@ export class AuthService {
 
   async login(email: string, password: string) {
     try {
-      return await this.account.createEmailSession(email, password);
+      const r = await this.account.createEmailSession(email, password);
+      return r;
     } catch (error) {
       throw error;
     }
@@ -69,7 +70,7 @@ export class AuthService {
 
   async logout() {
     try {
-      await this.account.deleteSessions();
+      await this.account.deleteSession("current");
     } catch (error) {
       throw error;
     }
