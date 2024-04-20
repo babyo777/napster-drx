@@ -6,6 +6,7 @@ import { RootState } from "./Store/Store";
 import { v4 } from "uuid";
 import { SetLoggedIn } from "./Store/Player";
 import Loader2 from "./components/Loaders/loader2";
+import { useNavigate } from "react-router-dom";
 
 function Auth() {
   const LoggedIn = useSelector(
@@ -14,7 +15,9 @@ function Auth() {
   const dispatch = useDispatch();
   const [error, setError] = useState<boolean>(false);
   const [status, setStatus] = useState<string>("authenticating");
+  const navigate = useNavigate();
   useEffect(() => {
+    const online = navigator.onLine;
     const authorize = async () => {
       const password = localStorage.getItem("pp");
       const uid = localStorage.getItem("uid");
@@ -49,10 +52,15 @@ function Auth() {
       }
     };
     authorize().catch((error) => {
-      console.log(error);
-      setError(true);
+      if (!online) {
+        dispatch(SetLoggedIn(true));
+        navigate("/offline/");
+      } else {
+        console.log(error);
+        setError(true);
+      }
     });
-  }, [dispatch]);
+  }, [dispatch, navigate]);
   if (error) {
     return (
       <div className=" w-full flex flex-col px-5 font-semibold text-2xl leading-tight tracking-tight animate-fade-up justify-center items-center h-dvh">
