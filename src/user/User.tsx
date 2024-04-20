@@ -168,11 +168,13 @@ function User() {
           </>
         )}
       </div>
-      <div className="absolute bottom-2 z-10  flex left-4 animate-fade-left w-full text-xs font-semibold leading-tight tracking-tight text-zinc-400 space-y-0.5">
-        <a href="https://twitter.com/tanmay11117" target="blank">
-          made by @babyo7_
-        </a>
-      </div>
+      {user && user.length > 0 && (
+        <div className="absolute bottom-2 z-10  flex left-4 animate-fade-right w-full text-xs font-semibold leading-tight tracking-tight text-zinc-500 space-y-0.5">
+          <a href="https://twitter.com/tanmay11117" target="blank">
+            made by @babyo7_
+          </a>
+        </div>
+      )}
       {user && user.length > 0 && (
         <div className="absolute top-14 z-10 right-3 animate-fade-left flex-col space-y-0.5">
           <Link to={`/box/${id}`}>

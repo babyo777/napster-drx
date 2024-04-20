@@ -21,13 +21,10 @@ import axios from "axios";
 import { getUserApi } from "@/API/api";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Avatar } from "../ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
 import { setUser } from "@/Store/Player";
 import { RiLinkM } from "react-icons/ri";
+
+import { FiInfo } from "react-icons/fi";
 
 interface user extends Models.Document {
   user: string;
@@ -207,14 +204,14 @@ function Account({
                 <h1 className=" font-semibold break-all text-center animate-fade-up text-4xl mt-2">
                   {data.name}
                 </h1>
-                <div className=" absolute top-5 right-1">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className=" animate-fade-up ">
-                      <DropdownMenuLabel className="mt-2 animate-fade-up text-xl text-zinc-400">
-                        <RiLinkM onClick={handleShare} />
-                      </DropdownMenuLabel>
-                    </DropdownMenuTrigger>
-                  </DropdownMenu>
+                <div className=" absolute top-5 px-4 text-xl flex w-full justify-between items-center">
+                  <div className=" animate-fade-up text-zinc-400">
+                    <FiInfo />
+                  </div>
+
+                  <div className="animate-fade-up  text-zinc-400">
+                    <RiLinkM onClick={handleShare} />
+                  </div>
                 </div>
               </>
             )}
