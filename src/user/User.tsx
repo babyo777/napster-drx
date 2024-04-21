@@ -371,7 +371,7 @@ function User() {
                 className="flex  items-center space-x-1"
               >
                 <div className=" flex w-full">
-                  <p className=" flex items-center w-full -mb-0.5 justify-between text-xs">
+                  <p className=" flex items-center w-full font-medium justify-between text-[.58rem] -mt-1.5 -mb-2.5">
                     <span>{formatDuration(Progress || 0)}</span>
                     <span>{formatDuration(duration || 0)}</span>
                   </p>
