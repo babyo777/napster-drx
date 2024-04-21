@@ -23,9 +23,8 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { setUser } from "@/Store/Player";
 import { RiLinkM } from "react-icons/ri";
-
-import { FiInfo } from "react-icons/fi";
 import { AvatarFallback } from "@radix-ui/react-avatar";
+import { IoSyncOutline } from "react-icons/io5";
 
 interface user extends Models.Document {
   user: string;
@@ -56,8 +55,10 @@ function Account({
   }
   const uid = useSelector((state: RootState) => state.musicReducer.uid);
   const q = useQueryClient();
+  const [sync, setSync] = useState<boolean>(false);
   const getUser = useCallback(async () => {
     if (uid) {
+      setSync(true);
       const result = await db.listDocuments(DATABASE_ID, NEW_USER, [
         Query.equal("user", [uid]),
       ]);
@@ -73,7 +74,7 @@ function Account({
           },
           [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
         );
-
+        setSync(false);
         return newUserResult;
       } else {
         if (
@@ -95,10 +96,14 @@ function Account({
             }
           );
         }
+        setSync(false);
+
         q.refetchQueries("dpImage");
         return result.documents[0] as user;
       }
     } else {
+      setSync(false);
+
       return null;
     }
   }, [uid, q]);
@@ -107,9 +112,8 @@ function Account({
     ["user", uid],
     getUser,
     {
-      refetchOnMount: false,
       refetchOnWindowFocus: false,
-      staleTime: 1 * 60000,
+      staleTime: 60000,
       onSuccess(data) {
         data == undefined && refetch();
       },
@@ -215,11 +219,13 @@ function Account({
                   {data.name}
                 </h1>
                 <div className=" absolute top-5 px-4 text-xl flex w-full justify-between items-center">
-                  <div className=" animate-fade-up text-zinc-400">
-                    <FiInfo />
+                  <div
+                    className={`${sync ? "animate-spin" : ""}  text-zinc-400`}
+                  >
+                    <IoSyncOutline />
                   </div>
 
-                  <div className="animate-fade-up  text-zinc-400">
+                  <div className="  text-zinc-400">
                     <RiLinkM onClick={handleShare} />
                   </div>
                 </div>
