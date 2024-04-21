@@ -35,7 +35,7 @@ function Auth() {
       }
       if (!email) {
         setStatus("setting email");
-        localStorage.setItem("em", `${noUid}@napster.com`);
+        localStorage.setItem("em", `${uid || noUid}@napster.com`);
       }
 
       setStatus("authenticating");
