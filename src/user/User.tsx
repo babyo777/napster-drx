@@ -156,6 +156,22 @@ function User() {
     return `${formattedMinutes}:${formattedSeconds}`;
   }, []);
 
+  const image = async () => {
+    const response = await axios.get(GetImage + listening?.thumbnailUrl, {
+      responseType: "arraybuffer",
+    });
+    const blob = new Blob([response.data], {
+      type: response.headers["content-type"],
+    });
+    return URL.createObjectURL(blob);
+  };
+
+  const { data: c } = useQuery(["image", listening?.thumbnailUrl], image, {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
+
   return (
     <>
       {/* <GoBack /> */}
@@ -311,7 +327,7 @@ function User() {
                     height="100%"
                     width="100%"
                     effect="blur"
-                    src={GetImage + listening.thumbnailUrl || "/cache.jpg"}
+                    src={c ? c : "/cache.jpg"}
                     alt="Image"
                     className="rounded-md object-cover w-[100%] h-[100%]"
                   />
