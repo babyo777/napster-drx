@@ -311,14 +311,12 @@ function AudioPLayerComp() {
       };
 
       const handlePause = () => {
-        socket.emit("message", null);
         dispatch(play(false));
       };
 
       const handleError = () => {
         setDuration(0);
         setProgress(0);
-        socket.emit("message", null);
         dispatch(setIsLoading(false));
         sound.pause();
         dispatch(play(false));
