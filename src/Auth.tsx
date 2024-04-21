@@ -48,8 +48,8 @@ function Auth() {
 
       setStatus("authenticating");
       const isUserLoggedIn = await authService.isUserLoggedIn();
-      setStatus("Logging in..");
       if (isUserLoggedIn) {
+        setStatus("Logging in..");
         dispatch(SetLoggedIn(true));
       } else {
         setStatus("Account Not Found");
@@ -80,8 +80,8 @@ function Auth() {
             CheckPassword
           );
           setStatus("Account Created");
-          setStatus("Logging in..");
           if (account) {
+            setStatus("Logging in..");
             dispatch(SetLoggedIn(true));
           }
         }
