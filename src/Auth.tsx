@@ -65,6 +65,7 @@ function Auth() {
         }
         if (CheckEmail && CheckUid && !CheckEmail.startsWith(CheckUid)) {
           setStatus("Email Verification failed");
+          setError(true);
         }
         if (
           CheckPassword &&
