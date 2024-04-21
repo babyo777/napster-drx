@@ -220,6 +220,7 @@ function Account({
                 </h1>
                 <div className=" absolute top-5 px-4 text-xl flex w-full justify-between items-center">
                   <div
+                    onClick={() => refetch()}
                     className={`${sync ? "animate-spin" : ""}  text-zinc-400`}
                   >
                     <IoSyncOutline />
