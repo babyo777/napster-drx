@@ -53,7 +53,12 @@ function Auth() {
         dispatch(SetLoggedIn(true));
       } else {
         setStatus("Account Not Found");
-        if (CheckPassword && CheckUid && CheckEmail) {
+        if (
+          CheckPassword &&
+          CheckUid &&
+          CheckEmail &&
+          CheckEmail.startsWith(CheckUid)
+        ) {
           setStatus("creating account");
           const account = await authService.createAccount(
             CheckUid,
