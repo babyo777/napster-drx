@@ -112,7 +112,7 @@ function Auth() {
       {LoggedIn ? (
         <Check />
       ) : (
-        <div className=" w-full flex flex-col  leading-tight tracking-tight justify-center items-center h-dvh transition-all duration-500 space-y-3 font-medium text-2xl capitalize">
+        <div className=" w-full flex flex-col  leading-tight tracking-tight justify-center items-center h-dvh transition-all duration-500 space-y-3 font-medium text-lg capitalize">
           <Loader2 />
           <p>{status}</p>
         </div>

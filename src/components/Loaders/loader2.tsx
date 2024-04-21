@@ -3,7 +3,7 @@ lineSpinner.register();
 function Loader2() {
   return (
     <l-line-spinner
-      size="45"
+      size="40"
       stroke="3"
       speed="1"
       color="grey"
