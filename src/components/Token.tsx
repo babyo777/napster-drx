@@ -70,10 +70,11 @@ export function Token() {
           </div>
           <Button
             size="sm"
+            onClick={handleCopy}
             variant={"secondary"}
             className="px-3 w-full text-base font-medium rounded-2xl bg-zinc-800 animate-fade-up hover:bg-zinc-100/20 text-zinc-200 py-5"
           >
-            <p onClick={handleCopy} className="flex space-x-1.5 items-center">
+            <p className="flex space-x-1.5 items-center">
               {saving && <Loader size="21" className=" mt-2" />}
               <span>Save Credentials</span>
             </p>
