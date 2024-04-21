@@ -15,7 +15,7 @@ function Auth() {
   );
   const dispatch = useDispatch();
   const [error, setError] = useState<boolean>(false);
-  const [status, setStatus] = useState<string>("authenticating");
+  const [status, setStatus] = useState<string>("");
   const navigate = useNavigate();
   useEffect(() => {
     const online = navigator.onLine;
