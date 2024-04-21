@@ -284,12 +284,6 @@ function Account({
                     <li>Tap "Create Playlist" and name it "Napster".</li>
 
                     <li>Tap "Save" or "Create".</li>
-
-                    <li>
-                      Look for the option to sort your playlists. Choose "Sort
-                      by Latest" or any option that ensures the "Napster"
-                      playlist is at the top.
-                    </li>
                   </ul>
                 </div>
                 <Button
