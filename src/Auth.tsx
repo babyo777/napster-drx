@@ -124,7 +124,18 @@ function Auth() {
 
   if (error) {
     return (
-      <div className=" w-full flex flex-col px-5 font-semibold text-2xl leading-tight tracking-tight animate-fade-up text-center items-center justify-center h-dvh">
+      <div className=" w-full relative flex flex-col px-5 font-semibold text-2xl leading-tight tracking-tight animate-fade-up text-center items-center justify-center h-dvh">
+        <div className=" absolute bottom-4 text-xl">
+          <p
+            onClick={() =>
+              alert(
+                localStorage.getItem("em") + "\n" + localStorage.getItem("uid")
+              )
+            }
+          >
+            {status}
+          </p>
+        </div>
         <p>
           Can't Authorize ! Please Contact{" "}
           <a href="mailto:yfw111realone@gmail.com">
@@ -145,15 +156,7 @@ function Auth() {
       ) : (
         <div className=" w-full flex flex-col  leading-tight tracking-tight justify-center items-center h-dvh transition-all duration-500 space-y-3 font-medium text-lg capitalize">
           <Loader2 />
-          <p
-            onClick={() =>
-              alert(
-                localStorage.getItem("em") + "\n" + localStorage.getItem("uid")
-              )
-            }
-          >
-            {status}
-          </p>
+          <p>{status}</p>
         </div>
       )}
     </>
