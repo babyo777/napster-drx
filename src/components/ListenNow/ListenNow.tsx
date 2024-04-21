@@ -236,6 +236,7 @@ export function ListenNowComp() {
         >
           <>
             {music
+              .filter((r) => (r.youtubeId && r.youtubeId !== null) || "")
               .filter(
                 (r, i, s) =>
                   i === s.findIndex((t) => t.youtubeId == r.youtubeId)
