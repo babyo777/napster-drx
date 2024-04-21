@@ -66,7 +66,7 @@ function Auth() {
             CheckPassword
           );
           setStatus("Account Created");
-          setStatus("authenticating");
+          setStatus("Logging in..");
           if (account) {
             dispatch(SetLoggedIn(true));
           }
