@@ -73,10 +73,7 @@ export class AuthService {
   async isUserLoggedIn() {
     try {
       const account = await this.account.get();
-      localStorage.setItem(
-        "sid",
-        (await this.account.getSession("current")).$id
-      );
+
       if (account) {
         return true;
       } else {
