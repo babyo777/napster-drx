@@ -108,7 +108,7 @@ function User() {
     setIsFavArtist(true);
   }, []);
 
-  const [listening, setListening] = useState<playlistSongs>();
+  const [listening, setListening] = useState<playlistSongs | null>();
   const [duration, setDuration] = useState<number>(0);
   const [Progress, setProgress] = useState<number>(0);
 
@@ -146,6 +146,15 @@ function User() {
       socket.off("connect", onConnect);
     };
   }, [id]);
+
+  const formatDuration = useCallback((seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+
+    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedSeconds = String(remainingSeconds).padStart(2, "0");
+    return `${formattedMinutes}:${formattedSeconds}`;
+  }, []);
 
   return (
     <>
@@ -187,7 +196,7 @@ function User() {
         style={{
           backgroundImage: `linear-gradient(to top, #121212, ${color[3]}`,
         }}
-        className={`w-full  flex justify-start items-center px-5 pt-[5vh] pb-2 transition-all duration-300`}
+        className={`w-full  flex justify-start items-center px-5 pt-[5vh] pb-4 transition-all duration-300`}
       >
         <div className=" flex  items-center space-x-1.5 justify-start text-start">
           {userLoading ? (
@@ -345,9 +354,12 @@ function User() {
                 style={{ color: "white" }}
                 className="flex  items-center space-x-1"
               >
-                <p className="text-xs  leading-tight w-[50vw]truncate font-normal text-zinc-200">
-                  on napster
-                </p>
+                <div className=" flex w-full">
+                  <p className=" flex items-center w-full -mb-0.5 justify-between text-xs">
+                    <span>{formatDuration(Progress || 0)}</span>
+                    <span>{formatDuration(duration || 0)}</span>
+                  </p>
+                </div>
               </div>
               <div className="w-full ">
                 <ProgressBar
