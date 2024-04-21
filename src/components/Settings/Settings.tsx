@@ -25,32 +25,28 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getSpotifyProfile } from "@/API/api";
 import axios from "axios";
 import { setUser } from "@/Store/Player";
+import { PiUserSwitch } from "react-icons/pi";
+import { IoHelpBuoySharp } from "react-icons/io5";
+import { RiUserFollowLine } from "react-icons/ri";
+import { MdOutlineDownloading } from "react-icons/md";
 
 function Settings() {
   const close = useRef<HTMLButtonElement>(null);
-  const handleReset = useCallback(async () => {
-    const reset = confirm(
-      "Save Your Token Before Logout. Are you sure you want to logout?"
-    );
-    if (reset)
-      await authService.logout(), localStorage.clear(), location.reload();
-  }, []);
-  const handleLoad = useCallback(() => {
-    const uid = localStorage.getItem("uid");
-    if (uid) {
-      const l = prompt("Enter Shared Token");
-      if (l && l?.trim() != "") {
-        db.listDocuments(DATABASE_ID, NEW_USER, [
-          Query.equal("user", [uid]),
-        ]).then(async (result) => {
-          if (result.documents[0]) {
-            await authService.logout();
-            localStorage.setItem("uid", l);
-            location.reload();
-          } else {
-            alert("User not found with requested Uid!");
-          }
-        });
+
+  const handleSwitch = useCallback(async () => {
+    const id = prompt("Enter your token");
+    if (id) {
+      const pass = prompt("Enter your password");
+      if (id && pass) {
+        try {
+          await authService.login(`${id}@napster.com`, pass);
+          localStorage.setItem("uid", id);
+          localStorage.setItem("pp", pass);
+          window.location.reload();
+        } catch (error) {
+          //@ts-expect-error:ignore
+          alert(error.message);
+        }
       }
     }
   }, []);
@@ -87,7 +83,6 @@ function Settings() {
         if (result.documents[0].spotifyId) {
           dispatch(setUser(true));
         }
-        console.log(code);
 
         return code;
       }
@@ -120,22 +115,23 @@ function Settings() {
             Settings
           </DrawerTitle>
         </DrawerHeader>
-        <Account className="text-start px-4" />
-        <div className="animate-fade-up">
+        <Account className="text-start px-4" image={imSrc && imSrc[0].image} />
+        {/* <div className="animate-fade-up">
           <p
             onClick={handleLoad}
-            className=" rounded-xl hidden py-2.5 mt-3 animate-fade-up bg-neutral-900  text-start   px-4  text-base "
+            className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex text-start   px-4  text-base "
           >
             Load From Token
           </p>
-        </div>
+        </div> */}
         {/iPhone/i.test(navigator.userAgent) && (
           <div className="animate-fade-up">
             <p
               onClick={handleLoadPlaylist}
-              className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex text-start   px-4  text-base "
+              className=" rounded-xl py-2.5 mt-3 animate-fade-up bg-neutral-900 flex text-start   px-4  text-base items-center space-x-1"
             >
-              Load Playlist
+              <MdOutlineDownloading className="h-6 w-6" />
+              <span>Load Playlist</span>
             </p>
           </div>
         )}
@@ -147,25 +143,25 @@ function Settings() {
           More by babyo7_
         </p> */}
         {/* <SponsorsComp /> */}
-        {!track && (
-          <SpotifyTransfer close={close} className="text-start px-4" />
-        )}
+        {!track && <SpotifyTransfer close={close} />}
         <div className="animate-fade-up">
           <p
             onClick={() =>
               (window.location.href = "mailto:yfw111realone@gmail.com")
             }
-            className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex px-4 text-base "
+            className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex px-4 text-base items-center space-x-1"
           >
-            Feedback & Suggestion
+            <IoHelpBuoySharp className="h-5 w-5" />
+            <span>Feedback & Suggestion</span>
           </p>
         </div>
         <div className="animate-fade-up">
           <p
             onClick={() => window.open("https://tanmay-seven.vercel.app/")}
-            className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex px-4 text-base "
+            className=" animate-fade-up rounded-xl py-2.5 mt-3 bg-neutral-900 flex px-4 text-base items-center space-x-1"
           >
-            Connect with Me
+            <RiUserFollowLine className="h-5 w-5" />
+            <span>Connect with Me</span>
           </p>
         </div>
         <DialogClose ref={close}></DialogClose>
@@ -174,10 +170,11 @@ function Settings() {
             <Token />
             <div className="w-full">
               <p
-                onClick={handleReset}
-                className=" font-semibold rounded-xl animate-fade-up  py-2.5 mt-3 flex justify-center bg-red-500 text-base "
+                onClick={handleSwitch}
+                className=" font-semibold rounded-xl animate-fade-up  py-2.5 mt-3 flex justify-center bg-neutral-800 text-base items-center space-x-1"
               >
-                Log out
+                <PiUserSwitch className="h-5 w-5" />
+                <span>Switch Account</span>
               </p>
             </div>
           </div>

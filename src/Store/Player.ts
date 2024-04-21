@@ -119,6 +119,9 @@ const MusicPlayer = createSlice({
     SetPlaylistOrAlbum: (state, action: PayloadAction<string>) => {
       state.PlaylistOrAlbum = action.payload;
     },
+    Setuid: (state, action: PayloadAction<string>) => {
+      state.uid = action.payload;
+    },
     SetSentQue: (state, action: PayloadAction<string[]>) => {
       state.sentQue = action.payload;
     },
@@ -270,6 +273,7 @@ export const selectMemoizedLyricsProgress = createSelector(
 
 export const {
   shuffle,
+  Setuid,
   setUser,
   play,
   SetFeedMode,

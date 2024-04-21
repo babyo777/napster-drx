@@ -22,7 +22,7 @@ import {
   setProgressLyrics,
 } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
-import { streamApi } from "@/API/api";
+import { GetImage, streamApi } from "@/API/api";
 import Loader from "../Loaders/Loader";
 import { Link, useLocation } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -462,7 +462,11 @@ function AudioPLayerComp() {
 
   const image = async () => {
     const response = await axios.get(
-      playlist[currentIndex]?.thumbnailUrl.replace("w120-h120", "w1080-h1080"),
+      GetImage +
+        playlist[currentIndex]?.thumbnailUrl.replace(
+          "w120-h120",
+          "w1080-h1080"
+        ),
       {
         responseType: "arraybuffer",
       }

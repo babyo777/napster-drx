@@ -41,18 +41,19 @@ export class AuthService {
 
   async createAccount(uid: string, email: string, password: string) {
     try {
-      const userAccount = await this.account.create(uid, email, password);
+      const userAccount = await this.login(email, password);
       if (userAccount) {
-        const account = await this.login(email, password);
-        if (account) {
-          return true;
-        }
+        return true;
       }
     } catch (error) {
-      //@ts-expect-error:appwrite response on error
-      if (error.type === "user_already_exists") {
-        const account = await this.login(email, password);
+      if (
+        //@ts-expect-error:appwrite response on error
+        error.message ===
+        "Invalid credentials. Please check the email and password."
+      ) {
+        const account = await this.account.create(uid, email, password);
         if (account) {
+          await this.login(email, password);
           return true;
         }
       }
@@ -63,6 +64,7 @@ export class AuthService {
   async login(email: string, password: string) {
     try {
       await this.account.createEmailSession(email, password);
+
       return true;
     } catch (error) {
       throw error;
@@ -71,6 +73,10 @@ export class AuthService {
   async isUserLoggedIn() {
     try {
       const account = await this.account.get();
+      localStorage.setItem(
+        "sid",
+        (await this.account.getSession("current")).$id
+      );
       if (account) {
         return true;
       } else {
@@ -81,6 +87,14 @@ export class AuthService {
     }
   }
 
+  async getAccount() {
+    try {
+      return await this.account.get();
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getSession() {
     try {
       return await this.account.listSessions();
@@ -88,9 +102,9 @@ export class AuthService {
       throw error;
     }
   }
-  async logout() {
+  async logout(session: string) {
     try {
-      await this.account.deleteSession("current");
+      await this.account.deleteSession(session);
     } catch (error) {
       throw error;
     }

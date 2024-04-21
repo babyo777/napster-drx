@@ -20,11 +20,12 @@ import { DialogTitle } from "../ui/dialog";
 import axios from "axios";
 import { getUserApi } from "@/API/api";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { Avatar } from "../ui/avatar";
+import { Avatar, AvatarImage } from "../ui/avatar";
 import { setUser } from "@/Store/Player";
 import { RiLinkM } from "react-icons/ri";
 
 import { FiInfo } from "react-icons/fi";
+import { AvatarFallback } from "@radix-ui/react-avatar";
 
 interface user extends Models.Document {
   user: string;
@@ -43,7 +44,9 @@ interface verify {
 function Account({
   tunebox,
   className,
+  image,
 }: {
+  image?: string;
   tunebox?: boolean;
   className?: string;
 }) {
@@ -182,9 +185,16 @@ function Account({
     <Drawer>
       <DrawerTrigger className=" w-full animate-fade-up">
         <p
-          className={`rounded-xl py-2.5 animate-fade-up bg-neutral-900 flex  text-base ${className}`}
+          className={`rounded-xl py-2.5 animate-fade-up bg-neutral-900 flex  text-base ${className} space-x-2 items-center flex`}
         >
-          {tunebox ? "Setup Account to Continue " : "Account"}
+          <Avatar className="t h-6 w-6 p-0 m-0 -mr-0.5">
+            <AvatarImage
+              className="rounded-full object-cover h-[100%] w-[100%]"
+              src={image ? image : "/cache.jpg"}
+            ></AvatarImage>
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <span>{tunebox ? "Setup Account to Continue " : "Account"}</span>
         </p>
       </DrawerTrigger>
       <DrawerContent className="w-full border-none flex items-center flex-col justify-center h-dvh rounded-none">

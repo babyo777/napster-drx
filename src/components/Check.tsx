@@ -10,6 +10,7 @@ import {
   SetQueue,
   SetReels,
   SetSeek,
+  Setuid,
   setCurrentIndex,
   setIsIphone,
   setPlayingPlaylistUrl,
@@ -17,7 +18,7 @@ import {
 } from "@/Store/Player";
 import { RootState } from "@/Store/Store";
 import Loader from "./Loaders/Loader";
-import {
+import authService, {
   ADD_TO_LIBRARY,
   DATABASE_ID,
   EDITS,
@@ -442,6 +443,17 @@ function Check() {
     uid,
     online,
   ]);
+
+  useEffect(() => {
+    try {
+      authService.getAccount().then((account) => {
+        localStorage.setItem("uid", account.$id);
+        dispatch(Setuid(account.$id));
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     console.log(status);

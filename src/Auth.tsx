@@ -40,12 +40,16 @@ function Auth() {
 
       setStatus("authenticating");
       const isUserLoggedIn = await authService.isUserLoggedIn();
+      setStatus("Logging in..");
       if (isUserLoggedIn) {
         dispatch(SetLoggedIn(true));
       } else {
-        setStatus("creating account");
+        setStatus("Account Not Found");
         if (email && password && uid) {
+          setStatus("creating account");
           const account = await authService.createAccount(uid, email, password);
+          setStatus("Account Created");
+          setStatus("authenticating");
           if (account) {
             dispatch(SetLoggedIn(true));
           }

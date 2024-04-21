@@ -19,6 +19,7 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "./ui/drawer";
+import { BiImport } from "react-icons/bi";
 
 function SpotifyTransfer({
   close,
@@ -74,9 +75,12 @@ function SpotifyTransfer({
     <Drawer>
       <DrawerTrigger className=" w-full animate-fade-up">
         <p
-          className={` ${className} animate-fade-up rounded-xl  bg-green-600 py-2.5 mt-3  w-full text-base`}
+          className={` ${
+            className ? " justify-center bg-zinc-800" : "px-4"
+          } animate-fade-up rounded-xl flex items-center space-x-1 bg-neutral-900 py-2.5 mt-3  w-full text-base`}
         >
-          Import from Spotify
+          <BiImport className="h-5 w-5" />
+          <span>Import from Spotify</span>
         </p>
       </DrawerTrigger>
       <DrawerContent className="w-full border-none flex items-center flex-col justify-center h-dvh rounded-none">
