@@ -53,6 +53,19 @@ function Auth() {
         dispatch(SetLoggedIn(true));
       } else {
         setStatus("Account Not Found");
+        if (!CheckPassword) {
+          setStatus("password not found");
+        }
+
+        if (!CheckUid) {
+          setStatus("UID not found");
+        }
+        if (!CheckEmail) {
+          setStatus("Email Not Found");
+        }
+        if (CheckEmail && CheckUid && !CheckEmail.startsWith(CheckUid)) {
+          setStatus("Email Verification failed");
+        }
         if (
           CheckPassword &&
           CheckUid &&
