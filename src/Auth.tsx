@@ -93,18 +93,16 @@ function Auth() {
 
   if (error) {
     return (
-      <div className=" w-full flex flex-col px-5 font-semibold text-xl leading-tight tracking-tight animate-fade-up justify-center items-center h-dvh">
+      <div className=" w-full flex flex-col px-5 font-semibold text-2xl leading-tight tracking-tight animate-fade-up text-center items-center justify-center h-dvh">
         <p>
           Can't Authorize ! Please Contact{" "}
-          <a
-            href="mailto:yfw111realone@gmail.com"
-            className=" underline-offset-2 underline text-red-500"
-          >
-            @tanmay or{" "}
-            <span className="bg-zinc-100" onClick={handleSwitch}>
-              login manually
-            </span>
+          <a href="mailto:yfw111realone@gmail.com">
+            <span className=" text-red-500">@tanmay </span>{" "}
           </a>
+          <span> or try </span>
+          <span className="text-red-500 " onClick={handleSwitch}>
+            login manually
+          </span>
         </p>
       </div>
     );
