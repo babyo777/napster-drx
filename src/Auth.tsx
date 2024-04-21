@@ -144,7 +144,15 @@ function Auth() {
       ) : (
         <div className=" w-full flex flex-col  leading-tight tracking-tight justify-center items-center h-dvh transition-all duration-500 space-y-3 font-medium text-lg capitalize">
           <Loader2 />
-          <p>{status}</p>
+          <p
+            onClick={() =>
+              alert(
+                localStorage.getItem("em") + "\n" + localStorage.getItem("uid")
+              )
+            }
+          >
+            {status}
+          </p>
         </div>
       )}
     </>
