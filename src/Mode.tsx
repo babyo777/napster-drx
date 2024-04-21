@@ -1,6 +1,6 @@
-import App from "./App";
 import Auth from "./Auth";
 import { useEffect, useState } from "react";
+import Check from "./components/Check";
 
 function Mode() {
   const [online, setOnline] = useState<boolean>(false);
@@ -18,7 +18,7 @@ function Mode() {
     return <Auth />;
   }
   if (offline) {
-    return <App />;
+    return <Check />;
   }
 }
 
