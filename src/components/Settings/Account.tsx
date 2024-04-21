@@ -187,7 +187,7 @@ function Account({
         <p
           className={`rounded-xl py-2.5 animate-fade-up bg-neutral-900 flex  text-base ${className} space-x-2 items-center flex`}
         >
-          <Avatar className="t h-6 w-6 p-0 m-0 -mr-0.5">
+          <Avatar className="t h-7 w-7 p-0 m-0 -mr-0.5">
             <AvatarImage
               className="rounded-full object-cover h-[100%] w-[100%]"
               src={image ? image : "/cache.jpg"}
