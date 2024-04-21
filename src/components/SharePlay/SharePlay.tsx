@@ -116,8 +116,8 @@ function SharePlay() {
             playlist[currentIndex].artists[0]?.id ||
               currentArtistId ||
               "unknown",
-            //@ts-expect-error:additional name
-            playlist[currentIndex].artists?.name || "unknown",
+
+            playlist[currentIndex]?.artists || "unknown",
           ],
           thumbnailUrl: playlist[currentIndex].thumbnailUrl,
           for: uid,
@@ -303,7 +303,7 @@ function SharePlay() {
           navigator.mediaSession.metadata = new MediaMetadata({
             title: playlist[currentIndex].title,
             //@ts-expect-error:additional added for reels
-            artist: playlist[currentIndex].artists?.name,
+            artist: playlist[currentIndex]?.artists,
             album: "",
             artwork: [
               {
