@@ -2,7 +2,7 @@ import Songs from "./Songs";
 import { Button } from "../ui/button";
 import { FaPlay } from "react-icons/fa6";
 import { IoIosArrowBack, IoMdAdd } from "react-icons/io";
-import { NavLink, useParams, useSearchParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { SearchPlaylist, playlistSongs, savedPlaylist } from "@/Interface";
@@ -49,8 +49,6 @@ function LibraryComp() {
 
   const dispatch = useDispatch();
   const { id } = useParams();
-  const [search] = useSearchParams(location.search);
-  const c = search.get("c");
 
   const currentIndex = useSelector(
     (state: RootState) => state.musicReducer.currentIndex
@@ -402,7 +400,6 @@ function LibraryComp() {
                 <div>
                   <PlaylistShare
                     cover={
-                      c ||
                       (playlistThumbnail &&
                         playlistThumbnail[0]?.thumbnailUrl) ||
                       "https://i.pinimg.com/564x/38/2f/fe/382ffec40fdab343c9989b2373425a90.jpg"
@@ -421,7 +418,6 @@ function LibraryComp() {
                 width="100%"
                 height="100%"
                 src={
-                  c ||
                   (playlistThumbnail &&
                     playlistThumbnail[0]?.thumbnailUrl.replace(
                       "w120-h120",
@@ -463,7 +459,7 @@ function LibraryComp() {
           </div>
           <div className="py-3 -mt-[2vh] pb-[8.5rem]">
             {data
-              .filter((r) => r.youtubeId !== null || "")
+              .filter((r) => (r.youtubeId && r.youtubeId !== null) || "")
               .map((d, i) => (
                 <div key={d.youtubeId + i} ref={ref}>
                   <Songs
