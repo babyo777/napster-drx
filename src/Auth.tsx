@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Check from "./components/Check";
 import authService from "./appwrite/appwriteConfig";
 import { useDispatch, useSelector } from "react-redux";
@@ -72,16 +72,38 @@ function Auth() {
       }
     });
   }, [dispatch, navigate]);
+
+  const handleSwitch = useCallback(async () => {
+    const id = prompt("Enter your token");
+    if (id) {
+      const pass = prompt("Enter your password");
+      if (id && pass) {
+        try {
+          await authService.login(`${id}@napster.com`, pass);
+          localStorage.setItem("uid", id);
+          localStorage.setItem("pp", pass);
+          window.location.reload();
+        } catch (error) {
+          //@ts-expect-error:ignore
+          alert(error.message);
+        }
+      }
+    }
+  }, []);
+
   if (error) {
     return (
-      <div className=" w-full flex flex-col px-5 font-semibold text-2xl leading-tight tracking-tight animate-fade-up justify-center items-center h-dvh">
+      <div className=" w-full flex flex-col px-5 font-semibold text-xl leading-tight tracking-tight animate-fade-up justify-center items-center h-dvh">
         <p>
           Can't Authorize ! Please Contact{" "}
           <a
             href="mailto:yfw111realone@gmail.com"
             className=" underline-offset-2 underline text-red-500"
           >
-            @tanmay
+            @tanmay or{" "}
+            <span className="bg-zinc-100" onClick={handleSwitch}>
+              login manually
+            </span>
           </a>
         </p>
       </div>
