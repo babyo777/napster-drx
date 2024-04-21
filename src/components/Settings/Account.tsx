@@ -10,7 +10,11 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import React, { useCallback, useRef, useState } from "react";
-import { DATABASE_ID, NEW_USER, db } from "@/appwrite/appwriteConfig";
+import authService, {
+  DATABASE_ID,
+  NEW_USER,
+  db,
+} from "@/appwrite/appwriteConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/Store";
 import { Models, Permission, Query, Role } from "appwrite";
@@ -95,9 +99,11 @@ function Account({
               name: code.name,
             }
           );
+          await authService.updateName(code.name).catch(() => {
+            setSync(false);
+          });
         }
         setSync(false);
-
         q.refetchQueries("dpImage");
         return result.documents[0] as user;
       }
