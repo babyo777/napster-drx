@@ -40,8 +40,10 @@ export default defineConfig({
         display: "standalone",
         background_color: "#121212",
         theme_color: "#121212",
+        handle_links: "auto",
       },
       workbox: {
+        globIgnores: ["/Auth.tsx"],
         globPatterns: ["**/*.{js,css,html,jpeg,jpg,json,webp,gif}"],
       },
     }),
