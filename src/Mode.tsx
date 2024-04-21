@@ -1,16 +1,15 @@
-import { useNavigate } from "react-router-dom";
 import Auth from "./Auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Check from "./components/Check";
 
 function Mode() {
-  const navigate = useNavigate();
+  const [online, setOnline] = useState<boolean>(false);
   useEffect(() => {
-    if (!navigator.onLine) {
-      navigate("/offline/");
-    }
-  }, [navigate]);
-  if (navigator.onLine) {
+    const online = navigator.onLine;
+    setOnline(online);
+  }, [online]);
+
+  if (online) {
     return <Auth />;
   } else {
     return <Check />;
