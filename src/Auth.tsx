@@ -33,7 +33,7 @@ function Auth() {
         setStatus("setting uid");
         localStorage.setItem("uid", noUid);
       }
-      if (!email) {
+      if (!email && uid) {
         setStatus("setting email");
         localStorage.setItem("em", `${uid}@napster.com`);
       }
