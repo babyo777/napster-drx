@@ -34,11 +34,14 @@ function Auth() {
         localStorage.setItem("uid", noUid);
       }
 
-      if (!email && uid) {
-        const uid = localStorage.getItem("uid");
+      if (!email) {
         setStatus("setting email");
         localStorage.setItem("em", `${uid}@napster.com`);
       }
+
+      const CheckPassword = localStorage.getItem("pp");
+      const CheckUid = localStorage.getItem("uid");
+      const CheckEmail = localStorage.getItem("em");
 
       setStatus("authenticating");
       const isUserLoggedIn = await authService.isUserLoggedIn();
@@ -47,9 +50,13 @@ function Auth() {
         dispatch(SetLoggedIn(true));
       } else {
         setStatus("Account Not Found");
-        if (email && password && uid) {
+        if (CheckPassword && CheckUid && CheckEmail) {
           setStatus("creating account");
-          const account = await authService.createAccount(uid, email, password);
+          const account = await authService.createAccount(
+            CheckUid,
+            CheckEmail,
+            CheckPassword
+          );
           setStatus("Account Created");
           setStatus("authenticating");
           if (account) {
