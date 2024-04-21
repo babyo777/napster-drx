@@ -45,7 +45,7 @@ function Settings() {
           window.location.reload();
         } catch (error) {
           //@ts-expect-error:ignore
-          alert(error.message.replace("email", "uid"));
+          alert(error.message.replace("email", "token"));
         }
       }
     }
