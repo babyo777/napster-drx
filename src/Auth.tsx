@@ -36,8 +36,10 @@ function Auth() {
 
       if (!email) {
         const uid = localStorage.getItem("uid");
-        setStatus("setting email");
-        localStorage.setItem("em", `${uid}@napster.com`);
+        if (uid) {
+          setStatus("setting email");
+          localStorage.setItem("em", `${uid}@napster.com`);
+        }
       }
 
       const CheckPassword = localStorage.getItem("pp");
