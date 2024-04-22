@@ -135,11 +135,7 @@ function AudioPLayerComp() {
     SetLiked(false);
     if (isLiked) {
       try {
-        await db.deleteDocument(
-          DATABASE_ID,
-          LIKE_SONG,
-          isLiked[0].$id || "default"
-        );
+        await db.deleteDocument(DATABASE_ID, LIKE_SONG, isLiked[0].$id);
       } catch (error) {
         console.error(error);
         SetLiked(true);
