@@ -92,7 +92,7 @@ function AudioPLayerComp() {
   };
 
   const { data: isLiked, refetch } = useQuery(
-    ["likedSongs", playlist[currentIndex].youtubeId],
+    ["likedSongs", playlist[currentIndex]?.youtubeId],
     isLikedCheck,
     {
       refetchOnMount: false,
@@ -333,15 +333,16 @@ function AudioPLayerComp() {
 
       const handleLoad = () => {
         navigator.mediaSession.metadata = new MediaMetadata({
-          title: playlist[currentIndex].title,
-          artist: playlist[currentIndex].artists[0]?.name,
+          title: playlist[currentIndex]?.title || "unknown",
+          artist: playlist[currentIndex]?.artists[0]?.name || "unknown",
           album: "",
           artwork: [
             {
-              src: playlist[currentIndex].thumbnailUrl.replace(
-                "w120-h120",
-                "w1080-h1080"
-              ),
+              src:
+                playlist[currentIndex]?.thumbnailUrl.replace(
+                  "w120-h120",
+                  "w1080-h1080"
+                ) || "/cache.jpg",
             },
           ],
         });
@@ -408,16 +409,16 @@ function AudioPLayerComp() {
   ]);
 
   const playingInsights = useCallback(() => {
-    if (uid) {
+    if (uid && playlist[currentIndex].youtubeId) {
       db.createDocument(
         DATABASE_ID,
         MOST_PLAYED,
         ID.unique(),
         {
           user: uid,
-          sname: playlist[currentIndex].title,
-          sid: playlist[currentIndex].youtubeId,
-          sartist: playlist[currentIndex].artists[0].name,
+          sname: playlist[currentIndex]?.title || "unknown",
+          sid: playlist[currentIndex]?.youtubeId,
+          sartist: playlist[currentIndex]?.artists[0]?.name || "unknown",
         },
         [Permission.update(Role.user(uid)), Permission.delete(Role.user(uid))]
       );

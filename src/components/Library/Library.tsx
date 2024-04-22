@@ -466,14 +466,14 @@ function LibraryComp() {
                   p={id || ""}
                   forId={d.for}
                   where={"library"}
-                  artistId={d.artists[0]?.id || ""}
+                  artistId={d.artists[0]?.id || "unknown"}
                   audio={d.youtubeId}
                   key={d.youtubeId + i}
                   id={i}
                   query={(id?.startsWith("custom") && "custom") || ""}
                   delId={d.$id}
                   title={d.title}
-                  artist={d.artists[0]?.name || ""}
+                  artist={d.artists[0]?.name || "unknown"}
                   cover={d.thumbnailUrl}
                 />
               </div>
