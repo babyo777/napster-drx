@@ -227,7 +227,9 @@ function Account({
                 <div className=" absolute top-5 px-4 text-xl flex w-full justify-between items-center">
                   <div
                     onClick={() => refetch()}
-                    className={`${sync ? "animate-spin" : ""}  text-zinc-400`}
+                    className={`${
+                      sync ? "animate-spin" : ""
+                    }  transition-all duration-500 text-zinc-400`}
                   >
                     <IoSyncOutline />
                   </div>
