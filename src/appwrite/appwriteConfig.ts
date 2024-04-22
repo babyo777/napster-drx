@@ -74,7 +74,7 @@ export class AuthService {
     try {
       const account = await this.account.get();
 
-      if (account) {
+      if (account && localStorage.getItem("uid") === account.$id) {
         localStorage.setItem("em", account.email);
         return true;
       } else {
