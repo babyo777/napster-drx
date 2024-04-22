@@ -252,7 +252,7 @@ function SharePlay() {
     }
     const t = setTimeout(() => {
       setDb(false);
-    }, 1290);
+    }, 1287);
     return () => clearTimeout(t);
   }, [handleLike, once, playlist]);
 
