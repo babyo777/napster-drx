@@ -241,7 +241,7 @@ export function ListenNowComp() {
                   fromSearch={true}
                   artistId={r.artists[0]?.id || ""}
                   audio={r.youtubeId}
-                  artistName={r.artists[0]?.name}
+                  artistName={r.artists[0]?.name || ""}
                   id={r.youtubeId}
                   title={r.title}
                   artist={r.artists}
