@@ -235,9 +235,9 @@ function SearchComp() {
                     .slice(0, 3)
                     .map((r) => (
                       <SearchSong
-                        artistId={r.artists[0].id}
+                        artistId={r.artists[0]?.id || "unknown"}
                         audio={r.youtubeId}
-                        artistName={r.artists[0].name}
+                        artistName={r.artists[0]?.name || "unknown"}
                         id={r.youtubeId}
                         key={r.youtubeId}
                         title={r.title}
@@ -251,9 +251,9 @@ function SearchComp() {
                     .slice(4, 6)
                     .map((r) => (
                       <SearchSong
-                        artistId={r.artists[0].id}
+                        artistId={r.artists[0]?.id || "unknown"}
                         audio={r.youtubeId}
-                        artistName={r.artists[0].name}
+                        artistName={r.artists[0]?.name || "unknown"}
                         id={r.youtubeId}
                         key={r.youtubeId}
                         title={r.title}
