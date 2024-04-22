@@ -235,26 +235,20 @@ export function ListenNowComp() {
           className="px-4"
         >
           <>
-            {music
-              .filter((r) => (r.youtubeId && r.youtubeId !== null) || "")
-              .filter(
-                (r, i, s) =>
-                  i === s.findIndex((t) => t.youtubeId == r.youtubeId)
-              )
-              .map((r, i) => (
-                <div key={r.youtubeId + i} ref={ref}>
-                  <FeedSong
-                    fromSearch={true}
-                    artistId={r.artists[0]?.id || ""}
-                    audio={r.youtubeId}
-                    artistName={r.artists[0]?.name}
-                    id={r.youtubeId}
-                    title={r.title}
-                    artist={r.artists}
-                    cover={r.thumbnailUrl}
-                  />
-                </div>
-              ))}
+            {music.map((r, i) => (
+              <div key={r.youtubeId + i} ref={ref}>
+                <FeedSong
+                  fromSearch={true}
+                  artistId={r.artists[0]?.id || ""}
+                  audio={r.youtubeId}
+                  artistName={r.artists[0]?.name}
+                  id={r.youtubeId}
+                  title={r.title}
+                  artist={r.artists}
+                  cover={r.thumbnailUrl}
+                />
+              </div>
+            ))}
           </>
         </ReactPullToRefresh>
       )}

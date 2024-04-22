@@ -458,28 +458,26 @@ function LibraryComp() {
             </div>
           </div>
           <div className="py-3 -mt-[2vh] pb-[8.5rem]">
-            {data
-              .filter((r) => (r.youtubeId && r.youtubeId !== null) || "")
-              .map((d, i) => (
-                <div key={d.youtubeId + i} ref={ref}>
-                  <Songs
-                    data={data}
-                    reload={refetch}
-                    p={id || ""}
-                    forId={d.for}
-                    where={"library"}
-                    artistId={d.artists[0]?.id}
-                    audio={d.youtubeId}
-                    key={d.youtubeId + i}
-                    id={i}
-                    query={(id?.startsWith("custom") && "custom") || ""}
-                    delId={d.$id}
-                    title={d.title}
-                    artist={d.artists[0]?.name}
-                    cover={d.thumbnailUrl}
-                  />
-                </div>
-              ))}
+            {data.map((d, i) => (
+              <div key={d.youtubeId + i} ref={ref}>
+                <Songs
+                  data={data}
+                  reload={refetch}
+                  p={id || ""}
+                  forId={d.for}
+                  where={"library"}
+                  artistId={d.artists[0]?.id}
+                  audio={d.youtubeId}
+                  key={d.youtubeId + i}
+                  id={i}
+                  query={(id?.startsWith("custom") && "custom") || ""}
+                  delId={d.$id}
+                  title={d.title}
+                  artist={d.artists[0]?.name}
+                  cover={d.thumbnailUrl}
+                />
+              </div>
+            ))}
           </div>
         </>
       )}
